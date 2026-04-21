@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mooc.ixeo.academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* ===== RESET & VARIABLES ===== */
+:root {
+  --ink:#0D1117;
+  --ink-2:#1C2333;
+  --ink-3:#2D3748;
+  --slate:#64748B;
+  --slate-light:#94A3B8;
+  --edge:#E2E8F0;
+  --edge-2:#F1F5F9;
+  --surface:#FFFFFF;
+  --bg:#F8FAFC;
+
+  --brand:#0051FF;
+  --brand-light:#EEF3FF;
+  --brand-dark:#0039C6;
+  --brand-mid:#2563EB;
+
+  --amber:#F59E0B;
+  --amber-light:#FFFBEB;
+
+  --gold:#D97706;
+  --gold-bg:#FEF3C7;
+  --silver:#64748B;
+  --silver-bg:#F1F5F9;
+  --bronze:#B45309;
+  --bronze-bg:#FEF9EC;
+
+  --success:#059669;
+  --success-bg:#ECFDF5;
+  --danger:#DC2626;
+  --danger-bg:#FEF2F2;
+
+  --r:10px;
+  --r-lg:16px;
+  --shadow:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.08),0 2px 8px rgba(0,0,0,0.04);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;}
+
+/* ===== SCREENS ===== */
+.screen{display:none;}
+.screen.active{display:block;}
+
+/* ===== NAV ===== */
+nav{
+  background:var(--surface);
+  border-bottom:1px solid var(--edge);
+  padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;position:sticky;top:0;z-index:200;
+  box-shadow:var(--shadow);
+}
+.nav-logo{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.95rem;
+  color:var(--ink);letter-spacing:-0.01em;display:flex;align-items:center;gap:0.5rem;
+}
+.nav-logo-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--brand);
+  box-shadow:0 0 0 3px var(--brand-light);
+}
+.nav-logo span{color:var(--brand);}
+.nav-right{display:flex;align-items:center;gap:0.75rem;}
+.nav-user{font-size:0.8rem;color:var(--slate);}
+.nav-user strong{color:var(--ink);font-weight:600;}
+.btn-logout{
+  background:var(--edge-2);border:1px solid var(--edge);color:var(--slate);
+  font-size:0.75rem;padding:5px 12px;border-radius:99px;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:all 0.15s;
+}
+.btn-logout:hover{background:var(--edge);color:var(--ink);}
+
+/* ===== LOGIN ===== */
+#screenLogin{
+  display:flex;align-items:center;justify-content:center;min-height:100vh;
+  background:linear-gradient(135deg,var(--ink) 0%,var(--ink-2) 50%,var(--ink-3) 100%);
+  position:relative;overflow:hidden;
+}
+#screenLogin::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 20% 50%,rgba(0,81,255,0.15) 0%,transparent 60%),
+             radial-gradient(ellipse at 80% 20%,rgba(245,158,11,0.08) 0%,transparent 50%);
+}
+.login-box{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);
+  border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:400px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.4);
+  position:relative;z-index:1;
+}
+.login-logo{text-align:center;margin-bottom:2rem;}
+.login-logo .brand{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.5rem;
+  color:#fff;letter-spacing:-0.02em;
+}
+.login-logo .brand span{color:var(--amber);}
+.login-logo .sub{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;}
+.login-tag{
+  display:inline-block;background:rgba(0,81,255,0.2);border:1px solid rgba(0,81,255,0.3);
+  color:rgba(100,160,255,0.9);font-size:0.65rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-bottom:1.5rem;
+}
+.field{margin-bottom:1rem;}
+.field label{display:block;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.45);margin-bottom:0.4rem;letter-spacing:0.03em;text-transform:uppercase;}
+.field input{
+  width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  border-radius:9px;padding:0.7rem 0.9rem;font-size:0.9rem;
+  font-family:'Plus Jakarta Sans',sans-serif;color:#fff;outline:none;transition:all 0.15s;
+}
+.field input::placeholder{color:rgba(255,255,255,0.25);}
+.field input:focus{border-color:rgba(0,81,255,0.6);background:rgba(0,81,255,0.08);}
+.btn-login{
+  width:100%;background:var(--brand);color:#fff;border:none;border-radius:99px;
+  padding:0.78rem;font-family:'Space Grotesk',sans-serif;font-weight:700;
+  font-size:0.95rem;cursor:pointer;margin-top:0.5rem;transition:all 0.15s;
+  box-shadow:0 4px 16px rgba(0,81,255,0.4);
+}
+.btn-login:hover{background:var(--brand-dark);box-shadow:0 4px 24px rgba(0,81,255,0.55);}
+.login-error{background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);color:#FCA5A5;border-radius:8px;padding:0.65rem 0.9rem;font-size:0.82rem;margin-top:0.75rem;display:none;}
+.login-loading{text-align:center;color:rgba(255,255,255,0.4);font-size:0.85rem;margin-top:0.75rem;display:none;}
+
+/* ===== HOME ===== */
+.home-hero{
+  background:linear-gradient(135deg,var(--ink) 0%,var(--ink-2) 100%);
+  padding:2.5rem 1.5rem 2rem;text-align:center;position:relative;overflow:hidden;
+}
+.home-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(0,81,255,0.12) 0%,transparent 60%);
+}
+.home-hero h1{
+  font-weight:700;font-size:1.7rem;color:#fff;letter-spacing:-0.02em;
+  line-height:1.25;position:relative;
+}
+.home-hero h1 span{color:var(--amber);}
+.home-hero p{color:rgba(255,255,255,0.55);margin-top:0.6rem;font-size:0.9rem;max-width:480px;margin-left:auto;margin-right:auto;position:relative;}
+.global-bar{margin-top:1.5rem;max-width:360px;margin-left:auto;margin-right:auto;position:relative;}
+.bar-labels{display:flex;justify-content:space-between;color:rgba(255,255,255,0.45);font-size:0.72rem;margin-bottom:0.4rem;font-weight:500;}
+.bar-track{background:rgba(255,255,255,0.1);border-radius:99px;height:6px;}
+.bar-fill{background:linear-gradient(90deg,var(--brand),var(--amber));border-radius:99px;height:6px;transition:width 0.8s cubic-bezier(.4,0,.2,1);}
+
+.families{padding:1.75rem 1.5rem;max-width:960px;margin:0 auto;}
+.family-block{margin-bottom:2.25rem;}
+.family-hd{
+  font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--slate);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;
+}
+.family-hd::after{content:'';flex:1;height:1px;background:var(--edge);}
+.modules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.65rem;}
+.m-card{
+  background:var(--surface);border:1px solid var(--edge);border-radius:var(--r);
+  padding:1rem 1.1rem;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.m-card:hover:not(.locked){border-color:var(--brand);transform:translateY(-2px);box-shadow:var(--shadow-md),0 0 0 1px var(--brand);}
+.m-card.locked{opacity:0.45;cursor:not-allowed;}
+.m-card.has-badge{border-color:rgba(0,81,255,0.25);}
+.m-card.has-badge::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--brand);}
+.m-num{font-size:0.65rem;color:var(--slate-light);font-weight:600;letter-spacing:0.05em;margin-bottom:0.3rem;text-transform:uppercase;}
+.m-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.87rem;line-height:1.35;color:var(--ink);}
+.m-progress-mini{height:2px;background:var(--edge);border-radius:99px;margin-top:0.65rem;}
+.m-progress-mini-fill{height:2px;background:var(--brand);border-radius:99px;transition:width 0.5s;}
+.m-status{margin-top:0.5rem;display:flex;align-items:center;gap:0.3rem;}
+.pill{font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:99px;display:inline-block;letter-spacing:0.03em;}
+.pill-gold{background:var(--gold-bg);color:var(--gold);}
+.pill-silver{background:var(--silver-bg);color:var(--silver);}
+.pill-bronze{background:var(--bronze-bg);color:var(--bronze);}
+.pill-avail{background:var(--brand-light);color:var(--brand-dark);}
+.pill-locked{background:var(--edge-2);color:var(--slate-light);}
+.pill-wip{background:#EFF6FF;color:#1D4ED8;}
+
+/* ===== MODULE / STEPPER ===== */
+.module-wrap{max-width:880px;margin:0 auto;padding:1.5rem;}
+.back-link{display:inline-flex;align-items:center;gap:0.4rem;color:var(--brand);font-size:0.82rem;font-weight:600;cursor:pointer;margin-bottom:1.25rem;}
+.back-link:hover{opacity:0.75;}
+.mod-header{margin-bottom:1.5rem;}
+.mod-tag{font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--brand);margin-bottom:0.35rem;}
+.mod-title{font-weight:700;font-size:1.6rem;letter-spacing:-0.02em;line-height:1.2;}
+
+.stepper{display:flex;gap:0;margin-bottom:1.75rem;background:var(--surface);border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);}
+.step-btn{
+  flex:1;padding:0.65rem 0.3rem;text-align:center;cursor:pointer;border:none;
+  background:transparent;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.15s;
+  border-right:1px solid var(--edge);position:relative;
+}
+.step-btn:last-child{border-right:none;}
+.step-btn .step-icon{font-size:1rem;display:block;}
+.step-btn .step-label{font-size:0.58rem;color:var(--slate);margin-top:0.2rem;display:block;font-weight:600;}
+.step-btn.active{background:var(--ink);}
+.step-btn.active .step-label{color:rgba(255,255,255,0.6);}
+.step-btn.done{background:var(--brand-light);}
+.step-btn.done .step-label{color:var(--brand-dark);}
+
+.step-panel{background:var(--surface);border:1px solid var(--edge);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);}
+
+/* ===== CONTENT ===== */
+.content-section{padding:1.5rem;}
+.content-section h3{font-weight:700;font-size:1.05rem;margin-bottom:0.9rem;color:var(--ink);}
+.content-section p{color:var(--ink-3);line-height:1.8;font-size:0.91rem;margin-bottom:0.85rem;}
+.content-section p:last-child{margin-bottom:0;}
+.content-section h4{font-weight:700;font-size:0.88rem;color:var(--brand-dark);margin:1.1rem 0 0.4rem;}
+.key-box{
+  background:var(--brand-light);border-left:3px solid var(--brand);border-radius:0 8px 8px 0;
+  padding:0.75rem 1rem;margin:0.9rem 0;font-size:0.87rem;color:var(--brand-dark);line-height:1.65;
+}
+.warn-box{
+  background:var(--amber-light);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;
+  padding:0.75rem 1rem;margin:0.9rem 0;font-size:0.87rem;color:#78350F;line-height:1.65;
+}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin:0.9rem 0;}
+.info-item{background:var(--bg);border:1px solid var(--edge);border-radius:9px;padding:0.8rem;}
+.info-lbl{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--slate);margin-bottom:0.25rem;}
+.info-val{font-size:0.87rem;font-weight:500;color:var(--ink);}
+
+.chapter{border-bottom:1px solid var(--edge);}
+.chapter:last-child{border-bottom:none;}
+.ch-hd{
+  padding:1rem 1.25rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.9rem;
+  background:var(--surface);transition:all 0.15s;color:var(--ink);
+}
+.ch-hd:hover{background:var(--bg);}
+.ch-hd.open{background:var(--brand-light);color:var(--brand-dark);}
+.ch-toggle{font-size:0.8rem;transition:transform 0.2s;color:var(--slate);}
+.ch-hd.open .ch-toggle{transform:rotate(180deg);color:var(--brand);}
+.ch-body{display:none;padding:0 1.25rem 1.25rem;}
+.ch-body.open{display:block;}
+
+.scenario-card{background:var(--bg);border:1px solid var(--edge);border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:1rem;}
+.scenario-label{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);margin-bottom:0.5rem;}
+.scenario-context{font-size:0.9rem;line-height:1.75;color:var(--ink-3);}
+.dialogue{display:flex;flex-direction:column;gap:0.75rem;margin:1rem 0;}
+.bubble{display:flex;gap:0.75rem;align-items:flex-start;}
+.bubble.client{flex-direction:row-reverse;}
+.bubble-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;flex-shrink:0;}
+.bubble-avatar.comm{background:var(--brand);color:#fff;}
+.bubble-avatar.cli{background:var(--amber);color:#fff;}
+.bubble-text{background:var(--surface);border:1px solid var(--edge);border-radius:var(--r);padding:0.65rem 0.9rem;font-size:0.86rem;line-height:1.65;max-width:75%;box-shadow:var(--shadow);}
+.bubble.client .bubble-text{background:var(--amber-light);border-color:#FDE68A;}
+.bubble-role{font-size:0.62rem;font-weight:700;color:var(--slate);margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.04em;}
+
+.q-category{margin-bottom:1.25rem;}
+.q-cat-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.85rem;color:var(--ink);margin-bottom:0.6rem;padding-bottom:0.35rem;border-bottom:1px solid var(--edge);}
+.q-list{display:flex;flex-direction:column;gap:0.4rem;}
+.q-item{background:var(--bg);border:1px solid var(--edge);border-radius:8px;padding:0.65rem 0.9rem;font-size:0.87rem;line-height:1.55;color:var(--ink-3);display:flex;gap:0.6rem;}
+.q-item::before{content:'→';color:var(--brand);font-weight:700;flex-shrink:0;}
+
+.pitch-block{border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;margin-bottom:0.85rem;box-shadow:var(--shadow);}
+.pitch-hd{background:var(--ink);color:#fff;padding:0.6rem 1rem;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.85rem;display:flex;align-items:center;gap:0.5rem;}
+.pitch-body{padding:0.9rem 1rem;font-size:0.88rem;line-height:1.75;color:var(--ink-3);}
+.pitch-body strong{color:var(--brand-dark);}
+.objection-box{background:var(--amber-light);border:1px solid #FDE68A;border-radius:var(--r);padding:1rem;margin-bottom:0.75rem;}
+.objection-q{font-weight:700;font-size:0.87rem;color:#92400E;margin-bottom:0.4rem;}
+.objection-a{font-size:0.87rem;line-height:1.65;color:var(--ink-3);}
+
+.resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:0.7rem;}
+.resource-card{
+  background:var(--bg);border:1px solid var(--edge);border-radius:var(--r);padding:1rem;
+  display:flex;flex-direction:column;gap:0.5rem;cursor:pointer;transition:all 0.15s;
+}
+.resource-card:hover{border-color:var(--brand);background:var(--brand-light);}
+.resource-icon{font-size:1.75rem;}
+.resource-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.82rem;color:var(--ink);}
+.resource-type{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--slate);font-weight:700;}
+.resource-note{font-size:0.75rem;color:var(--slate);font-style:italic;}
+
+/* ===== QCM ===== */
+.qcm-wrap{padding:1.5rem;}
+.qcm-prog-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;}
+.qcm-dots{display:flex;gap:3px;flex:1;}
+.qcm-dot{height:4px;border-radius:99px;flex:1;background:var(--edge);transition:background 0.3s;}
+.qcm-dot.done{background:var(--brand);}
+.qcm-dot.cur{background:var(--amber);}
+.q-counter{font-size:0.72rem;color:var(--slate);white-space:nowrap;font-weight:600;}
+.q-num{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--brand);margin-bottom:0.6rem;}
+.q-text{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.97rem;line-height:1.45;margin-bottom:1.25rem;}
+.opts{display:flex;flex-direction:column;gap:0.5rem;}
+.opt{
+  border:1.5px solid var(--edge);border-radius:10px;padding:0.75rem 0.9rem;cursor:pointer;
+  font-size:0.87rem;display:flex;align-items:center;gap:0.75rem;transition:all 0.15s;
+  color:var(--ink);background:var(--surface);font-weight:500;
+}
+.opt:hover:not(.disabled){border-color:var(--brand);background:var(--brand-light);}
+.opt.sel{border-color:var(--brand);background:var(--brand-light);}
+.opt.ok{border-color:var(--success);background:var(--success-bg);color:#065F46;}
+.opt.ko{border-color:var(--danger);background:var(--danger-bg);color:#7F1D1D;}
+.opt.disabled{cursor:not-allowed;}
+.opt-ltr{
+  width:26px;height:26px;border-radius:50%;border:1.5px solid var(--edge);
+  display:flex;align-items:center;justify-content:center;font-size:0.7rem;
+  font-weight:700;flex-shrink:0;color:var(--slate);transition:all 0.15s;
+}
+.opt.sel .opt-ltr,.opt.ok .opt-ltr{border-color:var(--brand);color:var(--brand);}
+.opt.ko .opt-ltr{border-color:var(--danger);color:var(--danger);}
+.fb{margin-top:0.9rem;border-radius:9px;padding:0.8rem 0.9rem;font-size:0.83rem;display:none;line-height:1.6;}
+.fb.ok-fb{background:var(--success-bg);color:#065F46;border:1px solid #A7F3D0;display:block;}
+.fb.ko-fb{background:var(--danger-bg);color:#7F1D1D;border:1px solid #FECACA;display:block;}
+.qcm-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem;}
+.btn-nxt{
+  background:var(--brand);color:#fff;border:none;border-radius:99px;
+  padding:0.6rem 1.4rem;font-size:0.87rem;font-family:'Space Grotesk',sans-serif;
+  font-weight:600;cursor:pointer;transition:all 0.15s;display:none;
+  box-shadow:0 4px 12px rgba(0,81,255,0.3);
+}
+.btn-nxt:hover{background:var(--brand-dark);}
+.btn-nxt.vis{display:block;}
+
+/* ===== CERTIFICATION ===== */
+.cert-wrap{padding:2rem;text-align:center;}
+.cert-score-big{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:3.5rem;line-height:1;}
+.cert-score-lbl{color:var(--slate);font-size:0.85rem;margin-top:0.25rem;}
+.cert-title{font-weight:700;font-size:1.25rem;margin-top:1.25rem;}
+.cert-sub{color:var(--slate);font-size:0.87rem;margin-top:0.35rem;line-height:1.6;}
+.cert-details{
+  background:var(--bg);border:1px solid var(--edge);border-radius:var(--r);
+  padding:1rem 1.25rem;margin:1.25rem auto;max-width:380px;text-align:left;
+}
+.cert-row{display:flex;justify-content:space-between;padding:0.45rem 0;font-size:0.87rem;border-bottom:1px solid var(--edge);}
+.cert-row:last-child{border-bottom:none;}
+.cert-row-lbl{color:var(--slate);}
+.cert-row-val{font-weight:600;}
+.no-badge-msg{
+  background:var(--amber-light);border:1px solid #FDE68A;border-radius:var(--r);
+  padding:0.9rem 1.1rem;margin:1rem auto;max-width:420px;font-size:0.87rem;color:#78350F;line-height:1.6;
+}
+.cert-actions{display:flex;gap:0.65rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap;}
+.btn-dl{
+  background:var(--brand);color:#fff;border:none;border-radius:99px;
+  padding:0.65rem 1.4rem;font-family:'Space Grotesk',sans-serif;font-weight:600;
+  font-size:0.87rem;cursor:pointer;transition:all 0.15s;
+  box-shadow:0 4px 12px rgba(0,81,255,0.3);
+}
+.btn-dl:hover{background:var(--brand-dark);}
+.btn-retry{
+  background:var(--surface);color:var(--ink);border:1.5px solid var(--edge);border-radius:99px;
+  padding:0.65rem 1.4rem;font-family:'Space Grotesk',sans-serif;font-weight:600;
+  font-size:0.87rem;cursor:pointer;transition:all 0.15s;
+}
+.btn-retry:hover{border-color:var(--brand);color:var(--brand);}
+
+/* Step nav */
+.step-nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 1.25rem;border-top:1px solid var(--edge);background:var(--bg);
+}
+.btn-step{
+  background:var(--brand);color:#fff;border:none;border-radius:99px;
+  padding:0.55rem 1.25rem;font-family:'Space Grotesk',sans-serif;font-weight:600;
+  font-size:0.83rem;cursor:pointer;transition:all 0.15s;
+  box-shadow:0 4px 12px rgba(0,81,255,0.25);
+}
+.btn-step:hover{background:var(--brand-dark);}
+.btn-step.ghost{background:transparent;color:var(--slate);border:1.5px solid var(--edge);box-shadow:none;}
+.btn-step.ghost:hover{border-color:var(--brand);color:var(--brand);}
+.btn-step:disabled{opacity:0.35;cursor:not-allowed;}
+
+/* ===== ADMIN ===== */
+.admin-wrap{max-width:1020px;margin:0 auto;padding:1.75rem 1.5rem;}
+.admin-header{margin-bottom:1.75rem;}
+.admin-header h2{font-weight:700;font-size:1.45rem;letter-spacing:-0.02em;}
+.admin-header p{color:var(--slate);font-size:0.88rem;margin-top:0.3rem;}
+.admin-tabs{
+  display:flex;gap:0;border:1px solid var(--edge);border-radius:var(--r);
+  overflow:hidden;margin-bottom:1.5rem;background:var(--surface);box-shadow:var(--shadow);
+}
+.admin-tab{
+  flex:1;padding:0.65rem;text-align:center;font-family:'Space Grotesk',sans-serif;
+  font-weight:600;font-size:0.82rem;cursor:pointer;border:none;background:transparent;
+  transition:all 0.15s;border-right:1px solid var(--edge);color:var(--slate);
+}
+.admin-tab:last-child{border-right:none;}
+.admin-tab.active{background:var(--brand);color:#fff;}
+.admin-tab-panel{display:none;}
+.admin-tab-panel.active{display:block;}
+
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:1.5rem;}
+.stat-card{
+  background:var(--surface);border:1px solid var(--edge);border-radius:var(--r);
+  padding:1rem 1.1rem;box-shadow:var(--shadow);
+}
+.stat-val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.9rem;color:var(--brand);}
+.stat-lbl{font-size:0.73rem;color:var(--slate);margin-top:0.2rem;font-weight:500;}
+
+.prog-table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;}
+th{
+  background:var(--bg);text-align:left;padding:0.6rem 0.75rem;font-weight:700;
+  color:var(--slate);font-family:'Space Grotesk',sans-serif;font-size:0.68rem;
+  letter-spacing:0.07em;text-transform:uppercase;border-bottom:1px solid var(--edge);
+}
+td{padding:0.65rem 0.75rem;border-bottom:1px solid var(--edge);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--bg);}
+.badge-tag{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:99px;}
+.tag-gold{background:var(--gold-bg);color:var(--gold);}
+.tag-silver{background:var(--silver-bg);color:var(--silver);}
+.tag-bronze{background:var(--bronze-bg);color:var(--bronze);}
+.tag-none{background:var(--edge-2);color:var(--slate-light);}
+.progress-cell{display:flex;align-items:center;gap:0.5rem;}
+.mini-bar{flex:1;height:5px;background:var(--edge);border-radius:99px;min-width:60px;}
+.mini-bar-fill{height:5px;background:var(--brand);border-radius:99px;}
+
+.user-form{background:var(--surface);border:1px solid var(--edge);border-radius:var(--r);padding:1.25rem;margin-bottom:1.5rem;box-shadow:var(--shadow);}
+.user-form h3{font-size:0.95rem;margin-bottom:1rem;color:var(--ink);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;}
+.form-field label{display:block;font-size:0.72rem;font-weight:700;color:var(--slate);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.04em;}
+.form-field input,.form-field select{
+  width:100%;border:1.5px solid var(--edge);border-radius:8px;padding:0.55rem 0.75rem;
+  font-size:0.87rem;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);
+  outline:none;transition:border-color 0.15s;background:var(--surface);
+}
+.form-field input:focus,.form-field select:focus{border-color:var(--brand);}
+.btn-create{
+  background:var(--brand);color:#fff;border:none;border-radius:99px;
+  padding:0.55rem 1.25rem;font-family:'Space Grotesk',sans-serif;font-weight:600;
+  font-size:0.85rem;cursor:pointer;transition:all 0.15s;
+}
+.btn-create:hover{background:var(--brand-dark);}
+.form-msg{font-size:0.8rem;margin-top:0.6rem;padding:0.5rem 0.75rem;border-radius:7px;}
+.form-msg.ok{background:var(--success-bg);color:#065F46;}
+.form-msg.ko{background:var(--danger-bg);color:#7F1D1D;}
+.btn-deactivate{
+  background:transparent;border:1px solid var(--edge);color:var(--danger);
+  font-size:0.73rem;padding:3px 9px;border-radius:6px;cursor:pointer;transition:all 0.15s;
+}
+.btn-deactivate:hover{background:var(--danger-bg);}
+
+#badgeCanvas{display:none;}
+
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Loader screen */
+#appLoader{
+  position:fixed;inset:0;background:var(--ink);display:flex;align-items:center;
+  justify-content:center;z-index:9999;transition:opacity 0.4s;
+}
+#appLoader.hidden{opacity:0;pointer-events:none;}
+.loader-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.3rem;color:#fff;letter-spacing:-0.01em;}
+.loader-logo span{color:var(--amber);}
+.loader-dot{display:inline-block;animation:pulse 1.2s infinite;}
+@keyframes pulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="appLoader">
+  <div style="text-align:center">
+    <div class="loader-logo">mooc.<span>ixeo</span>.academy</div>
+    <div style="margin-top:1rem;display:flex;gap:6px;justify-content:center">
+      <span class="loader-dot" style="color:rgba(255,255,255,0.4);animation-delay:0s">●</span>
+      <span class="loader-dot" style="color:rgba(255,255,255,0.4);animation-delay:0.2s">●</span>
+      <span class="loader-dot" style="color:rgba(255,255,255,0.4);animation-delay:0.4s">●</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav" style="display:none;">
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    mooc.<span>ixeo</span>.academy
+  </div>
+  <div class="nav-right">
+    <div class="nav-user">Bonjour, <strong id="navName"></strong></div>
+    <button class="btn-logout" onclick="logout()">Déconnexion</button>
+  </div>
+</nav>
+
+<!-- ════════ LOGIN ════════ -->
+<div id="screenLogin" class="screen" style="display:flex;">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="brand">mooc.<span>ixeo</span>.academy</div>
+      <div class="sub">Plateforme de certification commerciale</div>
+    </div>
+    <div style="text-align:center"><span class="login-tag">Univers I.T — Équipe commerciale</span></div>
+    <div class="field">
+      <label>Adresse email</label>
+      <input type="email" id="loginEmail" placeholder="prenom.nom@ixeo.fr" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input type="password" id="loginPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" id="btnLogin" onclick="doLogin()">Se connecter</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-loading" id="loginLoading"><span class="spinner"></span> Connexion en cours…</div>
+  </div>
+</div>
+
+<!-- ════════ HOME ════════ -->
+<div id="screenHome" class="screen">
+  <div class="home-hero">
+    <h1>Devenez expert<br><span>IT & numérique</span></h1>
+    <p>18 modules de formation commerciale — progressez à votre rythme, obtenez vos certifications.</p>
+    <div class="global-bar">
+      <div class="bar-labels"><span>Progression globale</span><span id="globalTxt">0 / 18 modules</span></div>
+      <div class="bar-track"><div class="bar-fill" id="globalFill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="families">
+    <div class="family-block">
+      <div class="family-hd">📺 Outils de communication</div>
+      <div class="modules-grid" id="grid1"></div>
+    </div>
+    <div class="family-block">
+      <div class="family-hd">🖥 Informatique &amp; Réseau</div>
+      <div class="modules-grid" id="grid2"></div>
+    </div>
+    <div class="family-block">
+      <div class="family-hd">📂 Logiciels</div>
+      <div class="modules-grid" id="grid3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ MODULE ════════ -->
+<div id="screenModule" class="screen">
+  <div class="module-wrap">
+    <div class="back-link" onclick="showHome()">← Retour au catalogue</div>
+    <div class="mod-header">
+      <div class="mod-tag" id="modTag"></div>
+      <h1 class="mod-title" id="modTitle"></h1>
+    </div>
+    <div class="stepper" id="stepperWrap">
+      <button class="step-btn" data-step="1" onclick="goStep(1)"><span class="step-icon">📖</span><span class="step-label">Cours</span></button>
+      <button class="step-btn" data-step="2" onclick="goStep(2)"><span class="step-icon">🎭</span><span class="step-label">Situation</span></button>
+      <button class="step-btn" data-step="3" onclick="goStep(3)"><span class="step-icon">💬</span><span class="step-label">Découverte</span></button>
+      <button class="step-btn" data-step="4" onclick="goStep(4)"><span class="step-icon">🎯</span><span class="step-label">Pitch</span></button>
+      <button class="step-btn" data-step="5" onclick="goStep(5)"><span class="step-icon">📁</span><span class="step-label">Ressources</span></button>
+      <button class="step-btn" data-step="6" onclick="goStep(6)"><span class="step-icon">✏️</span><span class="step-label">QCM</span></button>
+      <button class="step-btn" data-step="7" onclick="goStep(7)"><span class="step-icon">🏆</span><span class="step-label">Badge</span></button>
+    </div>
+    <div id="stepContent"></div>
+  </div>
+</div>
+
+<!-- ════════ ADMIN ════════ -->
+<div id="screenAdmin" class="screen">
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h2>Dashboard administrateur</h2>
+      <p>Supervision de la progression de l'équipe commerciale</p>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="adminTab('overview')">Vue d'ensemble</button>
+      <button class="admin-tab" onclick="adminTab('detail')">Détail par commercial</button>
+      <button class="admin-tab" onclick="adminTab('users')">Gestion utilisateurs</button>
+    </div>
+
+    <div class="admin-tab-panel active" id="tab-overview">
+      <div class="stat-cards" id="adminStats"></div>
+      <div class="prog-table-wrap">
+        <table>
+          <thead><tr><th>Commercial</th><th>Progression</th><th>Badges</th><th>Gold</th><th>Silver</th><th>Bronze</th><th>Dernière activité</th></tr></thead>
+          <tbody id="overviewBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="admin-tab-panel" id="tab-detail">
+      <div style="margin-bottom:1rem;">
+        <select id="userSelect" onchange="renderDetailTable()" style="border:1.5px solid var(--edge);border-radius:8px;padding:0.55rem 0.75rem;font-size:0.87rem;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);outline:none;background:var(--surface);min-width:220px;"></select>
+      </div>
+      <div class="prog-table-wrap">
+        <table>
+          <thead><tr><th>Module</th><th>Famille</th><th>Étape atteinte</th><th>Score</th><th>Badge</th><th>Dernière MAJ</th></tr></thead>
+          <tbody id="detailBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="admin-tab-panel" id="tab-users">
+      <div class="user-form">
+        <h3>Créer un compte utilisateur</h3>
+        <div class="form-row">
+          <div class="form-field"><label>Prénom</label><input type="text" id="newPrenom" placeholder="Jean"></div>
+          <div class="form-field"><label>Nom</label><input type="text" id="newNom" placeholder="DUPONT"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Email</label><input type="email" id="newEmail" placeholder="jean.dupont@ixeo.fr"></div>
+          <div class="form-field"><label>Mot de passe</label><input type="password" id="newPwd" placeholder="Minimum 8 caractères"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Rôle</label>
+            <select id="newRole">
+              <option value="user">Commercial</option>
+              <option value="admin">Administrateur</option>
+            </select>
+          </div>
+          <div class="form-field" style="display:flex;align-items:flex-end;">
+            <button class="btn-create" onclick="createUser()">Créer le compte</button>
+          </div>
+        </div>
+        <div class="form-msg" id="createMsg" style="display:none;"></div>
+      </div>
+      <div class="prog-table-wrap">
+        <table>
+          <thead><tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Action</th></tr></thead>
+          <tbody id="usersBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas id="badgeCanvas" width="500" height="500"></canvas>
+
+<script>
+// ╔══════════════════════════════════════════════════════╗
+// ║  CONFIGURATION SUPABASE                              ║
+// ╚══════════════════════════════════════════════════════╝
+const SUPABASE_URL  = 'https://qldwpozypfysikhckbsh.supabase.co';   // ← ex: https://abcdefgh.supabase.co
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsZHdwb3p5cGZ5c2lraGNrYnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3MjE4MjksImV4cCI6MjA5MjI5NzgyOX0.H_mwxz0j__JBIchCGudgE2CAVLrSpWjB6-R5Jp_o9GI'; // ← clé anon/public
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  DONNÉES MODULES                                     ║
+// ╚══════════════════════════════════════════════════════╝
+const MODULES = [
+  {id:1, name:"Écrans tactiles interactifs",        family:1, available:false},
+  {id:2, name:"Affichage dynamique : Signage",       family:1, available:false},
+  {id:3, name:"Affichage dynamique : Kiosk",         family:1, available:false},
+  {id:4, name:"Protection des données (sauvegarde)", family:2, available:false},
+  {id:5, name:"Les bases d'un réseau",               family:2, available:false},
+  {id:6, name:"Étude parc informatique & réseau",    family:2, available:false},
+  {id:7, name:"Les équipements réseaux",             family:2, available:false},
+  {id:8, name:"Solutions cloud (M365)",              family:2, available:false},
+  {id:9, name:"Cybersécurité (firewall, antispam, antivirus)", family:2, available:false},
+  {id:10,name:"Services IT externalisés",            family:2, available:false},
+  {id:11,name:"DocPulse — simplification de la démat.", family:3, available:false},
+  {id:12,name:"Les fondamentaux de la GED",          family:3, available:true},
+  {id:13,name:"Capture automatique de données",      family:3, available:false},
+  {id:14,name:"Formulaires",                         family:3, available:false},
+  {id:15,name:"Notes de frais",                      family:3, available:false},
+  {id:16,name:"Connecteurs (Chorus / PA / eSignature)", family:3, available:false},
+  {id:17,name:"Modules compagnons (Gateway, eMail Capture, Data Importer)", family:3, available:false},
+  {id:18,name:"DocFlow — gestionnaire de fonds de page", family:3, available:false},
+];
+const FAMILY_NAMES = {1:'Outils de communication', 2:'Informatique & Réseau', 3:'Logiciels'};
+const STEP_NAMES   = {1:'Cours théorique', 2:'Mise en situation', 3:'Questionnement client', 4:'Pitch commercial', 5:'Ressources', 6:'QCM', 7:'Certification'};
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  STATE                                               ║
+// ╚══════════════════════════════════════════════════════╝
+let S = {
+  user: null, profile: null, progress: {},
+  currentModule: null, currentStep: 1,
+  qcmAnswers: [], qcmQ: 0, qcmSelected: null,
+  adminData: null,
+  _lastScore:undefined, _lastBadge:undefined, _lastLevel:undefined, _lastCorrect:undefined
+};
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  AUTH                                                ║
+// ╚══════════════════════════════════════════════════════╝
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pwd   = document.getElementById('loginPwd').value;
+  if (!email || !pwd) return showLoginError('Veuillez remplir tous les champs.');
+
+  document.getElementById('btnLogin').disabled = true;
+  document.getElementById('loginLoading').style.display = 'block';
+  document.getElementById('loginError').style.display = 'none';
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pwd });
+
+  if (error) {
+    showLoginError(error.message === 'Invalid login credentials'
+      ? 'Email ou mot de passe incorrect.' : 'Erreur de connexion. Réessayez.');
+    document.getElementById('btnLogin').disabled = false;
+    document.getElementById('loginLoading').style.display = 'none';
+    return;
+  }
+  S.user = data.user;
+  await afterLogin();
+  document.getElementById('btnLogin').disabled = false;
+  document.getElementById('loginLoading').style.display = 'none';
+}
+
+function showLoginError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg; el.style.display = 'block';
+}
+
+async function afterLogin() {
+  // Récupérer le profil
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
+  S.profile = profile;
+  document.getElementById('navName').textContent = (profile?.prenom || '') + ' ' + (profile?.nom || '');
+  document.getElementById('mainNav').style.display = 'flex';
+
+  // Récupérer la progression
+  await loadProgress();
+
+  if (profile?.role === 'admin') {
+    await loadAdminDashboard();
+    showScreen('screenAdmin');
+  } else {
+    renderHome();
+    showScreen('screenHome');
+  }
+}
+
+async function loadProgress() {
+  const { data } = await sb.from('progress').select('*').eq('user_id', S.user.id);
+  S.progress = {};
+  (data || []).forEach(row => {
+    S.progress[row.module_id] = {
+      step: row.step_completed,
+      score: row.score,
+      badge: row.badge,
+      lastUpdated: row.last_updated
+    };
+  });
+}
+
+async function logout() {
+  await sb.auth.signOut();
+  S = { user:null, profile:null, progress:{}, currentModule:null, currentStep:1,
+        qcmAnswers:[], qcmQ:0, qcmSelected:null, adminData:null,
+        _lastScore:undefined, _lastBadge:undefined, _lastLevel:undefined, _lastCorrect:undefined };
+  document.getElementById('mainNav').style.display = 'none';
+  showScreen('screenLogin');
+}
+
+// Auto-login via session Supabase
+window.addEventListener('load', async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    S.user = session.user;
+    await afterLogin();
+  }
+  // Masquer le loader
+  const loader = document.getElementById('appLoader');
+  loader.classList.add('hidden');
+  setTimeout(() => loader.style.display = 'none', 500);
+});
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  PROGRESSION                                         ║
+// ╚══════════════════════════════════════════════════════╝
+async function saveProgress(moduleId, step) {
+  const existing = S.progress[moduleId];
+  if (existing && step <= (existing.step || 0)) return;
+
+  const { error } = await sb.from('progress').upsert({
+    user_id: S.user.id,
+    module_id: moduleId,
+    step_completed: step,
+    last_updated: new Date().toISOString()
+  }, { onConflict: 'user_id,module_id' });
+
+  if (!error) {
+    S.progress[moduleId] = { ...(S.progress[moduleId] || {}), step };
+  }
+}
+
+async function saveScore(moduleId, score, badge) {
+  const existing = S.progress[moduleId];
+  if (existing?.score !== undefined && score < existing.score) return;
+
+  await sb.from('progress').upsert({
+    user_id: S.user.id,
+    module_id: moduleId,
+    step_completed: 7,
+    score, badge: badge || null,
+    last_updated: new Date().toISOString()
+  }, { onConflict: 'user_id,module_id' });
+
+  S.progress[moduleId] = { ...(S.progress[moduleId] || {}), step:7, score, badge };
+}
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  HOME                                                ║
+// ╚══════════════════════════════════════════════════════╝
+function renderHome() {
+  const grids = {1:document.getElementById('grid1'),2:document.getElementById('grid2'),3:document.getElementById('grid3')};
+  Object.values(grids).forEach(g => g.innerHTML = '');
+  let completed = 0;
+  MODULES.forEach(m => {
+    const prog = S.progress[m.id] || {};
+    const badge = prog.badge;
+    const step  = prog.step || 0;
+    if (badge) completed++;
+    const card = document.createElement('div');
+    card.className = 'm-card ' + (m.available ? '' : 'locked') + (badge ? ' has-badge' : '');
+    let pill = '';
+    if      (badge === 'gold')             pill = '<span class="pill pill-gold">★ Gold</span>';
+    else if (badge === 'silver')           pill = '<span class="pill pill-silver">★ Silver</span>';
+    else if (badge === 'bronze')           pill = '<span class="pill pill-bronze">★ Bronze</span>';
+    else if (step > 0 && step < 7)        pill = '<span class="pill pill-wip">En cours…</span>';
+    else if (m.available)                  pill = '<span class="pill pill-avail">Disponible</span>';
+    else                                   pill = '<span class="pill pill-locked">Bientôt</span>';
+    const pct = Math.round((step / 7) * 100);
+    card.innerHTML = `
+      <div class="m-num">Module ${m.id}</div>
+      <div class="m-name">${m.name}</div>
+      <div class="m-progress-mini"><div class="m-progress-mini-fill" style="width:${pct}%"></div></div>
+      <div class="m-status">${pill}</div>
+    `;
+    if (m.available) card.onclick = () => openModule(m.id);
+    grids[m.family].appendChild(card);
+  });
+  const pct = Math.round(completed / 18 * 100);
+  document.getElementById('globalFill').style.width = pct + '%';
+  document.getElementById('globalTxt').textContent  = completed + ' / 18 modules';
+}
+
+function showHome() { renderHome(); showScreen('screenHome'); }
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  MODULE                                              ║
+// ╚══════════════════════════════════════════════════════╝
+function openModule(id) {
+  S.currentModule = id;
+  S._lastScore = undefined; S._lastBadge = undefined;
+  S._lastLevel = undefined; S._lastCorrect = undefined;
+  const m = MODULES.find(x => x.id === id);
+  document.getElementById('modTag').textContent = '📁 ' + FAMILY_NAMES[m.family];
+  document.getElementById('modTitle').textContent = m.name;
+  const prog = S.progress[id] || {};
+  S.currentStep = prog.step || 1;
+  updateStepper();
+  goStep(S.currentStep);
+  showScreen('screenModule');
+}
+
+function updateStepper() {
+  document.querySelectorAll('.step-btn').forEach(btn => {
+    const s = parseInt(btn.dataset.step);
+    btn.classList.remove('active','done');
+    if (s === S.currentStep) btn.classList.add('active');
+    if (s < S.currentStep)   btn.classList.add('done');
+  });
+}
+
+async function goStep(step) {
+  S.currentStep = step;
+  updateStepper();
+  const prog = S.progress[S.currentModule] || {};
+  if (step > (prog.step || 0)) {
+    await saveProgress(S.currentModule, step);
+  }
+  const content = document.getElementById('stepContent');
+  if      (step === 1) content.innerHTML = renderStep1();
+  else if (step === 2) content.innerHTML = renderStep2();
+  else if (step === 3) content.innerHTML = renderStep3();
+  else if (step === 4) content.innerHTML = renderStep4();
+  else if (step === 5) content.innerHTML = renderStep5();
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(); }
+  else if (step === 7) content.innerHTML = renderStep7();
+  content.querySelectorAll('.ch-hd').forEach(hd => {
+    hd.onclick = () => {
+      const body = hd.nextElementSibling;
+      const open = hd.classList.contains('open');
+      hd.classList.toggle('open', !open);
+      body.classList.toggle('open', !open);
+      hd.querySelector('.ch-toggle').textContent = open ? '▼' : '▲';
+    };
+  });
+}
+
+function stepNavHTML(step) {
+  const prev = step > 1 ? `<button class="btn-step ghost" onclick="goStep(${step-1})">← ${STEP_NAMES[step-1]}</button>` : '<span></span>';
+  const next = step < 7 ? `<button class="btn-step" onclick="goStep(${step+1})">${STEP_NAMES[step+1]} →</button>` : '<span></span>';
+  return `<div class="step-nav">${prev}${next}</div>`;
+}
+
+// ══════════════════════
+// STEP 1 — COURS
+// ══════════════════════
+function renderStep1() {
+  return `<div class="step-panel">
+  ${[
+    {t:"Qu'est-ce que la GED ?",c:`<p>La <strong>GED</strong> — Gestion Électronique des Documents — est un système informatisé permettant de <strong>capturer, classer, stocker, retrouver et diffuser</strong> des documents numériques au sein d'une organisation.</p>
+    <p>Elle remplace les armoires physiques, les classeurs papier et les dossiers partagés désorganisés par une plateforme centralisée, sécurisée et intelligente.</p>
+    <div class="key-box">💡 La GED touche tous les services : RH, Finance, Commercial, Juridique, Secrétariat. C'est la colonne vertébrale documentaire de l'entreprise.</div>`},
+    {t:"Pourquoi la GED est-elle indispensable aujourd'hui ?",c:`<div class="warn-box">📊 En France, 47 % des entreprises utilisent des progiciels de gestion intégrée. Pourtant, la grande majorité gère encore ses documents de manière non structurée.</div>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-lbl">Temps perdu</div><div class="info-val">30 % du temps à chercher des informations</div></div>
+      <div class="info-item"><div class="info-lbl">Risque juridique</div><div class="info-val">Documents perdus = responsabilité engagée</div></div>
+      <div class="info-item"><div class="info-lbl">Télétravail</div><div class="info-val">Impossible d'accéder aux archives physiques à distance</div></div>
+      <div class="info-item"><div class="info-lbl">RGPD</div><div class="info-val">Obligation légale de protéger et tracer les données personnelles</div></div>
+    </div>`},
+    {t:"Les 5 fonctions clés d'une GED",c:`<h4>1. La capture intelligente (RAD/LAD)</h4>
+    <p>Absorbe les documents depuis toutes les sources (scanner, email, import). La capture intelligente reconnaît automatiquement le type de document et extrait les données clés sans saisie manuelle.</p>
+    <h4>2. Classification & indexation</h4>
+    <p>Chaque document est associé à des métadonnées permettant de le retrouver en secondes. Finis les arborescences incompréhensibles.</p>
+    <h4>3. Stockage sécurisé</h4>
+    <p>Cloud souverain ou on-premise, chiffré, avec gestion fine des droits d'accès.</p>
+    <div class="key-box">🔒 OpenBee Enterprise est certifiée ISO 27001 et conforme RGPD.</div>
+    <h4>4. Recherche avancée</h4>
+    <p>Retrouvez n'importe quel document en quelques secondes — recherche plein texte dans le contenu, même pour les documents scannés.</p>
+    <h4>5. Diffusion & collaboration</h4>
+    <p>Partagez, commentez, validez, signez électroniquement. Les workflows envoient le bon document au bon collaborateur au bon moment.</p>`},
+    {t:"GED et conformité légale",c:`<h4>Archivage à valeur probatoire</h4>
+    <p>La norme <strong>AFNOR NF 42-026</strong> permet aux documents numérisés d'avoir une valeur légale équivalente à l'original papier (article 1379 du Code Civil).</p>
+    <h4>Réforme facture électronique 2026</h4>
+    <p>Obligatoire pour toutes les entreprises assujetties à la TVA. OpenBee intègre un <strong>module PDP</strong> pour anticiper cette réforme dès aujourd'hui.</p>
+    <div class="warn-box">⚖️ Normes à retenir : ISO 27001 · AFNOR NF 42-026 · AFNOR Z 42-020 · RGPD · Réforme facture élec. 2026</div>`},
+    {t:"OpenBee Enterprise — la GED 100% modulable",c:`<p>Solution conçue pour grandes entreprises, ETI et PME exigeantes. Architecture 100% modulable.</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-lbl">Hébergement</div><div class="info-val">Cloud souverain FR, on-premise ou certifié HDS</div></div>
+      <div class="info-item"><div class="info-lbl">Accès</div><div class="info-val">24h/24 depuis tout appareil — app iOS & Android</div></div>
+      <div class="info-item"><div class="info-lbl">Intégrations</div><div class="info-val">15+ formats export : Sage, Cegid, Coala…</div></div>
+      <div class="info-item"><div class="info-lbl">Formation</div><div class="info-val">My Organic Learning + chatbot Hugo + Qualiopi</div></div>
+    </div>
+    <div class="key-box">🎯 Argument clé : la GED s'intègre aux logiciels existants sans les remplacer. Zéro disruption.</div>`}
+  ].map((ch,i) => `
+    <div class="chapter">
+      <div class="ch-hd ${i===0?'open':''}">
+        <span>${i+1}. ${ch.t}</span><span class="ch-toggle">${i===0?'▲':'▼'}</span>
+      </div>
+      <div class="ch-body ${i===0?'open':''}"><div class="content-section">${ch.c}</div></div>
+    </div>`).join('')}
+  ${stepNavHTML(1)}</div>`;
+}
+
+// ══════════════════════
+// STEP 2 — MISE EN SITUATION
+// ══════════════════════
+function renderStep2() {
+  return `<div class="step-panel"><div class="content-section">
+  <h3>🎭 Mise en situation client</h3>
+  <div class="scenario-card">
+    <div class="scenario-label">Contexte</div>
+    <div class="scenario-context">Vous êtes commercial chez IXEO. Vous avez rendez-vous avec <strong>M. Laurent MERCIER</strong>, Directeur Administratif et Financier d'une PME industrielle de 85 salariés (Méca-Pro SAS). Il gère une équipe de 4 personnes. L'entreprise utilise Sage pour la comptabilité, mais la gestion documentaire est entièrement papier. M. Mercier a évoqué en amont des difficultés à retrouver des factures fournisseurs lors d'audits.</div>
+  </div>
+  <h4>Simulation d'entretien</h4>
+  <div class="dialogue">
+    <div class="bubble"><div class="bubble-avatar comm">V</div><div class="bubble-text"><div class="bubble-role">Vous (commercial IXEO)</div>Bonjour M. Mercier, merci de me recevoir. Vous m'avez mentionné des difficultés lors de vos derniers audits — pouvez-vous me préciser ce qui s'est passé ?</div></div>
+    <div class="bubble client"><div class="bubble-avatar cli">M</div><div class="bubble-text"><div class="bubble-role">M. Mercier (DAF)</div>Oui, lors d'un contrôle fiscal, on a perdu 2 heures à retrouver des factures de 2021. Certaines étaient dans des classeurs, d'autres en PDF sur différents postes… C'était un vrai désordre.</div></div>
+    <div class="bubble"><div class="bubble-avatar comm">V</div><div class="bubble-text"><div class="bubble-role">Vous</div>Je comprends. Et au-delà des audits, est-ce que ce problème de dispersion documentaire impacte votre quotidien — traitement des factures, validation des bons à payer ?</div></div>
+    <div class="bubble client"><div class="bubble-avatar cli">M</div><div class="bubble-text"><div class="bubble-role">M. Mercier</div>Absolument. Ma comptable passe un temps fou à relancer les responsables de service pour les validations. Et depuis le télétravail, c'est encore pire — elle ne peut pas accéder aux dossiers physiques.</div></div>
+    <div class="bubble"><div class="bubble-avatar comm">V</div><div class="bubble-text"><div class="bubble-role">Vous</div>Avez-vous entendu parler de la réforme de la facturation électronique qui sera obligatoire en 2026 pour toutes les entreprises comme la vôtre ?</div></div>
+    <div class="bubble client"><div class="bubble-avatar cli">M</div><div class="bubble-text"><div class="bubble-role">M. Mercier</div>Vaguement oui… Mon expert-comptable m'en a parlé mais je n'ai pas encore pris le temps de m'y plonger.</div></div>
+    <div class="bubble"><div class="bubble-avatar comm">V</div><div class="bubble-text"><div class="bubble-role">Vous</div>C'est justement là qu'une solution comme OpenBee Enterprise peut résoudre vos problèmes actuels ET vous préparer à cette obligation réglementaire en une seule fois. Puis-je vous montrer comment ?</div></div>
+  </div>
+  <div class="key-box">💡 Enseignement : identifier la douleur immédiate (désordre documentaire) ET l'urgence réglementaire (2026) crée un double levier de décision.</div>
+  </div>${stepNavHTML(2)}</div>`;
+}
+
+// ══════════════════════
+// STEP 3 — QUESTIONNEMENT
+// ══════════════════════
+function renderStep3() {
+  return `<div class="step-panel"><div class="content-section">
+  <h3>💬 Questionnement client — Grille de découverte</h3>
+  <p>Utilisez cette grille pour <strong>identifier les besoins latents</strong> et <strong>susciter l'intérêt</strong> avant de présenter la solution.</p>
+  ${[
+    {cat:"🔍 Situation actuelle",qs:["Comment gérez-vous vos documents aujourd'hui — papier, réseau partagé, emails ?","Quels logiciels métiers utilisez-vous (ERP, comptabilité, CRM) ?","Combien de collaborateurs ont besoin d'accéder aux documents ?","Avez-vous des sites distants ou des télétravailleurs ?"]},
+    {cat:"⚠️ Problèmes & douleurs",qs:["Avez-vous déjà eu des difficultés à retrouver un document lors d'un audit ou d'un litige ?","Combien de temps perd votre équipe chaque semaine à chercher des informations ?","Est-ce qu'il vous arrive de travailler sur une version obsolète d'un document ?","Avez-vous eu des incidents liés à la perte ou à l'accès non autorisé à des documents ?"]},
+    {cat:"📋 Implications & enjeux",qs:["Savez-vous que la facturation électronique sera obligatoire pour votre entreprise en 2026 ?","Si vos documents n'étaient plus accessibles pendant 24h, quel serait l'impact sur votre activité ?","Votre entreprise est-elle soumise à des contraintes réglementaires spécifiques (santé, finance, agroalimentaire) ?","Comment gérez-vous actuellement la signature et validation des contrats avec vos clients à distance ?"]},
+    {cat:"🎯 Besoins & projection",qs:["Si vous pouviez retrouver n'importe quel document en 10 secondes depuis votre smartphone, qu'est-ce que ça changerait pour vous ?","Quelle serait votre priorité : gagner du temps, réduire les risques, ou les deux ?","Est-ce que votre logiciel comptable actuel est compatible avec les échanges électroniques de factures ?","Avez-vous un budget dédié à la transformation numérique cette année ?"]}
+  ].map(cat => `<div class="q-category"><div class="q-cat-title">${cat.cat}</div><div class="q-list">${cat.qs.map(q=>`<div class="q-item">${q}</div>`).join('')}</div></div>`).join('')}
+  </div>${stepNavHTML(3)}</div>`;
+}
+
+// ══════════════════════
+// STEP 4 — PITCH
+// ══════════════════════
+function renderStep4() {
+  return `<div class="step-panel"><div class="content-section">
+  <h3>🎯 Pitch commercial — GED OpenBee Enterprise</h3>
+  ${[
+    {icon:"🎣",titre:"Accroche (30 secondes)",body:`<p>"M. Mercier, imaginez que l'ensemble de vos factures, contrats et documents RH soient <strong>accessibles en 10 secondes depuis n'importe quel appareil</strong>, même en télétravail — classés automatiquement, conformes RGPD et prêts pour le contrôle fiscal. C'est exactement ce que fait OpenBee Enterprise pour vos confrères."</p>`},
+    {icon:"🔧",titre:"La solution (structure SONCAS)",body:`<p><strong>Sécurité :</strong> "Vos documents sont hébergés sur un cloud souverain français, certifié ISO 27001. Seules les personnes habilitées y accèdent."</p>
+    <p><strong>Orgueil :</strong> "Méca-Pro rejoindrait les entreprises industrielles qui ont compris que la dématérialisation, c'est un avantage compétitif, pas juste de la conformité."</p>
+    <p><strong>Nouveauté :</strong> "La version v7 intègre la capture IA et le module PDP pour la réforme 2026 — vous êtes prêts avant vos concurrents."</p>
+    <p><strong>Confort :</strong> "Votre comptable reçoit les factures dans son interface habituelle. Zéro formation lourde. L'intégration Sage se fait sans perturber vos process."</p>
+    <p><strong>Argent :</strong> "Nos clients récupèrent en moyenne 2h/semaine par collaborateur. Sur une équipe de 4, c'est 8h/semaine, soit l'équivalent d'un jour de travail gagné."</p>
+    <p><strong>Sympathie :</strong> "Nous assurons l'accompagnement complet : déploiement, formation certifiée Qualiopi, et support inclus."</p>`},
+    {icon:"🔗",titre:"La preuve (chiffres & références)",body:`<p>✅ <strong>+600 clients</strong> en France dans l'industrie, la santé, les services<br>✅ <strong>Réduction de 40% du temps de traitement</strong> des factures fournisseurs<br>✅ <strong>Conformité 2026</strong> assurée avec module PDP inclus<br>✅ <strong>Intégration Sage</strong> : 15+ formats d'export disponibles</p>`},
+    {icon:"📞",titre:"Closing",body:`<p>"M. Mercier, au vu de vos besoins — désordre documentaire, préparation 2026, intégration Sage — je vous propose de vous faire une démonstration personnalisée sur vos propres documents la semaine prochaine. Je peux vous bloquer 45 minutes, mardi ou jeudi matin, qu'est-ce qui vous convient le mieux ?"</p>`}
+  ].map(b => `<div class="pitch-block"><div class="pitch-hd">${b.icon} ${b.titre}</div><div class="pitch-body">${b.body}</div></div>`).join('')}
+  <h4>Réponses aux objections courantes</h4>
+  ${[
+    {q:'"C\'est trop cher pour nous."',a:'Avez-vous calculé le coût actuel du désordre documentaire ? 2h perdues/semaine × 4 collaborateurs × 52 semaines = 416h/an. À quel taux horaire valorisez-vous votre équipe ? La solution s\'autofinance souvent en 12 à 18 mois.'},
+    {q:'"On va attendre 2026 pour la facturation électronique."',a:'La mise en place d\'une GED prend 2 à 4 mois. Si vous attendez 2025 pour démarrer, vous serez en retard sur la conformité ET vos concurrents auront déjà gagné en productivité.'},
+    {q:'"On a déjà un réseau partagé qui fonctionne."',a:'Un réseau partagé stocke les fichiers mais ne les gère pas. Pas de workflow de validation, pas de recherche avancée, pas d\'archivage probatoire, pas d\'accès sécurisé depuis l\'extérieur. Ce sont deux outils fondamentalement différents.'},
+    {q:'"Ça va demander trop de formation."',a:'OpenBee Enterprise inclut My Organic Learning, une plateforme de formation intégrée avec chatbot IA. Nos clients sont opérationnels en moins de 2 semaines.'}
+  ].map(o => `<div class="objection-box"><div class="objection-q">❓ ${o.q}</div><div class="objection-a">💬 ${o.a}</div></div>`).join('')}
+  </div>${stepNavHTML(4)}</div>`;
+}
+
+// ══════════════════════
+// STEP 5 — RESSOURCES
+// ══════════════════════
+function renderStep5() {
+  const resources = [
+    {icon:'📄',name:'Catalogue Enterprise by Open Bee',type:'PDF',note:'Brochure produit complète 26 pages',url:'#'},
+    {icon:'📄',name:'Fiche solution — GED Finance',type:'PDF',note:'Facturation, notes de frais, export comptable',url:'#'},
+    {icon:'📄',name:'Fiche solution — GED RH',type:'PDF',note:'Recrutement, BPE, évaluation annuelle',url:'#'},
+    {icon:'🎬',name:'Démo OpenBee — Factures fournisseurs',type:'Vidéo',note:'Voir le traitement automatisé en 3 min',url:'#'},
+    {icon:'🎬',name:'Démo OpenBee — Archivage probatoire',type:'Vidéo',note:'Conformité AFNOR NF 42-026',url:'#'},
+    {icon:'📊',name:'Comparatif GED du marché',type:'PDF',note:'Benchmark OpenBee vs concurrents',url:'#'},
+    {icon:'📋',name:'Grille de découverte client imprimable',type:'PDF',note:'Version terrain de l\'étape 3',url:'#'},
+    {icon:'🌐',name:'Site OpenBee — Demander une démo',type:'Lien',note:'www.openbee.com/demo',url:'https://www.openbee.com/demo'},
+  ];
+  return `<div class="step-panel"><div class="content-section">
+  <h3>📁 Ressources téléchargeables</h3>
+  <p>Retrouvez ici tous les supports utiles pour préparer et accompagner vos rendez-vous commerciaux.</p>
+  <div class="resources-grid">
+  ${resources.map(r => `
+    <div class="resource-card" onclick="${r.url !== '#' ? `window.open('${r.url}','_blank')` : "alert('Ressource à charger par l\\'administrateur de la plateforme.')"}">
+      <div class="resource-icon">${r.icon}</div>
+      <div class="resource-name">${r.name}</div>
+      <div class="resource-type">${r.type}</div>
+      <div class="resource-note">${r.note}</div>
+    </div>`).join('')}
+  </div>
+  <div class="warn-box" style="margin-top:1.25rem;">📌 Pour ajouter vos propres ressources (PDF, vidéos, liens), contactez l'administrateur de la plateforme.</div>
+  </div>${stepNavHTML(5)}</div>`;
+}
+
+// ══════════════════════
+// STEP 6 — QCM
+// ══════════════════════
+const QUESTIONS = [
+  {q:"Que signifie l'acronyme GED ?",opts:["Gestion Électronique des Données","Gestion Électronique des Documents","Gestion Étendue des Données","Gestion Externalisée des Dossiers"],c:1,fb:"La GED est la Gestion Électronique des Documents : un système de capture, classement, stockage, recherche et diffusion des documents numériques."},
+  {q:"Quelle est la principale fonction de la capture intelligente (RAD/LAD) ?",opts:["Compresser les fichiers PDF","Reconnaître automatiquement le contenu et extraire les données clés","Convertir les images en vidéo","Envoyer des emails automatiquement"],c:1,fb:"Le RAD/LAD identifie et extrait automatiquement les informations clés (numéro, date, montant) sans saisie manuelle."},
+  {q:"Quelle certification atteste du niveau de sécurité d'OpenBee Enterprise ?",opts:["ISO 9001","NF EN 15038","ISO 27001","AFNOR NF 42-026"],c:2,fb:"L'ISO 27001 est le standard international de sécurité des systèmes d'information. OpenBee Enterprise est certifiée ISO 27001."},
+  {q:"À partir de quelle année la facturation électronique devient-elle obligatoire en France ?",opts:["2024","2025","2026","2027"],c:2,fb:"La réforme impose la facturation électronique à partir de 2026. OpenBee intègre un module PDP pour anticiper cette obligation."},
+  {q:"Qu'est-ce que l'archivage à vocation probatoire ?",opts:["L'archivage des documents de formation","La conservation de documents numérisés ayant valeur légale de preuve","La sauvegarde automatique des emails","L'export des données vers un logiciel comptable"],c:1,fb:"L'archivage probatoire selon AFNOR NF 42-026 permet aux documents numérisés d'être utilisés comme preuves juridiques selon l'article 1379 du Code Civil."},
+  {q:"Quel article du Code Civil reconnaît la valeur probatoire des copies numériques fidèles ?",opts:["Article 1234","Article 1379","Article 1852","Article 2273"],c:1,fb:"L'article 1379 du Code Civil reconnaît la valeur probatoire des copies fidèles obtenues par numérisation selon des procédés fiables."},
+  {q:"Qu'est-ce qu'un BPE dans le cadre d'une GED RH ?",opts:["Bureau de Paie Électronique","Bon de Participation à l'Emploi","Bulletin de Paie Électronique","Base de Personnes Employées"],c:2,fb:"BPE = Bulletin de Paie Électronique. La version dématérialisée de la fiche de paie, accessible en ligne depuis l'espace personnel sécurisé."},
+  {q:"Quels modes d'hébergement propose OpenBee Enterprise ?",opts:["Cloud uniquement","On-premise uniquement","Cloud souverain, on-premise ou certifié HDS","Hébergement chez le client uniquement"],c:2,fb:"OpenBee Enterprise propose trois options : cloud souverain français, on-premise, ou hébergement certifié HDS (Hébergeur de Données de Santé)."},
+  {q:"Combien de formats d'export comptable OpenBee Enterprise prend-il en charge ?",opts:["3","5","Plus de 15","Plus de 50"],c:2,fb:"OpenBee supporte plus de 15 formats : Sage, Cegid, Coala… permettant une intégration sans remplacer les logiciels existants."},
+  {q:"Dans la gestion des factures fournisseurs, quelle est la 1ère étape ?",opts:["Validation par le responsable","Classement dans le dossier","Capture et reconnaissance automatique de la facture","Export vers le logiciel comptable"],c:2,fb:"La capture est la 1ère étape : la GED reçoit la facture, la numérise si besoin, et extrait automatiquement les informations clés."},
+  {q:"Quel est le nom du chatbot IA d'OpenBee ?",opts:["Max","Albert","Hugo","Bee"],c:2,fb:"Le chatbot IA d'OpenBee s'appelle Hugo. Il assiste les utilisateurs dans leur formation sur la plateforme My Organic Learning."},
+  {q:"La norme AFNOR NF 42-026 concerne :",opts:["La sécurité réseau","La numérisation fidèle et l'archivage probatoire","La conformité RGPD","Les logiciels comptables"],c:1,fb:"AFNOR NF 42-026 définit les exigences pour la numérisation fidèle de documents papier avec valeur légale."},
+  {q:"Que signifie PDP dans le contexte d'OpenBee ?",opts:["Plan de Performance Documentaire","Plateforme de Dématérialisation Partenaire","Protocole de Distribution de Pièces","Portail de Données Partagées"],c:1,fb:"PDP = Plateforme de Dématérialisation Partenaire. Ce module gère la réforme de la facturation électronique obligatoire en 2026."},
+  {q:"Quel est le bénéfice concret de la GED pour un commercial terrain ?",opts:["Modifier les prix en temps réel","Accéder aux dossiers clients et supports de vente depuis son smartphone, même en déplacement","Gérer automatiquement ses objectifs","Créer des devis directement dans la GED"],c:1,fb:"Via l'intranet force de vente, le commercial accède à tous ses dossiers clients et supports à jour depuis son smartphone, où qu'il soit."},
+  {q:"Quel est l'argument clé pour rassurer un client qui craint de tout changer ?",opts:["La GED remplace tous vos logiciels","La GED ne nécessite aucune formation","La GED s'intègre aux logiciels existants sans les remplacer","La GED est entièrement gratuite"],c:2,fb:"OpenBee Enterprise s'intègre sans friction aux logiciels existants (ERP, CRM, comptabilité). C'est une couche documentaire ajoutée, pas un remplacement."}
+];
+
+function renderStep6Shell() {
+  return `<div class="step-panel"><div class="qcm-wrap" id="qcmWrap"></div></div>`;
+}
+
+function initQCM() {
+  S.qcmAnswers = []; S.qcmQ = 0; S.qcmSelected = null;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const wrap = document.getElementById('qcmWrap');
+  if (!wrap) return;
+  const q = QUESTIONS[S.qcmQ];
+  const total = QUESTIONS.length;
+  const dots = Array.from({length:total},(_,i) =>
+    `<div class="qcm-dot ${i<S.qcmQ?'done':i===S.qcmQ?'cur':''}"></div>`).join('');
+  const letters = ['A','B','C','D'];
+  wrap.innerHTML = `
+    <div class="qcm-prog-row"><div class="qcm-dots">${dots}</div><div class="q-counter">${S.qcmQ+1} / ${total}</div></div>
+    <div class="q-num">Question ${S.qcmQ+1}</div>
+    <div class="q-text">${q.q}</div>
+    <div class="opts" id="opts">
+      ${q.opts.map((o,i) => `<div class="opt" onclick="selectOpt(${i},this)" id="opt${i}"><span class="opt-ltr">${letters[i]}</span>${o}</div>`).join('')}
+    </div>
+    <div class="fb" id="fb"></div>
+    <div class="qcm-nav">
+      <div style="font-size:0.75rem;color:var(--slate)" id="qhint">Sélectionnez une réponse</div>
+      <button class="btn-nxt" id="btnNxt" onclick="nextQ()">
+        ${S.qcmQ < total-1 ? 'Question suivante →' : 'Voir mes résultats →'}
+      </button>
+    </div>`;
+}
+
+function selectOpt(idx, el) {
+  if (S.qcmSelected !== null) return;
+  S.qcmSelected = idx;
+  const q = QUESTIONS[S.qcmQ];
+  document.querySelectorAll('.opt').forEach(o => o.classList.add('disabled'));
+  el.classList.add(idx === q.c ? 'ok' : 'ko');
+  if (idx !== q.c) document.getElementById('opt'+q.c).classList.add('ok');
+  const fb = document.getElementById('fb');
+  fb.textContent = (idx===q.c ? '✓ Correct ! ' : '✗ Incorrect. ') + q.fb;
+  fb.className = 'fb ' + (idx===q.c ? 'ok-fb' : 'ko-fb');
+  S.qcmAnswers.push(idx===q.c ? 1 : 0);
+  document.getElementById('qhint').textContent = '';
+  document.getElementById('btnNxt').classList.add('vis');
+}
+
+function nextQ() {
+  if (S.qcmQ < QUESTIONS.length-1) { S.qcmQ++; S.qcmSelected=null; renderQuestion(); }
+  else showQCMResults();
+}
+
+async function showQCMResults() {
+  const correct = S.qcmAnswers.reduce((a,b)=>a+b,0);
+  const total   = QUESTIONS.length;
+  const pct     = Math.round(correct/total*100);
+  let badge = null, level = null;
+  if      (pct >= 95) { level='Gold';   badge='gold'; }
+  else if (pct >= 85) { level='Silver'; badge='silver'; }
+  else if (pct >= 75) { level='Bronze'; badge='bronze'; }
+  await saveScore(S.currentModule, pct, badge);
+  S._lastScore = pct; S._lastBadge = badge; S._lastLevel = level; S._lastCorrect = correct;
+  goStep(7);
+}
+
+// ══════════════════════
+// STEP 7 — CERTIFICATION
+// ══════════════════════
+function renderStep7() {
+  const prog   = S.progress[S.currentModule] || {};
+  const pct    = S._lastScore !== undefined ? S._lastScore : (prog.score ?? null);
+  const badge  = S._lastBadge !== undefined ? S._lastBadge : (prog.badge || null);
+  const level  = S._lastLevel !== undefined ? S._lastLevel : (badge ? badge.charAt(0).toUpperCase()+badge.slice(1) : null);
+  const correct = S._lastCorrect !== undefined ? S._lastCorrect : '—';
+  const m      = MODULES.find(x => x.id === S.currentModule);
+
+  const colors = {gold:'#D97706',silver:'#64748B',bronze:'#B45309'};
+  const color  = badge ? colors[badge] : '#DC2626';
+
+  let badgeHTML = '<div style="font-size:4rem;margin:1rem 0">😔</div>';
+  if (badge) {
+    drawBadge(level, color, pct, m.name);
+    badgeHTML = `<img id="badgePreview" style="width:160px;height:160px;border-radius:50%;box-shadow:var(--shadow-lg);" />`;
+  }
+
+  const noBadge = !badge ? `<div class="no-badge-msg">Score obtenu : ${pct !== null ? pct+'%' : '—'} — Le score minimum pour obtenir le badge Bronze est de 75 %. Relisez le cours et réessayez !</div>` : '';
+  const dlBtn = badge ? `<button class="btn-dl" onclick="downloadBadge()">⬇ Télécharger mon badge</button>` : '';
+
+  const certHTML = `<div class="step-panel"><div class="cert-wrap">
+    ${pct !== null ? `<div class="cert-score-big" style="color:${color}">${pct}%</div>
+    <div class="cert-score-lbl">${correct !== '—' ? correct : '—'} bonnes réponses sur ${QUESTIONS.length}</div>` : '<div class="cert-score-lbl" style="margin-top:1rem">Complétez le QCM pour obtenir votre certification</div>'}
+    <div>${badgeHTML}</div>
+    ${badge ? `<div class="cert-title">Badge ${level} obtenu 🏆</div>
+    <div class="cert-sub">Vous maîtrisez les fondamentaux de la GED.<br>Votre badge est disponible au téléchargement.</div>` : `<div class="cert-title">${pct !== null ? 'Score insuffisant' : 'Certification en attente'}</div>`}
+    ${noBadge}
+    ${pct !== null ? `<div class="cert-details">
+      <div class="cert-row"><span class="cert-row-lbl">Score</span><span class="cert-row-val">${pct}%</span></div>
+      <div class="cert-row"><span class="cert-row-lbl">Niveau</span><span class="cert-row-val">${badge ? '★ '+level : 'Aucun badge'}</span></div>
+      <div class="cert-row"><span class="cert-row-lbl">Module</span><span class="cert-row-val">${m.name}</span></div>
+      <div class="cert-row"><span class="cert-row-lbl">Seuils</span><span class="cert-row-val">Bronze 75% · Silver 85% · Gold 95%</span></div>
+    </div>` : ''}
+    <div class="cert-actions">
+      ${dlBtn}
+      <button class="btn-retry" onclick="S._lastScore=undefined;S._lastBadge=undefined;S._lastLevel=undefined;S._lastCorrect=undefined;goStep(6)">Refaire le QCM</button>
+    </div>
+    <br><button class="btn-retry" style="border:none;color:var(--slate);font-size:0.82rem;background:transparent;cursor:pointer;text-decoration:underline;" onclick="showHome()">← Retour au catalogue</button>
+  </div></div>`;
+
+  setTimeout(() => {
+    if (badge) {
+      const canvas = document.getElementById('badgeCanvas');
+      const prev = document.getElementById('badgePreview');
+      if (canvas && prev) prev.src = canvas.toDataURL();
+    }
+  }, 80);
+  return certHTML;
+}
+
+// ══════════════════════
+// BADGE DRAWING
+// ══════════════════════
+function drawBadge(level, color, score, moduleName) {
+  const canvas = document.getElementById('badgeCanvas');
+  const ctx = canvas.getContext('2d');
+  const W=500,H=500,cx=250,cy=250;
+  ctx.clearRect(0,0,W,H);
+  // Fond
+  ctx.beginPath(); ctx.arc(cx,cy,235,0,Math.PI*2);
+  const grad = ctx.createRadialGradient(cx-50,cy-50,20,cx,cy,235);
+  grad.addColorStop(0,'#1C2333'); grad.addColorStop(1,'#0D1117');
+  ctx.fillStyle=grad; ctx.fill();
+  // Anneau couleur
+  ctx.beginPath(); ctx.arc(cx,cy,215,0,Math.PI*2); ctx.strokeStyle=color; ctx.lineWidth=10; ctx.stroke();
+  // Anneau intérieur fin
+  ctx.beginPath(); ctx.arc(cx,cy,200,0,Math.PI*2); ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=2; ctx.stroke();
+  // Points déco
+  for(let i=0;i<16;i++){const a=(i/16)*Math.PI*2-Math.PI/2;ctx.beginPath();ctx.arc(cx+Math.cos(a)*215,cy+Math.sin(a)*215,3,0,Math.PI*2);ctx.fillStyle=i%2===0?color:'rgba(255,255,255,0.2)';ctx.fill();}
+  // Domaine
+  ctx.font='600 15px "Space Grotesk",sans-serif';ctx.fillStyle='rgba(255,255,255,0.35)';ctx.textAlign='center';ctx.fillText('mooc.ixeo.academy',cx,cy-115);
+  // Étoile
+  ctx.font='bold 72px serif';ctx.fillStyle=color;ctx.textAlign='center';ctx.fillText('★',cx,cy-22);
+  // Niveau
+  ctx.font='700 48px "Space Grotesk",sans-serif';ctx.fillStyle='#FFFFFF';ctx.textAlign='center';ctx.fillText((level||'').toUpperCase(),cx,cy+38);
+  // Score
+  ctx.font='600 22px "Plus Jakarta Sans",sans-serif';ctx.fillStyle=color;ctx.textAlign='center';ctx.fillText(score+'%',cx,cy+72);
+  // Nom module
+  const name = moduleName || 'Formation IXEO';
+  ctx.font='400 14px "Plus Jakarta Sans",sans-serif';ctx.fillStyle='rgba(255,255,255,0.6)';ctx.textAlign='center';
+  const words=name.split(' ');let line='',lines=[];
+  words.forEach(w=>{const t=line+(line?' ':'')+w;if(ctx.measureText(t).width>260){lines.push(line);line=w;}else line=t;});
+  lines.push(line);
+  lines.forEach((l,i)=>ctx.fillText(l,cx,cy+108+i*20));
+  // Date
+  ctx.font='400 11px "Plus Jakarta Sans",sans-serif';ctx.fillStyle='rgba(255,255,255,0.3)';
+  ctx.fillText('Obtenu le '+new Date().toLocaleDateString('fr-FR'),cx,cy+172);
+}
+function downloadBadge(){const a=document.createElement('a');a.download='badge-ixeo-ged.png';a.href=document.getElementById('badgeCanvas').toDataURL('image/png');a.click();}
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  ADMIN DASHBOARD                                     ║
+// ╚══════════════════════════════════════════════════════╝
+async function loadAdminDashboard() {
+  // Récupérer tous les profils users
+  const { data: profiles } = await sb.from('profiles').select('*').eq('role','user');
+  // Récupérer toute la progression
+  const { data: allProgress } = await sb.from('progress').select('*');
+
+  const matrix = {};
+  (allProgress || []).forEach(row => {
+    if (!matrix[row.user_id]) matrix[row.user_id] = {};
+    matrix[row.user_id][row.module_id] = {
+      step: row.step_completed, score: row.score,
+      badge: row.badge, lastUpdated: row.last_updated
+    };
+  });
+
+  S.adminData = (profiles || []).map(u => {
+    const prog = matrix[u.id] || {};
+    const modulesStarted = Object.keys(prog).length;
+    const badgesGold   = Object.values(prog).filter(p => p.badge === 'gold').length;
+    const badgesSilver = Object.values(prog).filter(p => p.badge === 'silver').length;
+    const badgesBronze = Object.values(prog).filter(p => p.badge === 'bronze').length;
+    return { ...u, modulesStarted, totalBadges: badgesGold+badgesSilver+badgesBronze, badgesGold, badgesSilver, badgesBronze, progress: prog };
+  });
+
+  renderAdminOverview();
+  renderUserSelect();
+  await loadUsersList();
+}
+
+function renderAdminOverview() {
+  const users = S.adminData || [];
+  const totalBadges = users.reduce((a,u)=>a+u.totalBadges,0);
+  const totalGold   = users.reduce((a,u)=>a+u.badgesGold,0);
+  document.getElementById('adminStats').innerHTML = `
+    <div class="stat-card"><div class="stat-val">${users.length}</div><div class="stat-lbl">Commerciaux actifs</div></div>
+    <div class="stat-card"><div class="stat-val">${totalBadges}</div><div class="stat-lbl">Badges obtenus</div></div>
+    <div class="stat-card"><div class="stat-val">${totalGold}</div><div class="stat-lbl">Badges Gold</div></div>
+    <div class="stat-card"><div class="stat-val">18</div><div class="stat-lbl">Modules disponibles</div></div>`;
+
+  document.getElementById('overviewBody').innerHTML = users.map(u => {
+    const lastDates = Object.values(u.progress).map(p=>p.lastUpdated).filter(Boolean).sort().reverse();
+    const last = lastDates[0] ? new Date(lastDates[0]).toLocaleDateString('fr-FR') : '—';
+    return `<tr>
+      <td><strong>${u.prenom} ${u.nom}</strong><br><small style="color:var(--slate)">${u.email}</small></td>
+      <td><div class="progress-cell"><div class="mini-bar"><div class="mini-bar-fill" style="width:${Math.round(u.modulesStarted/18*100)}%"></div></div><span>${u.modulesStarted}/18</span></div></td>
+      <td>${u.totalBadges}</td>
+      <td>${u.badgesGold > 0 ? '<span class="badge-tag tag-gold">★ '+u.badgesGold+'</span>' : '—'}</td>
+      <td>${u.badgesSilver > 0 ? '<span class="badge-tag tag-silver">★ '+u.badgesSilver+'</span>' : '—'}</td>
+      <td>${u.badgesBronze > 0 ? '<span class="badge-tag tag-bronze">★ '+u.badgesBronze+'</span>' : '—'}</td>
+      <td>${last}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderUserSelect() {
+  const sel = document.getElementById('userSelect');
+  sel.innerHTML = (S.adminData||[]).map(u=>`<option value="${u.id}">${u.prenom} ${u.nom}</option>`).join('');
+  renderDetailTable();
+}
+
+function renderDetailTable() {
+  const userId = document.getElementById('userSelect').value;
+  const user   = (S.adminData||[]).find(u=>u.id===userId);
+  if (!user) return;
+  document.getElementById('detailBody').innerHTML = MODULES.map(m => {
+    const prog = user.progress[m.id] || {};
+    const badge = prog.badge;
+    const step  = prog.step || 0;
+    const score = prog.score !== undefined ? prog.score+'%' : '—';
+    const last  = prog.lastUpdated ? new Date(prog.lastUpdated).toLocaleDateString('fr-FR') : '—';
+    const badgeTag = badge==='gold'?'<span class="badge-tag tag-gold">★ Gold</span>':badge==='silver'?'<span class="badge-tag tag-silver">★ Silver</span>':badge==='bronze'?'<span class="badge-tag tag-bronze">★ Bronze</span>':'<span class="badge-tag tag-none">—</span>';
+    const stepName = STEP_NAMES[step] || 'Non commencé';
+    return `<tr>
+      <td>Module ${m.id} — ${m.name}</td>
+      <td>${['','Outils comm.','Info. & Réseau','Logiciels'][m.family]}</td>
+      <td>${step>0?stepName:'<span style="color:var(--slate-light)">Non commencé</span>'}</td>
+      <td>${score}</td>
+      <td>${badgeTag}</td>
+      <td>${last}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function loadUsersList() {
+  const { data: users } = await sb.from('profiles').select('*');
+  document.getElementById('usersBody').innerHTML = (users||[]).map(u => `<tr>
+    <td><strong>${u.prenom} ${u.nom}</strong></td>
+    <td>${u.email}</td>
+    <td><span class="badge-tag ${u.role==='admin'?'tag-gold':'tag-none'}">${u.role}</span></td>
+    <td><button class="btn-deactivate" onclick="deactivateUser('${u.id}')">Désactiver</button></td>
+  </tr>`).join('');
+}
+
+async function createUser() {
+  const prenom = document.getElementById('newPrenom').value.trim();
+  const nom    = document.getElementById('newNom').value.trim();
+  const email  = document.getElementById('newEmail').value.trim();
+  const pwd    = document.getElementById('newPwd').value;
+  const role   = document.getElementById('newRole').value;
+  const msg    = document.getElementById('createMsg');
+  if (!prenom || !nom || !email || !pwd) {
+    msg.textContent='Tous les champs sont requis.'; msg.className='form-msg ko'; msg.style.display='block'; return;
+  }
+  // Créer l'utilisateur via Supabase Auth (admin API via anon n'est pas dispo — on utilise signUp)
+  const { data, error } = await sb.auth.signUp({ email, password: pwd });
+  if (error) {
+    msg.textContent = error.message; msg.className='form-msg ko'; msg.style.display='block'; return;
+  }
+  // Créer le profil
+  await sb.from('profiles').upsert({ id: data.user.id, prenom, nom, email, role });
+  msg.textContent = '✓ Compte créé. L\'utilisateur doit confirmer son email.';
+  msg.className='form-msg ok'; msg.style.display='block';
+  ['newPrenom','newNom','newEmail','newPwd'].forEach(id => document.getElementById(id).value='');
+  await loadUsersList();
+}
+
+async function deactivateUser(userId) {
+  if (!confirm('Désactiver cet utilisateur ?')) return;
+  await sb.from('profiles').update({ actif: false }).eq('id', userId);
+  await loadUsersList();
+}
+
+function adminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach((t,i) => {
+    t.classList.toggle('active', ['overview','detail','users'][i]===tab);
+  });
+  document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  if (tab==='detail') renderDetailTable();
+}
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  UTILS                                               ║
+// ╚══════════════════════════════════════════════════════╝
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); s.style.display=''; });
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  el.style.display = id==='screenLogin' ? 'flex' : 'block';
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
