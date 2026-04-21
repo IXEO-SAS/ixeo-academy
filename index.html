@@ -499,6 +499,14 @@ tr:hover td{background:var(--bg);}
     <button class="btn-login" id="btnLogin" onclick="doLogin()">Se connecter</button>
     <div class="login-error" id="loginError"></div>
     <div class="login-loading" id="loginLoading"><span class="spinner"></span> Connexion en cours…</div>
+    <!-- BOUTON DE SECOURS — visible si déjà connecté -->
+    <div id="emergencyNav" style="display:none;margin-top:1.25rem;border-top:1px solid rgba(255,255,255,0.1);padding-top:1.25rem;text-align:center;">
+      <div style="color:rgba(255,255,255,0.5);font-size:0.73rem;margin-bottom:0.75rem;">✓ Vous êtes connecté — accédez directement à :</div>
+      <div style="display:flex;gap:0.5rem;justify-content:center;">
+        <button onclick="goToDashboard('admin')" style="background:#F59E0B;color:#000;border:none;border-radius:99px;padding:0.55rem 1.1rem;font-size:0.82rem;font-weight:700;cursor:pointer;">Dashboard Admin</button>
+        <button onclick="goToDashboard('home')" style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:99px;padding:0.55rem 1.1rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Catalogue cours</button>
+      </div>
+    </div>
     <div id="emergencyNav" style="display:none;margin-top:1rem;text-align:center;">
       <div style="color:rgba(255,255,255,0.5);font-size:0.75rem;margin-bottom:0.6rem;">Vous êtes connecté — choisissez votre destination :</div>
       <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
@@ -775,33 +783,52 @@ async function logout() {
 }
 
 // Auto-login via session Supabase
-// ── Écouteur auth natif Supabase ──────────────────────
-// Se déclenche à chaque changement d'état (login, logout, restore de session)
-let _authHandled = false;
-
+// ── Auth : écoute tous les changements de session ─────
 sb.auth.onAuthStateChange(async (event, session) => {
-  const loader = document.getElementById('appLoader');
-
-  if (session && !_authHandled) {
-    _authHandled = true;
+  hideLoader();
+  if (session) {
     S.user = session.user;
+    // Toujours tenter la redirection automatique
     await afterLogin();
-    // Masquer le loader après redirection
-    if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.style.display = 'none', 400); }
-  } else if (!session) {
-    _authHandled = false;
-    // Masquer le loader et rester sur login
-    if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.style.display = 'none', 400); }
+  } else {
+    S.user = null;
+    S.profile = null;
   }
 });
 
-// Sécurité : masquer le loader au bout de 5s quoi qu'il arrive
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const loader = document.getElementById('appLoader');
-    if (loader) { loader.classList.add('hidden'); loader.style.display = 'none'; }
-  }, 5000);
+// ── Fallback : vérifier session au chargement ──────────
+window.addEventListener('load', async () => {
+  setTimeout(hideLoader, 4000); // sécurité max 4s
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      S.user = session.user;
+      await afterLogin();
+    }
+  } catch(e) { console.warn('Session check failed:', e); }
+  hideLoader();
 });
+
+function hideLoader() {
+  const loader = document.getElementById('appLoader');
+  if (loader && !loader.classList.contains('hidden')) {
+    loader.classList.add('hidden');
+    setTimeout(() => { loader.style.display = 'none'; }, 400);
+  }
+}
+
+// ── Vérification toutes les 3s : si connecté mais sur login → bouton secours
+setInterval(async () => {
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const onLogin = document.getElementById('screenLogin')?.classList.contains('active');
+    const emergency = document.getElementById('emergencyNav');
+    if (session && onLogin && emergency) {
+      S.user = session.user;
+      emergency.style.display = 'block';
+    }
+  } catch(e) {}
+}, 3000);
 
 // ╔══════════════════════════════════════════════════════╗
 // ║  PROGRESSION                                         ║
@@ -1399,22 +1426,32 @@ function adminTab(tab) {
 // ║  NAVIGATION HELPERS                                  ║
 // ╚══════════════════════════════════════════════════════╝
 function handleLogoClick() {
-  if (!S.user) return;
   if (S.profile?.role === 'admin') {
     showScreen('screenAdmin');
-  } else {
+  } else if (S.user) {
     renderHome();
     showScreen('screenHome');
   }
 }
 
-async function forceGo(dest) {
-  if (!S.user) return;
+async function goToDashboard(dest) {
+  // Récupérer la session fraîche
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { alert('Session expirée, veuillez vous reconnecter.'); return; }
+  S.user = session.user;
+
+  // Récupérer le profil
   if (!S.profile) {
     const { data } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
     S.profile = data;
   }
+
+  // Afficher nav
+  document.getElementById('mainNav').style.display = 'flex';
+  document.getElementById('navName').textContent = (S.profile?.prenom || '') + ' ' + (S.profile?.nom || '');
+
   await loadProgress();
+
   if (dest === 'admin') {
     await loadAdminDashboard();
     showScreen('screenAdmin');
@@ -1423,15 +1460,6 @@ async function forceGo(dest) {
     showScreen('screenHome');
   }
 }
-
-// Afficher le bouton de secours si session active mais écran login visible
-setInterval(() => {
-  const loginVisible = document.getElementById('screenLogin')?.classList.contains('active');
-  const emergency = document.getElementById('emergencyNav');
-  if (loginVisible && S.user && emergency) {
-    emergency.style.display = 'block';
-  }
-}, 2000);
 
 // ╔══════════════════════════════════════════════════════╗
 // ║  UTILS                                               ║
