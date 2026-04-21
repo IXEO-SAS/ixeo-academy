@@ -727,10 +727,15 @@ async function doLogin() {
 async function redirect() {
   // 1. Récupérer le profil
   let profile = null;
+  let profileError = null;
   try {
-    const { data } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
+    const { data, error } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
     profile = data;
-  } catch(e) {}
+    profileError = error;
+  } catch(e) { profileError = e; }
+
+  // DEBUG — à retirer après diagnostic
+  alert('PROFIL: ' + JSON.stringify(profile) + '\nERREUR: ' + JSON.stringify(profileError) + '\nUSER ID: ' + S.user?.id);
 
   // 2. Fallback si profil absent
   if (!profile) {
