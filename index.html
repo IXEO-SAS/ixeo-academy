@@ -685,70 +685,86 @@ let S = {
 // ╔══════════════════════════════════════════════════════╗
 // ║  AUTH                                                ║
 // ╚══════════════════════════════════════════════════════╝
-async function doLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pwd   = document.getElementById('loginPwd').value;
-  if (!email || !pwd) return showLoginError('Veuillez remplir tous les champs.');
-
-  document.getElementById('btnLogin').disabled = true;
-  document.getElementById('loginLoading').style.display = 'block';
-  document.getElementById('loginError').style.display = 'none';
-
-  const { data, error } = await sb.auth.signInWithPassword({ email, password: pwd });
-
-  if (error) {
-    showLoginError(error.message === 'Invalid login credentials'
-      ? 'Email ou mot de passe incorrect.' : 'Erreur de connexion. Réessayez.');
-    document.getElementById('btnLogin').disabled = false;
-    document.getElementById('loginLoading').style.display = 'none';
-    return;
-  }
-  S.user = data.user;
-  await afterLogin();
-  document.getElementById('btnLogin').disabled = false;
-  document.getElementById('loginLoading').style.display = 'none';
-}
+// ════════════════════════════════════════════════════════
+// AUTH — version simplifiée, sans double déclenchement
+// ════════════════════════════════════════════════════════
 
 function showLoginError(msg) {
   const el = document.getElementById('loginError');
   el.textContent = msg; el.style.display = 'block';
 }
 
-async function afterLogin() {
-  // Récupérer le profil — avec fallback si RLS bloque
+function setLoginBusy(busy) {
+  document.getElementById('btnLogin').disabled = busy;
+  document.getElementById('loginLoading').style.display = busy ? 'block' : 'none';
+}
+
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pwd   = document.getElementById('loginPwd').value;
+  if (!email || !pwd) return showLoginError('Veuillez remplir tous les champs.');
+
+  setLoginBusy(true);
+  document.getElementById('loginError').style.display = 'none';
+
+  try {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pwd });
+    if (error) {
+      showLoginError(error.message === 'Invalid login credentials'
+        ? 'Email ou mot de passe incorrect.' : 'Erreur : ' + error.message);
+      setLoginBusy(false);
+      return;
+    }
+    // Succès — on redirige manuellement (pas via onAuthStateChange)
+    S.user = data.user;
+    await redirect();
+  } catch(e) {
+    showLoginError('Erreur inattendue : ' + e.message);
+    setLoginBusy(false);
+  }
+}
+
+async function redirect() {
+  // 1. Récupérer le profil
   let profile = null;
   try {
-    const { data, error } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
-    if (!error) profile = data;
+    const { data } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
+    profile = data;
   } catch(e) {}
 
-  // Fallback : construire un profil minimal depuis les métadonnées auth
+  // 2. Fallback si profil absent
   if (!profile) {
-    const meta = S.user.user_metadata || {};
     profile = {
       id: S.user.id,
-      prenom: meta.prenom || S.user.email.split('@')[0],
-      nom: meta.nom || '',
+      prenom: S.user.email.split('@')[0],
+      nom: '',
       email: S.user.email,
       role: 'user'
     };
-    // Tenter d'insérer le profil manquant
-    try {
-      await sb.from('profiles').upsert(profile, { onConflict: 'id' });
-      // Re-lire pour avoir le vrai rôle éventuellement défini en base
-      const { data: refetch } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
-      if (refetch) profile = refetch;
-    } catch(e) {}
+    try { await sb.from('profiles').upsert(profile, { onConflict: 'id' }); } catch(e) {}
   }
 
   S.profile = profile;
-  document.getElementById('navName').textContent = (profile.prenom || '') + ' ' + (profile.nom || '');
+
+  // 3. Afficher la nav
+  document.getElementById('navName').textContent =
+    (profile.prenom || '') + ' ' + (profile.nom || '');
   document.getElementById('mainNav').style.display = 'flex';
 
-  // Récupérer la progression
-  await loadProgress();
+  // 4. Charger progression
+  try {
+    const { data } = await sb.from('progress').select('*').eq('user_id', S.user.id);
+    S.progress = {};
+    (data || []).forEach(row => {
+      S.progress[row.module_id] = {
+        step: row.step_completed, score: row.score,
+        badge: row.badge, lastUpdated: row.last_updated
+      };
+    });
+  } catch(e) { S.progress = {}; }
 
-  // Redirection selon le rôle
+  // 5. Naviguer
+  setLoginBusy(false);
   if (profile.role === 'admin') {
     await loadAdminDashboard();
     showScreen('screenAdmin');
@@ -764,10 +780,8 @@ async function loadProgress() {
     S.progress = {};
     (data || []).forEach(row => {
       S.progress[row.module_id] = {
-        step: row.step_completed,
-        score: row.score,
-        badge: row.badge,
-        lastUpdated: row.last_updated
+        step: row.step_completed, score: row.score,
+        badge: row.badge, lastUpdated: row.last_updated
       };
     });
   } catch(e) { S.progress = {}; }
@@ -782,50 +796,36 @@ async function logout() {
   showScreen('screenLogin');
 }
 
-// Auto-login via session Supabase
-// ── Auth : écoute tous les changements de session ─────
-sb.auth.onAuthStateChange(async (event, session) => {
-  hideLoader();
-  if (session) {
-    S.user = session.user;
-    // Toujours tenter la redirection automatique
-    await afterLogin();
-  } else {
-    S.user = null;
-    S.profile = null;
-  }
-});
-
-// ── Fallback : vérifier session au chargement ──────────
+// Restaurer session au chargement (refresh de page)
 window.addEventListener('load', async () => {
-  setTimeout(hideLoader, 4000); // sécurité max 4s
+  // Masquer loader après 5s max
+  setTimeout(() => {
+    const l = document.getElementById('appLoader');
+    if (l) { l.classList.add('hidden'); l.style.display = 'none'; }
+  }, 5000);
+
   try {
     const { data: { session } } = await sb.auth.getSession();
     if (session) {
       S.user = session.user;
-      await afterLogin();
+      await redirect();
     }
-  } catch(e) { console.warn('Session check failed:', e); }
-  hideLoader();
+  } catch(e) {}
+
+  // Masquer le loader
+  const loader = document.getElementById('appLoader');
+  if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.style.display = 'none', 400); }
 });
 
-function hideLoader() {
-  const loader = document.getElementById('appLoader');
-  if (loader && !loader.classList.contains('hidden')) {
-    loader.classList.add('hidden');
-    setTimeout(() => { loader.style.display = 'none'; }, 400);
-  }
-}
-
-// ── Vérification toutes les 3s : si connecté mais sur login → bouton secours
-setInterval(async () => {
+// Bouton secours : apparaît si toujours sur login après 4s avec session active
+setTimeout(async () => {
   try {
     const { data: { session } } = await sb.auth.getSession();
     const onLogin = document.getElementById('screenLogin')?.classList.contains('active');
-    const emergency = document.getElementById('emergencyNav');
-    if (session && onLogin && emergency) {
+    if (session && onLogin) {
       S.user = session.user;
-      emergency.style.display = 'block';
+      const em = document.getElementById('emergencyNav');
+      if (em) em.style.display = 'block';
     }
   } catch(e) {}
 }, 3000);
