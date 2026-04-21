@@ -768,11 +768,11 @@ async function redirect() {
     });
   } catch(e) { S.progress = {}; }
 
-  // 5. Naviguer
+  // 5. Naviguer — showScreen d'abord, charger les données ensuite
   setLoginBusy(false);
   if (profile.role === 'admin') {
-    await loadAdminDashboard();
     showScreen('screenAdmin');
+    loadAdminDashboard(); // pas de await — ne bloque pas l'affichage
   } else {
     renderHome();
     showScreen('screenHome');
@@ -1296,32 +1296,39 @@ function downloadBadge(){const a=document.createElement('a');a.download='badge-i
 // ║  ADMIN DASHBOARD                                     ║
 // ╚══════════════════════════════════════════════════════╝
 async function loadAdminDashboard() {
-  // Récupérer tous les profils users
-  const { data: profiles } = await sb.from('profiles').select('*').eq('role','user');
-  // Récupérer toute la progression
-  const { data: allProgress } = await sb.from('progress').select('*');
+  try {
+    const { data: profiles } = await sb.from('profiles').select('*');
+    const { data: allProgress } = await sb.from('progress').select('*');
 
-  const matrix = {};
-  (allProgress || []).forEach(row => {
-    if (!matrix[row.user_id]) matrix[row.user_id] = {};
-    matrix[row.user_id][row.module_id] = {
-      step: row.step_completed, score: row.score,
-      badge: row.badge, lastUpdated: row.last_updated
-    };
-  });
+    const matrix = {};
+    (allProgress || []).forEach(row => {
+      if (!matrix[row.user_id]) matrix[row.user_id] = {};
+      matrix[row.user_id][row.module_id] = {
+        step: row.step_completed, score: row.score,
+        badge: row.badge, lastUpdated: row.last_updated
+      };
+    });
 
-  S.adminData = (profiles || []).map(u => {
-    const prog = matrix[u.id] || {};
-    const modulesStarted = Object.keys(prog).length;
-    const badgesGold   = Object.values(prog).filter(p => p.badge === 'gold').length;
-    const badgesSilver = Object.values(prog).filter(p => p.badge === 'silver').length;
-    const badgesBronze = Object.values(prog).filter(p => p.badge === 'bronze').length;
-    return { ...u, modulesStarted, totalBadges: badgesGold+badgesSilver+badgesBronze, badgesGold, badgesSilver, badgesBronze, progress: prog };
-  });
+    S.adminData = (profiles || [])
+      .filter(u => u.id !== S.user.id) // exclure l'admin lui-même
+      .map(u => {
+        const prog = matrix[u.id] || {};
+        const modulesStarted = Object.keys(prog).length;
+        const badgesGold   = Object.values(prog).filter(p => p.badge === 'gold').length;
+        const badgesSilver = Object.values(prog).filter(p => p.badge === 'silver').length;
+        const badgesBronze = Object.values(prog).filter(p => p.badge === 'bronze').length;
+        return { ...u, modulesStarted, totalBadges: badgesGold+badgesSilver+badgesBronze, badgesGold, badgesSilver, badgesBronze, progress: prog };
+      });
 
-  renderAdminOverview();
-  renderUserSelect();
-  await loadUsersList();
+    renderAdminOverview();
+    renderUserSelect();
+    await loadUsersList();
+  } catch(e) {
+    console.warn('loadAdminDashboard error:', e);
+    S.adminData = [];
+    // Afficher quand même le dashboard vide plutôt que bloquer
+    renderAdminOverview();
+  }
 }
 
 function renderAdminOverview() {
