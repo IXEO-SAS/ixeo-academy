@@ -50,8 +50,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;}
 
 /* ===== SCREENS ===== */
-.screen{display:none;}
-.screen.active{display:block;}
+.screen{display:none !important;}
+.screen.active{display:block !important;}
+#screenLogin.active{display:flex !important;}
 
 /* ===== NAV ===== */
 nav{
@@ -83,7 +84,7 @@ nav{
 
 /* ===== LOGIN ===== */
 #screenLogin{
-  display:flex;align-items:center;justify-content:center;min-height:100vh;
+  align-items:center;justify-content:center;min-height:100vh;
   background:linear-gradient(135deg,var(--ink) 0%,var(--ink-2) 50%,var(--ink-3) 100%);
   position:relative;overflow:hidden;
 }
@@ -481,7 +482,7 @@ tr:hover td{background:var(--bg);}
 </nav>
 
 <!-- ════════ LOGIN ════════ -->
-<div id="screenLogin" class="screen" style="display:flex;">
+<div id="screenLogin" class="screen active">
   <div class="login-box">
     <div class="login-logo">
       <div class="brand">mooc.<span>ixeo</span>.academy</div>
@@ -1468,11 +1469,14 @@ async function goToDashboard(dest) {
 // ║  UTILS                                               ║
 // ╚══════════════════════════════════════════════════════╝
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); s.style.display=''; });
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active');
+    s.style.display = 'none'; // forcer none sur tous
+  });
   const el = document.getElementById(id);
   el.classList.add('active');
-  el.style.display = id==='screenLogin' ? 'flex' : 'block';
-  window.scrollTo(0,0);
+  el.style.display = id === 'screenLogin' ? 'flex' : 'block';
+  window.scrollTo(0, 0);
 }
 </script>
 </body>
