@@ -507,13 +507,7 @@ tr:hover td{background:var(--bg);}
         <button onclick="goToDashboard('home')" style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:99px;padding:0.55rem 1.1rem;font-size:0.82rem;font-weight:600;cursor:pointer;">Catalogue cours</button>
       </div>
     </div>
-    <div id="emergencyNav" style="display:none;margin-top:1rem;text-align:center;">
-      <div style="color:rgba(255,255,255,0.5);font-size:0.75rem;margin-bottom:0.6rem;">Vous êtes connecté — choisissez votre destination :</div>
-      <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
-        <button onclick="forceGo('admin')" style="background:var(--amber);color:#000;border:none;border-radius:99px;padding:0.5rem 1rem;font-size:0.8rem;font-weight:700;cursor:pointer;">→ Dashboard Admin</button>
-        <button onclick="forceGo('home')" style="background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:99px;padding:0.5rem 1rem;font-size:0.8rem;font-weight:600;cursor:pointer;">→ Catalogue cours</button>
-      </div>
-    </div>
+
   </div>
 </div>
 
@@ -733,9 +727,6 @@ async function redirect() {
     profile = data;
     profileError = error;
   } catch(e) { profileError = e; }
-
-  // DEBUG — à retirer après diagnostic
-  alert('PROFIL: ' + JSON.stringify(profile) + '\nERREUR: ' + JSON.stringify(profileError) + '\nUSER ID: ' + S.user?.id);
 
   // 2. Fallback si profil absent
   if (!profile) {
