@@ -470,7 +470,7 @@ tr:hover td{background:var(--bg);}
 
 <!-- NAV -->
 <nav id="mainNav" style="display:none;">
-  <div class="nav-logo">
+  <div class="nav-logo" onclick="handleLogoClick()" style="cursor:pointer;" title="Accueil">
     <div class="nav-logo-dot"></div>
     mooc.<span>ixeo</span>.academy
   </div>
@@ -499,6 +499,13 @@ tr:hover td{background:var(--bg);}
     <button class="btn-login" id="btnLogin" onclick="doLogin()">Se connecter</button>
     <div class="login-error" id="loginError"></div>
     <div class="login-loading" id="loginLoading"><span class="spinner"></span> Connexion en cours…</div>
+    <div id="emergencyNav" style="display:none;margin-top:1rem;text-align:center;">
+      <div style="color:rgba(255,255,255,0.5);font-size:0.75rem;margin-bottom:0.6rem;">Vous êtes connecté — choisissez votre destination :</div>
+      <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
+        <button onclick="forceGo('admin')" style="background:var(--amber);color:#000;border:none;border-radius:99px;padding:0.5rem 1rem;font-size:0.8rem;font-weight:700;cursor:pointer;">→ Dashboard Admin</button>
+        <button onclick="forceGo('home')" style="background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:99px;padding:0.5rem 1rem;font-size:0.8rem;font-weight:600;cursor:pointer;">→ Catalogue cours</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -768,16 +775,32 @@ async function logout() {
 }
 
 // Auto-login via session Supabase
-window.addEventListener('load', async () => {
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
+// ── Écouteur auth natif Supabase ──────────────────────
+// Se déclenche à chaque changement d'état (login, logout, restore de session)
+let _authHandled = false;
+
+sb.auth.onAuthStateChange(async (event, session) => {
+  const loader = document.getElementById('appLoader');
+
+  if (session && !_authHandled) {
+    _authHandled = true;
     S.user = session.user;
     await afterLogin();
+    // Masquer le loader après redirection
+    if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.style.display = 'none', 400); }
+  } else if (!session) {
+    _authHandled = false;
+    // Masquer le loader et rester sur login
+    if (loader) { loader.classList.add('hidden'); setTimeout(() => loader.style.display = 'none', 400); }
   }
-  // Masquer le loader
-  const loader = document.getElementById('appLoader');
-  loader.classList.add('hidden');
-  setTimeout(() => loader.style.display = 'none', 500);
+});
+
+// Sécurité : masquer le loader au bout de 5s quoi qu'il arrive
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('appLoader');
+    if (loader) { loader.classList.add('hidden'); loader.style.display = 'none'; }
+  }, 5000);
 });
 
 // ╔══════════════════════════════════════════════════════╗
@@ -1370,6 +1393,45 @@ function adminTab(tab) {
   document.getElementById('tab-'+tab).classList.add('active');
   if (tab==='detail') renderDetailTable();
 }
+
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  NAVIGATION HELPERS                                  ║
+// ╚══════════════════════════════════════════════════════╝
+function handleLogoClick() {
+  if (!S.user) return;
+  if (S.profile?.role === 'admin') {
+    showScreen('screenAdmin');
+  } else {
+    renderHome();
+    showScreen('screenHome');
+  }
+}
+
+async function forceGo(dest) {
+  if (!S.user) return;
+  if (!S.profile) {
+    const { data } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
+    S.profile = data;
+  }
+  await loadProgress();
+  if (dest === 'admin') {
+    await loadAdminDashboard();
+    showScreen('screenAdmin');
+  } else {
+    renderHome();
+    showScreen('screenHome');
+  }
+}
+
+// Afficher le bouton de secours si session active mais écran login visible
+setInterval(() => {
+  const loginVisible = document.getElementById('screenLogin')?.classList.contains('active');
+  const emergency = document.getElementById('emergencyNav');
+  if (loginVisible && S.user && emergency) {
+    emergency.style.display = 'block';
+  }
+}, 2000);
 
 // ╔══════════════════════════════════════════════════════╗
 // ║  UTILS                                               ║
