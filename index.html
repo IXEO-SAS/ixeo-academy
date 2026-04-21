@@ -700,16 +700,41 @@ function showLoginError(msg) {
 }
 
 async function afterLogin() {
-  // Récupérer le profil
-  const { data: profile } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
+  // Récupérer le profil — avec fallback si RLS bloque
+  let profile = null;
+  try {
+    const { data, error } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
+    if (!error) profile = data;
+  } catch(e) {}
+
+  // Fallback : construire un profil minimal depuis les métadonnées auth
+  if (!profile) {
+    const meta = S.user.user_metadata || {};
+    profile = {
+      id: S.user.id,
+      prenom: meta.prenom || S.user.email.split('@')[0],
+      nom: meta.nom || '',
+      email: S.user.email,
+      role: 'user'
+    };
+    // Tenter d'insérer le profil manquant
+    try {
+      await sb.from('profiles').upsert(profile, { onConflict: 'id' });
+      // Re-lire pour avoir le vrai rôle éventuellement défini en base
+      const { data: refetch } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
+      if (refetch) profile = refetch;
+    } catch(e) {}
+  }
+
   S.profile = profile;
-  document.getElementById('navName').textContent = (profile?.prenom || '') + ' ' + (profile?.nom || '');
+  document.getElementById('navName').textContent = (profile.prenom || '') + ' ' + (profile.nom || '');
   document.getElementById('mainNav').style.display = 'flex';
 
   // Récupérer la progression
   await loadProgress();
 
-  if (profile?.role === 'admin') {
+  // Redirection selon le rôle
+  if (profile.role === 'admin') {
     await loadAdminDashboard();
     showScreen('screenAdmin');
   } else {
@@ -719,16 +744,18 @@ async function afterLogin() {
 }
 
 async function loadProgress() {
-  const { data } = await sb.from('progress').select('*').eq('user_id', S.user.id);
-  S.progress = {};
-  (data || []).forEach(row => {
-    S.progress[row.module_id] = {
-      step: row.step_completed,
-      score: row.score,
-      badge: row.badge,
-      lastUpdated: row.last_updated
-    };
-  });
+  try {
+    const { data } = await sb.from('progress').select('*').eq('user_id', S.user.id);
+    S.progress = {};
+    (data || []).forEach(row => {
+      S.progress[row.module_id] = {
+        step: row.step_completed,
+        score: row.score,
+        badge: row.badge,
+        lastUpdated: row.last_updated
+      };
+    });
+  } catch(e) { S.progress = {}; }
 }
 
 async function logout() {
