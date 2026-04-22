@@ -647,7 +647,7 @@ const MODULES = [
   {id:1, name:"Écrans tactiles interactifs",        family:1, available:true},
   {id:2, name:"Affichage dynamique : Signage",       family:1, available:true},
   {id:3, name:"Affichage dynamique : Kiosk",         family:1, available:true},
-  {id:4, name:"Protection des données (sauvegarde)", family:2, available:false},
+  {id:4, name:"Protection des données (sauvegarde)", family:2, available:true},
   {id:5, name:"Les bases d'un réseau",               family:2, available:false},
   {id:6, name:"Étude parc informatique & réseau",    family:2, available:false},
   {id:7, name:"Les équipements réseaux",             family:2, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()));
-  else if (step === 2) content.innerHTML = S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()));
-  else if (step === 3) content.innerHTML = S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()));
-  else if (step === 4) content.innerHTML = S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()));
-  else if (step === 5) content.innerHTML = S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))); }
+  if      (step === 1) content.innerHTML = S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())));
+  else if (step === 2) content.innerHTML = S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())));
+  else if (step === 3) content.innerHTML = S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())));
+  else if (step === 4) content.innerHTML = S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())));
+  else if (step === 5) content.innerHTML = S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -2083,6 +2083,246 @@ function renderStep5_M1(){
     {icon:'\u{1F4CB}',name:'Comparatif ecran interactif vs alternatives',note:'Ecran vs TV, videoprojecteur, tablette, PC',url:'#'}
   ];
   var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos rendez-vous ecrans tactiles interactifs.</p><div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
+    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }
+  html+='</div></div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+
+
+// 
+// MODULE 4 - PROTECTION DES DONNEES : SAUVEGARDE BEEMO / BEEHIVE
+
+const QUESTIONS_M4 = [
+  {q:"Qu'est-ce que la regle du 3-2-1 en matiere de sauvegarde ?",opts:["3 serveurs, 2 logiciels, 1 cloud","3 copies des donnees sur 2 supports differents dont 1 copie externalisee","3 sauvegardes par semaine, 2 restaurations testees, 1 responsable","3 boitiers, 2 sites, 1 antivirus"],c:1,fb:"La regle 3-2-1 est le standard de la sauvegarde fiable : 3 copies des donnees, sur 2 supports differents, dont au moins 1 copie externalisee geographiquement. C'est exactement ce que font les solutions Beemo."},
+  {q:"Quelle est la difference principale entre Beemo2Beemo et Beemo2BeeHive ?",opts:["Beemo2Beemo est plus cher","Beemo2Beemo replique les donnees sur un 2e boitier sur site distant (pas de cloud), Beemo2BeeHive externalise dans le cloud IXEO","Beemo2BeeHive necessite un deuxieme site physique","Il n'y a aucune difference"],c:1,fb:"Beemo2Beemo = sauvegarde 100% locale sur 2 boitiers situes sur 2 sites de l'entreprise. Beemo2BeeHive = boitier local + externalisation cloud dans l'infrastructure IXEO/BeeHive. Les donnees ne quittent jamais l'entreprise avec Beemo2Beemo."},
+  {q:"Qu'est-ce que la solution BeeHive ?",opts:["Un boitier de sauvegarde physique","Une solution de sauvegarde 100% externalisee en cloud, hebergee chez IXEO en tant que MSP certifie Beemo","Un antivirus","Un firewall"],c:1,fb:"BeeHive est la solution 100% cloud : pas de boitier physique chez le client. Les donnees sont sauvegardees directement dans l'infrastructure cloud d'IXEO (MSP certifie Beemo) sur deux sites distants."},
+  {q:"Pourquoi un ransomware ne peut-il pas chiffrer les sauvegardes Beemo ?",opts:["La Beemo est dans un coffre-fort physique","Les sauvegardes utilisent un protocole proprietaire avec authentification qui ne permet que d'envoyer des blocs -- acces direct impossible","La Beemo est protegee par un antivirus","Les fichiers sont stockes en lecture seule"],c:1,fb:"Le protocole proprietaire Beemo ne permet que d'envoyer des blocs au boitier. Il ne permet pas d'acceder a l'espace de stockage pour modifier les blocs existants. Les utilisateurs n'ont aucun droit sur l'espace de stockage -- le ransomware ne peut donc jamais toucher les sauvegardes."},
+  {q:"Qu'est-ce que la restauration 'Flash Rescue' de la Beemo ?",opts:["Une restauration par cle USB","Une restauration instantanee permettant de demarrer un poste ou serveur de remplacement depuis la Beemo sans reinstallation","Un service de restauration facturee en urgence","Une sauvegarde flash toutes les 5 minutes"],c:1,fb:"Le Flash Rescue permet de demarrer instantanement un poste ou serveur de remplacement directement depuis la Beemo, sans reinstallation d'OS ni de logiciels. C'est l'argument PRA (Plan de Reprise d'Activite) le plus puissant."},
+  {q:"Qu'est-ce que la sauvegarde a chaud de bases de donnees SQL ?",opts:["La sauvegarde se fait uniquement la nuit quand la base est froide","La sauvegarde se fait pendant que la base est en production, sans interruption de service","La base de donnees est copiee manuellement","La base de donnees est exportee en CSV"],c:1,fb:"La sauvegarde a chaud SQL signifie que la base de donnees est sauvegardee pendant son utilisation en production, sans aucune interruption de service. Fondamental pour les clients avec un ERP, un logiciel metier ou une base de donnees active en permanence."},
+  {q:"Que perdent les clients avec une licence Beemo2Beemo expiree (licence inactive) ?",opts:["Ils perdent tout -- sauvegarde et restauration arretent","Ils conservent sauvegarde/restauration et suivi local mais perdent : support technique, agents nomades, alertes/rapports, connexion a distance, MAJ logiciel, antivirus Sophos et console supervision","Rien ne change","Seule la console de supervision est coupee"],c:1,fb:"Avec une licence inactive : la sauvegarde et restauration de base fonctionnent encore, mais 7 fonctionnalites critiques tombent : support technique, agents nomades, alertes quotidiennes, connexion a distance, mises a jour, antivirus Sophos integre et console de supervision."},
+  {q:"Quel est l'argument ROI principal de la sauvegarde Beemo face a la non-sauvegarde ?",opts:["La sauvegarde est obligatoire par la loi","60% des entreprises qui perdent leurs donnees critiques sans sauvegarde fiable ferment dans les 6 mois","La sauvegarde est deductible fiscalement","Les donnees perdurent 10 ans sans sauvegarde"],c:1,fb:"La statistique cle : 60% des entreprises qui perdent leurs donnees vitales ferment dans les 6 mois. Ce chiffre est le plus puissant pour mettre en perspective le cout d'une solution de sauvegarde."},
+  {q:"Qu'est-ce que le Fast Audit Beemo disponible sur l'URL IXEO ?",opts:["Un audit de secu reseau","Un questionnaire de 10 questions qui evalue en 2 minutes la fiabilite de la sauvegarde existante et genere un rapport instantane","Un test de vitesse de restauration","Un devis automatique"],c:1,fb:"Le Fast Audit est un outil Beemo de qualification en ligne : 10 questions, 2 minutes, rapport instantane sur la fiabilite de la sauvegarde actuelle. C'est l'outil d'entree en relation ideal -- le client fait lui-meme le diagnostic."},
+  {q:"Quelle est la particularite de la sauvegarde MS Exchange sur la Beemo ?",opts:["Elle ne sauvegarde que les pieces jointes","Elle sauvegarde feuille a feuille, permettant de restaurer un email individuel sans restaurer toute la boite","Elle necessite un serveur Exchange dedie","Elle exporte les emails en PDF"],c:1,fb:"La sauvegarde Exchange feuille a feuille (brick-level) permet de restaurer un email unique, un contact, un calendrier ou un dossier specifique sans avoir a restaurer l'integralite de la boite Exchange. Argument tres puissant pour les PME sous Exchange."},
+  {q:"Quelle est la solution recommandee pour un client avec deux sites de production et qui souhaite garder le controle total de ses donnees en interne ?",opts:["BeeHive","Beemo2Beemo","Beemo2BeeHive","Un NAS classique"],c:1,fb:"Beemo2Beemo est la solution ideale pour les clients multi-sites qui ne veulent pas que leurs donnees sortent de l'entreprise. La Beemo principale sauvegarde sur site 1, et les donnees sont repliquees sur la Beemo secondaire sur site 2 -- 100% local, 0 cloud tiers."},
+  {q:"IXEO s'engage contractuellement a quoi en cas de sinistre avec la solution BeeHive ?",opts:["A payer les dommages du sinistre","A restituer toutes les donnees securisees dans une nouvelle Beemo","A fournir un PC de remplacement","A envoyer un technicien dans la journee"],c:1,fb:"IXEO s'engage contractuellement a restituer toutes les donnees securisees dans une nouvelle Beemo en cas de sinistre. C'est un engagement fort qui differencie la solution BeeHive d'une simple copie cloud sans garantie de restauration."},
+  {q:"Que couvre la 'decharge de responsabilite revendeur' fournie dans nos outils commerciaux ?",opts:["Elle couvre IXEO en cas de cyberattaque","Elle permet de documenter formellement qu'un client a refuse de renouveler son boitier hors garantie ou sature, et decharge IXEO/revendeur de toute responsabilite en cas de perte de donnees","Elle remplace le contrat de maintenance","Elle couvre les dommages materiels"],c:1,fb:"La decharge de responsabilite est un outil CYA (Cover Your Assets) : quand un client refuse de renouveler sa Beemo hors garantie ou a capacite saturee, ce document formalise sa decision et decharge le revendeur de toute responsabilite en cas de sinistre."},
+  {q:"Quelle fonctionnalite Beemo permet la continuite d'activite en cas de panne complete d'un serveur ?",opts:["La restauration selective","Flash Rescue -- demarrage instantane depuis la Beemo sur materiel de remplacement","La sauvegarde a chaud","Le versioning illimite"],c:1,fb:"Flash Rescue permet de demarrer directement depuis la Beemo sur un materiel de remplacement (bare metal recovery). Le serveur repart comme s'il n'avait jamais ete en panne. C'est le meilleur argument PRA pour une PME."},
+  {q:"Quelle solution Beemo convient a un client TPE sans deuxieme site, qui veut une sauvegarde simple et entierement geree par IXEO ?",opts:["Beemo2Beemo","BeeHive","Beemo2BeeHive","Un NAS Synology"],c:1,fb:"BeeHive est la solution ideale pour les TPE sans deuxieme site : pas de boitier a gerer, sauvegarde cloud directe hebergee chez IXEO, surveillance par les equipes IXEO, alerte email en cas de probleme. Simple, fiable, sans infrastructure."}
+];
+
+function renderStep1_M4() {
+  var ch = [
+    ["Pourquoi la sauvegarde est le sujet le plus urgent",
+     "<p>La perte de donnees est une des premieres causes de disparition d'entreprise. Les chiffres sont sans appel.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">60%</div><div class=\"info-val\">des entreprises qui perdent leurs donnees critiques ferment dans les 6 mois</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">93%</div><div class=\"info-val\">des entreprises ayant subi une perte massive de donnees disparaissent dans les 5 ans</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">1 PME sur 2</div><div class=\"info-val\">est victime d'une cyberattaque chaque annee en France</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">21 jours</div><div class=\"info-val\">c'est la duree moyenne d'arret d'activite apres une attaque ransomware sans sauvegarde fiable</div></div>"
+     + "</div>"
+     + "<h4>Les risques reels que subissent vos clients</h4>"
+     + "<p>- Ransomware : les fichiers sont chiffres, l'entreprise est bloquee, rancon demandee</p>"
+     + "<p>- Panne materielle : disque dur, RAID, serveur -- la panne arrive toujours au pire moment</p>"
+     + "<p>- Mauvaise manipulation : suppression accidentelle d'un fichier, d'un dossier, d'une base de donnees</p>"
+     + "<p>- Vol ou incendie : le NAS et le disque dur externe brulent avec le reste</p>"
+     + "<p>- Coupure de courant / foudre : le serveur grille, les donnees sont inaccessibles</p>"
+     + "<div class=\"warn-box\">Le disque dur externe dans le tiroir du patron n'est PAS une sauvegarde. Le NAS dans la meme piece que le serveur n'est PAS une sauvegarde. La cle USB qu'on oublie de brancher n'est PAS une sauvegarde.</div>"
+     + "<h4>La regle du 3-2-1 -- le standard de la sauvegarde fiable</h4>"
+     + "<p>- <strong>3 copies</strong> des donnees</p>"
+     + "<p>- sur <strong>2 supports differents</strong></p>"
+     + "<p>- dont au moins <strong>1 copie externalisee</strong> geographiquement</p>"
+     + "<div class=\"key-box\">Beemo est la seule solution qui applique nativement la regle 3-2-1 pour les TPE/PME, sans infrastructure complexe et sans supervision de l'entreprise.</div>"
+    ],
+    ["Beemo : l'editeur et la philosophie",
+     "<p><strong>Beemo Technologie</strong> est un editeur francais 100% dedie a la sauvegarde de donnees pour les TPE, PME et ETI. Societe fondee il y a plus de 20 ans, basee en France, avec plus de 500 clients et plusieurs petaoctets de donnees sauvegardees.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Editeur</div><div class=\"info-val\">Beemo Technologie -- 100% francais, specialiste sauvegarde</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Support</div><div class=\"info-val\">0 800 711 500 -- gratuit, lun-ven 9h-12h/14h-18h</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Engagement</div><div class=\"info-val\">Controle quotidien des sauvegardes par les equipes techniques</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">IXEO</div><div class=\"info-val\">MSP certifie Beemo, revendeur et installateur agre</div></div>"
+     + "</div>"
+     + "<h4>Ce qui differencie Beemo de la concurrence</h4>"
+     + "<p>- Protocole proprietaire invisible aux ransomwares (voir chapitre dedie)</p>"
+     + "<p>- Surveillance active des sauvegardes par les equipes Beemo et IXEO (pas juste un outil qu'on laisse tourner)</p>"
+     + "<p>- Restauration Flash Rescue : demarrage instantane depuis la Beemo en cas de sinistre</p>"
+     + "<p>- Sauvegarde a chaud : SQL, machines virtuelles, Exchange feuille a feuille -- sans interruption de service</p>"
+     + "<p>- Engagement contractuel de restitution des donnees</p>"
+     + "<p>- Aucune supervision requise du client -- IXEO gere tout</p>"
+     + "<div class=\"key-box\">Argument cle : 'Vos donnees sont surveillees chaque jour par nos equipes. Si une sauvegarde echoue, nous le savons avant vous.'</div>"
+    ],
+    ["Les 3 solutions IXEO : choisir selon le profil client",
+     "<h4>Solution 1 -- Beemo2Beemo : sauvegarde 100% locale multi-sites</h4>"
+     + "<p>Le client possede deux sites. La Beemo principale sauvegarde les postes et serveurs du site 1. Les donnees sont ensuite repliquees automatiquement sur une Beemo secondaire situee sur le site 2 de l'entreprise. Zero cloud tiers, zero operateur externe -- les donnees ne quittent jamais l'entreprise.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Profil ideal</div><div class=\"info-val\">Client avec 2 sites de production (siege + agence, magasin + entrepot...)</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Point fort</div><div class=\"info-val\">Controle total des donnees -- zero hebergement externe</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Modele</div><div class=\"info-val\">Achat du boitier + licence annuelle (sans abonnement cloud)</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Configuration</div><div class=\"info-val\">Modulable -- plusieurs Beemo peuvent se sauvegarder les unes sur les autres</div></div>"
+     + "</div>"
+     + "<h4>Solution 2 -- Beemo2BeeHive : boitier local + cloud IXEO</h4>"
+     + "<p>Un boitier Beemo est installe chez le client. Il sauvegarde localement les postes et serveurs. Les donnees sont ensuite automatiquement repliquees dans le cloud IXEO (infrastructure BeeHive) sur deux sites distants. Sauvegarde hybride : locale pour la rapidite, cloud pour la securite en cas de sinistre total.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Profil ideal</div><div class=\"info-val\">Client avec un seul site, qui veut une securite maximale avec externalisation cloud</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Point fort</div><div class=\"info-val\">Restauration locale rapide (boitier) + securite cloud en cas de sinistre (incendie, inondation, vol)</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Modele</div><div class=\"info-val\">Achat du boitier + licence cloud mensuelle ou annuelle</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Engagement IXEO</div><div class=\"info-val\">Restitution contractuelle des donnees dans une nouvelle Beemo en cas de sinistre</div></div>"
+     + "</div>"
+     + "<h4>Solution 3 -- BeeHive : sauvegarde 100% cloud IXEO</h4>"
+     + "<p>Pas de boitier physique chez le client. Les postes et serveurs sauvegardent directement dans l'infrastructure cloud d'IXEO (MSP certifie Beemo), repliquee sur deux sites distants. Surveillance, alertes et mises a jour assures par IXEO. La solution la plus simple a deployer.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Profil ideal</div><div class=\"info-val\">TPE sans deuxieme site, qui veut une sauvegarde fiable sans infrastructure a gerer</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Point fort</div><div class=\"info-val\">Zero materiel, zero maintenance, deploiement en quelques heures</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Modele</div><div class=\"info-val\">Abonnement mensuel tout inclus -- aucun investissement initial</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Sauvegarde M365</div><div class=\"info-val\">Inclut la sauvegarde OneDrive, Mails et SharePoint Microsoft 365</div></div>"
+     + "</div>"
+     + "<div class=\"key-box\">Regle de choix rapide : 2 sites -> Beemo2Beemo. 1 site + securite max -> Beemo2BeeHive. TPE sans infra -> BeeHive.</div>"
+    ],
+    ["Les fonctionnalites techniques cles",
+     "<h4>Sauvegarde a chaud -- sans interruption de service</h4>"
+     + "<p>- <strong>Bases de donnees SQL</strong> : sauvegarde pendant que la base tourne en production -- aucune interruption, aucune perte de transaction</p>"
+     + "<p>- <strong>Machines virtuelles</strong> : sauvegarde des VM Hyper-V et VMware a chaud -- le serveur continue de fonctionner pendant la sauvegarde</p>"
+     + "<p>- <strong>MS Exchange feuille a feuille</strong> : restauration d'un email individuel, d'un contact ou d'un calendrier sans avoir a restaurer toute la boite Exchange</p>"
+     + "<h4>Versioning illimite</h4>"
+     + "<p>Chaque version sauvegardee est conservee selon le parametrage (ex : 30 versions = 30 jours de profondeur). En cas de corruption silencieuse d'un fichier, on peut remonter jusqu'a la derniere version saine. Fondamental face aux ransomwares qui agissent parfois en silence avant de se declencher.</p>"
+     + "<h4>Flash Rescue -- Plan de reprise d'activite</h4>"
+     + "<p>En cas de panne complete d'un poste ou serveur, Flash Rescue permet de demarrer instantanement depuis la Beemo sur un materiel de remplacement, sans reinstallation de l'OS ni des logiciels. L'entreprise reprend son activite en quelques minutes, pas en quelques jours.</p>"
+     + "<h4>Protection anti-ransomware</h4>"
+     + "<p>La sauvegarde utilise un protocole proprietaire Beemo avec authentification. Ce protocole ne permet que d'envoyer des blocs au boitier -- il est impossible d'acceder a l'espace de stockage pour modifier les blocs existants. Les utilisateurs n'ont aucun droit sur cet espace. Un ransomware ne peut donc jamais chiffrer les sauvegardes Beemo -- des centaines de ransomwares ont ete executes sur des reseaux Beemo, aucun n'a pu toucher les sauvegardes.</p>"
+     + "<div class=\"key-box\">Point d'attention si le client a l'option NAS sur la Beemo : la partie NAS utilise un protocole standard (SMB/CIFS) qui peut etre atteint par les ransomwares. La partie NAS doit imperativement etre sauvegardee via un jeu de sauvegarde dedie.</div>"
+     + "<h4>Alertes et supervision</h4>"
+     + "<p>Avec une licence active : alertes et rapports quotidiens par email, connexion a distance a la Beemo, antivirus Sophos integre, mises a jour automatiques du logiciel, visibilite sur la console de supervision IXEO.</p>"
+    ],
+    ["La licence et la gestion du renouvellement",
+     "<h4>Fonctionnalites selon le statut de la licence Beemo2Beemo</h4>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Licence ACTIVE</div><div class=\"info-val\">Toutes les fonctionnalites disponibles : sauvegarde, restauration, agents nomades, alertes, support, connexion distante, MAJ, antivirus Sophos, console supervision</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Licence EXPIREE</div><div class=\"info-val\">Seules 4 fonctionnalites de base restent actives : ajout d agents, synchronisation B2B, sauvegarde/restauration locale, suivi direct sur la Beemo. Tout le reste tombe.</div></div>"
+     + "</div>"
+     + "<h4>Ce qui tombe avec une licence expiree</h4>"
+     + "<p>- Support technique inaccessible</p>"
+     + "<p>- Agents nomades non sauvegardes</p>"
+     + "<p>- Alertes et rapports quotidiens coupes</p>"
+     + "<p>- Connexion a distance impossible</p>"
+     + "<p>- Mises a jour du logiciel arretees</p>"
+     + "<p>- Antivirus Sophos integre desactive</p>"
+     + "<p>- Console de supervision invisible</p>"
+     + "<div class=\"warn-box\">Un client avec une licence expiree est un client vulnerable. Il n'est pas notifie si sa sauvegarde echoue. Il ne peut pas etre assiste a distance. Ses postes nomades ne sont plus sauvegardes. Il faut renouveler avant expiration.</div>"
+     + "<h4>La decharge de responsabilite revendeur</h4>"
+     + "<p>Quand un client refuse de renouveler malgre nos relances, ou dont le boitier est hors garantie et sature, IXEO dispose d'un modele de decharge de responsabilite formelle. Ce document :</p>"
+     + "<p>- Documente les relances effectuees</p>"
+     + "<p>- Confirme que le client a ete informe des risques</p>"
+     + "<p>- Decharge IXEO de toute responsabilite en cas de perte de donnees</p>"
+     + "<p>- Est envoye en recommande avec AR et signe par le client</p>"
+     + "<div class=\"key-box\">La decharge est a la fois un outil de protection juridique et un levier commercial fort : quand le client lit et signe qu'il prend le risque, il renouvelle souvent finalement.</div>"
+    ]
+  ];
+  var html = '<div class="step-panel">';
+  for (var i=0;i<ch.length;i++){
+    var open=i===0;
+    html += '<div class="chapter"><div class="ch-hd '+(open?'open':'')+'"><span>'+(i+1)+'. '+ch[i][0]+'</span><span class="ch-toggle">'+(open?'\u25b2':'\u25bc')+'</span></div><div class="ch-body '+(open?'open':'')+'"><div class="content-section">'+ch[i][1]+'</div></div></div>';
+  }
+  html += stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M4(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation client -- Sauvegarde Beemo</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div>';
+  html+='<div class="scenario-context">Vous rencontrez <strong>M. Patrick DESJARDINS</strong>, gerant d une PME de 25 personnes dans le batiment (architectes). Il a un serveur Windows avec tous les fichiers de plans DWG/BIM, une base de donnees metier (Autopista), des boites Exchange et 8 commerciaux nomades avec des PC portables. Sa "sauvegarde" actuelle : un disque dur externe Seagate branche tous les soirs par l assistante, quand elle n oublie pas. Il n a jamais teste de restauration. Il n a pas d antivirus sur le serveur.</div>';
+  html+='</div><h4>Simulation d entretien</h4><div class="dialogue">';
+  var bubbles=[
+    ['comm','V','Vous','Bonjour M. Desjardins. Vous avez mentionné un disque dur externe pour vos sauvegardes. Quand avez-vous restauré la derniere fois pour verifier que ca fonctionne ?'],
+    ['cli','P','M. Desjardins','... Jamais, en fait. On suppose que ca marche.'],
+    ['comm','V','Vous','C est precisement le probleme. 40% des restaurations depuis un disque dur externe echouent -- le disque est defaillant ou la sauvegarde est incomplete. Et si votre assistante oublie de le brancher le soir d un ransomware, vous perdez tout. Combien vous couterait l arret de votre activite pendant 3 semaines ?'],
+    ['cli','P','M. Desjardins','C est catastrophique. On a des projets en cours, des delais contractuels... On serait en grande difficulte.'],
+    ['comm','V','Vous','Avec la Beemo2BeeHive, vos plans, votre base Autopista et vos mails Exchange sont sauvegardes automatiquement toutes les heures, sans que personne n ait a intervenir. En cas de ransomware, vos sauvegardes sont protegees -- le ransomware ne peut pas y toucher, c est architecturalement impossible. Et si votre serveur tombe en panne, on le redémarre depuis la Beemo en quelques minutes avec Flash Rescue.'],
+    ['cli','P','M. Desjardins','Et mes 8 commerciaux avec leurs PC portables ?'],
+    ['comm','V','Vous','Sauvegardes aussi, depuis n importe ou, via l agent nomade. Chaque nuit, leurs donnees remontent automatiquement. Et vous recevez un rapport chaque matin qui vous dit si toutes les sauvegardes ont reussi -- ou si une a echoue.'],
+    ['cli','P','M. Desjardins','Combien ca coute par rapport a ce que je fais maintenant ?'],
+    ['comm','V','Vous','Votre disque externe Seagate, c est environ 150 euros. La Beemo2BeeHive avec 25 postes et 8 nomades, c est environ 150 euros par mois tout inclus. Pour le prix d un repas d affaires par semaine, vous protegez votre entreprise contre une menace qui en a deja ferme des dizaines comme la votre. On fait un Fast Audit maintenant pour qualifier exactement votre besoin ?']
+  ];
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];
+    var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ La question de la restauration jamais testee est un choc prise de conscience immediat. 2/ Quantifier le cout d une arret d activite rend le prix de la solution derisoire. 3/ Le Fast Audit est le meilleur outil de closing -- le client qualifie lui-meme son besoin.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M4(){
+  var cats=[
+    {t:"Qualification de l environnement informatique",qs:["Combien de postes fixes et portables sont a sauvegarder ?","Y a-t-il un ou plusieurs serveurs ? Physiques ou virtualises (Hyper-V, VMware) ?","Quel OS est utilise sur les serveurs (Windows Server, Linux) ?","Y a-t-il une base de donnees SQL ou un ERP/logiciel metier critique ?","Utilisez-vous Microsoft Exchange ou un serveur de messagerie interne ?","Des postes nomades (commerciaux, teletravail) sont-ils a sauvegarder ?"]},
+    {t:"Qualification de la sauvegarde actuelle",qs:["Quelle est votre solution de sauvegarde actuelle (disque dur externe, NAS, cloud, rien) ?","Avez-vous deja teste une restauration ? Quand ?","Qui s occupe de la sauvegarde au quotidien (automatique ou manuelle) ?","Recevez-vous des alertes si une sauvegarde echoue ?","Ou est physiquement stockee votre sauvegarde par rapport a votre serveur ?","Avez-vous deja subi une perte de donnees ou une cyberattaque ?"]},
+    {t:"Qualification du besoin et de l environnement",qs:["Avez-vous un ou plusieurs sites geographiques ?","Souhaitez-vous garder vos donnees uniquement en interne ou acceptez-vous un cloud externe ?","Quelle est la volumetrie estimee des donnees a sauvegarder (en Go ou To) ?","Avez-vous des contraintes reglementaires (sante : HDS, juridique, finance) ?","Quelle est la duree maximale acceptable d arret d activite en cas de sinistre ?"]},
+    {t:"Decision et budget",qs:["Avez-vous un contrat de maintenance informatique en cours ?","Quel est le budget mensuel alloue ou envisageable pour la sauvegarde ?","La decision peut-elle etre prise rapidement ou y a-t-il un cycle de validation ?","Avez-vous ete victimes d une cyberattaque recemment (contexte urgence) ?"]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Questionnement client -- Grille de decouverte Beemo</h3>';
+  html+='<p>L outil Fast Audit (lien en ressources) peut remplacer ou completer cette grille -- faites-le remplir par le client en rendez-vous pour un diagnostic immediat.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">Conseil terrain : faites remplir le Fast Audit sur votre tablette pendant le rendez-vous. En 2 minutes, le client se qualifie lui-meme et le rapport genere est l argument de vente le plus puissant que vous puissiez utiliser.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M4(){
+  var blocks=[
+    {titre:"Accroche : la question qui ouvre les yeux",body:"'Monsieur, quand avez-vous restaure vos donnees pour la derniere fois pour verifier que votre sauvegarde fonctionne ?' -- Dans 90% des cas, la reponse est 'jamais'. Ce silence vaut tous les argumentaires du monde. Une sauvegarde qui n a jamais ete testee n est pas une sauvegarde, c est une illusion de securite."},
+    {titre:"Solution SONCAS",body:"<p><strong>Securite</strong> : Protocole proprietaire invisible aux ransomwares -- des centaines de ransomwares executes sur des reseaux Beemo, aucun n a jamais touche les sauvegardes. Engagement contractuel IXEO de restitution des donnees en cas de sinistre. Antivirus Sophos integre dans la licence active.</p>"
+    + "<p><strong>Orgueil</strong> : Vous allez recevoir un rapport chaque matin qui confirme que vos donnees sont protegees. Vous etes l un des rares gerants de PME qui peut affirmer que sa sauvegarde est verifiee quotidiennement par des experts.</p>"
+    + "<p><strong>Nouveaute</strong> : Flash Rescue permet de redemarrer votre serveur en quelques minutes depuis la Beemo sur du materiel de remplacement -- plus besoin d attendre 3 semaines que le DSI reinstalle tout de zero.</p>"
+    + "<p><strong>Confort</strong> : Zero intervention de votre equipe. La sauvegarde se fait automatiquement la nuit. En cas de probleme, nous le savons avant vous grace aux alertes. IXEO gere tout.</p>"
+    + "<p><strong>Argent</strong> : 60% des PME qui perdent leurs donnees critiques ferment dans les 6 mois. Le cout mensuel de la solution Beemo represente une fraction du cout d un seul jour d arret d activite. C est l investissement le plus rentable que vous puissiez faire pour votre entreprise.</p>"
+    + "<p><strong>Sympathie</strong> : Beemo Technologie est un editeur francais, vos donnees restent en France dans des datacenters souverains. IXEO est votre interlocuteur unique, certifie Beemo, qui surveille vos sauvegardes chaque jour.</p>"},
+    {titre:"Choisir la bonne solution selon le profil",body:"<p>- 2 sites geographiques + donnees sensibles -> Beemo2Beemo : controle total, 0 cloud externe, replication sur site distant</p>"
+    + "<p>- 1 site + securite maximale + sinistre incendie/vol -> Beemo2BeeHive : boitier local + cloud IXEO sur 2 datacenters distants</p>"
+    + "<p>- TPE sans infra, budget serre, deploiement rapide -> BeeHive : 100% cloud, abonnement mensuel, zero materiel</p>"
+    + "<p>- Professionnel de sante -> Beemo2Cloud Premium HDS : hebergement certifie HDS obligatoire pour les donnees de sante</p>"},
+    {titre:"Closing : le Fast Audit comme outil de closing",body:"'Je vous propose qu on fasse ensemble le Fast Audit Beemo maintenant -- ca prend 2 minutes et vous obtenez un rapport instantane sur la fiabilite de votre sauvegarde actuelle. Sur la base de ce rapport, je vous fais une proposition adaptee a votre situation dans les 24 heures.' Lien : https://www.beemotechnologie.com/audit/ixeo/"}
+  ];
+  var objections=[
+    {q:"On a deja un NAS, c est suffisant.",a:"Un NAS dans la meme piece que votre serveur brule avec lui en cas d incendie. Il peut etre chiffre par un ransomware via le protocole SMB. Et avez-vous teste une restauration depuis ce NAS ? La Beemo applique la regle 3-2-1 : sauvegarde locale + copie externalisee + multiple versions. Le NAS n en fait qu une partie."},
+    {q:"On a Microsoft 365, nos donnees sont dans le cloud.",a:"Microsoft 365 n est pas une sauvegarde. Microsoft conserve vos donnees au maximum 30 jours apres suppression. Si un email est supprime par erreur il y a 35 jours, il est perdu. Si votre compte est compromis et vide, vous perdez tout. BeeHive sauvegarde specifiquement OneDrive, SharePoint et les mails M365 avec versioning."},
+    {q:"C est trop cher pour ce que c est.",a:"Combien vous couterait 3 semaines d arret d activite -- le temps de tout reinstaller sans sauvegarde ? Pour la plupart des PME, c est facilement 50 000 euros de perte. La Beemo coute entre 100 et 300 euros par mois. C est l investissement le plus rentable de votre informatique."},
+    {q:"On a deja un contrat avec notre informaticien qui s en occupe.",a:"Excellente nouvelle. Est-ce que votre informaticien vous envoie un rapport chaque matin confirmant que toutes les sauvegardes ont reussi ? Est-ce que vous avez son engagement contractuel de restauration de vos donnees en cas de sinistre ? Beemo fournit les deux."}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Pitch commercial -- Sauvegarde Beemo / BeeHive</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M4(){
+  var resources=[
+    {icon:'\u{1F517}',name:'Fast Audit Beemo -- Lien IXEO',note:'Qualification en 2 min -- rapport instantane sur la sauvegarde actuelle du client',url:'https://www.beemotechnologie.com/audit/ixeo/'},
+    {icon:'\u{1F310}',name:'Site Beemo Technologie',note:'Toutes les solutions, fiches produits et actualites de l editeur',url:'https://www.beemotechnologie.com'},
+    {icon:'\u{1F4C4}',name:'Fiche produit BeeHive by IXEO',note:'Solution cloud 100% -- TPE/PME sans infrastructure',url:'#'},
+    {icon:'\u{1F4C4}',name:'Fiche Beemo2Beemo',note:'Solution multi-sites 100% locale -- controle total des donnees',url:'#'},
+    {icon:'\u{1F4CA}',name:'Tableau fonctionnalites -- Licence active vs expiree',note:'Comparatif complet des fonctionnalites selon statut de la licence',url:'#'},
+    {icon:'\u{1F4DC}',name:'Modele de decharge revendeur',note:'Lettre recommandee pour client refusant le renouvellement -- a envoyer en LRAR',url:'#'},
+    {icon:'\u{1F4CB}',name:'Grille de decouverte sauvegarde',note:'Questionnaire de qualification pour rendez-vous client -- version imprimable',url:'#'},
+    {icon:'\u{1F4C4}',name:'Newsletter Beemo -- Protection anti-ransomware',note:'Explication technique du protocole proprietaire Beemo face aux ransomwares',url:'#'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos rendez-vous Sauvegarde.</p><div class="resources-grid">';
   for(var i=0;i<resources.length;i++){
     var r=resources[i];
     var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
