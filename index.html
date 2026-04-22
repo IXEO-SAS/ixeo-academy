@@ -644,7 +644,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 // ║  DONNÉES MODULES                                     ║
 // ╚══════════════════════════════════════════════════════╝
 const MODULES = [
-  {id:1, name:"Écrans tactiles interactifs",        family:1, available:false},
+  {id:1, name:"Écrans tactiles interactifs",        family:1, available:true},
   {id:2, name:"Affichage dynamique : Signage",       family:1, available:true},
   {id:3, name:"Affichage dynamique : Kiosk",         family:1, available:true},
   {id:4, name:"Protection des données (sauvegarde)", family:2, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1());
-  else if (step === 2) content.innerHTML = S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2());
-  else if (step === 3) content.innerHTML = S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3());
-  else if (step === 4) content.innerHTML = S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4());
-  else if (step === 5) content.innerHTML = S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5());
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)); }
+  if      (step === 1) content.innerHTML = S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()));
+  else if (step === 2) content.innerHTML = S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()));
+  else if (step === 3) content.innerHTML = S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()));
+  else if (step === 4) content.innerHTML = S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()));
+  else if (step === 5) content.innerHTML = S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -1845,7 +1845,256 @@ function renderStep5_M3(){
 
 
 
-// ╔══════════════════════════════════════════════════════╗
+
+// MODULE 1 - ECRANS TACTILES INTERACTIFS EASYPITCH
+
+const QUESTIONS_M1 = [
+  {q:"Qu est-ce qui distingue un ecran tactile interactif d une simple TV ?",opts:["Une TV avec telecommande tactile","Un ecran combinant affichage, tactile, tableau blanc, ordinateur et visioconference en un seul appareil","Un videoprojecteur couleur","Un moniteur PC tactile"],c:1,fb:"L ecran tactile interactif est un agregat de plusieurs outils : TV, tableau blanc numerique, ordinateur via OPS, partage sans fil eShare, visioconference via camera. C est sa valeur differenciante."},
+  {q:"Quelle gamme Easypitch est dediee aux reunions hybrides en entreprise ?",opts:["Easypitch SPARK","Easypitch HUB","Easypitch FLASH","Easypitch FLEX"],c:1,fb:"L Easypitch HUB est la gamme entreprise avec camera 4K integree sur le 65 pouces, systeme BYOM EShare et logiciel UboardMate CC. SPARK est oriente education."},
+  {q:"Quelle technologie Easypitch elimine l effet de parallaxe pour une ecriture naturelle ?",opts:["OLED","IPS sans cadre","Silk-In Plus (0 gap entre dalle et verre)","LED backlit"],c:2,fb:"La technologie Silk-In Plus colle la dalle LCD directement contre le verre (0 gap), eliminant l effet de parallaxe et offrant une precision tactile comparable a l ecriture sur papier."},
+  {q:"Combien de points de contact simultanes gerent les ecrans Easypitch SPARK et HUB ?",opts:["5 points","10 points","20 points","50 points"],c:3,fb:"Les ecrans Easypitch SPARK et HUB gerent 50 points de contact simultanes, permettant a plusieurs utilisateurs d interagir en meme temps."},
+  {q:"Qu est-ce qu un OPS integre dans un ecran Easypitch ?",opts:["Un logiciel de presentation","Un mini-PC integre permettant de travailler sans branchement externe sous Windows 11","Une camera de visioconference","Un systeme de partage sans fil"],c:1,fb:"L OPS (Open Pluggable Specification) est un mini-PC insere dans l ecran. Demarrage instantane, aucun branchement, Windows 11 Pro operationnel directement sur l ecran."},
+  {q:"Que permet le systeme eShare BYOD Easypitch ?",opts:["Logiciel de dessin collaboratif","Partage d ecran sans fil avec retour tactile depuis n importe quel appareil, jusqu a 10 partages simultanement","Systeme de sauvegarde cloud","Protocole reseau"],c:1,fb:"BYOD eShare (Bring Your Own Device) permet a plusieurs participants de projeter leur ecran sur l ecran interactif sans cable, avec retour tactile."},
+  {q:"Pour une salle de reunion de 6 metres de long, quelle taille d ecran est recommandee ?",opts:["55 pouces","65 pouces","75 pouces","86 pouces"],c:1,fb:"Methode : distance (m) / 1,5 = diagonale mini en decimetres. 6m / 1,5 = 4 -> 40 pouces minimum. On choisit le format superieur : 65 pouces est ideal pour une salle de 6m."},
+  {q:"Quelle est la garantie constructeur dans les accords commerciaux IXEO avec Easypitch ?",opts:["1 an","2 ans","3 ans sur site","5 ans sur site"],c:3,fb:"IXEO negocie une garantie 5 ans sur site avec Easypitch (extensible 10 ans sur supports). La garantie standard Easypitch est 3 ans -- c est un avantage commercial majeur."},
+  {q:"Qu inclut le dongle eShare fourni d office dans les accords IXEO ?",opts:["Un dongle USB-A uniquement","Un dongle USB-C/A avec licence eShare for Android","Une cle USB de stockage","Un adaptateur HDMI sans fil"],c:1,fb:"Les accords IXEO prevoient d office un dongle USB-C/A avec licence eShare for Android. Il suffit de le brancher pour partager son ecran instantanement."},
+  {q:"Quelle est la difference principale entre Easypitch SPARK et Easypitch HUB ?",opts:["Le SPARK est plus grand","Le HUB integre une camera et le systeme BYOM EShare pour la visioconference hybride","Le SPARK coute plus cher","Le HUB n est disponible qu en 55 pouces"],c:1,fb:"Le HUB est la version entreprise avec camera 4K integree (65p) ou externe (75 et 86p), BYOM EShare et logiciel UboardMate CC. Adapte aux reunions hybrides."},
+  {q:"Que signifie BYOM dans le contexte Easypitch ?",opts:["Buy Your Own Monitor","Bring Your Own Mobile","Bring Your Own Machine -- apportez votre appareil et connectez-vous aux peripheriques de la salle","Build Your Own Meeting"],c:2,fb:"BYOM = Bring Your Own Machine. Le participant branche son dongle sur son PC et accede sans fil a la camera, micro et enceintes de la salle."},
+  {q:"Quel argument differencie l ecran interactif face a un videoprojecteur ?",opts:["Le videoprojecteur est toujours moins cher","L ecran est tactile, utilisable en pleine lumiere, sans ampoule, duree de vie 60 000h, informatique integree","Le videoprojecteur a une meilleure resolution","Les deux sont equivalents"],c:1,fb:"L ecran interactif gagne sur de nombreux points : tactile, utilisable en pleine lumiere, 60 000h de duree de vie vs 3 000h pour une ampoule, pas de maintenance, 4K, informatique integree."},
+  {q:"Quel est le pack entreprise standard IXEO pour une salle de reunion ?",opts:["Ecran seul","Ecran + support + OPS + M365 + antivirus + clavier/souris + camera","Ecran + lecteur DVD","Ecran + imprimante"],c:1,fb:"Le pack standard IXEO comprend : ecran Easypitch + support motorise + OPS Windows + licence M365 + antivirus Eset Nod32 1 an + clavier/souris Logitech MK270 + camera Easycam120."},
+  {q:"Quelle camera Easypitch est recommandee pour les reunions courantes jusqu a 25m2 ?",opts:["Easycam360-IA","Easycam240-SB","Easycam120","Easycam EyeShut"],c:2,fb:"L Easycam120 est le best-seller : webcam 4K grand angle 120 degres, connexion USB, micro integre. Simple et efficace pour les reunions jusqu a 25m2."},
+  {q:"Quel support Easypitch permet l inclinaison motorisee jusqu a 90 degres en mode table ?",opts:["Easymob","Easyfix","Easytilt Plus","Easystand"],c:2,fb:"L Easytilt Plus est le support mobile avec ajustement motorise en hauteur ET inclinaison motorisee jusqu a 90 degres, pour passer en mode table lors d ateliers collaboratifs."}
+];
+
+// Abac SVG — generated as a JS string, no apostrophes
+var ABAC_SVG_M1 = '<div style="margin:1rem 0;overflow-x:auto;">'
+  + '<svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;font-family:sans-serif;">'
+  + '<rect width="700" height="310" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>'
+  + '<text x="350" y="26" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0D1117">Abac taille d ecran selon recul spectateur</text>'
+  + '<text x="350" y="42" text-anchor="middle" font-size="9.5" fill="#64748B">Regle : distance de lecture optimale = diagonale ecran (en cm) x 1,5</text>'
+  + '<line x1="40" y1="56" x2="665" y2="56" stroke="#E2E8F0" stroke-width="1"/>'
+  + '<rect x="40" y="62" width="148" height="30" rx="7" fill="#EEF3FF" stroke="#3B5BDB" stroke-width="1.5"/>'
+  + '<text x="114" y="80" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A8A">55 pouces</text>'
+  + '<text x="40" y="112" font-size="9" fill="#374151">Recul mini</text><text x="40" y="124" font-size="9" font-weight="700" fill="#1E3A8A">2 m</text>'
+  + '<text x="40" y="138" font-size="9" fill="#374151">Recul maxi confort</text><text x="40" y="150" font-size="9" font-weight="700" fill="#1E3A8A">3,5 m</text>'
+  + '<text x="40" y="166" font-size="8.5" fill="#94A3B8">Huddle / 2-4 pers.</text>'
+  + '<rect x="206" y="62" width="148" height="30" rx="7" fill="#EEF3FF" stroke="#3B5BDB" stroke-width="1.5"/>'
+  + '<text x="280" y="80" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A8A">65 pouces</text>'
+  + '<text x="206" y="112" font-size="9" fill="#374151">Recul mini</text><text x="206" y="124" font-size="9" font-weight="700" fill="#1E3A8A">2,5 m</text>'
+  + '<text x="206" y="138" font-size="9" fill="#374151">Recul maxi confort</text><text x="206" y="150" font-size="9" font-weight="700" fill="#1E3A8A">4,5 m</text>'
+  + '<text x="206" y="166" font-size="8.5" fill="#94A3B8">Salle reunion 4-8 pers.</text>'
+  + '<rect x="372" y="62" width="148" height="30" rx="7" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>'
+  + '<text x="446" y="80" text-anchor="middle" font-size="12.5" font-weight="700" fill="#92400E">75 pouces</text>'
+  + '<text x="372" y="112" font-size="9" fill="#374151">Recul mini</text><text x="372" y="124" font-size="9" font-weight="700" fill="#92400E">3 m</text>'
+  + '<text x="372" y="138" font-size="9" fill="#374151">Recul maxi confort</text><text x="372" y="150" font-size="9" font-weight="700" fill="#92400E">5,5 m</text>'
+  + '<text x="372" y="166" font-size="8.5" fill="#94A3B8">Salle reunion 8-15 pers.</text>'
+  + '<rect x="537" y="62" width="128" height="30" rx="7" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>'
+  + '<text x="601" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#065F46">86 - 98 pouces</text>'
+  + '<text x="537" y="112" font-size="9" fill="#374151">Recul mini</text><text x="537" y="124" font-size="9" font-weight="700" fill="#065F46">3,5 m</text>'
+  + '<text x="537" y="138" font-size="9" fill="#374151">Recul maxi confort</text><text x="537" y="150" font-size="9" font-weight="700" fill="#065F46">7 m</text>'
+  + '<text x="537" y="166" font-size="8.5" fill="#94A3B8">Grande salle 15-30 pers.</text>'
+  + '<rect x="40" y="178" width="625" height="48" rx="8" fill="#F1F5F9"/>'
+  + '<text x="352" y="196" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1C2333">Methode terrain rapide</text>'
+  + '<text x="352" y="211" text-anchor="middle" font-size="9.5" fill="#475569">Distance salle (m) / 1,5 = taille minimale en dm -> convertir en pouces</text>'
+  + '<text x="352" y="223" text-anchor="middle" font-size="8.5" fill="#94A3B8">Exemple : salle 6m -> 6/1,5 = 4 dm -> 40 pouces minimum -> choisir 65 pouces</text>'
+  + '<rect x="40" y="234" width="625" height="48" rx="8" fill="#FEF2F2"/>'
+  + '<text x="352" y="252" text-anchor="middle" font-size="10.5" font-weight="700" fill="#7F1D1D">Erreurs classiques a eviter</text>'
+  + '<text x="352" y="267" text-anchor="middle" font-size="9.5" fill="#475569">Sous-dimensionner : texte illisible depuis le fond — Sur-dimensionner : inconfort visuel au 1er rang</text>'
+  + '<text x="352" y="280" text-anchor="middle" font-size="8.5" fill="#94A3B8">Verifier aussi : hauteur installation (centre ecran a 1,50m sol), absence de reflets, eclairage dimmable</text>'
+  + '<text x="352" y="300" text-anchor="middle" font-size="8" fill="#CBD5E1">IXEO Academy — Module 1 — Ecrans tactiles interactifs Easypitch</text>'
+  + '</svg></div>';
+
+function renderStep1_M1() {
+  var ch = [
+    ["L ecran tactile interactif : un agregat technologique unique",
+     "<p>Un ecran tactile interactif Easypitch est bien plus qu un simple ecran. C est la convergence en un seul appareil de plusieurs equipements que les entreprises possedent habituellement separement.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Remplace la TV / moniteur</div><div class=\"info-val\">Affichage 4K UHD, dalle LED, luminosite optimisee pour la lumiere du jour</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Remplace le videoprojecteur</div><div class=\"info-val\">Pas d ampoule, pas d obscurite requise, duree de vie 60 000 h contre 3 000 h pour une ampoule</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Remplace le tableau blanc</div><div class=\"info-val\">Tableau blanc numerique integre, annotation, reconnaissance de l ecriture, stylet actif</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Remplace l ordinateur</div><div class=\"info-val\">Android 13 integre + slot OPS pour Windows 11 Pro -- aucun PC externe necessaire</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Remplace la tablette</div><div class=\"info-val\">50 points de contact, stylet actif, rejet de paume, verre trempe 4mm</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Remplace le systeme visio</div><div class=\"info-val\">Camera 4K integree sur le HUB 65p, BYOM eShare, connexion sans fil peripheriques salle</div></div>"
+     + "</div>"
+     + "<div class=\"key-box\">Argument commercial cle : un seul investissement pour remplacer 5 a 6 outils. Un seul SAV. Une seule formation. Une salle operationnelle des le premier jour.</div>"
+    ],
+    ["La gamme Easypitch : SPARK vs HUB",
+     "<h4>Easypitch SPARK -- La reference education et reunions standards</h4>"
+     + "<p>Disponible en 55, 65, 75, 86 et 98 pouces. Resolution 4K UHD. Technologie Silk-In Plus (0 gap, zero parallaxe). Android 13 integre. 50 points de contact. Hotspot WiFi integre. Enceintes 2 x 20W.</p>"
+     + "<p>Inclus de serie : tableau blanc SEYES, reconnaissance de l ecriture, distinction doigt/stylet (Ink Feature), rejet de paume, support mural et logiciel interactif.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Connectiques</div><div class=\"info-val\">USB-A, USB-B, USB-C, HDMI, VGA, connectiques 3.0</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">OS</div><div class=\"info-val\">Android 13 integre + slot OPS Windows 11 Pro</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Garantie standard</div><div class=\"info-val\">3 ans sur site (5 ans avec accords IXEO)</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">References</div><div class=\"info-val\">EP55-NT13 / EP65-NT13 / EP75-NT13 / EP86-NT13 / EP98-NT13</div></div>"
+     + "</div>"
+     + "<h4>Easypitch HUB -- La solution visioconference all-in-one</h4>"
+     + "<p>Disponible en 65 pouces (camera 4K 48MP integree), 75 et 86 pouces (camera externe Easycam 240-SB). Toutes les fonctionnalites SPARK + systeme BYOM EShare integre pour les reunions hybrides.</p>"
+     + "<p>Le BYOM EShare permet : projection sans fil jusqu a 9 appareils simultanement, connexion sans fil aux peripheriques de visioconference de la salle (camera, micro, enceintes), retour tactile, systeme d annotation partage, logiciel UboardMate CC inclus.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">References</div><div class=\"info-val\">EP65-HB06 (camera integree) / EP75-HB06 / EP86-HB06 (camera Easycam 240-SB)</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Garantie standard</div><div class=\"info-val\">3 ans sur site (5 ans avec accords IXEO)</div></div>"
+     + "</div>"
+     + "<div class=\"key-box\">Regle de choix : SPARK pour reunions standards et education. HUB quand le client fait des reunions hybrides regulieres avec participants a distance.</div>"
+    ],
+    ["L OPS et eShare : les deux cles de l autonomie",
+     "<h4>L OPS -- L ordinateur integre invisible</h4>"
+     + "<p>L OPS (Open Pluggable Specification) est un mini-PC qui s insere dans un slot dedie de l ecran.</p>"
+     + "<p>Avantages cles :</p>"
+     + "<p>- Demarrage instantane depuis l ecran, sans allumer un PC externe</p>"
+     + "<p>- Aucun branchement necessaire -- zero cable supplementaire</p>"
+     + "<p>- Windows 11 Pro preinstalle, acces direct au bureau</p>"
+     + "<p>- OPSi5 : processeur Intel Core 12e gen i5, RAM 8 Go (12 ou 32 Go en option), SSD 512 Go</p>"
+     + "<p>- OPSi7 : processeur Intel Core 12e gen i7, meme configuration</p>"
+     + "<p>- PACK OFFICE disponible : Microsoft Office Pro Plus 2021 preinstalle</p>"
+     + "<p>- Extension garantie 5 ans OPS disponible (EXTG5OPS)</p>"
+     + "<div class=\"key-box\">Sans OPS, l ecran fonctionne en Android natif. Avec OPS, il devient un PC complet. La majorite des clients entreprise optent pour l OPS.</div>"
+     + "<h4>eShare -- Le partage sans fil universel (inclus d office IXEO)</h4>"
+     + "<p>Les accords commerciaux IXEO incluent d office un dongle USB-C/A avec licence eShare for Android.</p>"
+     + "<p>- BYOD eShare : partage sans fil avec retour tactile, jusqu a 10 appareils simultanement (1 logiciel recepteur + 1 dongle USB-A inclus)</p>"
+     + "<p>- BYOM eShare : partage + acces aux peripheriques visio de la salle (logiciel recepteur + 1 dongle USB-A inclus)</p>"
+     + "<p>- EasyBYOM : boitier autonome avec 2 dongles (1 HDMI/USB + 1 USB-C), 4 ecrans projetes simultanement</p>"
+     + "<p>Principe : le participant branche son dongle, partage son ecran en 10 secondes sans installation de logiciel.</p>"
+    ],
+    ["Abac : choisir la bonne taille d ecran",
+     "<p>La taille de l ecran se choisit toujours en fonction de la configuration de la salle, pas en fonction du budget. Un ecran trop petit rend les contenus illisibles depuis le fond. Un ecran trop grand est inconfortable au premier rang.</p>"
+     + ABAC_SVG_M1
+     + "<h4>Autres criteres de choix lies a la salle</h4>"
+     + "<p>- <strong>Hauteur d installation</strong> : centre de l ecran a 1,50m du sol recommande pour une utilisation mixte (usage debout au tableau + lecture assis)</p>"
+     + "<p>- <strong>Luminosite ambiante</strong> : prevoir des stores ou un eclairage dimmable si la salle est tres lumineuse (reflets sur la dalle)</p>"
+     + "<p>- <strong>Acoustique</strong> : si la salle est mal isolee, prevoir un micro cravate sans fil (kit AW315S) pour que tous les participants s entendent</p>"
+     + "<p>- <strong>Support</strong> : mobile motorise Easymob si l ecran se deplace entre salles, mural motorise Easyfix si la position est fixe mais la hauteur doit s adapter</p>"
+     + "<div class=\"warn-box\">Piege a eviter : un client qui veut un 55 pouces pour economiser pour une salle de 8 metres. Il sera insatisfait. Toujours qualifier la salle avant de choisir la taille.</div>"
+    ],
+    ["Les supports et cameras -- la bonne configuration",
+     "<h4>Gamme de supports Easypitch</h4>"
+     + "<p>- <strong>Easymob</strong> : support mobile motorise ajustable en hauteur, jusqu a 86 pouces, 80 kg, garantie 5 ans</p>"
+     + "<p>- <strong>Easymob Plus / Pro</strong> : versions renforcees jusqu a 105 pouces, 100 a 140 kg, garantie 5 ans extensible 10 ans</p>"
+     + "<p>- <strong>Easyfix / Easyfix Plus / Pro</strong> : support mural motorise ajustable en hauteur, 80 a 140 kg, garantie 5 ans extensible 10 ans</p>"
+     + "<p>- <strong>Easytilt Plus</strong> : support mobile inclinaison motorisee jusqu a 90 degres -- mode table pour ateliers collaboratifs</p>"
+     + "<p>- <strong>Easysolid / Easysolid Plus</strong> : support mural non motorise pour murs fins ou fragiles (cloisons)</p>"
+     + "<p>- <strong>Easystand</strong> : support mobile a hauteur fixe, ultraplat, 180 kg max, avec etagere integree</p>"
+     + "<h4>Cameras Easypitch -- choisir selon la configuration de la salle</h4>"
+     + "<p>- <strong>Easycam120</strong> (best-seller) : webcam 4K, 120 degres, micro integre. Petites et moyennes salles, usage quotidien. Connexion USB simple.</p>"
+     + "<p>- <strong>Easycam240-SB</strong> : camera 4K barre de son, 121 degres, 96 dB, micro IA avec suivi automatique par la voix. Salles moyennes 25 a 50 m2.</p>"
+     + "<p>- <strong>Easycam360-IA</strong> : camera 4K autosuiveuse a IA, 360 degres, zoom optique x12. Grandes salles, suivi automatique des intervenants en mouvement.</p>"
+     + "<p>- <strong>Easycam EyeShut</strong> : camera 4K, 8 micros integres, suivi de la voix, zoom x5, cache objectif integre. La camera confidentialite.</p>"
+     + "<div class=\"key-box\">Regle rapide : Easycam120 pour les salles jusqu a 25m2. Easycam240-SB pour 25 a 50m2. Easycam360-IA pour les grands espaces ou l intervenant se deplace.</div>"
+    ]
+  ];
+  var html = '<div class="step-panel">';
+  for (var i=0;i<ch.length;i++){
+    var open=i===0;
+    html += '<div class="chapter"><div class="ch-hd '+(open?'open':'')+'"><span>'+(i+1)+'. '+ch[i][0]+'</span><span class="ch-toggle">'+(open?'\u25b2':'\u25bc')+'</span></div><div class="ch-body '+(open?'open':'')+'"><div class="content-section">'+ch[i][1]+'</div></div></div>';
+  }
+  html += stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M1(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation client -- Ecran tactile interactif</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div>';
+  html+='<div class="scenario-context">Vous rencontrez <strong>M. Francois RENARD</strong>, directeur d un cabinet de conseil de 18 personnes. Il a 3 salles de reunion equipees chacune d un videoprojecteur vieillissant, d un tableau blanc et d un PC portable a brancher. Il perd 10 minutes en debut de chaque reunion. Il fait 2 a 3 reunions hybrides par semaine avec des clients a distance. Il pense que l ecran interactif est reserve aux grandes entreprises.</div>';
+  html+='</div><h4>Simulation d entretien</h4><div class="dialogue">';
+  var bubbles=[
+    ['comm','V','Vous (commercial)','Bonjour M. Renard, vous m avez dit que vous perdiez du temps en debut de reunion. Combien en faites-vous par semaine ?'],
+    ['cli','F','M. Renard','Une dizaine. Je cherche le bon cable HDMI, le videoprojecteur met du temps a chauffer, le tableau blanc est illisible en photo... du temps perdu a chaque fois.'],
+    ['comm','V','Vous','Et si avec un seul ecran vous eliminiez le videoprojecteur, le tableau blanc, le cable HDMI et le PC de salle -- et que vos reunions demarraient en 30 secondes ?'],
+    ['cli','F','M. Renard','Evidemment ca m interesse. Mais ca doit couter une fortune.'],
+    ['comm','V','Vous','Un Easypitch HUB 65 pouces avec OPS et camera, c est environ 3 500 euros. Si vous valorisez 10 minutes perdues par reunion, 10 reunions par semaine, 45 semaines par an -- combien ca fait ?'],
+    ['cli','F','M. Renard','75 heures par an. A 150 euros de l heure de TJM... plus de 11 000 euros perdus chaque annee.'],
+    ['comm','V','Vous','L ecran s amortit en 4 mois. Et vos clients en visio vous voient correctement avec la camera 4K. Vos collegues partagent leur ecran sans cable en 10 secondes avec le dongle eShare fourni d office. On fait une demo dans votre salle la semaine prochaine ?'],
+    ['cli','F','M. Renard','Oui. Et pour mes 3 salles, il y a un tarif volume ?']
+  ];
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];
+    var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Quantifier la perte de temps en euros cree un ROI immediat. 2/ Le client calcule lui-meme la rentabilite -- bien plus puissant qu un argumentaire impose. 3/ La mention des 3 salles ouvre naturellement l upsell volume.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M1(){
+  var cats=[
+    {t:"Qualification de la salle et de l usage",qs:["Combien de salles de reunion sont concernees par ce projet ?","Quelle est la longueur et la configuration de chaque salle (U, classe, boardroom) ?","Combien de participants maximum par reunion ?","Quel est l equipement actuel (videoprojecteur, TV, tableau veleda, PC fixe) ?","La salle est-elle utilisee pour des reunions hybrides avec participants a distance ?"]},
+    {t:"Qualification technique",qs:["Y a-t-il un acces reseau (RJ45 ou Wi-Fi) a l emplacement de l ecran ?","Le mur est-il porteur ou en cloison (impacte le choix du support) ?","La salle dispose-t-elle de stores ou d un eclairage dimmable ?","Avez-vous deja un logiciel de visioconference (Teams, Zoom, Meet) ?","Les participants apportent-ils leurs propres PC (BYOD) ou travaillent-ils sur un PC fixe de salle ?"]},
+    {t:"Checklist upsell -- opportunites a identifier",qs:["L ecran sera-t-il utilise sans PC externe ? -> Justifie un OPS Windows 11","Des reunions hybrides sont prevues ? -> Justifie camera + BYOM eShare","Le client utilise Microsoft 365 ? -> Justifie licence M365 + compatibilite Teams","La salle manque de son ? -> Justifie Easycam240-SB barre de son ou base Fone540","L ecran devra-t-il se deplacer entre salles ? -> Justifie support mobile motorise Easymob","Plusieurs salles sont concernees ? -> Justifie tarif volume","L ecran sera-t-il utilise en mode tableau ? -> Justifie kit micro sans fil AW315S pour l animateur","Les utilisateurs travaillent sur Mac avec USB-C ? -> Justifie dongle USB-C eShare specifique","Le client veut securiser son SI ? -> Justifie antivirus Eset Nod32"]},
+    {t:"Decision et budget",qs:["Quel est votre calendrier de mise en service ?","Y a-t-il un marche public ou appel d offres ?","Qui est le decisionnaire final (DSI, DAF, DG) ?","Avez-vous recu des propositions de concurrents ?"]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Questionnement client et grille d upsell</h3>';
+  html+='<p>Qualifiez systematiquement chaque salle avant de proposer une configuration. La checklist upsell vous permet de ne manquer aucun element de la solution complete.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">La checklist upsell n est pas un script de vente forcee. C est une aide a la prescription complete : un client qui repart sans camera alors qu il fait des reunions hybrides sera insatisfait. Notre role est de l equiper correctement.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M1(){
+  var blocks=[
+    {titre:"Accroche : le probleme universel",body:"Imaginez une reunion qui demarre en 30 secondes : l ecran s allume, Windows s ouvre, le participant distant est en visio, votre collegue partage son ecran sans cable depuis son smartphone. Pas de cable HDMI introuvable. Pas de videoprojecteur qui chauffe. Pas de marqueur sec. C est ce que fait un ecran Easypitch des le premier jour."},
+    {titre:"Solution SONCAS",body:"<p><strong>Securite</strong> : Garantie 5 ans sur site dans nos accords. En cas de panne signalee le matin, reponse sous 24h. 98% des produits stockes a Montreuil, livraison sous une semaine. Easypitch est l un des seuls constructeurs a proposer cette garantie en standard.</p>"
+    + "<p><strong>Orgueil</strong> : Vos salles deviennent des espaces modernes. Vos clients et partenaires le remarquent des la premiere reunion. C est aussi un signal fort pour attirer et retenir les talents.</p>"
+    + "<p><strong>Nouveaute</strong> : La technologie Silk-In Plus elimine l effet de parallaxe -- ecrire sur cet ecran c est comme ecrire sur du papier. Le BYOM eShare permet a n importe qui d apporter son PC et d acceder a la camera et aux enceintes de la salle sans rien installer.</p>"
+    + "<p><strong>Confort</strong> : Un seul ecran remplace videoprojecteur, tableau blanc, PC de salle et systeme visio. Vos equipes utilisent l ecran sans formation specifique -- Android et Windows, ils connaissent deja.</p>"
+    + "<p><strong>Argent</strong> : Un pack complet (ecran 65p + OPS + camera + support motorise) coute environ 4 500 euros. Compare a videoprojecteur (800) + tableau blanc (300) + PC de salle (1 000) + systeme visio (1 500) = 3 600 euros, sans tactile et sans garantie 5 ans. Le delta est rentabilise en 3 a 6 mois par les gains de productivite.</p>"
+    + "<p><strong>Sympathie</strong> : Easypitch est un constructeur francais base a Montreuil. Leurs charges d affaires se deplacent pour des demos chez vos clients strategiques. IXEO assure la prescription, la livraison et le suivi -- un interlocuteur unique.</p>"},
+    {titre:"Comparatif vs alternatives",body:"<p>- Vs TV / moniteur classique : la TV n est pas tactile, n a pas d OPS, pas de systeme visio integre, pas de tableau blanc. Elle ne fait qu afficher.</p>"
+    + "<p>- Vs videoprojecteur : ampoule a changer tous les 3 000h (cout + intervention), necessite l obscurite, pas tactile, resolution souvent inferieure, degrade par la poussiere et la chaleur.</p>"
+    + "<p>- Vs tablette Android grand format : dalle fragile, pas de slot OPS, pas de systeme visio integre, pas de garantie sur site 5 ans, pas utilisable debout comme un tableau.</p>"
+    + "<p>- Vs PC + second ecran : branchement a chaque reunion, pas tactile, pas de tableau blanc numerique, pas de systeme visio integre a l ecran.</p>"},
+    {titre:"Closing",body:"M. Renard, pour vos 3 salles je vous propose un pack adapte : deux Easypitch HUB 65 pouces avec OPS et Easycam120 pour les salles reunions standard, et un 75 pouces pour votre grande salle. Avec le tarif volume, on est sous les 13 000 euros TTC tout inclus (support, OPS, cameras, licences M365). Devis ce soir et demo dans votre plus grande salle mardi ou jeudi matin ?"}
+  ];
+  var objections=[
+    {q:"C est trop cher par rapport a un videoprojecteur.",a:"Un videoprojecteur neuf c est 800 euros. Ajoutez PC (1 000 euros) + systeme visio (1 500 euros) + tableau blanc (300 euros) : vous etes deja a 3 600 euros, sans tactile et sans garantie 5 ans. Et l ampoule se changera dans 18 mois. L ecran interactif c est 200 euros de plus pour 10 fois plus de valeur."},
+    {q:"Nos utilisateurs ne savent pas utiliser ca.",a:"Si vos equipes savent utiliser un smartphone Android ou un PC Windows, elles savent utiliser un ecran Easypitch. Demarrage en appuyant sur le bouton. Tableau blanc en appuyant sur l icone. Easypitch propose des formations sur site demi-journee ou journee, incluses dans nos prestations."},
+    {q:"On a deja un systeme Teams Rooms ou Zoom Rooms.",a:"L Easypitch HUB est parfaitement compatible Teams et Zoom. L OPS Windows permet d installer n importe quel client de visioconference. Vous conservez votre ecosysteme existant en ajoutant une surface tactile et collaborative."},
+    {q:"Et si l ecran tombe en panne ?",a:"C est justement l argument Easypitch : garantie 5 ans sur site dans nos accords. Une panne declaree le matin, reponse appropriee sous 24h. Nettement superieur a tout ce que propose le marche en standard."}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Pitch commercial -- Ecrans tactiles Easypitch</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M1(){
+  var resources=[
+    {icon:'\u{1F4C4}',name:'Catalogue Easypitch 2025',note:'Gamme complete : SPARK, HUB, supports, cameras, OPS, accessoires',url:'#'},
+    {icon:'\u{1F310}',name:'Easypitch -- Site officiel constructeur',note:'Fiches produits, demos video, gammes SPARK et HUB',url:'https://easypitch.eu'},
+    {icon:'\u{1F4CA}',name:'Abac taille d ecran selon salle',note:'Guide de prescription taille vs recul et configuration salle',url:'#'},
+    {icon:'\u{1F4C4}',name:'Fiche Easypitch SPARK 4K',note:'EP55/65/75/86/98-NT13 -- technologie Silk-In Plus, 50 points touch',url:'#'},
+    {icon:'\u{1F4C4}',name:'Fiche Easypitch HUB 4K',note:'EP65/75/86-HB06 -- visioconference all-in-one avec BYOM EShare',url:'#'},
+    {icon:'\u{1F4C4}',name:'Fiche OPS Windows 11 Pro',note:'OPSi5 et OPSi7 -- Intel Core 12e gen, SSD 512 Go',url:'#'},
+    {icon:'\u{1F4CB}',name:'Checklist upsell -- Grille decouverte salle',note:'Qualification complete : salle, technique et opportunites upsell',url:'#'},
+    {icon:'\u{1F4CB}',name:'Comparatif ecran interactif vs alternatives',note:'Ecran vs TV, videoprojecteur, tablette, PC',url:'#'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos rendez-vous ecrans tactiles interactifs.</p><div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
+    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }
+  html+='</div></div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+
+
+// // ╔══════════════════════════════════════════════════════╗
 // ║  UTILS                                               ║
 // ╚══════════════════════════════════════════════════════╝
 function showScreen(id) {
