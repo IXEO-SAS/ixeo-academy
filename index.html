@@ -652,7 +652,7 @@ const MODULES = [
   {id:6, name:"Étude parc informatique & réseau",    family:2, available:true},
   {id:7, name:"Les équipements réseaux",             family:2, available:true},
   {id:8, name:"Solutions cloud (M365)",              family:2, available:true},
-  {id:9, name:"Cybersécurité (firewall, antispam, antivirus)", family:2, available:false},
+  {id:9, name:"Cybersécurité (firewall, antispam, antivirus)", family:2, available:true},
   {id:10,name:"Services IT externalisés",            family:2, available:false},
   {id:11,name:"DocPulse — simplification de la démat.", family:3, available:false},
   {id:12,name:"Les fondamentaux de la GED",          family:3, available:true},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())))))));
-  else if (step === 2) content.innerHTML = S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())))))));
-  else if (step === 3) content.innerHTML = S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())))))));
-  else if (step === 4) content.innerHTML = S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())))))));
-  else if (step === 5) content.innerHTML = S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())))))));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))))))); }
+  if      (step === 1) content.innerHTML = S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()))))))));
+  else if (step === 2) content.innerHTML = S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()))))))));
+  else if (step === 3) content.innerHTML = S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()))))))));
+  else if (step === 4) content.innerHTML = S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()))))))));
+  else if (step === 5) content.innerHTML = S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()))))))));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))))))))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -3235,6 +3235,253 @@ function renderStep5_M8(){
     {icon:'\u{1F4C4}',name:'Fiche : l ecosysteme M365 au-dela d Office',note:'Teams, SharePoint, OneDrive, Power Automate, Copilot',url:'#'}
   ];
   var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos projets Microsoft 365.</p><div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
+    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }
+  html+='</div></div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+
+
+// // MODULE 9 - CYBERSECURITE
+
+var SVG_MENACES_M9 = '<div style="margin:0.75rem 0;overflow-x:auto;"><svg viewBox="0 0 740 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:740px;font-family:sans-serif;"><rect width="740" height="320" rx="12" fill="#0F172A" stroke="#1E293B" stroke-width="2"/><text x="370" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#F1F5F9">Panorama des cybermenaces -- PME France 2024-2025</text><rect x="20" y="38" width="168" height="88" rx="8" fill="#1E293B" stroke="#EF4444" stroke-width="1.5"/><text x="104" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#FCA5A5">Phishing</text><text x="104" y="72" text-anchor="middle" font-size="8.5" fill="#9CA3AF">Email frauduleux imitant</text><text x="104" y="83" text-anchor="middle" font-size="8.5" fill="#9CA3AF">une entite connue</text><text x="104" y="97" text-anchor="middle" font-size="9" font-weight="700" fill="#EF4444">73% des entreprises</text><text x="104" y="110" text-anchor="middle" font-size="8" fill="#6B7280">vecteur n1</text><rect x="198" y="38" width="168" height="88" rx="8" fill="#1E293B" stroke="#F97316" stroke-width="1.5"/><text x="282" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#FDBA74">Ransomware</text><text x="282" y="72" text-anchor="middle" font-size="8.5" fill="#9CA3AF">Chiffrement des donnees</text><text x="282" y="83" text-anchor="middle" font-size="8.5" fill="#9CA3AF">et demande de rancon</text><text x="282" y="97" text-anchor="middle" font-size="9" font-weight="700" fill="#F97316">18% des PME touchees</text><text x="282" y="110" text-anchor="middle" font-size="8" fill="#6B7280">en 2024</text><rect x="376" y="38" width="168" height="88" rx="8" fill="#1E293B" stroke="#EAB308" stroke-width="1.5"/><text x="460" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="#FDE047">Arnaque au president</text><text x="460" y="68" text-anchor="middle" font-size="8.5" fill="#9CA3AF">Usurpation identite</text><text x="460" y="79" text-anchor="middle" font-size="8.5" fill="#9CA3AF">dirigeant ou partenaire</text><text x="460" y="93" text-anchor="middle" font-size="8.5" fill="#9CA3AF">Faux ordre de virement</text><text x="460" y="110" text-anchor="middle" font-size="9" font-weight="700" fill="#EAB308">38% des entreprises</text><rect x="554" y="38" width="166" height="88" rx="8" fill="#1E293B" stroke="#8B5CF6" stroke-width="1.5"/><text x="637" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#C4B5FD">Intrusion / Faille</text><text x="637" y="72" text-anchor="middle" font-size="8.5" fill="#9CA3AF">Exploitation de failles</text><text x="637" y="83" text-anchor="middle" font-size="8.5" fill="#9CA3AF">non patchees</text><text x="637" y="97" text-anchor="middle" font-size="9" font-weight="700" fill="#8B5CF6">53% des entreprises</text><text x="637" y="110" text-anchor="middle" font-size="8" fill="#6B7280">portes derobees</text><rect x="20" y="140" width="340" height="60" rx="8" fill="#1E293B" stroke="#374151" stroke-width="1"/><text x="190" y="158" text-anchor="middle" font-size="10" font-weight="700" fill="#F1F5F9">Chiffres France 2024-2025</text><text x="190" y="172" text-anchor="middle" font-size="8.5" fill="#9CA3AF">43% des orga. francaises ont subi au moins 1 attaque reussie</text><text x="190" y="184" text-anchor="middle" font-size="8.5" fill="#9CA3AF">4 386 evenements traites par l ANSSI (+15% vs 2023)</text><text x="190" y="195" text-anchor="middle" font-size="8.5" fill="#9CA3AF">France : 4e pays le plus attaque au monde</text><rect x="370" y="140" width="350" height="60" rx="8" fill="#1E293B" stroke="#374151" stroke-width="1"/><text x="545" y="158" text-anchor="middle" font-size="10" font-weight="700" fill="#F1F5F9">Impact PME</text><text x="545" y="172" text-anchor="middle" font-size="8.5" fill="#9CA3AF">+50% de risque de defaillance dans les 6 mois</text><text x="545" y="184" text-anchor="middle" font-size="8.5" fill="#9CA3AF">37% des victimes de ransomware sont des PME</text><text x="545" y="195" text-anchor="middle" font-size="8.5" fill="#9CA3AF">60% des brèches impliquent l erreur humaine</text><rect x="20" y="216" width="700" height="74" rx="8" fill="#1C1917" stroke="#78350F" stroke-width="1.5"/><text x="370" y="233" text-anchor="middle" font-size="10" font-weight="700" fill="#FDE68A">Menaces internes -- souvent sous-estimees</text><text x="60" y="250" font-size="8.5" fill="#D97706">Erreur humaine</text><text x="60" y="263" font-size="7.5" fill="#9CA3AF">Mauvaise config, clic sur lien</text><text x="60" y="275" font-size="7.5" fill="#9CA3AF">malveillant, MDP faible</text><text x="240" y="250" font-size="8.5" fill="#D97706">Acces non revoque</text><text x="240" y="263" font-size="7.5" fill="#9CA3AF">Ex-employe toujours actif</text><text x="240" y="275" font-size="7.5" fill="#9CA3AF">Compte compromis non detecte</text><text x="420" y="250" font-size="8.5" fill="#D97706">Shadow IT</text><text x="420" y="263" font-size="7.5" fill="#9CA3AF">Outils non approuves</text><text x="420" y="275" font-size="7.5" fill="#9CA3AF">Dropbox perso, WhatsApp</text><text x="580" y="250" font-size="8.5" fill="#D97706">Malveillance interne</text><text x="580" y="263" font-size="7.5" fill="#9CA3AF">Employe mecontent</text><text x="580" y="275" font-size="7.5" fill="#9CA3AF">Vol ou destruction de donnees</text><text x="370" y="306" text-anchor="middle" font-size="8" fill="#4B5563">IXEO Academy -- Module 9 -- Cybersecurite</text></svg></div>';
+var SVG_DEFENSE_M9 = '<div style="margin:0.75rem 0;overflow-x:auto;"><svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;font-family:sans-serif;"><rect width="700" height="260" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/><text x="350" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#0D1117">Defense en profondeur -- les 5 couches de securite</text><ellipse cx="350" cy="135" rx="310" ry="108" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/><text x="350" y="242" text-anchor="middle" font-size="8.5" font-weight="700" fill="#DC2626">1. PERIMETRE -- Firewall Stormshield SNS</text><ellipse cx="350" cy="135" rx="255" ry="88" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/><text x="350" y="228" text-anchor="middle" font-size="8.5" font-weight="700" fill="#92400E">2. MESSAGERIE -- Mailinblack Antispam</text><ellipse cx="350" cy="135" rx="200" ry="68" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5"/><text x="350" y="210" text-anchor="middle" font-size="8.5" font-weight="700" fill="#166534">3. ENDPOINT -- ESET Nod32 / Endpoint Protect</text><ellipse cx="350" cy="135" rx="145" ry="50" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/><text x="350" y="194" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1D4ED8">4. ACCES -- MFA / Azure AD / VPN</text><ellipse cx="350" cy="135" rx="88" ry="32" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/><text x="350" y="131" text-anchor="middle" font-size="9" font-weight="700" fill="#4C1D95">5. DONNEES</text><text x="350" y="144" text-anchor="middle" font-size="8" fill="#4C1D95">Beemo + Chiffrement</text></svg></div>';
+
+
+const QUESTIONS_M9 = [
+  {q:"Quel est le vecteur d attaque numero un contre les entreprises en France ?",opts:["Les intrusions physiques","Le phishing par email -- 73% des entreprises concernees","Les attaques DDoS","Le vol de mots de passe par force brute"],c:1,fb:"Le phishing (hameconnage par email) est le vecteur dominant : 73% des entreprises francaises en sont victimes. 90% des cyberattaques passent par la messagerie. C est pourquoi un antispam professionnel comme Mailinblack est une couche de protection essentielle."},
+  {q:"Qu est-ce qu un ransomware ?",opts:["Un logiciel de sauvegarde","Un logiciel malveillant qui chiffre les donnees de l entreprise et reclame une rancon pour les dechiffrer","Un antivirus","Un logiciel d acces a distance"],c:1,fb:"Un ransomware (rancongiciel) infiltre le systeme, chiffre tous les fichiers accessibles (serveur, NAS, postes) et affiche une demande de rancon. 18% des PME ont subi une attaque ransomware en 2024. Sans sauvegarde isolee, la perte de donnees est totale."},
+  {q:"Qu est-ce que le phishing par rapport au spearphishing ?",opts:["Ce sont deux noms pour la meme chose","Phishing = envoi massif non cible, spearphishing = email tres cible et personnalise imitant un collegue ou partenaire connu","Spearphishing = phishing par SMS","Phishing = attaque reseau, spearphishing = attaque email"],c:1,fb:"Le phishing est envoye massivement a des milliers de destinataires sans personnalisation. Le spearphishing est finement cible : l attaquant a etudie sa cible (LinkedIn, site web) et redige un email tres credible imitant un collegue, un client ou un fournisseur connu."},
+  {q:"Quel est le role d un firewall dans une infrastructure reseau ?",opts:["Stocker les fichiers de l entreprise","Filtrer le trafic entrant et sortant selon des regles de securite, bloquer les intrusions et creer des tunnels VPN securises","Gerer les mots de passe","Faire des sauvegardes"],c:1,fb:"Le firewall est le gardien du perimetre reseau. Il analyse chaque paquet entrant et sortant, applique les regles de filtrage, detecte les intrusions (IPS), gere le NAT et peut etablir des tunnels VPN chiffres. Stormshield SNS integre tous ces mecanismes dans un seul appliance qualifie ANSSI."},
+  {q:"Qu est-ce que la qualification ANSSI et pourquoi est-elle importante pour les firewalls Stormshield ?",opts:["Une certification de design","Une attestation delivree par l Agence Nationale de la Securite des Systemes d Information garantissant le niveau de securite et la souverainete du produit","Un label marketing","Une certification ISO"],c:1,fb:"La qualification ANSSI (Agence Nationale de la Securite des Systemes d Information) est la certification francaise de reference pour les produits de securite. La gamme Stormshield SNS dispose d une Qualification Standard ANSSI -- elle peut etre deployee dans les Operateurs d Importance Vitale et les administrations francaises."},
+  {q:"Qu est-ce que Mailinblack Protect et quel probleme resout-il ?",opts:["Un logiciel de messagerie","Une solution antispam francaise qui filtre les emails malveillants (phishing, malware, spam) avant qu ils arrivent dans la boite mail des utilisateurs","Un VPN","Un antivirus de poste"],c:1,fb:"Mailinblack Protect est une solution antispam et antiphishing francaise. Elle s intercale entre internet et le serveur de messagerie pour filtrer les emails malveillants, analyser les liens (Secure Link) et bloquer les pieces jointes dangereuses avant qu elles atteignent l utilisateur."},
+  {q:"Quelle est la difference entre ESET NOD32 et ESET Endpoint Protect ?",opts:["Ce sont les memes produits","NOD32 est un antivirus grand public, Endpoint Protect est une solution entreprise avec console de gestion centralisee, EDR et protection contre les ransomwares","Endpoint Protect est plus ancien","NOD32 protege les serveurs, Endpoint les postes"],c:1,fb:"ESET NOD32 est l antivirus de base, adapte aux petites structures. ESET Endpoint Protect est la solution entreprise avec : console de gestion centralisee, EDR (Detection et Reponse sur les Endpoints), protection comportementale contre les ransomwares et chiffrement des disques."},
+  {q:"Qu est-ce que le MFA (Multi-Factor Authentication) et pourquoi est-il indispensable ?",opts:["Un type de mot de passe complexe","Une authentification necessitant au minimum 2 facteurs differents (mot de passe + code SMS, application, cle physique) rendant le vol de mot de passe insuffisant pour s connecter","Un antivirus","Un type de VPN"],c:1,fb:"Le MFA exige au moins 2 facteurs pour s authentifier : quelque chose que vous savez (mot de passe) + quelque chose que vous avez (smartphone, cle physique) ou que vous etes (biometrie). Meme si le mot de passe est vole, l attaquant ne peut pas se connecter sans le second facteur."},
+  {q:"Qu est-ce qu une arnaque au president (ou FOVI) ?",opts:["Un ransomware","Une manipulation sociale ou l attaquant se fait passer pour un dirigeant ou un partenaire pour obtenir un virement frauduleux ou des informations sensibles","Un type de phishing par SMS","Une attaque DDoS"],c:1,fb:"Le FOVI (Faux Ordre de Virement) ou arnaque au president consiste a usurper l identite d un dirigeant, d un fournisseur ou d un partenaire pour obtenir un virement urgent. 38% des entreprises en ont ete victimes. La formation et la sensibilisation des employes sont la principale defense."},
+  {q:"Qu est-ce qu un EDR (Endpoint Detection and Response) ?",opts:["Un simple antivirus base sur les signatures de virus connus","Une solution de securite avancee qui surveille le comportement des processus en temps reel et peut isoler un poste infecte avant que la menace se propage","Un firewall de poste","Un outil de sauvegarde"],c:1,fb:"Un EDR surveille le comportement des processus (pas seulement les signatures) et detecte les menaces inconnues (zero-day). Il peut isoler automatiquement un poste infecte du reseau, stopper un chiffrement ransomware en cours et enregistrer toute l activite pour l analyse forensique."},
+  {q:"Quel est le modele de firewall Stormshield recommande pour une TPE ou une agence distante ?",opts:["SN-L-Series","SN-XS-Series-170","SN-M-Series-720","SNi40 industriel"],c:1,fb:"Le SN-XS-Series-170 est l appliance Stormshield concue specifiquement pour les TPE, petites entreprises et sites distants. Compacte et economique, elle apporte toutes les fonctionnalites SNS (filtrage, VPN IPsec, IPS, protection web) a l echelle d une petite structure."},
+  {q:"Qu est-ce que la technologie ASQ (Active Security Qualification) de Stormshield ?",opts:["Un label marketing","Le mecanisme de filtrage de paquets evolue de Stormshield qui analyse les flux en profondeur (inspection stateful et applicative) pour detecter et bloquer les menaces","Un protocole de chiffrement","Un type de VPN"],c:1,fb:"La technologie ASQ est le coeur du moteur de filtrage Stormshield. Elle realise une inspection en profondeur des paquets (DPI), analyse les flux au niveau applicatif (pas seulement les ports) et detecte les menaces cachees dans des protocols legitimes (HTTP, DNS, etc.)."},
+  {q:"Pourquoi la sensibilisation des utilisateurs est-elle consideree comme la couche de securite la plus importante ?",opts:["Elle ne l est pas -- les outils techniques suffisent","Parce que 60% des brèches impliquent l erreur humaine en 2025 -- un utilisateur qui clique sur un lien piege contourne tous les dispositifs techniques","Parce qu elle est la moins chere","Car les antivirus ne fonctionnent pas"],c:1,fb:"60% des cyberbrèches impliquent l erreur ou la manipulation humaine. Un utilisateur qui clique sur un lien de phishing contourne le firewall, l antivirus et la sauvegarde -- il a deja ouvert la porte. La formation et la sensibilisation regulieres sont le complement indispensable de tous les outils techniques."},
+  {q:"Qu est-ce qu une politique de mots de passe efficace en entreprise ?",opts:["Un mot de passe de 8 caracteres identique pour tous les services","Des mots de passe d au moins 12 caracteres uniques par service, changes tous les 90 jours et stockes dans un gestionnaire de mots de passe","Le meme mot de passe sur tous les services mais tres complexe","Des mots de passe sans caracteres speciaux"],c:1,fb:"Une politique de mots de passe solide : longueur minimum 12 a 16 caracteres, unicite par service (jamais le meme partout), renouvellement regulier, gestionnaire de mots de passe (Bitwarden, KeePass, 1Password) et surtout MFA active sur tous les comptes critiques."},
+  {q:"Pourquoi le firewall Stormshield est-il prefere a des alternatives comme Fortinet ou Cisco pour les marches sensibles en France ?",opts:["Il est moins cher","Il est certifie ANSSI et développe en France -- garantissant la souverainete numerique et l eligibilite aux marches publics et secteurs sensibles (defense, sante, OIV)","Il est plus facile a configurer","Il a plus de fonctionnalites"],c:1,fb:"Stormshield est le seul firewall disposant d une Qualification Standard ANSSI pour les marches publics et les OIV (Operateurs d Importance Vitale). Son developpement 100% francais garantit la souverainete numerique -- aucune backdoor possible imposee par une legislation etrangere. Argument decisif dans les secteurs sante, defense, juridique et administration."}
+];
+
+function renderStep1_M9() {
+  var ch = [
+    ["Les enjeux : pourquoi la cybersecurite est devenue critique",
+     "<p>La cybersecurite n est plus une option reservee aux grandes entreprises. Les PME sont devenues la cible privilegiee des cyberattaquants precisement parce qu elles sont moins bien protegees que les grandes organisations.</p>"
+     + SVG_MENACES_M9
+     + "<h4>Les chiffres qui font prendre conscience</h4>"
+     + "<p>- <strong>43%</strong> des organisations francaises ont subi au moins une cyberattaque reussie en 2024</p>"
+     + "<p>- <strong>+50%</strong> de risque de defaillance dans les 6 mois suivant un incident cyber grave</p>"
+     + "<p>- <strong>60%</strong> des cyberbreches impliquent l erreur ou la manipulation humaine en 2025</p>"
+     + "<p>- <strong>90%</strong> des cyberattaques passent par la messagerie email</p>"
+     + "<p>- <strong>37%</strong> des victimes de ransomware sont des PME, souvent sous-protegees</p>"
+     + "<h4>La menace interne -- souvent sous-estimee</h4>"
+     + "<p>La plupart des attaques viennent de l exterieur, mais les menaces internes sont frequentes et souvent plus devastatrices car elles partent de l interieur du perimetre de securite :</p>"
+     + "<p>- Un ex-employe dont l acces n a pas ete revoque</p>"
+     + "<p>- Un employe mal forme qui clique sur un lien de phishing</p>"
+     + "<p>- Un appareil personnel non securise connecte au Wi-Fi d entreprise</p>"
+     + "<p>- L utilisation de services non approuves (Shadow IT : Dropbox personnel, WhatsApp...)</p>"
+     + "<div class=\"key-box\">Argument commercial cle : la cybersecurite est le seul investissement IT qui n ameliore pas la productivite -- mais dont l absence peut tuer l entreprise. Une seule attaque ransomware sans sauvegarde peut couter plus cher en une journee que 3 ans de protection.</div>"
+    ],
+    ["Les menaces : anatomie des principales attaques",
+     "<h4>Le phishing et le spearphishing</h4>"
+     + "<p>Le <strong>phishing</strong> est un email frauduleux imitant une entite connue (banque, Microsoft, impots, partenaire) pour inciter l utilisateur a cliquer sur un lien piege ou fournir ses identifiants. Il est envoye massivement a des milliers de destinataires.</p>"
+     + "<p>Le <strong>spearphishing</strong> est une version ciblee et personnalisee : l attaquant a etudie sa cible (LinkedIn, site web, reseaux sociaux) et redige un email tres credible imitant un collegue, un client ou un fournisseur connu. Taux d ouverture beaucoup plus eleve.</p>"
+     + "<p>Les signaux d alerte : urgence anormale, demande de virement, lien qui ne correspond pas a l expediteur, adresse email avec une faute subtile (exemple : microsofft.com).</p>"
+     + "<h4>Les ransomwares (rancongiciels)</h4>"
+     + "<p>Le ransomware s introduit via un email piege, un site web compromis ou une faille non patchee. Une fois execute, il chiffre methodiquement tous les fichiers accessibles sur le poste, le serveur et les partages reseau. L affichage d une demande de rancon signifie que le chiffrement est termine.</p>"
+     + "<p>Les deux scenarios sans sauvegarde isolee : payer la rancon (sans garantie de recuperer les donnees) ou tout perdre. Avec une Beemo correctement configuree, les sauvegardes sont inaccessibles au ransomware -- restauration possible.</p>"
+     + "<h4>L arnaque au president (FOVI)</h4>"
+     + "<p>Le FOVI (Faux Ordre de Virement International) usurpe l identite d un dirigeant, d un DAF ou d un partenaire pour obtenir un virement urgent et confidentiel. 38% des entreprises en ont ete victimes. La technique exploite l autorite hierarchique et la pression temporelle pour court-circuiter les processus de validation.</p>"
+     + "<div class=\"key-box\">Defense contre le FOVI : processus de double validation systematique pour tout virement superieur a X euros. Jamais de virement sur instruction unique par email ou telephone, meme du PDG.</div>"
+     + "<h4>Les failles et intrusions</h4>"
+     + "<p>53% des entreprises ont subi une intrusion via l exploitation d une faille non patchee. Les cibles privilegiees : firewall avec firmware obsolete, VPN avec vulnerabilite connue, serveur Windows non mis a jour, application web exposee. L ANSSI souligne que plus de la moitie de ses operations en 2024 avaient pour origine des failles sur les equipements de securite eux-memes.</p>"
+     + "<h4>Les attaques DDoS</h4>"
+     + "<p>Une attaque DDoS (Distributed Denial of Service) sature un service en ligne par un afflux massif de requetes, le rendant inaccessible. Cible principalement les sites web, boutiques en ligne et services publics. Moins frequents pour les PME mais en augmentation avec la democratisation des botnets-as-a-service.</p>"
+    ],
+    ["La defense en profondeur -- les 5 couches de securite",
+     SVG_DEFENSE_M9
+     + "<h4>Couche 1 -- Le perimetre : Firewall Stormshield SNS</h4>"
+     + "<p>Le firewall est la premiere barriere entre internet et le reseau interne. Stormshield Network Security (SNS) est l appliance francaise referencee, disposant de la Qualification Standard ANSSI.</p>"
+     + "<p>La gamme SNS pour les PME :</p>"
+     + "<p>- <strong>SN-XS-Series-170</strong> : TPE, agences et sites distants. Entree de gamme, toutes les fonctionnalites SNS en format compact</p>"
+     + "<p>- <strong>SN-S-Series-220</strong> : PME jusqu a 50 utilisateurs. Evolutif vers le SN-S-Series-320 par simple changement de licence</p>"
+     + "<p>- <strong>SN-S-Series-320</strong> : PME jusqu a 100 utilisateurs, 8 Gbps de debit</p>"
+     + "<p>- <strong>SN-M-Series-520 / 720 / 920</strong> : ETI, multi-sites, haute disponibilite</p>"
+     + "<p>Fonctionnalites incluses : filtrage URL, IPS (prevention d intrusion), VPN IPsec et SSL, filtrage applicatif, technologie ASQ (Active Security Qualification), gestion depuis le Stormshield Management Center (SMC).</p>"
+     + "<div class=\"key-box\">Argument souverainete : Stormshield est le seul firewall francais qualifie ANSSI. Ses firewalls peuvent etre deployes dans les OIV, les administrations et les etablissements de sante -- argument fort face a Fortinet, Palo Alto ou Cisco qui sont des produits americains soumis au Cloud Act.</div>"
+     + "<h4>Couche 2 -- La messagerie : Mailinblack</h4>"
+     + "<p>Mailinblack Protect s intercale entre internet et le serveur de messagerie. Il filtre les emails entrants avant qu ils arrivent dans la boite de l utilisateur :</p>"
+     + "<p>- <strong>Antispam</strong> : filtrage des emails non sollicites et des newsletters</p>"
+     + "<p>- <strong>Antivirus email</strong> : analyse des pieces jointes (PDF, Office, archives) a la recherche de malwares</p>"
+     + "<p>- <strong>Antiphishing</strong> : detection des emails frauduleux, verification des expediteurs, analyse des en-tetes</p>"
+     + "<p>- <strong>Secure Link</strong> : analyse des liens au moment du clic -- si un lien devient malveillant apres l envoi de l email, il est intercepte</p>"
+     + "<p>- <strong>Simulation phishing et formation</strong> : certaines offres incluent des simulations d attaques pour former les utilisateurs</p>"
+     + "<p>Editeur francais base a Marseille, protege plus de 14 000 entreprises, collectivites et etablissements de sante. Hebergement des donnees exclusivement en France.</p>"
+     + "<h4>Couche 3 -- Les endpoints : ESET</h4>"
+     + "<p>Deux niveaux de protection :</p>"
+     + "<p>- <strong>ESET NOD32</strong> : antivirus de base pour les petites structures. Leger, efficace, faible impact sur les performances. Protection temps reel, heuristique, mise a jour automatique.</p>"
+     + "<p>- <strong>ESET Endpoint Protect</strong> : solution entreprise avec console de gestion centralisee, EDR (detection comportementale), protection specifique anti-ransomware, chiffrement des disques (Full Disk Encryption), gestion des mises a jour, rapports et alertes. Deploiement et supervision depuis un portail unique pour tout le parc.</p>"
+     + "<h4>Couche 4 -- Les acces : MFA, VPN et gestion des identites</h4>"
+     + "<p>- <strong>MFA (Multi-Factor Authentication)</strong> : indispensable sur tous les comptes critiques (email, M365, VPN, outils de gestion). En cas de vol de mot de passe, l acces reste bloque sans le second facteur.</p>"
+     + "<p>- <strong>VPN Stormshield</strong> : acces securise des teletravailleurs via tunnel IPsec ou SSL. L utilisateur se connecte comme s il etait au bureau.</p>"
+     + "<p>- <strong>Principe du moindre privilege</strong> : chaque utilisateur n a acces qu aux ressources dont il a besoin. Limite la propagation en cas de compromission.</p>"
+     + "<p>- <strong>Gestion des acces sortants</strong> : desactivation immediate des comptes lors du depart d un employe.</p>"
+     + "<h4>Couche 5 -- Les donnees : sauvegarde et chiffrement</h4>"
+     + "<p>La derniere ligne de defense : si toutes les autres couches ont ete contournees, la sauvegarde Beemo permet de restaurer l activite. Voir module 4 pour le detail des solutions de sauvegarde IXEO.</p>"
+    ],
+    ["Les bonnes pratiques et la sensibilisation utilisateur",
+     "<h4>La politique de mots de passe</h4>"
+     + "<p>- <strong>Longueur minimum</strong> : 12 a 16 caracteres. La complexite importe moins que la longueur.</p>"
+     + "<p>- <strong>Unicite</strong> : un mot de passe unique par service. Si un site est compromis, les autres comptes ne le sont pas.</p>"
+     + "<p>- <strong>Gestionnaire de mots de passe</strong> : Bitwarden (open source), KeePass, 1Password. Permet de generer et stocker des mots de passe complexes uniques sans les memoriser.</p>"
+     + "<p>- <strong>MFA sur tout</strong> : Microsoft 365, messagerie, VPN, outils de gestion -- activer le MFA systematiquement.</p>"
+     + "<p>- <strong>Ne jamais partager</strong> : un mot de passe ne se partage pas, meme en interne.</p>"
+     + "<h4>Les reflexes anti-phishing a enseigner</h4>"
+     + "<p>- <strong>Verifier l expediteur</strong> : l adresse email d affichage peut etre differente de l adresse reelle. Verifier systematiquement.</p>"
+     + "<p>- <strong>Ne jamais cliquer sur un lien urgent</strong> : aller directement sur le site en tapant l URL dans le navigateur.</p>"
+     + "<p>- <strong>Ne jamais ouvrir une piece jointe inattendue</strong> : meme d un expediteur connu (son compte peut etre compromis).</p>"
+     + "<p>- <strong>Signaler tout email suspect</strong> : sans crainte de ridicule. Mieux vaut signaler un faux positif.</p>"
+     + "<h4>La gestion des acces et le cycle de vie des comptes</h4>"
+     + "<p>- Desactiver immediatement les comptes lors du depart d un employe</p>"
+     + "<p>- Revue periodique des droits d acces (qui a acces a quoi)</p>"
+     + "<p>- Audits des connexions et alertes sur les connexions inhabituelles</p>"
+     + "<p>- Compte administrateur dedie, distinct du compte de travail quotidien</p>"
+     + "<h4>Le plan de reponse aux incidents</h4>"
+     + "<p>Chaque entreprise devrait avoir un document repondant a ces questions :</p>"
+     + "<p>- Que faire si on detecte un ransomware en cours ? (deconnecter immediatement du reseau, stopper les sauvegardes)</p>"
+     + "<p>- Qui appeler ? (responsable IT, IXEO, assurance cyber, ANSSI si OIV)</p>"
+     + "<p>- Quels systemes restaurer en priorite pour reprendre l activite ?</p>"
+     + "<p>- Comment communiquer avec les clients et partenaires pendant l incident ?</p>"
+     + "<div class=\"key-box\">Mailinblack propose des modules de simulation de phishing et de formation en ligne. C est une opportunite commerciale : vendre la formation utilisateur en complement de la solution technique.</div>"
+    ],
+    ["Qualifier et vendre la cybersecurite",
+     "<h4>Le cycle de securite d une PME -- les 5 niveaux</h4>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Niveau 0 -- Inexistant</div><div class=\"info-val\">Box operateur en frontal, antivirus gratuit, pas de sauvegarde. Cible facile.</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Niveau 1 -- Basique</div><div class=\"info-val\">Antivirus paye, sauvegarde externe manuelle. Insuffisant face aux menaces modernes.</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Niveau 2 -- Intermediaire</div><div class=\"info-val\">Firewall pro, antivirus centralisee, sauvegarde automatique. Niveau minimum recommande.</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Niveau 3 -- Avance</div><div class=\"info-val\">Firewall, antispam, EDR, MFA, sauvegarde cloud. Protection solide.</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Niveau 4 -- Optimal</div><div class=\"info-val\">Tous les precedents + formation utilisateur, audit regulier, SOC, cyber-assurance.</div></div>"
+     + "</div>"
+     + "<h4>La checklist IXEO -- l offre securite complete</h4>"
+     + "<p>- Firewall Stormshield SNS (perimetre) -- licence annuelle UTM (Unified Threat Management)</p>"
+     + "<p>- Mailinblack Protect (messagerie) -- abonnement par boite mail</p>"
+     + "<p>- ESET Endpoint Protect (postes et serveurs) -- licence par poste</p>"
+     + "<p>- Beemo (sauvegarde isolee) -- derniere ligne de defense</p>"
+     + "<p>- MFA M365 / Azure AD (acces) -- inclus dans Business Premium</p>"
+     + "<p>- Sensibilisation utilisateurs -- prestation de service ou Mailinblack e-learning</p>"
+     + "<p>- Cyber-assurance -- produit a referencier avec un courtier partenaire</p>"
+     + "<div class=\"key-box\">La vente de securite est une vente de tranquillite d esprit. Le client ne voit pas ce que le firewall bloque chaque jour -- mais il dormirait mal s il n en avait pas. Utilisez les statistiques (43% d entreprises attaquees, +50% de defaillance) pour mettre en perspective le cout de la solution vs le risque.</div>"
+    ]
+  ];
+  var html = '<div class="step-panel">';
+  for (var i=0;i<ch.length;i++){
+    var open=i===0;
+    html += '<div class="chapter"><div class="ch-hd '+(open?'open':'')+'"><span>'+(i+1)+'. '+ch[i][0]+'</span><span class="ch-toggle">'+(open?'\u25b2':'\u25bc')+'</span></div><div class="ch-body '+(open?'open':'')+'"><div class="content-section">'+ch[i][1]+'</div></div></div>';
+  }
+  html += stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M9(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation -- Attaque ransomware en cours</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte (fictif a des fins pedagogiques)</div>';
+  html+='<div class="scenario-context">Votre client <strong>M. ARNAUD</strong>, responsable d un cabinet d expertise comptable de 15 personnes, vous appelle un mardi matin a 9h30 : "Il se passe quelque chose de bizarre -- sur tous les postes, les fichiers ont des extensions etranges et on ne peut plus rien ouvrir. Un message en anglais demande un paiement en Bitcoin." Sa "sauvegarde" : un disque dur externe branche le soir, qui etait branche hier soir quand l attaque s est propagee -- il est chiffre lui aussi. Pas de firewall professionnel, antivirus gratuit Windows Defender, messagerie Roundcube.</div>';
+  html+='</div><h4>Deroulement de la crise</h4><div class="dialogue">';
+  var bubbles=[
+    ['comm','V','Vous (IXEO)','Monsieur Arnaud, ne payez pas la rancon -- ca n est pas une garantie de recuperer vos donnees et ca vous expose a de nouvelles demandes. Premierement : deconnectez IMMEDIATEMENT tous les postes du reseau. Coupez le Wi-Fi, debranchez les cables ethernet. Le ransomware se propage via le reseau.'],
+    ['cli','A','M. Arnaud','C est fait. Mais toutes nos donnees sont perdues ?'],
+    ['comm','V','Vous','Ca depend de votre historique de sauvegarde. Votre disque externe du soir d avant -- il etait branche hier soir au moment de l attaque ?'],
+    ['cli','A','M. Arnaud','Oui, precisement. C est pour ca que je pense qu il est chiffre lui aussi.'],
+    ['comm','V','Vous','Malheureusement c est probable. Si le disque etait connecte au reseau pendant l infection, il est compromis. La restauration sera limitee aux donnees avant la propagation. On va faire une analyse forensique pour evaluer exactement ce qu on peut recuperer. En attendant, portez plainte a la gendarmerie -- c est important pour votre assurance.'],
+    ['cli','A','M. Arnaud','On aurait pu eviter ca ?'],
+    ['comm','V','Vous','Avec trois protections : 1/ Un firewall Stormshield qui bloque les communications du ransomware vers ses serveurs de commande. 2/ Mailinblack qui aurait filtre l email vecteur de l infection. 3/ Une Beemo pour la sauvegarde -- elle est invisible au ransomware meme si elle etait branchee. On aurait restaure l activite en quelques heures. Je vous fais un devis cet apres-midi.']
+  ];
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];
+    var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Le reflexe immediat = deconnecter du reseau pour stopper la propagation. 2/ Ne jamais payer la rancon. 3/ Porter plainte. 4/ Cette crise est l opportunite de presenter les 3 solutions IXEO qui l auraient evitee. La prevention se vend apres la crise d un voisin ou d un concurrent.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M9(){
+  var cats=[
+    {t:"Evaluation du niveau de securite actuel",qs:["Avez-vous un firewall professionnel (pas la box operateur) ou uniquement la box de votre FAI ?","Quel antivirus est deploye sur les postes et le serveur ? Est-il gere de maniere centralisee ?","Avez-vous une solution antispam/antiphishing sur votre messagerie ?","Le MFA est-il active sur les comptes email, M365 et VPN ?","Vos appareils personnels (BYOD) peuvent-ils acceder aux donnees de l entreprise ?"]},
+    {t:"Audit des risques specifiques",qs:["Vos employes ont-ils recu une formation sur le phishing et les bonnes pratiques en 2024 ?","Avez-vous deja ete victime d un incident cyber (virus, phishing, tentative d intrusion) ?","Les mises a jour de securite sont-elles appliquees systematiquement sur les postes et serveurs ?","Des acces de personnes ayant quitte l entreprise ont-ils ete verifies et revoquees ?","Avez-vous une procedure documentee en cas d incident cyber ?"]},
+    {t:"Qualification des solutions a proposer",qs:["Y a-t-il un budget alloue a la cybersecurite ou faut-il le creer ?","La conformite RGPD est-elle un sujet important pour le client (donnees de sante, RH, clients) ?","Y a-t-il des sites distants ou des teletravailleurs qui accentuent le perimetre a proteger ?","Le client est-il dans un secteur sensible (sante, juridique, finance, collectivite) necessite un niveau de certification superieur ?","Le client a-t-il une assurance cyber en place ?"]},
+    {t:"Opportunites de service complementaires",qs:["Le client est-il interesse par une formation phishing simulee pour ses equipes ?","Souhaitez-vous un audit de securite complet (test de penetration, analyse des droits, revue des regles firewall) ?","Y a-t-il une cyber-assurance a conseiller ou un courtier specialise a recommander ?","Un PRA (Plan de Reprise d Activite) documente existe-t-il ?"]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Grille d audit et qualification cybersecurite</h3>';
+  html+='<p>Utilisez cette grille pour evaluer le niveau de maturite cyber du client et identifier les priorites. Chaque reponse negative est une opportunite commerciale ET une responsabilite de conseil.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">La cybersecurite se vend mieux apres un incident chez un concurrent ou dans l actualite. Suivez l actualite cyber (ANSSI, CERT-FR) et utilisez les cas recents pour contextualiser votre proposition.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M9(){
+  var blocks=[
+    {titre:"Accroche : la une du journal",body:"Les affaires recentes (Hopitaux de Paris, Mairie d Annecy, Free, Moove Family...) montrent que personne n est a l abri. Ce n est plus une question de si vous serez attaque, mais de quand. La vraie question est : serez-vous capable de reprendre votre activite le lendemain ?"},
+    {titre:"SONCAS cybersecurite",body:"<p><strong>Securite</strong> : le firewall Stormshield est qualifie ANSSI -- la certification de reference en France. Les donnees sont traitees en France. Aucune backdoor imposee par une legislation etrangere (Cloud Act americain).</p>"
+    + "<p><strong>Orgueil</strong> : vos clients vous font confiance avec leurs donnees. Une fuite ou une indisponibilite de vos systemes compromet cette confiance et votre reputation -- parfois irreversiblement.</p>"
+    + "<p><strong>Nouveaute</strong> : Mailinblack Secure Link analyse les liens dans les emails au moment du clic -- pas seulement a la reception. Un lien devenu malveillant apres envoi est intercepte en temps reel.</p>"
+    + "<p><strong>Confort</strong> : IXEO deploie et gere l ensemble de votre infrastructure de securite. Vous recevez un rapport mensuel. Aucune intervention manuelle de votre part.</p>"
+    + "<p><strong>Argent</strong> : le cout de la prevention (firewall + antispam + antivirus + sauvegarde) pour une PME de 20 personnes est de 300 a 600 euros par mois. Le cout median d un ransomware sans sauvegarde pour une PME : 100 000 a 300 000 euros entre la rancon, les pertes d exploitation, la reconstruction et l atteinte a la reputation.</p>"
+    + "<p><strong>Sympathie</strong> : Stormshield et Mailinblack sont deux editeurs francais. Vos donnees restent en France. IXEO est votre partenaire local -- pas un centre d appels distant.</p>"},
+    {titre:"Le trio indissociable IXEO",body:"<p>Ne vendez jamais une seule couche de securite de maniere isolee. L efficacite de la cybersecurite repose sur la complementarite des couches :</p>"
+    + "<p>- <strong>Firewall seul</strong> : ne protege pas contre les menaces qui passent par la messagerie (phishing, ransomware par email)</p>"
+    + "<p>- <strong>Antivirus seul</strong> : ne detecte pas les menaces zero-day et ne bloque pas les intrusions reseau</p>"
+    + "<p>- <strong>Antispam seul</strong> : ne protege pas contre les intrusions reseau ni les malwares sur les postes</p>"
+    + "<div class=\"key-box\">La proposition IXEO cybersecurite = Stormshield (perimetre) + Mailinblack (messagerie) + ESET Endpoint Protect (postes) + Beemo (sauvegarde). Ces 4 couches se complementent et constituent une defense en profondeur reelle.</div>"},
+    {titre:"Closing : le rapport cout/risque",body:"'Monsieur, votre protection actuelle represente un cout de X euros par an. Une seule attaque ransomware vous couterait statistiquement entre 100 000 et 300 000 euros et un risque de fermeture. La question n est pas si vous devez investir dans la cybersecurite -- c est combien vous voulez risquer en n investissant pas. Je vous propose un plan de securite en 3 niveaux pour que vous choisissiez votre niveau de protection selon votre budget.'"}
+  ];
+  var objections=[
+    {q:"On n est pas une cible pour les hackers.",a:"Les PME sont precisement les cibles privilegiees parce qu elles sont moins bien protegees que les grandes entreprises et ont souvent des donnees de valeur (comptabilite, donnees clients, propriete intellectuelle). Les ransomwares ne ciblent pas -- ils se propagent massivement et infectent tout ce qu ils trouvent."},
+    {q:"On a deja un antivirus, on est proteges.",a:"L antivirus est une seule couche sur cinq. Il ne protege pas contre les intrusions reseau, ne filtre pas les emails de phishing avant qu ils arrivent, ne securise pas les VPN des teletravailleurs et ne sauvegarde pas les donnees en cas d attaque reussie. 96% des PME ont un antivirus -- et 43% ont ete attaquees avec succes."},
+    {q:"On est trop petits pour que ca nous arrive.",a:"Les ransomwares se propagent de maniere aveugles -- ils ne choisissent pas leurs victimes. Ils infectent tout ce qu ils trouvent via des emails de phishing envoyes a des millions de destinataires. Etre petit n est pas une protection."},
+    {q:"C est trop cher.",a:"Calculons ensemble : firewall Stormshield + Mailinblack + ESET Endpoint pour 15 personnes = environ 4 500 euros par an. Un seul incident ransomware sans sauvegarde vous coutera entre 50 000 et 300 000 euros. Le ROI de la prevention est incontestable -- c est le seul investissement dont vous n esperez jamais voir le retour."}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Pitch commercial -- Cybersecurite IXEO</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M9(){
+  var resources=[
+    {icon:'\u{1F310}',name:'Stormshield -- Comparateur de firewalls SNS',note:'Comparer les modeles SN-XS, SN-S, SN-M par usage et capacite',url:'https://www.stormshield.com/fr/produits-et-services/produits/protection-des-reseaux/comparer-firewalls-stormshield/'},
+    {icon:'\u{1F310}',name:'Mailinblack -- Site officiel',note:'Protect, formation, simulation phishing -- solution antispam francaise',url:'https://www.mailinblack.com'},
+    {icon:'\u{1F310}',name:'ANSSI -- Panorama de la cybermenace 2024',note:'Rapport officiel sur les menaces et statistiques en France',url:'https://www.ssi.gouv.fr/'},
+    {icon:'\u{1F4CA}',name:'Panorama des menaces cyber -- PME France 2024',note:'Statistiques phishing, ransomware, FOVI, defaillance',url:'#'},
+    {icon:'\u{1F4CA}',name:'Schema defense en profondeur -- 5 couches IXEO',note:'Perimetre, messagerie, endpoint, acces, donnees',url:'#'},
+    {icon:'\u{1F4CB}',name:'Grille d audit cybersecurite -- version terrain',note:'Evaluation du niveau de maturite et identification des priorites',url:'#'},
+    {icon:'\u{1F4C4}',name:'Comparatif Stormshield -- gamme SNS PME',note:'SN-XS-170, SN-S-220, SN-S-320 -- users, debit, fonctionnalites',url:'#'},
+    {icon:'\u{1F4C4}',name:'Comparatif ESET NOD32 vs Endpoint Protect',note:'Fonctionnalites, console centralisee, EDR, protection ransomware',url:'#'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos projets cybersecurite.</p><div class="resources-grid">';
   for(var i=0;i<resources.length;i++){
     var r=resources[i];
     var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
