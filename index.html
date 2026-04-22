@@ -654,7 +654,7 @@ const MODULES = [
   {id:8, name:"Solutions cloud (M365)",              family:2, available:true},
   {id:9, name:"Cybersécurité (firewall, antispam, antivirus)", family:2, available:true},
   {id:10,name:"Services IT externalisés",            family:2, available:true},
-  {id:11,name:"DocPulse — simplification de la démat.", family:3, available:false},
+  {id:11,name:"DocPulse — simplification de la démat.", family:3, available:true},
   {id:12,name:"Les fondamentaux de la GED",          family:3, available:true},
   {id:13,name:"Capture automatique de données",      family:3, available:false},
   {id:14,name:"Formulaires",                         family:3, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())))))))));
-  else if (step === 2) content.innerHTML = S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())))))))));
-  else if (step === 3) content.innerHTML = S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())))))))));
-  else if (step === 4) content.innerHTML = S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())))))))));
-  else if (step === 5) content.innerHTML = S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())))))))));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))))))))); }
+  if      (step === 1) content.innerHTML = S.currentModule===11 ? renderStep1_M11() : (S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()))))))))));
+  else if (step === 2) content.innerHTML = S.currentModule===11 ? renderStep2_M11() : (S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()))))))))));
+  else if (step === 3) content.innerHTML = S.currentModule===11 ? renderStep3_M11() : (S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()))))))))));
+  else if (step === 4) content.innerHTML = S.currentModule===11 ? renderStep4_M11() : (S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()))))))))));
+  else if (step === 5) content.innerHTML = S.currentModule===11 ? renderStep5_M11() : (S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()))))))))));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===11 ? QUESTIONS_M11 : (S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))))))))))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -3503,60 +3503,60 @@ function renderStep5_M9(){
 // ══════════════════════
 function renderStep1_M10(){
   var chapitres=[
-    {t:"Qu'est-ce qu'un service IT externalisé ?",c:`<p>Externaliser ses services IT, c'est confier tout ou partie de la gestion informatique d'une entreprise à un prestataire spécialisé. L'entreprise cliente bénéficie d'une expertise technique sans avoir à recruter ni former de personnel dédié.</p>
-    <p>Chez IXEO, l'offre de services IT externalisés couvre trois grands domaines : les <strong>prestations à la demande (forfaits)</strong>, les <strong>contrats de support récurrents</strong> et les <strong>frais annexes de service</strong>.</p>
-    <div class="key-box">💡 Pour le commercial IXEO, les services IT ne sont jamais vendus seuls : ils accompagnent systématiquement la vente de matériel (postes, serveurs, firewalls, écrans interactifs). C'est la récurrence qui crée la valeur à long terme.</div>`},
-    {t:"Les trois formules de prestation forfaitaire",c:`<p>IXEO propose trois niveaux de facturation pour ses interventions terrain :</p>
-    <div class="info-grid">
-      <div class="info-item"><div class="info-lbl">Flex</div><div class="info-val">Facturation à l'heure — 150 € HT/h. Minimum facturable : 15 min. Frais de déplacement non inclus (Z1 : 61 € HT / Z2 : 109 € HT).</div></div>
-      <div class="info-item"><div class="info-lbl">Précision</div><div class="info-val">Prestation forfaitaire demi-journée — 259 € HT (prix de transfert) / 315 € HT (tarif public). Déplacement inclus.</div></div>
-      <div class="info-item"><div class="info-lbl">Excellence</div><div class="info-val">Prestation forfaitaire journée entière — 460 € HT (prix de transfert) / 590 € HT (tarif public). Déplacement inclus.</div></div>
-      <div class="info-item"><div class="info-lbl">Zones de déplacement</div><div class="info-val">Zone 1 : dans un rayon de 50 km autour de l'agence (Toulouse, Albi, Lézignan-Corbières). Zone 2 : au-delà de 50 km.</div></div>
-    </div>
-    <div class="warn-box">⚠️ Les prix de transfert commerciaux sont les prix INTERNES (ce que le commercial facture en interne). Les tarifs publics sont ceux communiqués aux clients. Ne jamais confondre les deux grilles tarifaires.</div>`},
-    {t:"Le Pack ExpertVision — audit d'infrastructure",c:`<p>Le <strong>Pack ExpertVision</strong> est un service d'audit complet de l'infrastructure matérielle et réseaux d'un client, réalisé sur site, avec rédaction et restitution documentée.</p>
-    <p>Il couvre : baie de brassage, switches, Wi-Fi, serveurs, onduleurs, postes, télécoms, pare-feu, sauvegarde et conformité globale.</p>
-    <p>La restitution inclut un inventaire détaillé, des photos, des rapports de tests (débit, sauvegarde, vulnérabilités) et une synthèse des points critiques avec priorisation court/moyen/long terme.</p>
-    <div class="info-grid">
-      <div class="info-item"><div class="info-lbl">Prix de transfert</div><div class="info-val">590 € HT / jour</div></div>
-      <div class="info-item"><div class="info-lbl">Tarif public</div><div class="info-val">790 € HT / jour</div></div>
-    </div>
-    <div class="key-box">💡 L'audit ExpertVision est un excellent point d'entrée chez un prospect. Il révèle les failles, crée de la confiance et génère naturellement un plan d'action — et donc de nouvelles opportunités commerciales.</div>`},
-    {t:"Les contrats de support — TempoSupport & FullSupport",c:`<p>IXEO propose deux types de contrats de maintenance :</p>
-    <p><strong>Pack TempoSupport (Crédit d'heure)</strong> : support flexible, décompté à la minute, valable 12 mois, compatible avec tous les équipements. Facturation : 150 € HT/h. Frais de déplacement inclus selon offre.</p>
-    <p><strong>Pack FullSupport (Infogérance illimitée)</strong> : support illimité dédié à un équipement identifié (par numéro de série), engagement 12 mois minimum, suivi proactif. Frais de déplacement applicables selon la zone.</p>
-    <div class="info-grid">
-      <div class="info-item"><div class="info-lbl">Serveur / Firewall — 12 mois</div><div class="info-val">36 € HT/mois (prix de transfert) / 60 € HT/mois (public)</div></div>
-      <div class="info-item"><div class="info-lbl">Poste / Écran / Logiciel — 12 mois</div><div class="info-val">12 € HT/mois (prix de transfert) / 20 € HT/mois (public)</div></div>
-      <div class="info-item"><div class="info-lbl">Engagement 24 mois</div><div class="info-val">Serveur/FW : 36 € HT/M (transfert) / 48 € HT/M (public)</div></div>
-      <div class="info-item"><div class="info-lbl">Engagement 36 mois</div><div class="info-val">Serveur/FW : 36 € HT/M (transfert) / 36 € HT/M (public)</div></div>
-    </div>
-    <div class="key-box">💡 Le FullSupport couvre exclusivement les interventions curatives (pannes, dysfonctionnements). Les demandes liées à un manque de formation ou à une mauvaise utilisation sont exclues. Horaires : lundi–vendredi, 8h30–12h30 et 14h–17h, hors jours fériés et week-ends.</div>`},
-    {t:"Le Pack InfraCare — maintenance préventive",c:`<p>Le <strong>Pack InfraCare</strong> est un service de <strong>maintenance préventive récurrente</strong>. Contrairement au FullSupport qui est curatif (on intervient quand ça tombe en panne), l'InfraCare planifie des visites régulières pour vérifier proactivement l'état de l'infrastructure et prévenir les pannes avant qu'elles surviennent.</p>
-    <div class="info-grid">
-      <div class="info-item"><div class="info-lbl">Prix de transfert</div><div class="info-val">460 € HT / jour</div></div>
-      <div class="info-item"><div class="info-lbl">Tarif public</div><div class="info-val">590 € HT / jour</div></div>
-    </div>
-    <p>Les contrôles couvrent : baie (onduleur, switch, câblage), serveurs (MàJ Windows, RAID, disques, AD), périphériques (NAS, Wi-Fi, sauvegardes), firewall (firmware, ports, règles), postes de travail (antivirus, pilotes, logiciels).</p>
-    <div class="warn-box">📌 InfraCare = prévenir ≠ réparer. C'est la différence entre un contrôle technique annuel et attendre que la voiture tombe en panne sur l'autoroute.</div>`},
-    {t:"Les frais annexes — SPG, SPC, SPL, SPT, CSR, SPR",c:`<p>En plus des prestations et contrats, IXEO facture des <strong>frais de gestion et de service</strong> systématiques. Ces frais sont souvent méconnus mais indispensables à maîtriser pour établir des devis complets :</p>
-    <div class="info-grid">
-      <div class="info-item"><div class="info-lbl">SPG — Service Pack Gestion</div><div class="info-val">6 € HT / facture. Couvre la facturation, suivi des paiements, gestion comptable.</div></div>
-      <div class="info-item"><div class="info-lbl">SPC — Service Pack Contrat</div><div class="info-val">40 € HT / contrat. Traitement administratif complet : conformité, commande, réception, signature électronique.</div></div>
-      <div class="info-item"><div class="info-lbl">SPL — Service Pack Licence</div><div class="info-val">10 % du montant de la licence. Pour les licences sans renouvellement automatique, nécessitant supervision.</div></div>
-      <div class="info-item"><div class="info-lbl">SPT — Service Pack Toner</div><div class="info-val">18 € HT / trimestre / MFP. Expédition illimitée de toners à tarif fixe.</div></div>
-      <div class="info-item"><div class="info-lbl">CSR — C.S Remote</div><div class="info-val">4,50 € HT / trimestre / MFP. Supervision à distance des niveaux de toner et compteurs.</div></div>
-      <div class="info-item"><div class="info-lbl">SPR — Service Pack Réseautique</div><div class="info-val">4,90 € HT/T/PC/MFP (Essential) ou 6,90 € HT/T (Infinity, déplacement inclus). Drivers, déclaration serveur, scanner réseau.</div></div>
-    </div>`},
-    {t:"Forfait LIC — Livraison, Installation, Connexion",c:`<p>Le <strong>Forfait LIC</strong> (Livraison Installation Connexion) est systématiquement proposé lors de la vente d'un MFP. Il comprend : déballage et montage, mise en service, connexion réseau (2h selon fiche de connexion obligatoire) et démonstration client rapide.</p>
-    <p>La fiche de connexion est obligatoire à chaque vente et doit être produite simultanément avec le contrat de vente.</p>
-    <div class="info-grid">
-      <div class="info-item"><div class="info-lbl">Segment 1 — &lt;50 kg A4</div><div class="info-val">Livraison : 250 € HT / Reprise : 101 € HT</div></div>
-      <div class="info-item"><div class="info-lbl">Segment 2 — &lt;120 kg A3</div><div class="info-val">Livraison : 379 € HT / Reprise : 128 € HT</div></div>
-      <div class="info-item"><div class="info-lbl">Segment 2 avec FS — &lt;200 kg</div><div class="info-val">Livraison : 479 € HT / Reprise : 131 € HT</div></div>
-      <div class="info-item"><div class="info-lbl">Segment 3 — &lt;300 kg</div><div class="info-val">Livraison : 610 € HT / Reprise : 237 € HT</div></div>
-    </div>
-    <div class="key-box">💡 Portage à partir de la 3ème marche : supplément de 35 € HT en sus. La reprise rapatrie le matériel au dépôt IXEO de Saint-Jean. Tout transfert vers une autre destination nécessite une cotation.</div>`}
+    {t:"Qu\'est-ce qu\'un service IT externalise ?",c:'<p>Externaliser ses services IT, c\'est confier tout ou partie de la gestion informatique d\'une entreprise a un prestataire specialise. L\'entreprise cliente beneficie d\'une expertise technique sans avoir a recruter ni former de personnel dedie.</p>'
+    +'<p>Chez IXEO, l\'offre de services IT externalises couvre trois grands domaines : les <strong>prestations a la demande (forfaits)</strong>, les <strong>contrats de support recurrents</strong> et les <strong>frais annexes de service</strong>.</p>'
+    +'<div class="key-box">Pour le commercial IXEO, les services IT ne sont jamais vendus seuls : ils accompagnent systematiquement la vente de materiel (postes, serveurs, firewalls, ecrans interactifs). C\'est la recurrence qui cree la valeur a long terme.</div>'},
+    {t:"Les trois formules de prestation forfaitaire",c:'<p>IXEO propose trois niveaux de facturation pour ses interventions terrain :</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Flex</div><div class="info-val">Facturation a l\'heure -- 150 EUR HT/h. Minimum facturable : 15 min. Frais de deplacement non inclus (Z1 : 61 EUR HT / Z2 : 109 EUR HT).</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Precision</div><div class="info-val">Prestation forfaitaire demi-journee -- 259 EUR HT (prix de transfert) / 315 EUR HT (tarif public). Deplacement inclus.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Excellence</div><div class="info-val">Prestation forfaitaire journee entiere -- 460 EUR HT (prix de transfert) / 590 EUR HT (tarif public). Deplacement inclus.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Zones de deplacement</div><div class="info-val">Zone 1 : rayon de 50 km autour de l\'agence (Toulouse, Albi, Lezignan-Corbieres). Zone 2 : au-dela de 50 km.</div></div>'
+    +'</div>'
+    +'<div class="warn-box">Les prix de transfert commerciaux sont les prix INTERNES. Les tarifs publics sont ceux communiques aux clients. Ne jamais confondre les deux grilles tarifaires.</div>'},
+    {t:"Le Pack ExpertVision -- audit d\'infrastructure",c:'<p>Le <strong>Pack ExpertVision</strong> est un service d\'audit complet de l\'infrastructure materielle et reseaux d\'un client, realise sur site, avec redaction et restitution documentee.</p>'
+    +'<p>Il couvre : baie de brassage, switches, Wi-Fi, serveurs, onduleurs, postes, telecoms, pare-feu, sauvegarde et conformite globale.</p>'
+    +'<p>La restitution inclut un inventaire detaille, des photos, des rapports de tests (debit, sauvegarde, vulnerabilites) et une synthese des points critiques avec priorisation court/moyen/long terme.</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Prix de transfert</div><div class="info-val">590 EUR HT / jour</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Tarif public</div><div class="info-val">790 EUR HT / jour</div></div>'
+    +'</div>'
+    +'<div class="key-box">L\'audit ExpertVision est un excellent point d\'entree chez un prospect. Il revele les failles, cree de la confiance et genere naturellement un plan d\'action -- et donc de nouvelles opportunites commerciales.</div>'},
+    {t:"Les contrats de support -- TempoSupport et FullSupport",c:'<p>IXEO propose deux types de contrats de maintenance :</p>'
+    +'<p><strong>Pack TempoSupport (Credit d\'heure)</strong> : support flexible, decompte a la minute, valable 12 mois, compatible avec tous les equipements. Facturation : 150 EUR HT/h. Frais de deplacement inclus selon offre.</p>'
+    +'<p><strong>Pack FullSupport (Infogerance illimitee)</strong> : support illimite dedie a un equipement identifie (par numero de serie), engagement 12 mois minimum, suivi proactif. Frais de deplacement applicables selon la zone.</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Serveur / Firewall -- 12 mois</div><div class="info-val">36 EUR HT/mois (prix de transfert) / 60 EUR HT/mois (public)</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Poste / Ecran / Logiciel -- 12 mois</div><div class="info-val">12 EUR HT/mois (prix de transfert) / 20 EUR HT/mois (public)</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Engagement 24 mois</div><div class="info-val">Serveur/FW : 36 EUR HT/M (transfert) / 48 EUR HT/M (public)</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Engagement 36 mois</div><div class="info-val">Serveur/FW : 36 EUR HT/M (transfert) / 36 EUR HT/M (public)</div></div>'
+    +'</div>'
+    +'<div class="key-box">Le FullSupport couvre exclusivement les interventions curatives (pannes, dysfonctionnements). Les demandes liees a un manque de formation ou a une mauvaise utilisation sont exclues. Horaires : lundi-vendredi, 8h30-12h30 et 14h-17h, hors jours feries et week-ends.</div>'},
+    {t:"Le Pack InfraCare -- maintenance preventive",c:'<p>Le <strong>Pack InfraCare</strong> est un service de <strong>maintenance preventive recurrente</strong>. Contrairement au FullSupport curatif, l\'InfraCare planifie des visites regulieres pour verifier proactivement l\'etat de l\'infrastructure et prevenir les pannes.</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Prix de transfert</div><div class="info-val">460 EUR HT / jour</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Tarif public</div><div class="info-val">590 EUR HT / jour</div></div>'
+    +'</div>'
+    +'<p>Les controles couvrent : baie (onduleur, switch, cablage), serveurs (MaJ Windows, RAID, disques, AD), peripheriques (NAS, Wi-Fi, sauvegardes), firewall (firmware, ports, regles), postes de travail (antivirus, pilotes, logiciels).</p>'
+    +'<div class="warn-box">InfraCare = prevenir, pas reparer. C\'est la difference entre un controle technique annuel et attendre que la voiture tombe en panne sur l\'autoroute.</div>'},
+    {t:"Les frais annexes -- SPG, SPC, SPL, SPT, CSR, SPR",c:'<p>En plus des prestations et contrats, IXEO facture des <strong>frais de gestion et de service</strong> systematiques. Ces frais sont indispensables a maitriser pour etablir des devis complets :</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">SPG -- Service Pack Gestion</div><div class="info-val">6 EUR HT / facture. Couvre la facturation, suivi des paiements, gestion comptable.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">SPC -- Service Pack Contrat</div><div class="info-val">40 EUR HT / contrat. Traitement administratif complet : conformite, commande, reception, signature electronique.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">SPL -- Service Pack Licence</div><div class="info-val">10 % du montant de la licence. Pour les licences sans renouvellement automatique, necessitant supervision.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">SPT -- Service Pack Toner</div><div class="info-val">18 EUR HT / trimestre / MFP. Expedition illimitee de toners a tarif fixe.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">CSR -- C.S Remote</div><div class="info-val">4,50 EUR HT / trimestre / MFP. Supervision a distance des niveaux de toner et compteurs.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">SPR -- Service Pack Reseautique</div><div class="info-val">4,90 EUR HT/T/PC/MFP (Essential) ou 6,90 EUR HT/T (Infinity, deplacement inclus). Drivers, declaration serveur, scanner reseau.</div></div>'
+    +'</div>'},
+    {t:"Forfait LIC -- Livraison, Installation, Connexion",c:'<p>Le <strong>Forfait LIC</strong> (Livraison Installation Connexion) est systematiquement propose lors de la vente d\'un MFP. Il comprend : deballage et montage, mise en service, connexion reseau (2h selon fiche de connexion obligatoire) et demonstration client rapide.</p>'
+    +'<p>La fiche de connexion est obligatoire a chaque vente et doit etre produite simultanement avec le contrat de vente.</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Segment 1 -- moins de 50 kg A4</div><div class="info-val">Livraison : 250 EUR HT / Reprise : 101 EUR HT</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Segment 2 -- moins de 120 kg A3</div><div class="info-val">Livraison : 379 EUR HT / Reprise : 128 EUR HT</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Segment 2 avec FS -- moins de 200 kg</div><div class="info-val">Livraison : 479 EUR HT / Reprise : 131 EUR HT</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Segment 3 -- moins de 300 kg</div><div class="info-val">Livraison : 610 EUR HT / Reprise : 237 EUR HT</div></div>'
+    +'</div>'
+    +'<div class="key-box">Portage a partir de la 3eme marche : supplement de 35 EUR HT en sus. La reprise rapatrie le materiel au depot IXEO de Saint-Jean. Tout transfert vers une autre destination necessite une cotation.</div>'}
   ];
   var html='<div class="step-panel">';
   for(var i=0;i<chapitres.length;i++){
@@ -3566,9 +3566,6 @@ function renderStep1_M10(){
   return html;
 }
 
-// ══════════════════════
-// STEP 2 — MISE EN SITUATION
-// ══════════════════════
 function renderStep2_M10(){
   var html='<div class="step-panel"><div class="content-section">';
   html+='<h3>🎭 Mise en situation — Négociation du contrat de support</h3>';
@@ -3705,6 +3702,242 @@ var QUESTIONS_M10=[
 // (correction question 15 — réponse exacte 260 est option D, indice 3)
 QUESTIONS_M10[14]={q:"Pour une PME avec 10 postes et 1 serveur, quel est le montant mensuel d'un Pack FullSupport en tarif public engagement 12 mois ?",opts:["120 € HT/mois","180 € HT/mois","220 € HT/mois","260 € HT/mois"],c:3,fb:"1 serveur = 60 € HT/mois + 10 postes × 20 € = 200 € HT/mois. Total = 260 € HT/mois. C'est l'argument commercial clé : une seule journée de blocage de l'équipe coûte bien plus."};
 
+
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  MODULE 11 — DOCPULSE — SIMPLIFICATION DE LA DÉMAT. ║
+// ╚══════════════════════════════════════════════════════╝
+
+function renderStep1_M11(){
+  var chapitres=[
+    {t:"Qu\'est-ce que DocPulse ?",c:'<p><strong>DocPulse</strong> est un logiciel d\'<strong>indexation intelligente de documents</strong>, developpe en interne par IXEO. Il tourne en instance locale sur le poste Windows de l\'utilisateur (on-premise) et constitue le <strong>premier pas concret vers la demateriqlisation</strong> pour les TPE, PME, collectivites, associations et professions liberales.</p>'
+    +'<p>Son role : permettre a n\'importe quelle organisation de <strong>charger, indexer, nommer et classer automatiquement ses documents</strong> en quelques clics, grace a la reconnaissance OCR et a des regles de classement entierement configurables.</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Compatibilite</div><div class="info-val">Windows 10 (64-bit) et Windows 11</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Version actuelle</div><div class="info-val">2.0.1-1 -- FR / EN</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Moteur OCR</div><div class="info-val">Tesseract OCR 5.5 -- installe automatiquement</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Configuration mini</div><div class="info-val">4 Go RAM, Core i3/Ryzen 3 2 GHz+, 500 Mo disque</div></div>'
+    +'</div>'
+    +'<div class="key-box">DocPulse n\'est pas une GED. C\'est la porte d\'entree vers la GED. Il resout le probleme numero 1 des PME : le classement anarchique des documents, sans forcer une migration lourde et couteuse.</div>'},
+    {t:"Les 3 gains cles a retenir par coeur",c:'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">divise par 2 sur le classement</div><div class="info-val">Les regles automatiques et la capture OCR au lasso divisent par 2 le temps de classement des documents.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">divise par 5 sur la recherche</div><div class="info-val">Les documents sont nommes de facon uniforme et leur contenu est indexe OCR : on retrouve un document 5 fois plus vite -- y compris depuis l\'explorateur Windows.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Classement uniformise</div><div class="info-val">Toute l\'organisation nomme et range ses documents selon les memes regles. Fini les variantes de nommage selon les utilisateurs.</div></div>'
+    +'</div>'
+    +'<div class="warn-box">Ces trois chiffres sont vos arguments de vente principaux. Memorisez-les : diviser par 2 le classement, diviser par 5 la recherche, zero variante de nommage entre utilisateurs.</div>'},
+    {t:"Lexique -- Les termes techniques a maitriser",c:'<div class="q-category"><div class="q-cat-title">OCR -- Optical Character Recognition (Reconnaissance Optique de Caracteres)</div><div class="q-list">'
+    +'<div class="q-item"><strong>Definition :</strong> Technologie qui analyse une image (scan ou photo d\'un document) et en extrait le texte de maniere lisible et exploitable par un ordinateur. Sans OCR, un scan est une image muette. Avec OCR, chaque mot du document devient cherchable.</div>'
+    +'<div class="q-item"><strong>Dans DocPulse :</strong> Tesseract OCR 5.5 traite automatiquement les PDF scannes et les images. Les PDF nativement numeriques (Word, Excel exportes en PDF) sont deja lisibles sans OCR.</div>'
+    +'<div class="q-item"><strong>Argument commercial :</strong> Votre collaborateur peut taper le nom d\'un fournisseur dans l\'explorateur Windows et retrouver le document en 3 secondes, meme s\'il a ete scanne.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Capture OCR au lasso</div><div class="q-list">'
+    +'<div class="q-item"><strong>Definition :</strong> Fonctionnalite qui permet de dessiner une zone de selection (un lasso) directement sur l\'apercu du document, pour en extraire automatiquement le texte via OCR et l\'injecter dans un champ d\'indexation sans saisie manuelle.</div>'
+    +'<div class="q-item"><strong>Exemple concret :</strong> L\'utilisateur ouvre une facture fournisseur, dessine un rectangle autour du numero de facture : DocPulse lit "FA-2024-0387" et le place automatiquement dans le champ "Numero de piece". Zero frappe au clavier, zero risque de faute de frappe.</div>'
+    +'<div class="q-item"><strong>Argument commercial :</strong> C\'est la fonctionnalite qui divise par 2 le temps d\'indexation. On clique, on selectionne, le champ se remplit seul.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Index / Metadonnee</div><div class="q-list">'
+    +'<div class="q-item"><strong>Definition :</strong> Une metadonnee est une information qui decrit un document (date, auteur, type, numero, fournisseur...) sans faire partie du contenu lui-meme. Indexer un document, c\'est lui attribuer ces informations structurees pour pouvoir le retrouver et le classer.</div>'
+    +'<div class="q-item"><strong>Exemple :</strong> Pour une facture fournisseur : Type (Facture), Fournisseur (Societe Dupont), Date (15/03/2024), Montant (1 250 EUR), Numero (FA-2024-0387).</div>'
+    +'<div class="q-item"><strong>Interet :</strong> L\'indexation permet au nommage automatique de fonctionner et a la recherche d\'etre precise et rapide.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Regles de classement</div><div class="q-list">'
+    +'<div class="q-item"><strong>Definition :</strong> Instructions parametrables qui definissent automatiquement ou un document doit etre enregistre et comment il doit etre nomme, en fonction de ses metadonnees. Ex : "Si Type = Facture ET Fournisseur = Dupont, enregistrer dans Fournisseurs/Dupont/Factures/ et nommer FA-Numero-Date."</div>'
+    +'<div class="q-item"><strong>Avantage :</strong> Une fois configurees, les regles s\'appliquent a tous les utilisateurs. Le classement devient uniforme, coherent et automatique -- peu importe qui traite le document.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Surveillance automatique (Hot Folder)</div><div class="q-list">'
+    +'<div class="q-item"><strong>Definition :</strong> DocPulse surveille en permanence un ou plusieurs repertoires designes. Des qu\'un nouveau fichier y est depose (depuis un scanner, un MFP ou manuellement), il est automatiquement propose a l\'indexation.</div>'
+    +'<div class="q-item"><strong>Usage type :</strong> Le MFP scanne une facture et la depose dans le repertoire surveille. DocPulse la detecte instantanement et ouvre la fenetre d\'indexation.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Decoupe intelligente</div><div class="q-list">'
+    +'<div class="q-item"><strong>Definition :</strong> Fonctionnalite permettant de scinder un PDF multi-pages en plusieurs documents distincts, de reorganiser les pages par glisser-deposer, supprimer des pages inutiles, ou faire pivoter des pages mal orientees -- avant de proceder a l\'indexation.</div>'
+    +'<div class="q-item"><strong>Usage type :</strong> Un lot de 30 pages scannees en un seul PDF contient 5 documents differents. La decoupe intelligente permet de les separer proprement avant de les indexer individuellement.</div>'
+    +'</div></div>'},
+    {t:"Les 9 fonctionnalites cles de DocPulse",c:'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Surveillance automatique</div><div class="info-val">Detection instantanee des nouveaux fichiers dans les repertoires surveilles (Hot Folder).</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Decoupe intelligente</div><div class="info-val">Scission, reorganisation, suppression et rotation de pages par glisser-deposer.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Regles de classement</div><div class="info-val">Classement et nommage automatiques, configurables a l\'infini par type de document.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Listes : menus deroulants</div><div class="info-val">Champs d\'indexation avec listes predefinies pour garantir l\'uniformite des saisies.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Visionneuse integree</div><div class="info-val">Apercu du document directement dans DocPulse pendant l\'indexation, sans ouvrir d\'autre logiciel.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Capture OCR au lasso</div><div class="info-val">Selection d\'une zone du document pour extraction automatique du texte dans un champ d\'index.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Nommage et classement</div><div class="info-val">Nommage automatique des fichiers selon les metadonnees saisies, coherent entre tous les utilisateurs.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Export CSV / Sortie FTP</div><div class="info-val">Export des index en CSV (integration comptable ou ERP) et depot automatique sur serveur FTP.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Corbeille securisee</div><div class="info-val">Les documents supprimes passent par une corbeille securisee avant suppression definitive.</div></div>'
+    +'</div>'},
+    {t:"Les cas d\'usage prioritaires",c:'<p>DocPulse repond a des besoins tres concrets dans les profils administratifs. Voici les principaux flux documentaires a connaitre :</p>'
+    +'<div class="q-category"><div class="q-cat-title">Documents fournisseurs</div><div class="q-list">'
+    +'<div class="q-item">Factures, avoirs, devis, bons de commande, bons de livraison, contrats -- classes automatiquement par fournisseur, type et date. Acces immediat lors d\'un litige ou d\'un controle comptable.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Documents clients</div><div class="q-list">'
+    +'<div class="q-item">Meme logique cote client : factures emises, avoirs, devis signes, contrats. Retrouver en 10 secondes le contrat d\'un client signe il y a 3 ans, meme sans en connaitre la date exacte.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Documents RH</div><div class="q-list">'
+    +'<div class="q-item">Contrats de travail, avenants, bulletins de paie, attestations, annexes. Classement par collaborateur et par periode. Reponse immediate en cas de controle URSSAF ou de litige.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Courriers entrants et sortants</div><div class="q-list">'
+    +'<div class="q-item">Indexation avec date de reception/envoi, expediteur/destinataire, objet. Tracabilite complete des echanges papier dans une organisation qui recoit encore du courrier physique.</div>'
+    +'</div></div>'
+    +'<div class="key-box">DocPulse fonctionne avec n\'importe quelle source : scanner USB, MFP reseau IXEO, ou simple import de fichiers PDF deja existants sur le reseau Windows. Pas besoin d\'un nouveau materiel pour demarrer.</div>'},
+    {t:"Licences et modeles commerciaux",c:'<p>DocPulse est disponible selon deux grandes categories de licences :</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Licences d\'essai</div><div class="info-val">7 jours, 1 mois, 3 mois, 6 mois -- pour tester sur le propre environnement et les propres documents du client.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Licences commerciales</div><div class="info-val">12 mois, 36 mois, 60 mois -- abonnement avec tarif degressif sur la duree.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Vendu seul</div><div class="info-val">DocPulse se deploie independamment, sur un poste Windows existant, sans scanner ni GED.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">En bundle</div><div class="info-val">L\'association avec un MFP/scanner IXEO est un argument fort. Peut aussi se coupler a OpenBee Portal ou KomiDoc pour une GED complete.</div></div>'
+    +'</div>'
+    +'<div class="key-box">La licence d\'essai est un levier commercial puissant : proposez systematiquement un essai sur les vrais documents du client. Un client qui configure ses premieres regles sur ses propres factures signe dans 90 % des cas.</div>'
+    +'<div class="warn-box">DocPulse est on-premise : les donnees restent sur le reseau Windows du client, aucun document ne part dans le cloud. Argument fort pour les profils sensibles a la confidentialite : professions liberales, cabinets d\'avocats, medecins.</div>'}
+  ];
+  var html='<div class="step-panel">';
+  for(var i=0;i<chapitres.length;i++){
+    html+='<div class="chapter"><div class="ch-hd"><span>'+chapitres[i].t+'</span><span class="ch-toggle">▼</span></div><div class="ch-body"><div class="content-section">'+chapitres[i].c+'</div></div></div>';
+  }
+  html+=stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M11(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>🎭 Mise en situation — Le cabinet qui perd du temps</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div><div class="scenario-context">Vous rendez visite à Mme Fontaine, responsable administrative d\'un cabinet d\'expertise-comptable de 8 personnes. Elle gère seule toute la documentation entrante et sortante. Vous êtes là pour le renouvellement du contrat MFP. En attendant, vous observez : des piles de documents, plusieurs dossiers ouverts sur son écran, une fenêtre d\'explorateur Windows avec des dossiers nommés "Factures 2024 v2", "Factures 2024 FINAL", "Factures backup copie".</div></div>';
+  var bubbles=[
+    ['comm','V','Vous','Madame Fontaine, je vois que vous gérez beaucoup de documents au quotidien. Est-ce que vous avez un système de classement en place, ou c\'est plutôt chacun qui range à sa façon ?'],
+    ['cli','F','Mme Fontaine','C\'est le chaos, je vais pas vous mentir. J\'ai essayé de mettre de l\'ordre mais mes collegues ne respectent pas le meme nommage que moi. On a trois versions du meme dossier fournisseur selon qui l\'a cree.'],
+    ['comm','V','Vous','Et quand vous cherchez une facture precise -- disons une facture d\'un fournisseur de l\'annee derniere -- vous mettez combien de temps en moyenne ?'],
+    ['cli','F','Mme Fontaine','Au moins dix a quinze minutes si elle n\'est pas recente. Parfois je ne la retrouve pas du tout et je dois rappeler le fournisseur.'],
+    ['comm','V','Vous','Et si je vous disais qu\'on peut reduire ce temps a moins de trois minutes, sans changer votre facon de travailler ni acheter de nouveau materiel ?'],
+    ['cli','F','Mme Fontaine','Je suis curieuse... mais j\'ai deja essaye des logiciels de classement, c\'etait trop complique a parametrer.'],
+    ['comm','V','Vous','DocPulse, c\'est exactement l\'inverse. C\'est un logiciel qu\'on installe sur votre poste Windows qui surveille automatiquement le dossier dans lequel votre scanner depose les fichiers. Quand une nouvelle facture arrive, il vous l\'affiche, vous selectionnez la zone du fournisseur avec la souris -- le logiciel lit le texte tout seul -- et il classe et nomme le fichier automatiquement selon vos regles.'],
+    ['cli','F','Mme Fontaine','Ca veut dire que mes collegues classeraient de la meme facon que moi ?'],
+    ['comm','V','Vous','Exactement. Les regles de classement sont centralisees. Que ce soit vous, votre assistante ou un stagiaire, le document se retrouve toujours au meme endroit, avec le meme nom. Et comme le logiciel OCR lit le contenu des documents, vous pouvez meme les retrouver en tapant n\'importe quel mot-cle dans l\'explorateur Windows.'],
+    ['cli','F','Mme Fontaine','Et pour nos scans existants -- les milliers de PDF qu\'on a deja -- ca marche aussi ?'],
+    ['comm','V','Vous','Oui. DocPulse peut traiter vos archives existantes exactement de la meme facon. On peut meme vous proposer une licence d\'essai d\'un mois pour que vous le testiez sur vos vrais documents, avec vos vraies regles, avant tout engagement.'],
+    ['cli','F','Mme Fontaine','Un mois d\'essai ca m\'interesse vraiment. On peut le faire rapidement ?']
+  ];
+  html+='<div class="dialogue">';
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Observer le bureau et l\'écran avant de parler — les noms de dossiers Windows sont révélateurs de la douleur. 2/ Transformer la douleur en chiffre (15 min → 3 min) avant de présenter la solution. 3/ La licence d\'essai sur les vrais documents du client est le meilleur closing : un client qui configure ses règles signe presque toujours.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M11(){
+  var cats=[
+    {t:"Diagnostic de la situation documentaire actuelle",qs:[
+      "Comment classez-vous vos documents aujourd'hui : réseau partagé, dossiers locaux sur chaque poste, clés USB, mélange des trois ?",
+      "Avez-vous une convention de nommage des fichiers que tout le monde respecte, ou chacun range à sa façon ?",
+      "Combien de personnes dans votre organisation manipulent des documents au quotidien ?",
+      "Vos documents arrivent sous quelle forme majoritairement : scans, PDF reçus par email, documents papier ?"
+    ]},
+    {t:"Mesure de la douleur et des pertes de productivité",qs:[
+      "Combien de temps passez-vous en moyenne à chercher un document quand il n'est pas récent ?",
+      "Vous est-il déjà arrivé de ne pas retrouver un document et de devoir le redemander au fournisseur ou au client ?",
+      "Avez-vous déjà eu un problème lors d'un contrôle (fiscal, URSSAF, assurance) parce qu'un document était introuvable ou mal classé ?",
+      "Est-ce que vos collaborateurs perdent du temps à classer les documents ou évitent de le faire faute d'une méthode simple ?"
+    ]},
+    {t:"Qualification technique et infrastructure",qs:[
+      "Vous avez un scanner ou un MFP connecté au réseau ? Où dépose-t-il les fichiers scannés ?",
+      "Vos postes tournent sur Windows 10 ou Windows 11 ?",
+      "Avez-vous un serveur de fichiers ou un NAS sur lequel les documents sont stockés en commun ?",
+      "Utilisez-vous déjà un logiciel de comptabilité ou de gestion (Sage, Cegid, EBP...) dans lequel vous saisissez les données des documents ?"
+    ]},
+    {t:"Projection et ouverture vers la GED",qs:[
+      "À terme, envisagez-vous une solution de GED complète, ou cherchez-vous avant tout à résoudre le problème du classement quotidien ?",
+      "Avez-vous entendu parler de la réforme de la facturation électronique obligatoire ? Comment vous y préparez-vous ?",
+      "Si on pouvait diviser par 5 le temps de recherche de vos documents dès la semaine prochaine, quelle serait votre réaction ?",
+      "Seriez-vous prêt à tester DocPulse sur un mois avec vos propres documents, sans engagement ?"
+    ]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>💬 Grille de découverte — DocPulse</h3>';
+  html+='<p>Utilisez cette grille pour révéler la douleur documentaire, mesurer son impact en temps perdu, qualifier l\'environnement technique et ouvrir vers la GED si le client est prêt.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">La question sur le contrôle fiscal ou URSSAF est souvent celle qui débloque la décision. Un chef d\'entreprise qui a déjà été embarrassé par un document introuvable lors d\'un contrôle signe le jour même.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M11(){
+  var blocks=[
+    {titre:"L'accroche : la douleur universelle en 20 secondes",body:'<p>Madame, combien de fois cette semaine avez-vous cherche un document plus de 5 minutes ? Combien de fois un collegue a range quelque chose a un endroit different du votre ? DocPulse, c\'est la fin de ce probleme -- des la semaine prochaine.</p>'
+    +'<div class="key-box">Ne parlez pas du logiciel en premier. Parlez du probleme. La douleur documentaire est universelle et immediatement reconnaissable par tout profil administratif.</div>'},
+    {titre:"La demonstration en 3 actes (a faire en RDV)",body:'<p><strong>Acte 1 -- Le cout du chaos :</strong> Avec 5 personnes qui perdent 20 minutes par jour a chercher des documents, c\'est 1h40 de productivite perdue chaque jour, soit plus de 8h par semaine -- une journee de travail entiere.</p>'
+    +'<p><strong>Acte 2 -- La capture OCR au lasso :</strong> Ouvrez une facture dans DocPulse. Dessinez un lasso autour du nom du fournisseur -- le champ se remplit seul. Idem pour le numero et la date. L\'indexation complete prend 15 secondes. Laissez le silence s\'installer.</p>'
+    +'<p><strong>Acte 3 -- La recherche :</strong> Fermez DocPulse. Ouvrez l\'explorateur Windows. Tapez un mot qui figure dans le document. Il apparait immediatement. Votre collaborateur retrouve une facture en 10 secondes depuis son bureau, sans meme savoir ou elle est classee.</p>'},
+    {titre:"SONCAS adapte a DocPulse",body:'<p><strong>Securite :</strong> Vos documents restent sur votre reseau Windows. Aucune donnee ne part dans le cloud. DocPulse est on-premise : vous gardez le controle total.</p>'
+    +'<p><strong>Orgueil :</strong> Vos concurrents qui ont adopte l\'indexation automatique traitent deux fois plus de dossiers avec le meme effectif. Un classement bien fait, c\'est une image professionnelle -- autant en interne qu\'avec vos clients.</p>'
+    +'<p><strong>Nouveaute :</strong> La capture au lasso existait jusqu\'ici uniquement dans les GED a 10 000 euros. DocPulse la rend accessible a partir d\'un abonnement annuel maitrise.</p>'
+    +'<p><strong>Confort :</strong> Une fois les regles configurees, le classement devient presque automatique. Votre collaborateur charge le document, clique deux fois, DocPulse s\'occupe du reste.</p>'
+    +'<p><strong>Argent :</strong> Diviser par 2 le classement, par 5 la recherche. Sur une equipe de 3 personnes administratives a 2 000 euros par mois, c\'est plus de 10 000 euros de productivite recuperee par an. DocPulse se rembourse en moins d\'un mois.</p>'
+    +'<p><strong>Sympathie :</strong> DocPulse est developpe par IXEO, votre partenaire local. Pas une startup etrangere avec un support par email. Nous installons, nous configurons vos regles, et nous formons vos equipes.</p>'},
+    {titre:"Le closing : l'essai sur vos documents",body:'<p>Je vous propose de ne pas vous fier a ma presentation. Laissez-moi vous installer une licence d\'essai d\'un mois sur votre poste. On configure ensemble vos 2 ou 3 premieres regles de classement -- factures fournisseurs, courriers entrants -- sur vos vrais documents. Dans une semaine vous me dites si ca vous a fait gagner du temps.</p>'
+    +'<p>Cette approche inverse le rapport au risque : c\'est IXEO qui demontre, pas le client qui prend le risque d\'acheter. Et un client qui a configure ses regles sur ses propres donnees ne reviendra pas en arriere.</p>'}
+  ];
+  var objections=[
+    {q:'"On a déjà un réseau partagé bien organisé, ça suffit."',a:'Un réseau partagé stocke, mais n\'indexe pas. Vous ne pouvez pas chercher dans le contenu des documents scannés. La prochaine fois que vous chercherez une facture sans en connaître la date ni le fournisseur exact, vous comprendrez la différence. Avec DocPulse et OCR, vous cherchez n\'importe quel mot qui figure dans le document.'},
+    {q:'"On n\'a pas le temps de le configurer."',a:'La configuration initiale, c\'est nous qui la faisons avec vous — environ 2 heures pour paramétrer les règles de vos 3 principaux types de documents. Après, vos équipes travaillent et DocPulse classe. Vous récupérez ces 2 heures dès la première semaine.'},
+    {q:'"C\'est pour une PME, nous on est trop petits."',a:'DocPulse est conçu précisément pour les TPE et les professions libérales. Un cabinet de 3 personnes qui reçoit 50 documents par semaine gagne autant en productivité proportionnellement qu\'une PME de 30. La licence est calibrée en conséquence.'},
+    {q:'"Et si on veut passer à une vraie GED plus tard ?"',a:'C\'est exactement pour ça que DocPulse existe. C\'est le premier pas. Quand vous serez prêt pour OpenBee ou KomiDoc, vos documents seront déjà nommés de façon cohérente, vos équipes habituées à l\'indexation, et la migration 10 fois plus simple.'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>🎯 Pitch commercial — DocPulse</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Réponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M11(){
+  var resources=[
+    {icon:'📄',name:'Fiche produit DocPulse v2.0.1-1',note:'DataSheet officielle — fonctionnalités, config minimale, installation',url:'#'},
+    {icon:'📊',name:'Comparatif DocPulse vs réseau partagé vs GED',note:'Tableau des capacités selon le niveau de maturité documentaire',url:'#'},
+    {icon:'📋',name:'Grille de découverte terrain — DocPulse',note:'Version imprimable de l\'étape 3',url:'#'},
+    {icon:'🎬',name:'Démo DocPulse — Capture OCR au lasso',note:'Vidéo 3 min : indexation complète d\'une facture fournisseur',url:'#'},
+    {icon:'🎬',name:'Démo DocPulse — Règles de classement automatiques',note:'Configuration et résultat en temps réel',url:'#'},
+    {icon:'📄',name:'Guide de démarrage rapide DocPulse',note:'Installer, configurer le Hot Folder, créer sa première règle',url:'#'},
+    {icon:'📊',name:'Calculateur ROI DocPulse',note:'Saisir le nb de collaborateurs et documents/semaine → gain de temps estimé',url:'#'},
+    {icon:'🌐',name:'Site IXEO — DocPulse',note:'www.ixeo.fr',url:'https://www.ixeo.fr'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>📁 Ressources téléchargeables</h3><p>Supports pour préparer et accompagner vos rendez-vous commerciaux autour de DocPulse.</p><div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource disponible sur le drive partagé IXEO ou auprès de votre responsable.")';
+    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box" style="margin-top:1.25rem;">💡 La démonstration live est votre meilleure ressource. Si vous pouvez faire une démo sur ordinateur chez le client avec ses propres documents, vous n\'avez besoin d\'aucun autre support.</div>';
+  html+='</div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+var QUESTIONS_M11=[
+  {q:"Que signifie l'acronyme OCR ?",opts:["Open Content Reader","Optical Character Recognition","Organised Classification Rules","Ordered Content Repository"],c:1,fb:"OCR = Optical Character Recognition (Reconnaissance Optique de Caractères). C'est la technologie qui analyse une image de document et en extrait le texte de façon lisible et cherchable par l'ordinateur."},
+  {q:"DocPulse est une solution :",opts:["Cloud (SaaS)","On-premise, installée localement sur le poste Windows","Hybride cloud / on-premise","Mobile uniquement"],c:1,fb:"DocPulse est une solution on-premise : elle s'installe sur le poste Windows du client. Les données restent sur le réseau Windows de l'organisation, aucun document ne part dans le cloud."},
+  {q:"Quel est le gain de productivité sur le classement promis par DocPulse ?",opts:["÷ 2 sur le classement","÷ 3 sur le classement","÷ 5 sur le classement","÷ 10 sur le classement"],c:0,fb:"DocPulse divise par 2 le temps de classement grâce aux règles automatiques et à la capture OCR au lasso. Il divise par 5 le temps de recherche de documents."},
+  {q:"Quel est le gain de productivité sur la recherche de documents ?",opts:["÷ 2","÷ 3","÷ 5","÷ 10"],c:2,fb:"DocPulse divise par 5 le temps de recherche. Les documents sont nommés uniformément et leur contenu est indexé OCR : on retrouve un document depuis l'explorateur Windows en tapant n'importe quel mot-clé."},
+  {q:"Qu'est-ce que la 'capture OCR au lasso' ?",opts:["Un système de sauvegarde automatique","La possibilité de dessiner une zone sur le document pour en extraire automatiquement le texte dans un champ d'indexation","Un filtre de recherche dans la liste des documents","La découpe automatique d'un PDF en plusieurs fichiers"],c:1,fb:"La capture au lasso permet de tracer un rectangle sur n'importe quelle zone du document visible dans la visionneuse. DocPulse lit le texte de cette zone par OCR et l'injecte automatiquement dans le champ d'index ciblé — sans saisie manuelle."},
+  {q:"Quel moteur OCR est intégré dans DocPulse v2.0.1-1 ?",opts:["Adobe Acrobat OCR","ABBYY FineReader","Tesseract OCR 5.5","Microsoft OCR Engine"],c:2,fb:"DocPulse utilise Tesseract OCR 5.5, moteur open-source supportant le français et l'anglais. Il s'installe automatiquement lors de l'installation de DocPulse si absent du poste."},
+  {q:"Qu'est-ce qu'une 'métadonnée' dans le contexte de DocPulse ?",opts:["Le contenu texte principal d'un document","Une information qui décrit un document (type, date, fournisseur, numéro...) permettant son classement et sa recherche","Le format de fichier du document","Le nom du dossier dans lequel le document est stocké"],c:1,fb:"Une métadonnée est une information structurée qui décrit un document sans faire partie de son contenu. C'est l'indexation par métadonnées qui permet le classement automatique et la recherche précise."},
+  {q:"Qu'est-ce que la 'surveillance automatique' (Hot Folder) de DocPulse ?",opts:["Un antivirus intégré","La surveillance d'un répertoire désigné : tout nouveau fichier déposé est automatiquement proposé à l'indexation","Un système de backup automatique","Une alerte email quand un document n'est pas classé dans les 24h"],c:1,fb:"La surveillance automatique surveille en permanence un répertoire défini. Dès qu'un nouveau fichier y est déposé (depuis un scanner, un MFP ou manuellement), DocPulse le détecte et ouvre automatiquement la fenêtre d'indexation."},
+  {q:"Quelle configuration minimale en RAM est requise pour DocPulse ?",opts:["2 Go","4 Go","8 Go","16 Go"],c:1,fb:"DocPulse requiert 4 Go de RAM minimum (8 Go recommandés), processeur Intel Core i3 ou AMD Ryzen 3 à 2 GHz+, et 500 Mo d'espace disque pour l'application."},
+  {q:"DocPulse peut-il être couplé à une solution de GED ?",opts:["Non, DocPulse est fermé","Oui, il peut se coupler à OpenBee Portal ou KomiDoc","Oui, mais uniquement avec OpenBee","Oui, mais uniquement en version cloud"],c:1,fb:"DocPulse est conçu comme un premier pas vers la GED. Il peut fonctionner seul ET se coupler à des GED comme OpenBee Portal ou KomiDoc. C'est un argument commercial fort : le client commence simplement et peut évoluer sans repartir de zéro."},
+  {q:"Quels types de licences DocPulse propose-t-il pour un essai ?",opts:["Gratuit illimité","7 jours, 1 mois, 3 mois, 6 mois","1 mois uniquement","Pas d'essai disponible"],c:1,fb:"DocPulse propose des licences d'essai en 7 jours, 1 mois, 3 mois et 6 mois. Les licences commerciales sont en 12, 36 ou 60 mois."},
+  {q:"Que permet la fonctionnalité 'découpe intelligente' ?",opts:["Découper le prix d'une licence en mensualités","Scinder un PDF multi-pages, réorganiser les pages par glisser-déposer, supprimer ou faire pivoter des pages","Extraire automatiquement les données vers Excel","Diviser un document entre plusieurs utilisateurs"],c:1,fb:"La découpe intelligente permet de travailler sur la structure d'un PDF : scinder un lot scanné en documents distincts, réorganiser les pages par glisser-déposer, supprimer des pages parasites et faire pivoter les pages mal orientées — avant d'indexer."},
+  {q:"Quel est l'avantage principal de l'uniformisation du classement dans DocPulse ?",opts:["Les documents sont compressés automatiquement","Tous les utilisateurs nomment et rangent les documents selon les mêmes règles centralisées","Les documents sont cryptés automatiquement","Le classement est délégué à un prestataire externe"],c:1,fb:"Les règles de classement s'appliquent à tous les utilisateurs. Un document est toujours au même endroit avec le même nom, qu'il ait été traité par la secrétaire, le comptable ou un stagiaire. C'est la fin du classement personnel anarchique."},
+  {q:"Quelle est la cible commerciale principale de DocPulse ?",opts:["Grandes entreprises de +500 salariés","TPE, PME, collectivités, associations et professions libérales avec profils administratifs","Uniquement les cabinets médicaux","Développeurs et ingénieurs informatiques"],c:1,fb:"DocPulse cible exclusivement le B2B : TPE, PME, collectivités, associations et professions libérales, orienté vers les profils administratifs (secrétaires, comptables, responsables admin)."},
+  {q:"Que se passe-t-il avec les données utilisateur lors d'une désinstallation de DocPulse ?",opts:["Toutes les données sont supprimées définitivement","Les données dans %APPDATA%\\DocPulse\\ sont préservées","Les règles sont sauvegardées dans le cloud","Les documents indexés sont déplacés vers un dossier de secours"],c:1,fb:"Lors de la désinstallation, les données utilisateur stockées dans %APPDATA%\\DocPulse\\ (settings.json, rules.json, base de données) sont préservées. Les règles et paramètres sont également conservés lors d'une mise à jour."}
+];
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => {
