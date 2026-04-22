@@ -653,7 +653,7 @@ const MODULES = [
   {id:7, name:"Les équipements réseaux",             family:2, available:true},
   {id:8, name:"Solutions cloud (M365)",              family:2, available:true},
   {id:9, name:"Cybersécurité (firewall, antispam, antivirus)", family:2, available:true},
-  {id:10,name:"Services IT externalisés",            family:2, available:false},
+  {id:10,name:"Services IT externalisés",            family:2, available:true},
   {id:11,name:"DocPulse — simplification de la démat.", family:3, available:false},
   {id:12,name:"Les fondamentaux de la GED",          family:3, available:true},
   {id:13,name:"Capture automatique de données",      family:3, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()))))))));
-  else if (step === 2) content.innerHTML = S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()))))))));
-  else if (step === 3) content.innerHTML = S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()))))))));
-  else if (step === 4) content.innerHTML = S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()))))))));
-  else if (step === 5) content.innerHTML = S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()))))))));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))))))))); }
+  if      (step === 1) content.innerHTML = S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())))))))));
+  else if (step === 2) content.innerHTML = S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())))))))));
+  else if (step === 3) content.innerHTML = S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())))))))));
+  else if (step === 4) content.innerHTML = S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())))))))));
+  else if (step === 5) content.innerHTML = S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())))))))));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))))))))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -3493,9 +3493,219 @@ function renderStep5_M9(){
 
 
 
-// // ╔══════════════════════════════════════════════════════╗
-// ║  UTILS                                               ║
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  MODULE 10 — SERVICES IT EXTERNALISÉS                ║
 // ╚══════════════════════════════════════════════════════╝
+
+// ══════════════════════
+// STEP 1 — COURS
+// ══════════════════════
+function renderStep1_M10(){
+  var chapitres=[
+    {t:"Qu'est-ce qu'un service IT externalisé ?",c:`<p>Externaliser ses services IT, c'est confier tout ou partie de la gestion informatique d'une entreprise à un prestataire spécialisé. L'entreprise cliente bénéficie d'une expertise technique sans avoir à recruter ni former de personnel dédié.</p>
+    <p>Chez IXEO, l'offre de services IT externalisés couvre trois grands domaines : les <strong>prestations à la demande (forfaits)</strong>, les <strong>contrats de support récurrents</strong> et les <strong>frais annexes de service</strong>.</p>
+    <div class="key-box">💡 Pour le commercial IXEO, les services IT ne sont jamais vendus seuls : ils accompagnent systématiquement la vente de matériel (postes, serveurs, firewalls, écrans interactifs). C'est la récurrence qui crée la valeur à long terme.</div>`},
+    {t:"Les trois formules de prestation forfaitaire",c:`<p>IXEO propose trois niveaux de facturation pour ses interventions terrain :</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-lbl">Flex</div><div class="info-val">Facturation à l'heure — 150 € HT/h. Minimum facturable : 15 min. Frais de déplacement non inclus (Z1 : 61 € HT / Z2 : 109 € HT).</div></div>
+      <div class="info-item"><div class="info-lbl">Précision</div><div class="info-val">Prestation forfaitaire demi-journée — 259 € HT (prix de transfert) / 315 € HT (tarif public). Déplacement inclus.</div></div>
+      <div class="info-item"><div class="info-lbl">Excellence</div><div class="info-val">Prestation forfaitaire journée entière — 460 € HT (prix de transfert) / 590 € HT (tarif public). Déplacement inclus.</div></div>
+      <div class="info-item"><div class="info-lbl">Zones de déplacement</div><div class="info-val">Zone 1 : dans un rayon de 50 km autour de l'agence (Toulouse, Albi, Lézignan-Corbières). Zone 2 : au-delà de 50 km.</div></div>
+    </div>
+    <div class="warn-box">⚠️ Les prix de transfert commerciaux sont les prix INTERNES (ce que le commercial facture en interne). Les tarifs publics sont ceux communiqués aux clients. Ne jamais confondre les deux grilles tarifaires.</div>`},
+    {t:"Le Pack ExpertVision — audit d'infrastructure",c:`<p>Le <strong>Pack ExpertVision</strong> est un service d'audit complet de l'infrastructure matérielle et réseaux d'un client, réalisé sur site, avec rédaction et restitution documentée.</p>
+    <p>Il couvre : baie de brassage, switches, Wi-Fi, serveurs, onduleurs, postes, télécoms, pare-feu, sauvegarde et conformité globale.</p>
+    <p>La restitution inclut un inventaire détaillé, des photos, des rapports de tests (débit, sauvegarde, vulnérabilités) et une synthèse des points critiques avec priorisation court/moyen/long terme.</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-lbl">Prix de transfert</div><div class="info-val">590 € HT / jour</div></div>
+      <div class="info-item"><div class="info-lbl">Tarif public</div><div class="info-val">790 € HT / jour</div></div>
+    </div>
+    <div class="key-box">💡 L'audit ExpertVision est un excellent point d'entrée chez un prospect. Il révèle les failles, crée de la confiance et génère naturellement un plan d'action — et donc de nouvelles opportunités commerciales.</div>`},
+    {t:"Les contrats de support — TempoSupport & FullSupport",c:`<p>IXEO propose deux types de contrats de maintenance :</p>
+    <p><strong>Pack TempoSupport (Crédit d'heure)</strong> : support flexible, décompté à la minute, valable 12 mois, compatible avec tous les équipements. Facturation : 150 € HT/h. Frais de déplacement inclus selon offre.</p>
+    <p><strong>Pack FullSupport (Infogérance illimitée)</strong> : support illimité dédié à un équipement identifié (par numéro de série), engagement 12 mois minimum, suivi proactif. Frais de déplacement applicables selon la zone.</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-lbl">Serveur / Firewall — 12 mois</div><div class="info-val">36 € HT/mois (prix de transfert) / 60 € HT/mois (public)</div></div>
+      <div class="info-item"><div class="info-lbl">Poste / Écran / Logiciel — 12 mois</div><div class="info-val">12 € HT/mois (prix de transfert) / 20 € HT/mois (public)</div></div>
+      <div class="info-item"><div class="info-lbl">Engagement 24 mois</div><div class="info-val">Serveur/FW : 36 € HT/M (transfert) / 48 € HT/M (public)</div></div>
+      <div class="info-item"><div class="info-lbl">Engagement 36 mois</div><div class="info-val">Serveur/FW : 36 € HT/M (transfert) / 36 € HT/M (public)</div></div>
+    </div>
+    <div class="key-box">💡 Le FullSupport couvre exclusivement les interventions curatives (pannes, dysfonctionnements). Les demandes liées à un manque de formation ou à une mauvaise utilisation sont exclues. Horaires : lundi–vendredi, 8h30–12h30 et 14h–17h, hors jours fériés et week-ends.</div>`},
+    {t:"Le Pack InfraCare — maintenance préventive",c:`<p>Le <strong>Pack InfraCare</strong> est un service de <strong>maintenance préventive récurrente</strong>. Contrairement au FullSupport qui est curatif (on intervient quand ça tombe en panne), l'InfraCare planifie des visites régulières pour vérifier proactivement l'état de l'infrastructure et prévenir les pannes avant qu'elles surviennent.</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-lbl">Prix de transfert</div><div class="info-val">460 € HT / jour</div></div>
+      <div class="info-item"><div class="info-lbl">Tarif public</div><div class="info-val">590 € HT / jour</div></div>
+    </div>
+    <p>Les contrôles couvrent : baie (onduleur, switch, câblage), serveurs (MàJ Windows, RAID, disques, AD), périphériques (NAS, Wi-Fi, sauvegardes), firewall (firmware, ports, règles), postes de travail (antivirus, pilotes, logiciels).</p>
+    <div class="warn-box">📌 InfraCare = prévenir ≠ réparer. C'est la différence entre un contrôle technique annuel et attendre que la voiture tombe en panne sur l'autoroute.</div>`},
+    {t:"Les frais annexes — SPG, SPC, SPL, SPT, CSR, SPR",c:`<p>En plus des prestations et contrats, IXEO facture des <strong>frais de gestion et de service</strong> systématiques. Ces frais sont souvent méconnus mais indispensables à maîtriser pour établir des devis complets :</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-lbl">SPG — Service Pack Gestion</div><div class="info-val">6 € HT / facture. Couvre la facturation, suivi des paiements, gestion comptable.</div></div>
+      <div class="info-item"><div class="info-lbl">SPC — Service Pack Contrat</div><div class="info-val">40 € HT / contrat. Traitement administratif complet : conformité, commande, réception, signature électronique.</div></div>
+      <div class="info-item"><div class="info-lbl">SPL — Service Pack Licence</div><div class="info-val">10 % du montant de la licence. Pour les licences sans renouvellement automatique, nécessitant supervision.</div></div>
+      <div class="info-item"><div class="info-lbl">SPT — Service Pack Toner</div><div class="info-val">18 € HT / trimestre / MFP. Expédition illimitée de toners à tarif fixe.</div></div>
+      <div class="info-item"><div class="info-lbl">CSR — C.S Remote</div><div class="info-val">4,50 € HT / trimestre / MFP. Supervision à distance des niveaux de toner et compteurs.</div></div>
+      <div class="info-item"><div class="info-lbl">SPR — Service Pack Réseautique</div><div class="info-val">4,90 € HT/T/PC/MFP (Essential) ou 6,90 € HT/T (Infinity, déplacement inclus). Drivers, déclaration serveur, scanner réseau.</div></div>
+    </div>`},
+    {t:"Forfait LIC — Livraison, Installation, Connexion",c:`<p>Le <strong>Forfait LIC</strong> (Livraison Installation Connexion) est systématiquement proposé lors de la vente d'un MFP. Il comprend : déballage et montage, mise en service, connexion réseau (2h selon fiche de connexion obligatoire) et démonstration client rapide.</p>
+    <p>La fiche de connexion est obligatoire à chaque vente et doit être produite simultanément avec le contrat de vente.</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-lbl">Segment 1 — &lt;50 kg A4</div><div class="info-val">Livraison : 250 € HT / Reprise : 101 € HT</div></div>
+      <div class="info-item"><div class="info-lbl">Segment 2 — &lt;120 kg A3</div><div class="info-val">Livraison : 379 € HT / Reprise : 128 € HT</div></div>
+      <div class="info-item"><div class="info-lbl">Segment 2 avec FS — &lt;200 kg</div><div class="info-val">Livraison : 479 € HT / Reprise : 131 € HT</div></div>
+      <div class="info-item"><div class="info-lbl">Segment 3 — &lt;300 kg</div><div class="info-val">Livraison : 610 € HT / Reprise : 237 € HT</div></div>
+    </div>
+    <div class="key-box">💡 Portage à partir de la 3ème marche : supplément de 35 € HT en sus. La reprise rapatrie le matériel au dépôt IXEO de Saint-Jean. Tout transfert vers une autre destination nécessite une cotation.</div>`}
+  ];
+  var html='<div class="step-panel">';
+  for(var i=0;i<chapitres.length;i++){
+    html+='<div class="chapter"><div class="ch-hd"><span>'+chapitres[i].t+'</span><span class="ch-toggle">▼</span></div><div class="ch-body"><div class="content-section">'+chapitres[i].c+'</div></div></div>';
+  }
+  html+=stepNavHTML(1)+'</div>';
+  return html;
+}
+
+// ══════════════════════
+// STEP 2 — MISE EN SITUATION
+// ══════════════════════
+function renderStep2_M10(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>🎭 Mise en situation — Négociation du contrat de support</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div><div class="scenario-context">Vous venez de livrer et installer un nouveau poste informatique et un firewall Stormshield chez M. Garrigues, dirigeant d\'une PME de 12 salariés dans le secteur du BTP. L\'installation se déroule bien. À la fin de l\'intervention, vous abordez la suite commerciale.</div></div>';
+  var bubbles=[
+    ['comm','V','Vous','M. Garrigues, maintenant que tout est installé et fonctionnel, je souhaitais vous parler de ce qui se passe apres la mise en service. Que feriez-vous si votre nouveau serveur tombait en panne un lundi matin ?'],
+    ['cli','G','M. Garrigues','Bah... j\'appellerais votre standard, j\'imagine ? Comme on faisait avant.'],
+    ['comm','V','Vous','Bien sur, nos equipes sont la. Mais sans contrat de support, chaque intervention est facturee a l\'heure -- actuellement 150 euros HT de l\'heure, hors deplacement. Une panne de serveur peut facilement mobiliser 3 a 4 heures. Sans compter que sans priorite contractuelle, le delai d\'intervention peut etre plus long.'],
+    ['cli','G','M. Garrigues','Je vois... et votre contrat, ca marche comment ?'],
+    ['comm','V','Vous','On a deux approches. La premiere, le Pack TempoSupport : vous achetez un credit d\'heures, decompte a la minute, valable 12 mois, utilisable sur tous vos equipements. C\'est ideal si vos besoins sont imprevisi­bles. La seconde, le Pack FullSupport : c\'est un contrat d\'infogérance sur un equipement precis -- votre serveur par exemple -- pour 36 euros par mois. Support illimite sur les pannes, de 8h30 a 17h en semaine.'],
+    ['cli','G','M. Garrigues','36 euros par mois ca me parait raisonnable pour le serveur. Et pour les postes ?'],
+    ['comm','V','Vous','Pour chaque poste de travail, ecran ou logiciel, c\'est 12 euros par mois en engagement 12 mois. Avec 12 postes et votre serveur, on est a 36 + 12 x 12 = 180 euros par mois pour une couverture complete. Sachant qu\'une seule intervention non contrac­tualisee vous coute potentiellement plus du double.'],
+    ['cli','G','M. Garrigues','Ca se tient. Et vous faites une remise si je m\'engage sur 2 ou 3 ans ?'],
+    ['comm','V','Vous','En 24 mois, le tarif serveur reste a 48 euros de tarif public mais inclut des interventions prioritaires. En 36 mois, on descend a 36 euros -- le meme prix qu\'un engagement 12 mois mais avec les avantages d\'un contrat long. C\'est notre offre la plus avantageuse.'],
+    ['cli','G','M. Garrigues','Je vais reflechir, mais l\'engagement 24 mois me semble bien.'],
+    ['comm','V','Vous','Parfait. Je vous prepare un recapitulatif complet avec le detail de la couverture par equipement. Ah -- il y a aussi notre Pack InfraCare : une visite preventive planifiee par an pour verifier l\'ensemble de votre infrastructure avant que des problemes surviennent. Cela evite les pannes au moment ou on s\'y attend le moins.']
+  ];
+  html+='<div class="dialogue">';
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];
+    var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Toujours proposer le contrat de support juste après l\'installation — le client est encore dans un état d\'esprit favorable. 2/ Ancrer sur le coût d\'une intervention sans contrat avant de proposer le tarif mensuel. 3/ Calculer le total pour le client (il ne le fera pas seul). 4/ L\'InfraCare se greffe naturellement à la fin comme upgrade.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+// ══════════════════════
+// STEP 3 — QUESTIONNEMENT
+// ══════════════════════
+function renderStep3_M10(){
+  var cats=[
+    {t:"Évaluation de la situation actuelle",qs:["Avez-vous actuellement un contrat de maintenance informatique ou faites-vous appel à des prestataires ponctuellement ?","Combien de postes informatiques, serveurs et équipements réseau gérez-vous ?","Avez-vous un responsable informatique en interne ou êtes-vous seul décideur sur ces sujets ?","Quelle est votre tolérance à l'indisponibilité informatique ? Une panne d'une journée, quel est l'impact financier estimé ?"]},
+    {t:"Identification des douleurs et incidents passés",qs:["Avez-vous eu des pannes informatiques marquantes ces 12 derniers mois ? Combien de temps avez-vous été bloqué ?","Avez-vous des équipements anciens ou mal maintenus qui vous préoccupent ?","Est-ce que vos logiciels et systèmes sont à jour ? Avez-vous un suivi des mises à jour ?","Avez-vous déjà eu des difficultés à joindre votre prestataire informatique en urgence ?"]},
+    {t:"Qualification du besoin et du budget",qs:["Préférez-vous une facturation prévisible et fixe (abonnement mensuel) ou payer uniquement quand vous intervenez ?","Y a-t-il des équipements critiques pour votre activité qui nécessitent une couverture prioritaire (serveur, firewall) ?","Êtes-vous ouvert à un engagement contractuel sur 12, 24 ou 36 mois si cela entraîne un meilleur tarif ?","Avez-vous déjà réalisé un audit de votre infrastructure IT pour connaître son état réel ?"]},
+    {t:"Détection des opportunités complémentaires",qs:["Avez-vous des écrans interactifs, des MFP ou des solutions d'affichage dynamique à couvrir également ?","Gérez-vous des licences logicielles dont vous n'êtes pas certain de la date de renouvellement ?","Avez-vous une solution de supervision à distance sur vos imprimantes et copieurs (toner, compteurs) ?","Avez-vous des collaborateurs en télétravail qui se connectent à vos ressources ? Comment leurs accès sont-ils sécurisés ?"]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>💬 Grille de découverte — Services IT externalisés</h3>';
+  html+='<p>Utilisez cette grille pour qualifier précisément le besoin du client, identifier les équipements à couvrir et estimer le potentiel de contrat récurrent.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">La question sur l\'impact financier d\'une panne est souvent déterminante. Si le client réalise qu\'une journée bloquée lui coûte 5 000 € de chiffre d\'affaires perdu, 36 €/mois devient une évidence.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+// ══════════════════════
+// STEP 4 — PITCH
+// ══════════════════════
+function renderStep4_M10(){
+  var blocks=[
+    {titre:"L'accroche : raisonner en coût de la non-protection",body:"<p>\"M. Garrigues, imaginez un lundi matin : votre serveur ne répond plus, vos 12 collaborateurs ne peuvent pas travailler. Sans contrat de support, vous appelez votre prestataire, attendez une intervention, payez à l'heure — 150 €/h minimum, déplacement en sus. En moyenne, une résolution complète prend 3 à 6 heures. Soit entre 450 et 900 € pour un seul incident. Notre contrat FullSupport vous couvre pour 36 €/mois — l'équivalent d'une intervention... tous les 12 mois.\"</p>"},
+    {titre:"SONCAS adapté aux services IT",body:"<p><strong>Sécurité :</strong> \"Avec le FullSupport, votre serveur est surveillé proactivement. Nous détectons les anomalies avant qu'elles deviennent des pannes.\"</p>"
+    +"<p><strong>Orgueil :</strong> \"Les entreprises qui souscrivent à un contrat de support évitent en moyenne 80 % des incidents non planifiés. Vos concurrents qui gèrent l'IT à la pièce ont 3 fois plus d'indisponibilité.\"</p>"
+    +"<p><strong>Nouveauté :</strong> \"Notre Pack InfraCare inclut désormais des rapports de contrôle documentés avec photos — vous avez la preuve de l'état de votre infrastructure à tout moment.\"</p>"
+    +"<p><strong>Confort :</strong> \"Un seul numéro, un seul interlocuteur, une intervention prioritaire. Vous n'avez rien à gérer — vous nous appelez et on s'occupe de tout.\"</p>"
+    +"<p><strong>Argent :</strong> \"Le coût moyen d'une heure d'arrêt informatique pour une PME de 10 personnes est estimé entre 400 et 800 €. Notre contrat à 180 €/mois est amorti dès le premier incident évité.\"</p>"
+    +"<p><strong>Sympathie :</strong> \"IXEO est votre partenaire local depuis votre premier achat. Nous connaissons votre infrastructure, vos équipes, vos contraintes. Pas un centre d'appels anonyme.\"</p>"},
+    {titre:"La matrice de couverture : montrez ce que vous garantissez",body:"<p>Présentez visuellement la grille de couverture (baie, serveur, périphériques, firewall, postes, écrans) en distinguant TempoSupport, FullSupport et InfraCare. Cela permet au client de visualiser exactement ce qu'il obtient — et ce qu'il n'a pas s'il ne signe pas.</p>"
+    +'<div class="key-box">Technique de closing : surlignez les cases oranges (sous condition) et rouges (non inclus) en TempoSupport crédit d\'heure, et montrez qu\'elles passent au vert en FullSupport. Le contraste visuel crée le désir de montée en gamme.</div>'},
+    {titre:"Le closing : la proposition en 3 niveaux",body:"<p>\"M. Garrigues, voici comment je vous propose de structurer votre couverture IT :</p><p>- <strong>Niveau 1 — Essentiel :</strong> FullSupport sur votre serveur et votre firewall uniquement = 36 + 36 = 72 €/mois. Votre coeur de réseau est protégé.</p><p>- <strong>Niveau 2 — Complet :</strong> On ajoute la couverture sur vos 12 postes = 72 + 144 = 216 €/mois. Chaque collaborateur est couvert.</p><p>- <strong>Niveau 3 — Sérénité totale :</strong> On ajoute une visite InfraCare annuelle = 216 + 590/12 ≈ 265 €/mois. L'ensemble de votre infrastructure est surveillé, curatif ET préventif.\"</p><p>Quelle option correspond le mieux à vos attentes ?</p>"}
+  ];
+  var objections=[
+    {q:"On n'a jamais eu de contrat et ça s'est toujours bien passé.",a:"C'est souvent le cas... jusqu'au premier incident sérieux. La question n'est pas si vous aurez une panne, mais quand. Une infrastructure non maintenue vieillit silencieusement. Nos audits ExpertVision révèlent systématiquement des risques que le client ignorait."},
+    {q:"Mon informaticien gère ça en interne.",a:"Un informaticien interne gère le quotidien, mais il ne peut pas être expert sur tous les sujets : firewall, virtualisation, NAS, Wi-Fi d'entreprise... et il prend des congés. Nous sommes complémentaires, pas en concurrence."},
+    {q:"C'est trop cher, on verra si un problème se présente.",a:"Calculons ensemble : 12 postes à 12 €/mois + 1 serveur à 36 €/mois = 180 €/mois. Si votre équipe est bloquée juste 4 heures dans l'année sur une panne, c'est 600 € d'interventions à la demande sans compter le coût de la perte de productivité. Le contrat s'autofinance avec un seul incident."},
+    {q:"Je veux juste payer quand j'ai besoin, pas un abonnement.",a:"C'est exactement notre Pack TempoSupport : crédit d'heures, décompté à la minute. Vous ne payez que ce que vous utilisez, avec la garantie que vos heures sont disponibles et que vous passez avant les interventions ponctuelles."}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>🎯 Pitch commercial — Services IT externalisés IXEO</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Réponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+// ══════════════════════
+// STEP 5 — RESSOURCES
+// ══════════════════════
+function renderStep5_M10(){
+  var resources=[
+    {icon:'📄',name:'Catalogue Tarifs IT 2026 — IXEO',note:'Grille complète : forfaits, contrats, frais annexes',url:'#'},
+    {icon:'📄',name:'Grille de couverture contrats de support',note:'TempoSupport vs FullSupport vs InfraCare par équipement',url:'#'},
+    {icon:'📊',name:'Simulateur de coût de non-couverture',note:'Calcul automatique du ROI des contrats de support',url:'#'},
+    {icon:'📋',name:'Grille de découverte terrain — Services IT',note:'Version imprimable de l\'étape 3',url:'#'},
+    {icon:'📄',name:'Fiche récapitulative Forfait LIC',note:'Segments, tarifs livraison, tarifs reprise, portage',url:'#'},
+    {icon:'📄',name:'Présentation Pack ExpertVision',note:'Argumentaire et grille d\'audit infrastructure',url:'#'},
+    {icon:'🌐',name:'Site IXEO — Offres de services IT',note:'www.ixeo.fr',url:'https://www.ixeo.fr'},
+    {icon:'📋',name:'Fiche de connexion MFP (obligatoire)',note:'À produire simultanément avec le contrat de vente',url:'#'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>📁 Ressources téléchargeables</h3><p>Supports pour préparer et accompagner vos rendez-vous commerciaux autour des services IT externalisés.</p><div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource disponible auprès de votre responsable ou sur le drive partagé IXEO.")';
+    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="warn-box" style="margin-top:1.25rem;">📌 Le catalogue Tarifs IT est un document INTERNE. Ne jamais communiquer les prix de transfert commerciaux au client. Utiliser uniquement les tarifs publics dans les devis.</div>';
+  html+='</div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+// ══════════════════════
+// QCM — MODULE 10
+// ══════════════════════
+var QUESTIONS_M10=[
+  {q:"Quelle est la différence entre les prix de transfert commerciaux et les tarifs publics chez IXEO ?",opts:["Les prix de transfert sont plus élevés que les tarifs publics","Les prix de transfert sont les prix internes entre le commercial et IXEO ; les tarifs publics sont ceux communiqués aux clients","Les deux grilles sont identiques","Les tarifs publics s'appliquent uniquement aux contrats longue durée"],c:1,fb:"Les prix de transfert sont les prix INTERNES (ce que le commercial facture en interne à IXEO). Les tarifs publics sont ceux que le client voit sur le devis. Ne jamais communiquer les prix de transfert au client."},
+  {q:"Quelle formule IXEO facture à l'heure avec un minimum de 15 minutes ?",opts:["Le Pack Précision","Le Pack Excellence","Le Pack Flex","Le Pack FullSupport"],c:2,fb:"Le Pack Flex est la formule horaire d'IXEO : facturation à 150 € HT/h, minimum facturable de 15 min, hors frais de déplacement."},
+  {q:"Quel est le tarif public d'une prestation forfaitaire journée entière (Pack Excellence) ?",opts:["315 € HT","460 € HT","590 € HT","790 € HT"],c:2,fb:"Le tarif public du Pack Excellence (journée complète, déplacement inclus) est de 590 € HT. Le prix de transfert interne est de 460 € HT."},
+  {q:"Qu'est-ce que la Zone 1 dans les zones d'intervention IXEO ?",opts:["Les interventions à plus de 50 km","Les interventions dans un rayon de 50 km autour de l'agence","Les interventions en région parisienne","Les interventions à l'étranger"],c:1,fb:"Zone 1 = rayon de 50 km autour de l'agence IXEO. Elle couvre notamment Toulouse, Albi et Lézignan-Corbières. Zone 2 = au-delà de 50 km."},
+  {q:"Quel pack propose un support illimité* dédié à un équipement identifié par son numéro de série ?",opts:["Pack TempoSupport","Pack InfraCare","Pack FullSupport","Pack ExpertVision"],c:2,fb:"Le Pack FullSupport (infogérance) offre un support illimité dédié à un équipement identifié par S/N, avec engagement 12 mois minimum et suivi proactif."},
+  {q:"Quel est le tarif du Pack FullSupport pour un serveur ou un firewall en engagement 12 mois (tarif public) ?",opts:["12 € HT/mois","20 € HT/mois","36 € HT/mois","60 € HT/mois"],c:3,fb:"Le tarif public du FullSupport pour un serveur ou un firewall en engagement 12 mois est de 60 € HT/mois. Le prix de transfert interne est de 36 € HT/mois."},
+  {q:"Quelle est la particularité du Pack InfraCare par rapport au FullSupport ?",opts:["InfraCare est un support illimité, FullSupport est préventif","InfraCare est un service de maintenance préventive récurrente ; FullSupport couvre les interventions curatives","InfraCare couvre uniquement les logiciels","InfraCare ne nécessite pas de déplacement"],c:1,fb:"InfraCare = maintenance préventive planifiée (on vérifie avant que ça tombe en panne). FullSupport = interventions curatives (on répare quand ça tombe en panne)."},
+  {q:"Que signifie l'acronyme SPG dans les frais annexes IXEO ?",opts:["Service Pack Garantie","Service Pack Gestion","Service Premium Global","Suivi du Parc et Garantie"],c:1,fb:"SPG = Service Pack Gestion. Coût : 6 € HT par facture. Il couvre la facturation, le suivi des paiements et la gestion des documents comptables."},
+  {q:"Dans quel cas le Service Pack Licence (SPL) est-il appliqué ?",opts:["Sur toutes les licences sans exception","Sur les licences dont le renouvellement ne s'effectue pas automatiquement","Sur les licences dont le prix dépasse 500 €","Sur les licences achetées à l'étranger"],c:1,fb:"Le SPL (10 % du montant de la licence) s'applique aux licences avec renouvellement NON automatique (automatic renewal = false), nécessitant une supervision du parc pour éviter toute interruption."},
+  {q:"Quel est le tarif du Forfait LIC Livraison pour un MFP Segment 2 de moins de 120 kg A3 ?",opts:["250 € HT","379 € HT","479 € HT","610 € HT"],c:1,fb:"Segment 2 (< 120 kg A3, ex : C250i, 3508ci, C257i) : Forfait Livraison HT = 379 €. Le forfait reprise pour ce segment est de 128 € HT."},
+  {q:"Qu'inclut le Pack ExpertVision ?",opts:["Un contrat de support mensuel illimité","Un audit d'infrastructure matérielle et réseaux sur site avec rédaction et restitution documentée","Une formation de l'équipe informatique du client","Une prestation de câblage réseau"],c:1,fb:"Le Pack ExpertVision est un audit complet sur site incluant : baie, switches, Wi-Fi, serveurs, onduleurs, postes, télécoms, firewall, sauvegarde et sécurité globale. Il se clôture par une restitution documentée avec inventaire, photos et rapports de tests."},
+  {q:"Le contrat FullSupport couvre-t-il les demandes liées à un manque de formation de l'utilisateur ?",opts:["Oui, sans condition","Oui, mais avec supplément","Non, ces demandes sont exclues du contrat","Oui, uniquement pour les postes de travail"],c:2,fb:"Le contrat FullSupport couvre exclusivement les interventions curatives (pannes, dysfonctionnements). Les demandes résultant d'un manque de formation ou d'une utilisation inappropriée sont explicitement exclues."},
+  {q:"Quelle est la différence entre le Service Pack Réseautique Essential et Infinity ?",opts:["Infinity inclut les fournitures, Essential non","Essential couvre les MFP avec chargeur dual scan (hors déplacement) ; Infinity couvre tous les chargeurs avec déplacement inclus","Essential est annuel, Infinity est mensuel","Il n'y a pas de différence"],c:1,fb:"Essential (4,90 € HT/T) : MFP avec chargeur dual scan, hors frais de déplacement. Infinity (6,90 € HT/T) : tous les chargeurs, frais de déplacement inclus."},
+  {q:"Lors d'une vente de MFP, quel document est OBLIGATOIRE à produire simultanément avec le contrat de vente ?",opts:["Le bon de garantie constructeur","La fiche de connexion","Le devis de livraison","La fiche d'installation logicielle"],c:1,fb:"La fiche de connexion est obligatoire à chaque vente de MFP et doit être produite en simultané avec le contrat de vente. Elle conditionne la connexion réseau du Forfait LIC (2 heures incluses)."},
+  {q:"Pour une PME avec 10 postes et 1 serveur, quel est le montant mensuel d'un Pack FullSupport en tarif public engagement 12 mois ?",opts:["120 € HT/mois","200 € HT/mois","220 € HT/mois","260 € HT/mois"],c:2,fb:"1 serveur à 60 € + 10 postes à 20 € chacun = 60 + 200 = 260 € HT/mois. (Note : la réponse correcte est 260 mais selon le QCM la réponse C est 220, vérifiez avec votre catalogue.) Serveur 60 € + 10 × 20 € = 260 € HT/mois."}
+];
+
+// (correction question 15 — réponse exacte 260 est option D, indice 3)
+QUESTIONS_M10[14]={q:"Pour une PME avec 10 postes et 1 serveur, quel est le montant mensuel d'un Pack FullSupport en tarif public engagement 12 mois ?",opts:["120 € HT/mois","180 € HT/mois","220 € HT/mois","260 € HT/mois"],c:3,fb:"1 serveur = 60 € HT/mois + 10 postes × 20 € = 200 € HT/mois. Total = 260 € HT/mois. C'est l'argument commercial clé : une seule journée de blocage de l'équipe coûte bien plus."};
+
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => {
     s.classList.remove('active');
