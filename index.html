@@ -646,7 +646,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 const MODULES = [
   {id:1, name:"Écrans tactiles interactifs",        family:1, available:false},
   {id:2, name:"Affichage dynamique : Signage",       family:1, available:true},
-  {id:3, name:"Affichage dynamique : Kiosk",         family:1, available:false},
+  {id:3, name:"Affichage dynamique : Kiosk",         family:1, available:true},
   {id:4, name:"Protection des données (sauvegarde)", family:2, available:false},
   {id:5, name:"Les bases d'un réseau",               family:2, available:false},
   {id:6, name:"Étude parc informatique & réseau",    family:2, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===2 ? renderStep1_M2() : renderStep1();
-  else if (step === 2) content.innerHTML = S.currentModule===2 ? renderStep2_M2() : renderStep2();
-  else if (step === 3) content.innerHTML = S.currentModule===2 ? renderStep3_M2() : renderStep3();
-  else if (step === 4) content.innerHTML = S.currentModule===2 ? renderStep4_M2() : renderStep4();
-  else if (step === 5) content.innerHTML = S.currentModule===2 ? renderStep5_M2() : renderStep5();
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS); }
+  if      (step === 1) content.innerHTML = S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1());
+  else if (step === 2) content.innerHTML = S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2());
+  else if (step === 3) content.innerHTML = S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3());
+  else if (step === 4) content.innerHTML = S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4());
+  else if (step === 5) content.innerHTML = S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5());
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -1594,6 +1594,250 @@ function renderStep5_M2(){
     var r=resources[i];
     var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
     html+='<div class=\"resource-card\" onclick=\"'+oc+'\"><div class=\"resource-icon\">'+r.icon+'</div><div class=\"resource-name\">'+r.name+'</div><div class=\"resource-note\">'+r.note+'</div></div>';
+  }
+  html+='</div></div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+
+
+
+// MODULE 3 - AFFICHAGE DYNAMIQUE : KIOSK
+
+const QUESTIONS_M3 = [
+  {q:"Qu'est-ce que Skysignage Kiosk ?",opts:["Un logiciel de gestion de caisse","Une borne tactile de consultation de documents et sites internet","Un logiciel de creation graphique","Un systeme de surveillance video"],c:1,fb:"Skysignage Kiosk est un kiosque tactile permettant au public de consulter des documents, actes, videos et sites internet preselectionnees sur une borne interactive."},
+  {q:"Ou sont heberges les documents dans Skysignage Kiosk ?",opts:["Sur le PC du client","Sur un serveur local","Dans le cloud Microsoft Azure de maniere privee et securisee","Sur une cle USB"],c:2,fb:"Les documents sont heberges sur l'infrastructure Skysignage dans le cloud Microsoft Azure, de maniere privee et securisee."},
+  {q:"Quel est le principal avantage de Skysignage Kiosk pour une mairie ou collectivite ?",opts:["Reduire le nombre d'agents d'accueil","Digitaliser l'affichage legal et mettre les documents a disposition sans impression","Remplacer le site internet","Gerer les pointages des agents"],c:1,fb:"Skysignage Kiosk permet de digitaliser l'affichage legal et de mettre a disposition du public les actes et documents sans avoir a les imprimer."},
+  {q:"Comment se met a jour le contenu sur une borne Skysignage Kiosk ?",opts:["Cle USB a brancher manuellement","Mise a jour automatique par glisser-deposer depuis le portail web en temps reel","Technicien sur site","CD-ROM"],c:1,fb:"La base de documents se synchronise en temps reel en un clic par glisser-deposer depuis le portail web. Aucune intervention sur site n'est necessaire."},
+  {q:"Quel est le secteur identifie par Skysignage comme reference pour le Kiosk ?",opts:["Les banques","Les hotels","Les collectivites (mairies, CAFF, offices de tourisme)","Les usines"],c:2,fb:"Skysignage Kiosk a ete selectionne par l'UGAP et est particulierement reference dans les collectivites : mairies, CAFF, offices de tourisme, centres de loisirs."},
+  {q:"Pour un totem exterieur en kiosk, quel standard de protection est indispensable ?",opts:["IP44","IP54","IP65 minimum","IP20"],c:2,fb:"Un totem exterieur doit etre certifie IP65 minimum pour resister aux jets d'eau et a la poussiere en utilisation 24/7 en exterieur."},
+  {q:"Qu'est-ce qu'un radier beton pour une installation outdoor ?",opts:["Un socle decoratif","Une dalle beton ancree dans le sol servant de fondation au totem","Un caisson electrique","Un systeme de drainage"],c:1,fb:"Le radier beton est une dalle de fondation ancree dans le sol sur laquelle repose et est fixe le totem exterieur. Il garantit la stabilite et la resistance au vent."},
+  {q:"Quelle alimentation electrique est recommandee pour un totem exterieur ?",opts:["Prise standard 16A","Ligne dediee 20A protegee par un disjoncteur differentiel de 30mA","Batterie solaire uniquement","Extension depuis une prise interieure"],c:1,fb:"Un totem exterieur necessite une ligne electrique dediee 20A minimum, protegee par un disjoncteur differentiel 30mA, conforme a la norme NF C 15-100 pour les installations exterieures."},
+  {q:"Pour la connectivite d'un totem exterieur, quelle est la solution privilegiee ?",opts:["Wi-Fi uniquement","4G/LTE uniquement","Liaison filaire RJ45 enterree preferee, Wi-Fi ou 4G en secours","Bluetooth"],c:2,fb:"La liaison filaire RJ45 enterree est privilegiee pour sa fiabilite et son debit. Le Wi-Fi ou la 4G/LTE peuvent etre utilises en secours ou si le filaire est impossible."},
+  {q:"Quel fabricant fournit les caissons extérieurs Cletech distribues par Navisio ?",opts:["Fabricant francais","Fabricant turc","Fabricant chinois","Fabricant allemand"],c:1,fb:"Cletech est un fabricant turc specialise dans les caissons (enclosures) pour ecrans Samsung, certifies pour usage exterieur. Navisio distribue leurs produits avec les ecrans Samsung gamme OM."},
+  {q:"Quelle gamme d'ecrans Samsung est utilisee dans les caissons Cletech extérieurs ?",opts:["Gamme QM","Gamme OM","Gamme QB","Gamme E-Paper"],c:1,fb:"Navisio utilise les ecrans Samsung de la gamme OM (haute luminosite vitrine/exterieur) integres dans les caissons Cletech pour les installations tactiles exterieures."},
+  {q:"Pourquoi privilegier un ecran Samsung OM dans un caisson Cletech plutot qu'un all-in-one d'origine inconnue ?",opts:["Pour avoir une garantie Samsung et une luminosite adaptee a l'exterieur","Parce que c'est moins cher","Pour avoir un design plus moderne","Parce que Cletech impose ce choix"],c:0,fb:"La combinaison Samsung OM + caisson Cletech garantit : luminosite 3 000-4 000 cd/m2 lisible en plein soleil, garantie Samsung 3 ans, SAV et pieces detachees disponibles en France."},
+  {q:"Quel document technique doit etre fourni avant tout chiffrage d'installation outdoor ?",opts:["Un plan de masse avec les dimensions et contraintes du site","Une photo du batiment","Un devis concurrent","Une facture d'electricite"],c:0,fb:"Un plan de masse avec les cotes exactes, la localisation du point d'alimentation electrique et le point d'acces reseau est indispensable avant tout chiffrage d'une installation outdoor."},
+  {q:"En quoi le Kiosk Skysignage est-il adapte aux CE (Comites d'Entreprise) ?",opts:["Il gere les notes de frais","Il affiche les offres CE, avantages, videos et sites partenaires en un seul point sans etagere de brochures","Il remplace le logiciel de paie","Il gere le planning des employes"],c:1,fb:"Le Kiosk CE affiche de maniere ludique toutes les offres locales de divertissement, avantages, brochures et sites partenaires — supprimant les etageres de brochures et centralisant l'information."},
+  {q:"Quel est le temps de mise en oeuvre de Skysignage Kiosk selon l'editeur ?",opts:["Plusieurs jours de configuration","Quelques minutes pour la mise en oeuvre, quelques heures pour etre totalement autonome","1 semaine de formation","Un mois de deploiement"],c:1,fb:"Selon Skysignage, la mise en oeuvre se fait en quelques minutes et les agents sont pleinement autonomes en quelques heures. Aucune competence informatique n'est requise."}
+];
+
+function renderStep1_M3() {
+  var ch = [
+    ["Qu'est-ce que Skysignage Kiosk ?",
+     "<p>Skysignage Kiosk est le module interactif de la plateforme Skysignage, edite par <strong>Ngine Networks</strong>. "
+     + "Il transforme n'importe quel ecran tactile en borne de consultation autonome, "
+     + "permettant au public ou aux collaborateurs de trouver, consulter et telecharger des informations de maniere totalement autonome.</p>"
+     + "<div class=\"key-box\">Difference fondamentale avec Skysignage Signage : <strong>Signage = diffusion passive</strong> (le contenu defile). <strong>Kiosk = interaction active</strong> (le visiteur navigue, consulte, telechargee).</div>"
+     + "<h4>Ce qu'on peut afficher et partager</h4>"
+     + "<p>📄 <strong>Documents :</strong> actes, PDF, formulaires, brochures, catalogues<br>"
+     + "🎬 <strong>Videos :</strong> presentations, tutoriels, contenus multimedia<br>"
+     + "🌐 <strong>Sites internet :</strong> liste blanche de sites preselectionnees et securisees<br>"
+     + "🗺 <strong>Informations locales :</strong> plans, horaires, evenements, offres CE</p>"
+     + "<h4>Les secteurs cibles</h4>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Collectivites</div><div class=\"info-val\">Mairies, CAFF, offices de tourisme, centres de loisirs — affichage legal et information citoyenne</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Entreprises</div><div class=\"info-val\">Accueil visiteurs, bornes RH, CE, salle de reunion — information collaborateurs</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Sante</div><div class=\"info-val\">Hopitaux, cliniques, cabinets — orientation patients, affichage obligatoire, numeros utiles</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Retail et hotellerie</div><div class=\"info-val\">Showrooms, hotels — catalogue interactif, services, recommandations locales</div></div>"
+     + "</div>"
+     + "<div class=\"key-box\">Skysignage Kiosk a ete selectionne par l'UGAP (centrale d'achat public francaise) — reference majeure pour les marches publics.</div>"
+    ],
+    ["Fonctionnalites logicielles cles",
+     "<h4>Gestion documentaire intuitive</h4>"
+     + "<p>📁 <strong>Glisser-deposer</strong> depuis le portail web pour ajouter ou retirer un document<br>"
+     + "🔄 <strong>Synchronisation en temps reel</strong> sur tous les ecrans de la flotte<br>"
+     + "☁ <strong>Hebergement cloud Microsoft Azure</strong> — prive, securise, sans serveur local<br>"
+     + "📱 <strong>Telechargement mobile</strong> — le visiteur peut recuperer un document sur son smartphone<br>"
+     + "🔒 <strong>Aucune installation</strong> sur les postes des collaborateurs — navigateur suffisant</p>"
+     + "<h4>Navigation et ergonomie</h4>"
+     + "<p>👆 <strong>Interface tactile intuitive</strong> — accessible a tous les publics sans formation<br>"
+     + "⏱ <strong>Retour automatique a l'accueil</strong> apres un temps d'inactivite parametre<br>"
+     + "⌨ <strong>Clavier virtuel</strong> pour la saisie, les recherches et les formulaires<br>"
+     + "🌐 <strong>Navigation web securisee</strong> — liste blanche de sites autorises uniquement<br>"
+     + "🎬 <strong>Lecture multimedia</strong> — videos, images, PDF en plein ecran</p>"
+     + "<h4>Administration et deploiement</h4>"
+     + "<p>🖥 <strong>Tableau de bord centralise</strong> — supervision de toute la flotte depuis un ecran<br>"
+     + "⚡ <strong>Mise en oeuvre en quelques minutes</strong> — autonomie complete en quelques heures<br>"
+     + "📡 <strong>Mise a jour a distance</strong> — aucune intervention sur site necessaire<br>"
+     + "📊 <strong>Multi-sites</strong> — gestion de plusieurs etablissements depuis un seul portail<br>"
+     + "🔑 <strong>Reference UGAP</strong> — eligible aux marches publics sans appel d'offres</p>"
+     + "<div class=\"key-box\">Argument cle : zero impression, zero etagere de brochures, contenu toujours a jour, collaborateurs liberes pour des taches a valeur ajoutee.</div>"
+    ],
+    ["Installation indoor — Kiosks et totems interieurs",
+     "<p>Pour les installations interieures, Navisio propose deux configurations principales basees sur les ecrans Samsung et la gamme de totems du catalogue.</p>"
+     + "<h4>Configuration totem vertical (portrait)</h4>"
+     + "<p>📐 <strong>Ecrans Samsung QM-T</strong> (gamme tactile interieure) : QM32R-T, QM43B-T, QM55B-T<br>"
+     + "⚡ <strong>Luminosite</strong> : 400 cd/m2 — adapte aux environnements interieurs eclaires<br>"
+     + "⏱ <strong>Temps de reponse</strong> : 8 ms — tactile fluide et reactif<br>"
+     + "🖼 <strong>Resolutions</strong> : Full HD (32 et 43 pouces) ou 4K (55 pouces)<br>"
+     + "🏠 <strong>Structures compatibles</strong> : Totems New Yorkais, Seattle, New Orleans (Navisio) — 32 a 75 pouces, hauteur 2 a 2,5m, portrait et paysage</p>"
+     + "<h4>Configuration borne inclinee (paysage)</h4>"
+     + "<p>📺 <strong>Usage</strong> : consultation en position semi-horizontale, ideal pour showrooms, accueil assis, zones de signatures<br>"
+     + "🏗 <strong>Materiel</strong> : Borne inclinee tactile TOTINAS (catalogue Navisio), ecran 43 a 55 pouces integre, version Android ou Windows<br>"
+     + "👆 <strong>Tactile capacitif</strong> : 10 points de touche, verre de protection IK10</p>"
+     + "<h4>Checklist installation indoor</h4>"
+     + "<p>🔌 <strong>Alimentation</strong> : prise 16A a moins de 2m de l'emplacement prevu<br>"
+     + "📶 <strong>Reseau</strong> : Wi-Fi couvert ou prise RJ45 a proximite (debit min. 10 Mb/s)<br>"
+     + "📐 <strong>Encombrement</strong> : prevoir 60 x 60 cm au sol minimum pour un totem autoportant<br>"
+     + "🔧 <strong>Fixation</strong> : sol ou mural — verifier la nature du sol et du mur<br>"
+     + "💡 <strong>Luminosite ambiante</strong> : pas de reflets directs sur l'ecran (eviter face a une baie vitree)</p>"
+    ],
+    ["Installation outdoor — Totems exterieurs Cletech x Samsung",
+     "<p>Pour les installations exterieures interactives, Navisio distribue une solution eprouvee : <strong>ecrans Samsung gamme OM haute luminosite</strong> integres dans des <strong>caissons Cletech</strong> (fabricant turc specialise, certifie IP65/IP66).</p>"
+     + "<div class=\"key-box\">Pourquoi Cletech + Samsung OM ? Luminosite 3 000-4 000 cd/m2 lisible en plein soleil · Garantie Samsung 3 ans · SAV et pieces disponibles en France · Caisson acier certifie IP65/IP66 pour usage 24/7 exterieur.</div>"
+     + "<h4>Gamme caissons Cletech (selections cles)</h4>"
+     + "<p>🏗 <strong>T1 Totem Enclosure</strong> : caisson totem exterieur simple face pour ecrans full outdoor<br>"
+     + "🔄 <strong>RD Double-Sided Totem</strong> : totem double face exterieur pour zones de fort passage<br>"
+     + "📌 <strong>M5 Monitor Enclosure</strong> : caisson mural exterieur pour ecrans haute luminosite<br>"
+     + "🚗 <strong>DT2 Drive-Thru Totem</strong> : solution double ecran pour espaces drive<br>"
+     + "🟩 <strong>XR / F9 Totem Enclosure</strong> : best-sellers exterieurs — robustesse et polyvalence</p>"
+     + "<h4>Pre-requis et contraintes d'installation outdoor</h4>"
+     + "<p>⚡ <strong>Alimentation electrique</strong> :<br>"
+     + "— Ligne dediee 20A minimum avec disjoncteur differentiel 30mA<br>"
+     + "— Conforme norme NF C 15-100 (installations exterieures)<br>"
+     + "— Cable de section adequuate selon la distance au tableau general<br>"
+     + "— Gaine et chemins de cables protegees et enterrees<br>"
+     + "— Intervention obligatoire d'un electricien qualifie CONSUEL</p>"
+     + "<p>📡 <strong>Connectivite data</strong> :<br>"
+     + "— Privilegier la liaison filaire RJ45 enterree (fiabilite, debit, securite)<br>"
+     + "— Fourreau de protection pour les cables enterres (norme NF P 98-332)<br>"
+     + "— Wi-Fi possible si couverture suffisante (-70 dBm minimum au point d'installation)<br>"
+     + "— 4G/LTE routeur integre en solution de secours ou si filaire impossible</p>"
+     + "<p>🏗 <strong>Gros oeuvre — Radier beton</strong> :<br>"
+     + "— Dalle beton ancree dans le sol servant de fondation au totem<br>"
+     + "— Dimensions typiques : 80 x 80 cm, profondeur 60 a 80 cm selon nature du sol<br>"
+     + "— Descente de gel a respecter (variable selon la region — 30 a 80 cm en France)<br>"
+     + "— Tiges filetees M16 ou M20 scellees dans le beton pour fixation du totem<br>"
+     + "— Reservation de fourreaux pour passage cables electrique et data avant coulee<br>"
+     + "— Temps de sechage beton : minimum 28 jours avant pose du totem<br>"
+     + "— Intervention d'un macon ou entreprise de gros oeuvre obligatoire</p>"
+     + "<p>📋 <strong>Demarches administratives</strong> :<br>"
+     + "— Verification du PLU (Plan Local d'Urbanisme) pour affichage exterieur<br>"
+     + "— Declaration prealable de travaux selon dimensions (generalement > 12m2)<br>"
+     + "— Accord du proprietaire / bailleur si espace non prive<br>"
+     + "— Accord de la mairie pour les espaces sur voie publique<br>"
+     + "— Verification des reseaux enterres avant terrassement (DICT — Declaration d'Intention de Commencement de Travaux)</p>"
+     + "<div class=\"warn-box\">Une installation outdoor mal preparee peut couter 2 a 3 fois le prix initial en travaux correctifs. Exiger systematiquement un plan de masse complet et une visite technique avant tout chiffrage.</div>"
+    ],
+    ["Savoir vendre le Kiosk — Pitch et cas d'usage",
+     "<h4>Les 5 situations declenchantes a identifier</h4>"
+     + "<p>🏛 <strong>Collectivite avec affichage legal</strong> : obligation d'afficher certains actes. Le Kiosk est la solution digitale homologuee UGAP.<br>"
+     + "🏢 <strong>Accueil d'entreprise sature</strong> : les visiteurs attendent que quelqu'un les oriente. Le Kiosk les rend autonomes.<br>"
+     + "📚 <strong>Etagere de brochures en desordre</strong> : brochures perimees, en rupture. Le Kiosk centralise et met toujours le bon document a jour.<br>"
+     + "🚪 <strong>Hall sans personnel le week-end</strong> : le Kiosk informe 24h/24 meme en l'absence de collaborateur.<br>"
+     + "🌍 <strong>Plusieurs sites a gerer</strong> : une mise a jour centrale se propage sur tous les ecrans simultanement.</p>"
+     + "<h4>Argument ROI par secteur</h4>"
+     + "<p>🏛 <strong>Collectivite</strong> : elimination du poste impression et distribution de documents papier. Un service en moins. Un poste agent reaffecte a des missions a valeur ajoutee.<br>"
+     + "🏥 <strong>Sante</strong> : reduction du flux de questions a l'accueil de 30 a 40%. Le patient trouve l'information seul, sans solliciter le personnel medical.<br>"
+     + "🏨 <strong>Hotellerie</strong> : le client accede aux activites locales, horaires, services de l'hotel a toute heure. Satisfaction client et upsell indirect.<br>"
+     + "🏭 <strong>Industrie / CE</strong> : diffusion des offres CE, securite, procedure d'urgence. Information garantie transmise, tracable, sans impression.</p>"
+     + "<div class=\"key-box\">Argument differenciateur cle : contrairement a une tablette posee sur un comptoir, un totem Kiosk est visible, immersif, resistantm concu pour un usage intensif 24/7 et gere a distance. C est une solution professionnelle, pas un bricolage.</div>"
+    ]
+  ];
+  var html = '<div class=\"step-panel\">';
+  for (var i=0;i<ch.length;i++){
+    var open=i===0;
+    html += '<div class=\"chapter\"><div class=\"ch-hd '+(open?'open':'')+'\"><span>'+(i+1)+'. '+ch[i][0]+'</span><span class=\"ch-toggle\">'+(open?'▲':'▼')+'</span></div><div class=\"ch-body '+(open?'open':'')+'\"><div class=\"content-section\">'+ch[i][1]+'</div></div></div>';
+  }
+  html += stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M3(){
+  var html='<div class=\"step-panel\"><div class=\"content-section\">';
+  html+='<h3>Mise en situation — Affichage Kiosk</h3>';
+  html+='<div class=\"scenario-card\"><div class=\"scenario-label\">Contexte</div>';
+  html+='<div class=\"scenario-context\">Vous rencontrez <strong>M. Thierry MARCHAND</strong>, directeur general d une PME industrielle de 120 personnes (3 sites en France). L accueil de leur siege est sous-dimensionne : une hotesse gere seule les visiteurs, le courrier et les questions internes. Le hall d entree dispose de brochures desorganisees, certaines datant de 2021. Il y a aussi une cantine avec un panneau d affichage menu mis a jour a la main chaque semaine. Il recherche une solution pour moderniser son accueil et alleger sa secretaire.</div>';
+  html+='</div><h4>Simulation d entretien</h4><div class=\"dialogue\">';
+  var bubbles=[
+    ['comm','V','Vous (commercial)','Bonjour M. Marchand. Vous m avez decrit une hotesse debordee et un hall qui ne represente plus vraiment l image de votre entreprise. Si je vous dis qu on peut rendre vos visiteurs autonomes pour 80% de leurs questions — sans recruter — ca vous interesse ?'],
+    ['cli','T','M. Marchand','Evidemment. Mais je ne veux pas une tablette sur un pied qui tombe. Ca doit etre professionnel.'],
+    ['comm','V','Vous','Exactement le bon reflexe. Ce qu on propose c est un totem tactile professionnel Samsung sur structure Cletech, pilote par Skysignage Kiosk. Vos visiteurs trouvent le plan d acces, l organigramme, vos plaquettes commerciales — et telechargent ce qu ils veulent sur leur telephone. Votre hotesse se concentre sur l accueil humain.'],
+    ['cli','T','M. Marchand','Et pour mes 3 sites, j aurais a tout gerer en triple ?'],
+    ['comm','V','Vous','Non. Un seul portail centralise. Vous mettez a jour un document, il se synchronise sur les 3 sites en quelques secondes. Pour la cantine, le chef de cuisine change le menu depuis son smartphone — l ecran se met a jour instantanement. Plus aucune impression, plus aucun decollement d affiche.'],
+    ['cli','T','M. Marchand','Et en exterieur pour l entree du site, c est possible aussi ?'],
+    ['comm','V','Vous','Oui, on a une gamme de totems exterieurs avec des caissons certifies IP65, ecrans Samsung haute luminosite. Ca necessite un radier beton et une ligne electrique dediee — on vous inclut l etude technique dans le devis. On peut faire une visite du site la semaine prochaine ?']
+  ];
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];
+    var cl=b[0]==='cli';
+    html+='<div class=\"bubble'+(cl?' client':'')+'\"><div class=\"bubble-avatar '+b[0]+'\">'+b[1]+'</div><div class=\"bubble-text\"><div class=\"bubble-role\">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class=\"key-box\">Enseignements : 1/ Valoriser le totem comme solution professionnelle vs tablette. 2/ Lever l objection multi-sites immediatement. 3/ Elargir vers l outdoor pour augmenter le panier. 4/ Proposer une visite technique pour qualifier et avancer.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M3(){
+  var cats=[
+    {t:"Qualification logicielle Kiosk",qs:["Quels types de documents souhaitez-vous diffuser (PDF, videos, sites internet) ?","A quelle frequence ces contenus sont-ils mis a jour ?","Combien de personnes gereront le contenu au quotidien ?","Avez-vous des obligations d affichage legal (mairie, sante, industrie) ?","Souhaitez-vous que les visiteurs puissent telecharger des documents sur leur smartphone ?"]},
+    {t:"Qualification technique indoor",qs:["Quelle est la superficie et la configuration du hall d accueil ?","Y a-t-il une prise electrique disponible a l emplacement prevu ?","Avez-vous une connexion Wi-Fi ou RJ45 a proximite ?","Souhaitez-vous un totem autoportant, une fixation murale ou une borne inclinee ?","Y a-t-il des contraintes esthetiques (style, couleur, bailleur) ?"]},
+    {t:"Qualification technique outdoor",qs:["L emplacement est-il sur terrain prive ou voie publique ?","Avez-vous effectue une DICT (Declaration Intention Commencement Travaux) pour les reseaux enterres ?","Un acces electrique existe-t-il a proximite ou faut-il prevoir un tirage de cable ?","La connexion data sera-t-elle filaire (RJ45 enterre) ou Wi-Fi / 4G ?","Avez-vous les autorisations administratives necessaires (PLU, declaration prealable) ?"]},
+    {t:"Enjeux et budget",qs:["Combien de sites ou etablissements sont concernes par ce projet ?","Quel est le cout actuel d impression et de gestion documentaire par mois ?","Avez-vous un budget alloue ou faut-il le constituer ?","Quel est votre calendrier ideal de mise en service ?","D autres interlocuteurs (DAF, DSI, responsable batiments) sont-ils impliques dans la decision ?"]}
+  ];
+  var html='<div class=\"step-panel\"><div class=\"content-section\">';
+  html+='<h3>Questionnement client — Grille de decouverte Kiosk</h3>';
+  html+='<p>Qualifiez separement les besoins logiciels, la faisabilite indoor et la faisabilite outdoor avant tout chiffrage.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class=\"q-category\"><div class=\"q-cat-title\">'+cats[i].t+'</div><div class=\"q-list\">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class=\"q-item\">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class=\"warn-box\" style=\"margin-top:1rem;\">Pour tout projet outdoor : exiger systematiquement un plan de masse cote et une visite technique sur site avant d envoyer le moindre devis. Les contraintes de gros oeuvre et d alimentation peuvent faire varier le budget de 30 a 80%.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M3(){
+  var blocks=[
+    {titre:"Accroche universelle",body:"Imaginez que chaque visiteur de votre accueil trouve seul ce qu il cherche — plan d acces, plaquette, menu, document legal — sur un ecran tactile elegantquui repond 24h/24, meme quand votre equipe n est pas disponible. C est ce que Skysignage Kiosk fait pour des centaines d entreprises et collectivites en France."},
+    {titre:"Solution SONCAS",body:"<p>🔒 <strong>Securite</strong> : documents heberges dans le cloud Microsoft Azure, acces par liste blanche, aucun risque de navigation non souhaitee. Certification UGAP pour les marches publics.</p>"
+    + "<p>🏆 <strong>Orgueil</strong> : un hall d accueil avec un totem tactile professionnel communique une image de modernite et d efficacite. C est visible des la premiere seconde pour tout visiteur.</p>"
+    + "<p>✨ <strong>Nouveaute</strong> : la synchronisation temps reel en un clic, le telechargement de documents sur smartphone, la gestion multi-sites depuis un portail unique — des fonctionnalites que vos concurrents n ont pas encore.</p>"
+    + "<p>😌 <strong>Confort</strong> : aucune installation informatique sur site. Mise en oeuvre en quelques minutes. Les agents sont autonomes en quelques heures. Mise a jour a distance depuis n importe quel navigateur.</p>"
+    + "<p>💰 <strong>Argent</strong> : elimination du cout d impression et de distribution de documents. Reduction du flux de questions a l accueil de 30 a 40%. ROI visible des les premiers mois.</p>"
+    + "<p>🤝 <strong>Sympathie</strong> : solution referencee UGAP, editeur francais Ngine Networks, support Navisio inclus. Un interlocuteur unique du logiciel au materiel.</p>"},
+    {titre:"Comparaison vs alternatives",body:"<p>🆚 <strong>Kiosk vs tablette grand public</strong> : la tablette tombe, se vole, ne supporte pas un usage intensif. Le totem professionnel est visse au sol, concu pour 24/7, sous garantie 3 ans.</p>"
+    + "<p>🆚 <strong>Kiosk vs application mobile</strong> : une app necessite un developpement couteux, une maintenance, une mise a jour sur chaque telephone. Le Kiosk ne necessite rien cote visiteur.</p>"
+    + "<p>🆚 <strong>Kiosk vs ecran tactile bricolle</strong> : sans logiciel de kiosk, un ecran tactile est une TV touchable. Pas de gestion documentaire, pas de mise a jour a distance, pas de retour a l accueil automatique.</p>"},
+    {titre:"Closing",body:"M. Marchand, avec vos 3 sites, votre hotesse debordee et vos couts d impression actuels, je vous propose un projet en 2 phases : d abord un totem Kiosk indoor sur votre site siege — devis et mise en service en 3 semaines — puis une etude technique pour le totem outdoor avec radier beton. Je vous envoie un devis detaille ce soir et on organise la visite technique la semaine prochaine ?"}
+  ];
+  var objections=[
+    {q:"C est juste une tablette avec un pied, non ?",a:"C est l a priori le plus courant et le plus penalisant pour vous. Un totem Kiosk professionnel Samsung sur caisson Cletech est certifie pour 24/7, visse au sol ou ancre dans un radier beton pour l outdoor, avec une garantie 3 ans. Une tablette grand public n a pas vocation a fonctionner en continu et se vole en 30 secondes."},
+    {q:"On a deja un site internet, ca suffit.",a:"Votre site internet necessite que le visiteur ait son smartphone, une connexion, et sache ou chercher. Le Kiosk met l information directement devant lui, dans votre hall, sans effort. Et il peut quand meme acceder a votre site depuis le Kiosk si vous l autorisez."},
+    {q:"Qui va gerer le contenu ?",a:"N importe qui avec 30 minutes de formation. Le portail Skysignage Kiosk est un glisser-deposer. Votre secretaire, votre responsable communication ou votre chef de service peut le faire depuis son navigateur. Aucune competence informatique requise."},
+    {q:"Et si la connexion tombe ?",a:"Les documents deja synchronises restent disponibles en local sur l appareil. La borne continue de fonctionner normalement. A la reconnexion, la synchronisation reprend automatiquement."}
+  ];
+  var html='<div class=\"step-panel\"><div class=\"content-section\"><h3>Pitch commercial — Kiosk Skysignage</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class=\"pitch-block\"><div class=\"pitch-hd\">'+blocks[i].titre+'</div><div class=\"pitch-body\">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class=\"objection-box\"><div class=\"objection-q\">'+objections[i].q+'</div><div class=\"objection-a\">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M3(){
+  var resources=[
+    {icon:'🌐',name:'Skysignage Kiosk — Site officiel editeur',note:'Fonctionnalites, cas d usage et demo en ligne',url:'https://kiosk.skysignage.com'},
+    {icon:'🌐',name:'Cletech — Fabricant caissons extérieurs',note:'Gamme complete caissons indoor et outdoor pour Samsung',url:'https://cletech.com.tr'},
+    {icon:'📄',name:'Catalogue Navisio — Affichage dynamique',note:'Totems, bornes et supports pour installation Kiosk',url:'https://drive.google.com/uc?export=download&id=1BYJXyGZcSxWLoJ9jJX2T0_FsHmdXDHQi'},
+    {icon:'📄',name:'Fiche Samsung QM-T — Ecrans tactiles interieurs',note:'QM32R-T, QM43B-T, QM55B-T — 400 cd/m2, 8ms',url:'#'},
+    {icon:'📄',name:'Fiche Samsung OM — Ecrans haute luminosite',note:'Pour integration dans caissons Cletech outdoor',url:'#'},
+    {icon:'📊',name:'Guide implantation outdoor — Checklist complete',note:'Radier beton, electrique, data, DICT, autorisations',url:'#'},
+    {icon:'📋',name:'Grille de decouverte client Kiosk',note:'Version terrain imprimable — indoor + outdoor',url:'#'},
+    {icon:'📋',name:'Modele plan de masse — Visite technique outdoor',note:'A faire completer par le client avant chiffrage',url:'#'}
+  ];
+  var html='<div class=\"step-panel\"><div class=\"content-section\"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos rendez-vous Kiosk — indoor et outdoor.</p><div class=\"resources-grid\">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert(\"Ressource a charger par l administrateur.\")';
+    html+='<div class=\"resource-card\" onclick=\"'+oc+'\"><div class=\"resource-icon\" style=\"font-size:2rem;\">'+r.icon+'</div><div class=\"resource-name\">'+r.name+'</div><div class=\"resource-note\">'+r.note+'</div></div>';
   }
   html+='</div></div>'+stepNavHTML(5)+'</div>';
   return html;
