@@ -650,7 +650,7 @@ const MODULES = [
   {id:4, name:"Protection des données (sauvegarde)", family:2, available:true},
   {id:5, name:"Les bases d'un réseau",               family:2, available:true},
   {id:6, name:"Étude parc informatique & réseau",    family:2, available:true},
-  {id:7, name:"Les équipements réseaux",             family:2, available:false},
+  {id:7, name:"Les équipements réseaux",             family:2, available:true},
   {id:8, name:"Solutions cloud (M365)",              family:2, available:false},
   {id:9, name:"Cybersécurité (firewall, antispam, antivirus)", family:2, available:false},
   {id:10,name:"Services IT externalisés",            family:2, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())))));
-  else if (step === 2) content.innerHTML = S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())))));
-  else if (step === 3) content.innerHTML = S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())))));
-  else if (step === 4) content.innerHTML = S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())))));
-  else if (step === 5) content.innerHTML = S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())))));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))))); }
+  if      (step === 1) content.innerHTML = S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()))))));
+  else if (step === 2) content.innerHTML = S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()))))));
+  else if (step === 3) content.innerHTML = S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()))))));
+  else if (step === 4) content.innerHTML = S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()))))));
+  else if (step === 5) content.innerHTML = S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()))))));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))))))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -2760,6 +2760,257 @@ function renderStep5_M6(){
     {icon:'\u{1F4CA}',name:'Calculateur ROI renouvellement parc',note:'Cout de la non-action vs investissement renouvellement',url:'#'}
   ];
   var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos audits de parc et projets IT.</p><div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
+    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }
+  html+='</div></div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+
+
+// // MODULE 7 - LES EQUIPEMENTS RESEAUX
+
+var SVG_BAIE_M7 = '<div style="margin:0.75rem 0;overflow-x:auto;"><svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;font-family:sans-serif;"><rect width="700" height="420" rx="12" fill="#1C2333" stroke="#374151" stroke-width="2"/><text x="350" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#F1F5F9">Anatomie d une baie de brassage</text><rect x="60" y="35" width="580" height="360" rx="6" fill="#111827" stroke="#4B5563" stroke-width="2"/><rect x="70" y="45" width="560" height="36" rx="4" fill="#1F2937" stroke="#6B7280" stroke-width="1"/><text x="80" y="58" font-size="8.5" fill="#9CA3AF" font-weight="700">BANDEAU DE PRISES 19" (PDU)</text><text x="80" y="72" font-size="7.5" fill="#6B7280">Alimentation 230V pour les equipements actifs -- 8 a 16 prises, avec ou sans interrupteur par prise, parafoudre integre</text><rect x="70" y="88" width="560" height="24" rx="4" fill="#374151" stroke="#4B5563" stroke-width="1"/><text x="80" y="104" font-size="8" fill="#D1D5DB">PEIGNE PASSE-CABLES</text><text x="280" y="104" font-size="7.5" fill="#6B7280">Guidage et maintien des cordons -- 1U anneau ou 2U brosse</text><rect x="70" y="119" width="560" height="40" rx="4" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5"/><text x="80" y="133" font-size="8.5" fill="#93C5FD" font-weight="700">PANNEAU DE BRASSAGE (PATCH PANEL) 24 ports Cat6A</text><text x="80" y="148" font-size="7.5" fill="#60A5FA">Termination des cables installes -- cotes atelier. Ports numerotes pour plan de brassage.</text><circle cx="540" cy="134" r="3.5" fill="#1D4ED8" stroke="#93C5FD" stroke-width="1"/><circle cx="551" cy="134" r="3.5" fill="#1D4ED8" stroke="#93C5FD" stroke-width="1"/><circle cx="562" cy="134" r="3.5" fill="#1D4ED8" stroke="#93C5FD" stroke-width="1"/><circle cx="573" cy="134" r="3.5" fill="#1D4ED8" stroke="#93C5FD" stroke-width="1"/><circle cx="584" cy="134" r="3.5" fill="#15803D" stroke="#86EFAC" stroke-width="1"/><circle cx="595" cy="134" r="3.5" fill="#15803D" stroke="#86EFAC" stroke-width="1"/><rect x="70" y="166" width="560" height="24" rx="4" fill="#374151" stroke="#4B5563" stroke-width="1"/><text x="80" y="182" font-size="8" fill="#D1D5DB">PEIGNE PASSE-CABLES</text><rect x="70" y="197" width="560" height="48" rx="4" fill="#1C3829" stroke="#16A34A" stroke-width="1.5"/><text x="80" y="213" font-size="8.5" fill="#86EFAC" font-weight="700">SWITCH MANAGEABLE 24+4 ports -- PoE+ 370W</text><text x="80" y="227" font-size="7.5" fill="#4ADE80">24 ports RJ45 Gbps + 4 SFP uplink. Alimente les AP Wi-Fi et cameras via PoE. VLAN, QoS, supervision.</text><rect x="540" y="203" width="20" height="8" rx="2" fill="#166534"/><text x="550" y="211" text-anchor="middle" font-size="6" fill="#86EFAC">PWR</text><rect x="563" y="203" width="20" height="8" rx="2" fill="#1D4ED8"/><text x="573" y="211" text-anchor="middle" font-size="6" fill="#93C5FD">LNK</text><rect x="70" y="252" width="560" height="24" rx="4" fill="#374151" stroke="#4B5563" stroke-width="1"/><text x="80" y="268" font-size="8" fill="#D1D5DB">PEIGNE PASSE-CABLES</text><rect x="70" y="283" width="560" height="40" rx="4" fill="#3B1515" stroke="#DC2626" stroke-width="1.5"/><text x="80" y="299" font-size="8.5" fill="#FCA5A5" font-weight="700">FIREWALL / ROUTEUR 1U</text><text x="80" y="313" font-size="7.5" fill="#F87171">WAN (box FAI) -- LAN -- DMZ. NAT, VPN IPsec, regles de filtrage, QoS, supervision.</text><rect x="70" y="330" width="560" height="24" rx="4" fill="#374151" stroke="#4B5563" stroke-width="1"/><text x="80" y="346" font-size="8" fill="#D1D5DB">PEIGNE PASSE-CABLES</text><rect x="70" y="361" width="560" height="26" rx="4" fill="#2D1B4E" stroke="#7C3AED" stroke-width="1.5"/><text x="80" y="373" font-size="8.5" fill="#C4B5FD" font-weight="700">ONDULEUR (UPS) 1500VA</text><text x="80" y="384" font-size="7.5" fill="#A78BFA">Protection contre coupures et surtensions. Arret propre automatique des serveurs via logiciel.</text><text x="660" y="63" text-anchor="middle" font-size="7.5" fill="#9CA3AF" transform="rotate(-90,660,63)">1U</text><text x="660" y="107" text-anchor="middle" font-size="7.5" fill="#6B7280" transform="rotate(-90,660,107)">1U</text><text x="660" y="139" text-anchor="middle" font-size="7.5" fill="#60A5FA" transform="rotate(-90,660,139)">1U</text><text x="660" y="221" text-anchor="middle" font-size="7.5" fill="#4ADE80" transform="rotate(-90,660,221)">2U</text><text x="660" y="303" text-anchor="middle" font-size="7.5" fill="#F87171" transform="rotate(-90,660,303)">1U</text><text x="660" y="374" text-anchor="middle" font-size="7.5" fill="#A78BFA" transform="rotate(-90,660,374)">2U</text><text x="350" y="410" text-anchor="middle" font-size="8" fill="#6B7280">IXEO Academy -- Module 7 -- Les equipements reseaux</text></svg></div>';
+var SVG_CAT_M7  = '<div style="margin:0.75rem 0;overflow-x:auto;"><svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;font-family:sans-serif;"><rect width="700" height="220" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/><text x="350" y="20" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0D1117">Comparatif categories de cables reseau</text><rect x="20" y="32" width="90" height="22" rx="4" fill="#1E293B"/><text x="65" y="47" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">Categorie</text><rect x="118" y="32" width="110" height="22" rx="4" fill="#1E293B"/><text x="173" y="47" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">Debit max</text><rect x="236" y="32" width="100" height="22" rx="4" fill="#1E293B"/><text x="286" y="47" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">Distance</text><rect x="344" y="32" width="100" height="22" rx="4" fill="#1E293B"/><text x="394" y="47" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">PoE</text><rect x="452" y="32" width="230" height="22" rx="4" fill="#1E293B"/><text x="567" y="47" text-anchor="middle" font-size="8.5" font-weight="700" fill="white">Usage recommande</text><rect x="20" y="58" width="90" height="26" rx="3" fill="#FEF3C7" stroke="#D97706"/><text x="65" y="75" text-anchor="middle" font-size="9" font-weight="700" fill="#92400E">Cat 5e</text><text x="173" y="75" text-anchor="middle" font-size="9" fill="#374151">1 Gbps</text><text x="286" y="75" text-anchor="middle" font-size="9" fill="#374151">100 m</text><text x="394" y="75" text-anchor="middle" font-size="8.5" fill="#CA8A04">Limite (802.3af)</text><text x="567" y="75" text-anchor="middle" font-size="8.5" fill="#374151">Remplacement / budget. A eviter en neuf.</text><rect x="20" y="88" width="90" height="26" rx="3" fill="#DBEAFE" stroke="#3B82F6"/><text x="65" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#1D4ED8">Cat 6</text><text x="173" y="105" text-anchor="middle" font-size="9" fill="#374151">1 Gbps / 10 Gbps*</text><text x="286" y="105" text-anchor="middle" font-size="9" fill="#374151">100 m / 55 m</text><text x="394" y="105" text-anchor="middle" font-size="8.5" fill="#16A34A">OK (802.3at)</text><text x="567" y="105" text-anchor="middle" font-size="8.5" fill="#374151">Standard PME. Bon compromis prix/performance.</text><rect x="20" y="118" width="90" height="26" rx="3" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/><text x="65" y="131" text-anchor="middle" font-size="9" font-weight="700" fill="#15803D">Cat 6A</text><text x="173" y="131" text-anchor="middle" font-size="9" fill="#374151">10 Gbps</text><text x="286" y="131" text-anchor="middle" font-size="9" fill="#374151">100 m</text><text x="394" y="131" text-anchor="middle" font-size="8.5" fill="#16A34A">OK (802.3bt/60W)</text><text x="567" y="131" text-anchor="middle" font-size="8.5" fill="#15803D">Standard recommande en neuf. PoE++ puissant.</text><rect x="20" y="148" width="90" height="26" rx="3" fill="#EDE9FE" stroke="#7C3AED"/><text x="65" y="161" text-anchor="middle" font-size="9" font-weight="700" fill="#4C1D95">Cat 7</text><text x="173" y="161" text-anchor="middle" font-size="9" fill="#374151">10 Gbps</text><text x="286" y="161" text-anchor="middle" font-size="9" fill="#374151">100 m</text><text x="394" y="161" text-anchor="middle" font-size="8.5" fill="#16A34A">OK</text><text x="567" y="161" text-anchor="middle" font-size="8.5" fill="#374151">Blindage superieur. Salles serveurs, industrie.</text><rect x="20" y="178" width="90" height="26" rx="3" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/><text x="65" y="191" text-anchor="middle" font-size="9" font-weight="700" fill="#991B1B">Fibre OS</text><text x="173" y="191" text-anchor="middle" font-size="9" fill="#374151">1 Gbps - 100 Gbps</text><text x="286" y="191" text-anchor="middle" font-size="9" fill="#374151">2 km - 80 km</text><text x="394" y="191" text-anchor="middle" font-size="8.5" fill="#DC2626">Non compatible</text><text x="567" y="191" text-anchor="middle" font-size="8.5" fill="#374151">Inter-batiments, uplink switch, backbone.</text><text x="350" y="212" text-anchor="middle" font-size="7.5" fill="#94A3B8">* Cat 6 supporte le 10 Gbps sur 55m maximum avec switch 10G compatible</text></svg></div>';
+
+
+const QUESTIONS_M7 = [
+  {q:"Quelle categorie de cable est le standard recommande pour une installation reseau neuve en PME ?",opts:["Cat 5e","Cat 6","Cat 6A","Cat 7"],c:2,fb:"La Cat 6A est le standard recommande pour toute installation neuve : elle supporte le 10 Gbps sur 100m, est compatible PoE++ (60W) et garantit une infrastructure perenne pour au moins 15 ans."},
+  {q:"Qu est-ce que le PoE (Power over Ethernet) ?",opts:["Un type de cable reseau","Une technologie alimentant les equipements via le cable RJ45 sans prise electrique dediee","Un protocole Wi-Fi","Un type de switch"],c:1,fb:"Le PoE (Power over Ethernet) alimente les equipements (bornes Wi-Fi, cameras, telephones IP) directement via le cable RJ45 du switch. Pas besoin de prise secteur a cote de chaque equipement."},
+  {q:"Quelle est la difference entre un switch non manageable et un switch manageable ?",opts:["Aucune difference en pratique","Le switch manageable permet de creer des VLAN, prioriser le trafic (QoS), superviser port par port et integrer une console de gestion","Le switch manageable est uniquement pour les grandes entreprises","Le switch non manageable est plus rapide"],c:1,fb:"Un switch manageable offre : creation de VLAN, QoS (priorisation trafic), supervision port par port, alertes, port mirroring pour analyse reseau. Indispensable en PME serieuse. Le non manageable est un simple repartiteur sans intelligence."},
+  {q:"A quoi sert un panneau de brassage (patch panel) dans une baie reseau ?",opts:["C est un switch supplementaire","C est le point de terminaison des cables installes dans les murs, permettant de connecter proprement les prises murales aux equipements actifs via des cordons courts","C est un onduleur","C est un point d acces Wi-Fi"],c:1,fb:"Le patch panel termine les cables poses en permanence dans les murs et faux-plafonds. Cote atelier, les cables sont sertis ou clipsés. Cote baie, des cordons courts relient le patch panel au switch. Cela permet de modifier les connexions sans toucher aux cables installes."},
+  {q:"Qu est-ce qu un SFP (port uplink) sur un switch ?",opts:["Un port USB pour la configuration","Un logement pour module de connexion fibre ou cuivre permettant l interconnexion haute vitesse entre switches ou vers le firewall","Un port PoE haute puissance","Un port de gestion serie"],c:1,fb:"Les ports SFP (Small Form-factor Pluggable) accueillent des modules enfichables : fibre optique (monomode ou multimode), ou cuivre 10G. Utilises pour les uplinks entre switches (stacking) ou vers le firewall en 10G."},
+  {q:"Qu est-ce qu un portail captif sur un reseau Wi-Fi ?",opts:["Un type de chiffrement Wi-Fi","Une page web affichee automatiquement quand un utilisateur se connecte au Wi-Fi, permettant authentification ou acceptation des CGU avant acces internet","Un type de switch Wi-Fi","Un protocole de securite"],c:1,fb:"Un portail captif intercepte la connexion Wi-Fi et affiche une page de bienvenue avec authentification, acceptation de CGU ou code temporaire. Indispensable pour les Wi-Fi publics (hotels, restaurants, espaces de coworking) pour la conformite legale."},
+  {q:"Quelle est la principale limitation du CPL (Courant Porteur en Ligne) ?",opts:["Il ne supporte pas le Wi-Fi","Ses performances varient selon la qualite de l installation electrique et il ne convient pas aux usages professionnels intensifs","Il necessite un cable RJ45","Il est incompatible avec les switches"],c:1,fb:"Le CPL utilise le reseau electrique comme support de communication. Ses performances sont tres variables selon l age et la qualite de l installation electrique, et il est sensible aux perturbations. Acceptable en depannage ou en usage residentiel, deconseille pour des usages professionnels critiques."},
+  {q:"Qu est-ce qu un controleur Wi-Fi (wireless controller) ?",opts:["Un amplificateur de signal Wi-Fi","Un equipement ou logiciel centralisant la gestion de plusieurs points d acces Wi-Fi (configuration, SSID, VLAN, roaming, supervision)","Un modem Wi-Fi","Un routeur 4G"],c:1,fb:"Un controleur Wi-Fi centralise la gestion de toute la flotte de points d acces : deploiement uniforme des SSID, VLAN Wi-Fi, politique securite, supervision, roaming transparent entre AP. Peut etre physique (Cisco, Aruba) ou cloud (Meraki, Aruba Central, Unifi)."},
+  {q:"Qu est-ce que la norme 802.3bt (PoE++) et quel est son interet ?",opts:["Une norme de cable Cat 7","La derniere norme PoE delivrant jusqu a 90W par port, permettant d alimenter des equipements puissants (AP Wi-Fi 6, ecrans, cameras PTZ)","Un protocole de securite Wi-Fi","Une norme de switch manageable"],c:1,fb:"La norme 802.3bt (PoE++) delivre jusqu a 90W par port (vs 30W pour PoE+ 802.3at). Elle permet d alimenter des equipements plus energivores comme les AP Wi-Fi 6/6E, certaines cameras PTZ ou les ecrans d affichage dynamique. Necessite des cables Cat 6A minimum."},
+  {q:"Dans une baie reseau, a quoi sert un passe-cables ?",opts:["A securiser les equipements contre le vol","A guider et maintenir en ordre les cordons entre le patch panel et le switch, facilitant la maintenance et la lisibilite","A alimenter les equipements en PoE","A amplifier le signal reseau"],c:1,fb:"Le passe-cables (anneau ou peigne 1U ou 2U) guide et organise les cordons de brassage entre le patch panel et le switch. Sans passe-cables, les cordons pendent et s emmeles -- une baie illisible qui complique toute intervention."},
+  {q:"Qu est-ce que le Wi-Fi 6 (802.11ax) et en quoi differencie-t-il du Wi-Fi 5 (802.11ac) ?",opts:["Il n y a pas de difference significative","Wi-Fi 6 offre un debit theorique superieur, une meilleure gestion des environnements denses (OFDMA, MU-MIMO ameliore) et une consommation energetique reduite (TWT)","Wi-Fi 6 est uniquement pour les maisons","Wi-Fi 6 necessite un cable Cat 5e minimum"],c:1,fb:"Wi-Fi 6 (802.11ax) apporte : debit theorique jusqu a 9,6 Gbps, meilleure gestion des environnements denses avec beaucoup d appareils simultanes (OFDMA), MU-MIMO 8x8, et la technologie TWT qui reduit la consommation des appareils IoT."},
+  {q:"Qu est-ce que le roaming Wi-Fi et quand est-il important ?",opts:["La connexion a plusieurs SSID differents","La capacite pour un appareil mobile de basculer sans interruption d un point d acces a un autre tout en gardant la meme connexion et la meme session","Un type de VPN Wi-Fi","La gestion des invites Wi-Fi"],c:1,fb:"Le roaming permet a un utilisateur de se deplacer dans un batiment ou un campus sans perdre sa connexion -- l appareil bascule automatiquement vers l AP le plus proche et le plus fort. Critique pour les espaces de travail ouverts, entrepots, hotels et hopitaux."},
+  {q:"Quelle est la fonction d un onduleur (UPS) dans une baie reseau ?",opts:["Amplifier le signal reseau","Maintenir les equipements en fonctionnement lors d une coupure de courant et permettre un arret propre automatique pour eviter les corruptions de donnees","Gerer les VLAN","Alimenter les equipements PoE"],c:1,fb:"L onduleur protege les equipements des coupures et surtensions electriques. En cas de coupure, il alimente les equipements pendant quelques minutes a quelques heures (selon la capacite) et peut declencher l arret automatique des serveurs via un logiciel dedie."},
+  {q:"Qu est-ce qu un bandeau de prises (PDU) dans une baie reseau ?",opts:["Un panneau de brassage","Une multiprise 19 pouces montee en baie, distribuant l alimentation 230V a tous les equipements actifs, avec ou sans monitoring de la consommation","Un switch supplementaire","Un systeme de ventilation"],c:1,fb:"Le PDU (Power Distribution Unit) est la multiprise rack de la baie. Il distribue l alimentation 230V a tous les equipements actifs. Les PDU intelligents permettent de monitorer la consommation par prise et d allumer/eteindre a distance chaque port."},
+  {q:"Pour couvrir un grand batiment en Wi-Fi avec plusieurs etages, quelle architecture est recommandee ?",opts:["Un seul AP Wi-Fi tres puissant au centre du batiment","Plusieurs AP Wi-Fi faible puissance repartis strategiquement, geres par un controleur centralise cloud ou physique","Un repeteur Wi-Fi par etage","Une solution CPL dans chaque bureau"],c:1,fb:"La bonne architecture Wi-Fi entreprise utilise plusieurs AP de puissance moderate repartis intelligemment (1 AP pour 300-500m2 selon les obstacles), tous geres par un controleur centralise. Cela garantit une couverture uniforme et le roaming transparent entre AP."}
+];
+
+function renderStep1_M7() {
+  var ch = [
+    ["Les switches : le coeur du reseau local",
+     "<h4>Switch non manageable -- le plug and play</h4>"
+     + "<p>Le switch non manageable (ou unmanaged) est un simple repartiteur de trafic. On le branche, il fonctionne sans configuration. Aucune intelligence, aucune supervision possible, aucun VLAN. Prix attractif (30 a 150 euros pour 8 a 24 ports).</p>"
+     + "<p>Usage legitime : extension ponctuelle de ports dans un bureau isole, usage domestique, laboratoire de test. A eviter dans toute infrastructure professionnelle serieuse.</p>"
+     + "<h4>Switch manageable -- le standard professionnel</h4>"
+     + "<p>Le switch manageable s administre via une interface web, SSH ou SNMP. Il offre :</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">VLAN</div><div class=\"info-val\">Segmentation logique du reseau : Serveurs, Postes, Invites, Cameras -- chacun isole</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">QoS</div><div class=\"info-val\">Priorisation du trafic voix (VoIP) et video (Teams) sur le reste</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Supervision</div><div class=\"info-val\">Statut port par port, statistiques trafic, alertes en cas de panne</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Port mirroring</div><div class=\"info-val\">Copie le trafic d un port vers un autre pour analyse reseau (troubleshooting)</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">PoE</div><div class=\"info-val\">Alimentation electrique via le cable RJ45 pour AP Wi-Fi, cameras, telephones IP</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">SFP / uplink</div><div class=\"info-val\">Ports fibre ou 10G pour interconnexion avec autres switches ou le firewall</div></div>"
+     + "</div>"
+     + "<h4>Le PoE et ses normes -- savoir prescrire la bonne puissance</h4>"
+     + "<p>- <strong>802.3af (PoE)</strong> : jusqu a 15,4W par port. Cameras de surveillance, telephones IP basiques, certains AP Wi-Fi 5 anciens.</p>"
+     + "<p>- <strong>802.3at (PoE+)</strong> : jusqu a 30W par port. La majorite des AP Wi-Fi 5 et 6, cameras dome, ecrans d affichage petit format.</p>"
+     + "<p>- <strong>802.3bt (PoE++)</strong> : jusqu a 90W par port. AP Wi-Fi 6E hautes performances, cameras PTZ, certains affichages dynamiques. Necessite cable Cat 6A minimum.</p>"
+     + "<div class=\"key-box\">Piege classique : un client installe des AP Wi-Fi 6 sur un switch PoE+ 30W. L AP consomme 25W en charge mais demarre parfois a 35W -- le switch plafonne, l AP reboot en boucle. Toujours verifier le budget PoE total du switch vs la somme des consommations des equipements.</div>"
+     + "<h4>Topologie physique : la hierarchie des switches</h4>"
+     + "<p>- <strong>Switch core</strong> : le switch central, en baie, qui relie tous les autres switches et le firewall. Hautes performances, nombreux ports SFP uplink.</p>"
+     + "<p>- <strong>Switch de distribution</strong> : dans chaque etage ou zone, relie les switches d acces au core via des liens fibre ou 10G.</p>"
+     + "<p>- <strong>Switch d acces</strong> : dans chaque bureau ou salle, ou se connectent directement les postes, imprimantes et AP Wi-Fi. 24 ou 48 ports, PoE.</p>"
+    ],
+    ["Les cables reseau : choisir la bonne categorie",
+     SVG_CAT_M7
+     + "<h4>Le cable installe vs le cordon de brassage</h4>"
+     + "<p>- <strong>Cable installe</strong> (en gaine, sous faux-plafond ou en moulure) : cable solide (conducteurs monobrin), tire une seule fois et destine a rester en place. On utilise du Cat 6A ou Cat 7 pour les nouvelles installations.</p>"
+     + "<p>- <strong>Cordon de brassage</strong> (entre patch panel et switch, ou entre prise murale et PC) : cable souple (conducteurs multibrins), concu pour etre branché/debranché frequemment. Longueurs de 0,5 a 5m en baie, jusqu a 10m poste utilisateur. Couleurs codees : bleu = donnees, rouge = critique, jaune = administration, vert = voix.</p>"
+     + "<h4>Blindage : UTP, FTP, STP -- que choisir ?</h4>"
+     + "<p>- <strong>UTP (Unshielded Twisted Pair)</strong> : non blinde. Suffisant dans la majorite des bureaux. Moins cher et plus facile a installer.</p>"
+     + "<p>- <strong>FTP (Foiled Twisted Pair)</strong> : blindage global en feuille d aluminium. Recommande dans les environnements avec sources electromagnetiques (proche d un tableau electrique, machine industrielle, neon).</p>"
+     + "<p>- <strong>STP / SFTP</strong> : blindage par paire ET blindage global. Environnements industriels, hopitaux, centres de donnees. Necessite une mise a la terre correcte de bout en bout.</p>"
+     + "<h4>La fibre optique : quand et pourquoi</h4>"
+     + "<p>La fibre s impose des que la distance depasse 100m (limite du cuivre), pour les uplinks inter-switches, inter-batiments ou la connexion du firewall. Deux types :</p>"
+     + "<p>- <strong>Multimode (OM3/OM4)</strong> : courtes distances (jusqu a 300m), connexion entre equipements proches (baie vers switch d etage). Cable orange ou aqua.</p>"
+     + "<p>- <strong>Monomode (OS2)</strong> : longues distances (jusqu a plusieurs km), connexion entre batiments, lien FAI. Cable jaune.</p>"
+     + "<div class=\"key-box\">Regle terrain : Cat 6A pour tout le cable horizontal (prises murales vers baie). Fibre OM3/OM4 pour les uplinks inter-switches et inter-etages. Fibre OS2 pour les inter-batiments.</div>"
+    ],
+    ["La baie de brassage : anatomie et composants",
+     SVG_BAIE_M7
+     + "<h4>Le panneau de brassage (Patch Panel)</h4>"
+     + "<p>Le patch panel est le point de terminaison des cables permanents. Cote mur, les cables cheminent sous faux-plafond jusqu a la baie. Cote cordons, des cordons courts relient chaque port numerote au switch. Avantage : modifier une connexion = changer un cordon de 50cm en baie, sans toucher aux cables dans les murs.</p>"
+     + "<p>- <strong>Format standard</strong> : 19 pouces, 1U = 24 ports, 2U = 48 ports</p>"
+     + "<p>- <strong>Keystoned ou fixe</strong> : le patch panel keystone accepte des modules RJ45 enfichables, permettant de changer de categorie ou de type de connecteur sans remplacer le panel complet</p>"
+     + "<p>- <strong>Labellisation</strong> : chaque port doit etre etiquete avec le numero de la prise murale correspondante. Le plan de brassage (document) doit etre maintenu a jour.</p>"
+     + "<h4>Les passe-cables (Cable managers)</h4>"
+     + "<p>Installes entre chaque equipement actif, les passe-cables guident et organisent les cordons. Deux formats :</p>"
+     + "<p>- <strong>Anneau 1U</strong> : simple rangee d anneaux. Economic, suffisant pour un faible nombre de cordons.</p>"
+     + "<p>- <strong>Brosse 2U</strong> : peigne avec fermeture. Meilleure organisation, acces facilite, recommande pour les baies avec de nombreux cordons.</p>"
+     + "<h4>Le bandeau de prises (PDU)</h4>"
+     + "<p>La multiprise 19 pouces de la baie. Distribue l alimentation 230V a tous les equipements actifs. Les PDU intelligents (smart PDU) permettent :</p>"
+     + "<p>- Monitoring de la consommation par prise</p>"
+     + "<p>- Allumage/extinction a distance de chaque prise via interface web</p>"
+     + "<p>- Alertes en cas de surconsommation ou de court-circuit</p>"
+     + "<h4>L onduleur (UPS)</h4>"
+     + "<p>Indispensable dans toute baie avec equipements actifs critiques (switch, firewall, serveur). Il assure la continuite d alimentation en cas de coupure et permet un arret propre automatique des serveurs via logiciel (NUT, APC PowerChute, Eaton Intelligent Power Manager).</p>"
+     + "<p>Dimensionnement : calculer la somme des puissances de tous les equipements alimentes + marge de 30%. Un UPS 1500VA convient pour une baie PME standard.</p>"
+     + "<h4>Le chassis de baie et les rails</h4>"
+     + "<p>La baie reseau standard est au format 19 pouces (largeur interieure). La hauteur est exprimee en unites (U) : 1U = 4,45cm. Une baie de 12U convient pour un petit parc, 24U pour une PME, 42U pour une salle serveur. Les rails permettent de monter les equipements et de les faire coulisser pour la maintenance.</p>"
+    ],
+    ["Wi-Fi professionnel : bornes, controleurs, portail captif",
+     "<h4>Borne Wi-Fi grand public vs borne professionnelle</h4>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Borne grand public</div><div class=\"info-val\">Quelques dizaines d euros. 10 a 30 appareils. Pas de VLAN Wi-Fi. Gestion locale uniquement. Roaming impossible.</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Borne professionnelle</div><div class=\"info-val\">200 a 600 euros. 50 a 200 appareils simultanes. VLAN Wi-Fi, SSID multiples, PoE, gestion centralisee, roaming transparent.</div></div>"
+     + "</div>"
+     + "<h4>Les standards Wi-Fi en 2025</h4>"
+     + "<p>- <strong>Wi-Fi 5 (802.11ac)</strong> : encore tres repandu. 3,5 Gbps theoriques. Suffisant pour la majorite des usages bureautiques jusqu a 50 appareils par AP. Bande 5 GHz uniquement.</p>"
+     + "<p>- <strong>Wi-Fi 6 (802.11ax)</strong> : le standard actuel recommande. 9,6 Gbps theoriques. OFDMA et MU-MIMO 8x8 pour les environnements denses. Bandes 2,4 GHz et 5 GHz. Meilleure efficacite energetique (TWT pour l IoT).</p>"
+     + "<p>- <strong>Wi-Fi 6E</strong> : ajoute la bande 6 GHz, moins encombre. Ideal pour les environnements tres denses (halls, salles de conference, espaces ouverts). Portee legerement reduite.</p>"
+     + "<h4>Les marques cles du marche professionnel</h4>"
+     + "<p>- <strong>Cisco Meraki</strong> : gestion 100% cloud. Interface intuitive. Visibilite reseau exceptionnelle. Ideal MSP. Licence annuelle obligatoire.</p>"
+     + "<p>- <strong>HPE Aruba</strong> : tres repandu en entreprise et education. Controleur physique (Aruba 7200) ou cloud (Aruba Central). Excellent pour les grands deployements.</p>"
+     + "<p>- <strong>Ubiquiti UniFi</strong> : excellent rapport qualite/prix. Controleur gratuit (software ou Cloud Key). Tres populaire en PME et chez les MSP. Interface soignee.</p>"
+     + "<p>- <strong>D-Link / Netgear</strong> : positionnement entree de gamme professionnel. Gestion simple, suffisant pour les petites structures. Solutions abordables pour les projets budget-contraint.</p>"
+     + "<p>- <strong>Ruckus (CommScope)</strong> : referencie pour les environnements difficiles (stades, hopitaux, hotellerie). Technologie BeamFlex+ pour la gestion avancee du signal.</p>"
+     + "<h4>Le portail captif : Wi-Fi public en conformite</h4>"
+     + "<p>Le portail captif intercepte la premiere connexion d un appareil et affiche une page de bienvenue avant de donner acces a internet. Obligatoire pour les Wi-Fi publics selon la loi (LCEN) : le gestionnaire du reseau doit identifier les connexions et conserver les logs 1 an.</p>"
+     + "<p>- <strong>Authentification par code SMS ou email</strong> : identification de l utilisateur pour conformite legale</p>"
+     + "<p>- <strong>Acceptation des CGU</strong> : page de conditions d utilisation obligatoire</p>"
+     + "<p>- <strong>Limitation de bande passante</strong> : quota par session ou par heure pour eviter la saturation</p>"
+     + "<p>- <strong>Isolement du LAN</strong> : le Wi-Fi invite n accede qu a internet, jamais au reseau interne</p>"
+     + "<p>Usage typique : hotels, restaurants, espaces de coworking, cabinets medicaux, mairies, grandes surfaces.</p>"
+     + "<div class=\"key-box\">Argument commercial : un client qui offre le Wi-Fi public sans portail captif ni logs est en infraction legale. La mise en conformite est une opportunite commerciale -- et une responsabilite de conseil.</div>"
+    ],
+    ["CPL, amplificateurs et autres equipements a connaitre",
+     "<h4>Le CPL (Courant Porteur en Ligne)</h4>"
+     + "<p>Le CPL utilise le reseau electrique existant comme support de communication reseau. Les adaptateurs CPL se branchent sur des prises secteur et cree un lien reseau entre deux points sans tirage de cable.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Avantages</div><div class=\"info-val\">Aucun tirage de cable. Installation en 2 minutes. Prix modique (30 a 80 euros la paire).</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Limitations</div><div class=\"info-val\">Performances tres variables selon l installation electrique. Sensible aux perturbations. Debit reel souvent 30 a 50% du debit annonce.</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Usage legitime</div><div class=\"info-val\">Depannage temporaire. Extension dans une piece impossible a cablee. Usage residentiel non critique.</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">Deconseille pour</div><div class=\"info-val\">Infrastructure permanente professionnelle. Sauvegarde, serveurs, VoIP, streaming intensif.</div></div>"
+     + "</div>"
+     + "<h4>Les repeteurs et amplificateurs Wi-Fi</h4>"
+     + "<p>Un repeteur Wi-Fi capte le signal d un AP et le re-emet. Il divise la bande passante par deux (le trafic passe deux fois dans l air) et augmente la latence. Acceptable en usage domestique uniquement. En professionnel, on deploie des AP supplementaires cablés en RJ45 -- jamais des repeteurs.</p>"
+     + "<div class=\"warn-box\">Un repeteur Wi-Fi en entreprise = signe que l installation de depart est insuffisante. C est une opportunite de refonte avec des AP cablés sur switch PoE.</div>"
+     + "<h4>Les medias-convertisseurs fibre/cuivre</h4>"
+     + "<p>Un media-convertisseur transforme un signal fibre en signal RJ45 (cuivre) et vice-versa. Utile pour connecter un switch ne disposant pas de port SFP a un lien fibre inter-batiment, ou pour raccorder un equipement RJ45 a une infrastructure fibre existante.</p>"
+     + "<h4>Les modules SFP et GBIC</h4>"
+     + "<p>Les modules SFP (Small Form-factor Pluggable) sont des modules enfichables qui s inserent dans les ports SFP des switches et firewalls. Ils permettent de choisir le type de connexion :</p>"
+     + "<p>- SFP 1G cuivre : connexion RJ45 Gbps sur courte distance</p>"
+     + "<p>- SFP 1G multimode : fibre OM3/OM4, jusqu a 550m</p>"
+     + "<p>- SFP 1G monomode : fibre OS2, jusqu a 10km</p>"
+     + "<p>- SFP+ 10G : connexion 10 Gbps, pour les uplinks entre switches core</p>"
+     + "<h4>Les injecteurs PoE (midspan)</h4>"
+     + "<p>Un injecteur PoE permet d alimenter un equipement PoE depuis un switch non PoE. On l insert entre le switch et l equipement. Utile pour ajouter un AP ou une camera sur un switch existant sans PoE sans remplacer tout le switch. Prix : 30 a 80 euros par port.</p>"
+     + "<h4>Le commutateur KVM</h4>"
+     + "<p>Le KVM (Keyboard Video Mouse) permet de controler plusieurs serveurs avec un seul clavier, ecran et souris. En baie serveur, le KVM over IP permet d acceder aux serveurs via le reseau, meme si le serveur est completement plante (acces BIOS, reinstallation OS).</p>"
+     + "<div class=\"key-box\">Checklist equipements baie type PME : PDU 230V + UPS + Firewall 1U + Switch core manageable PoE+ + Patch panel 24 ports Cat 6A + Passe-cables x3. Budget materiel baie : 2 000 a 5 000 euros selon les specs.</div>"
+    ]
+  ];
+  var html = '<div class="step-panel">';
+  for (var i=0;i<ch.length;i++){
+    var open=i===0;
+    html += '<div class="chapter"><div class="ch-hd '+(open?'open':'')+'"><span>'+(i+1)+'. '+ch[i][0]+'</span><span class="ch-toggle">'+(open?'\u25b2':'\u25bc')+'</span></div><div class="ch-body '+(open?'open':'')+'"><div class="content-section">'+ch[i][1]+'</div></div></div>';
+  }
+  html += stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M7(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation -- Projet reseau et Wi-Fi</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div>';
+  html+='<div class="scenario-context"><strong>M. BERGER</strong>, gerant d un espace de coworking de 400m2 sur 2 etages (25 bureaux privatifs + open space 30 postes). Il veut : une infrastructure reseau solide pour ses locataires, un Wi-Fi professionnel sur les 2 etages avec Wi-Fi invites isole, un portail captif pour les visiteurs ponctuels, et de la VoIP pour les bureaux privatifs. Il a actuellement une seule box internet et 3 repeteurs Wi-Fi grand public qui saturen en journee. Budget : 8 000 euros HT pour l ensemble.</div>';
+  html+='</div><h4>Simulation d entretien</h4><div class="dialogue">';
+  var bubbles=[
+    ['comm','V','Vous','M. Berger, vos 3 repeteurs Wi-Fi sont la source de tous vos problemes. Chaque repeteur divise la bande passante par deux et double la latence. Avec 30 personnes en open space plus les bureaux privatifs, vous saturez. On va tout reprendre proprement.'],
+    ['cli','B','M. Berger','Je pensais juste en ajouter un quatrieme.'],
+    ['comm','V','Vous','Ce serait aggraver le probleme. Ce qu il vous faut : 6 bornes Wi-Fi 6 professionnelles Aruba Instant On cablees en RJ45 sur un switch PoE+ -- 3 par etage. Chaque borne a sa propre connexion filaire, pas de repetition du signal. Vos 55 postes seront repartis proprement sur 6 points d acces.'],
+    ['cli','B','M. Berger','Et pour les visiteurs ponctuels, je voulais un Wi-Fi avec un mot de passe qu on change tous les mois.'],
+    ['comm','V','Vous','On peut faire mieux avec un portail captif. Vos visiteurs ouvrent leur navigateur, acceptent les CGU et entrent un code journalier. Vous etes en conformite legale, les logs sont conserves automatiquement, et vous pouvez limiter leur bande passante pour que les locataires ne soient pas impactes. Et ce reseau invites est completement isole de votre LAN.'],
+    ['cli','B','M. Berger','Et la VoIP pour les bureaux ?'],
+    ['comm','V','Vous','Le switch manageable qu on va installer va creer un VLAN VoIP dedie et prioriser ce trafic en QoS. Les appels seront stables meme quand le reseau est charge. Les telephones IP sont alimentes en PoE -- pas de prise electrique supplementaire a prevoir dans les bureaux privatifs.'],
+    ['cli','B','M. Berger','Ca rentre dans les 8 000 euros ?'],
+    ['comm','V','Vous','Oui : switch manageable 24 ports PoE+ + 6 AP Aruba Instant On + patch panel 24 ports Cat 6A + tirage cable 2 etages + onduleur + portail captif configure. On est autour de 7 200 euros HT pose et parametre. Avec un contrat de supervision mensuel en option.']
+  ];
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];
+    var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Contrer l objection du repeteur supplementaire avec un argument technique concret. 2/ Le portail captif est a la fois une conformite legale et une fonctionnalite premium. 3/ Le PoE sur les telephones IP elimine les travaux electriques -- argument de simplicite et de cout.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M7(){
+  var cats=[
+    {t:"Qualification switch",qs:["Combien de postes, serveurs et equipements reseau sont a connecter ?","Y a-t-il des equipements PoE a alimenter (AP Wi-Fi, cameras, telephones IP) -- combien et quelle puissance ?","Un switch manageable est-il necessaire (VLAN, QoS, supervision) ?","Faut-il des ports SFP pour uplink fibre ou connexion 10G ?","Le switch est-il installe en baie 19 pouces ou en montage mural ?","Y a-t-il des extensions de switches prevues (stacking) ?"]},
+    {t:"Qualification cablage",qs:["S agit-il d une installation neuve ou d une renovation ?","Quelle categorie de cable est deja installee (Cat 5e, Cat 6, Cat 6A) ?","Quelle est la distance maximale entre la baie et la prise la plus eloignee ?","Y a-t-il des zones difficiles d acces (faux-plafond bas, cloisons isolees) ?","Des troncons inter-batiments ou inter-etages necessitent-ils de la fibre ?","Faut-il un plan de brassage documente avec etiquetage ?"]},
+    {t:"Qualification Wi-Fi",qs:["Quelle est la surface a couvrir (m2) et sur combien d etages ou de zones ?","Combien d appareils Wi-Fi simultanes au maximum ?","Y a-t-il des environnements difficiles (murs epais, open space dense, entrepot) ?","Faut-il un SSID employes et un SSID invites isoles ?","Un portail captif est-il necessaire (Wi-Fi public, hotel, restaurant, coworking) ?","La gestion sera-t-elle locale ou cloud (Meraki, Aruba Central, UniFi Cloud) ?"]},
+    {t:"Qualification baie et alimentation",qs:["Y a-t-il une baie existante ou faut-il en prevoir une nouvelle ?","Quelle est la hauteur disponible (U libres dans la baie) ?","Y a-t-il un onduleur et quelle est sa capacite (VA) ?","Le local technique est-il climatise ou ventile ?","Faut-il un PDU intelligent avec monitoring de consommation ?","Les equipements sont-ils accessibles a distance (KVM over IP, console serie) ?"]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Grille de qualification -- Projet equipements reseaux</h3>';
+  html+='<p>Utilisez cette grille avant tout chiffrage de projet reseau. Chaque case non remplie est un risque de sous-dimensionnement ou de surcoût lors du deploiement.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box\">Conseil : photographiez toujours la baie existante et le local technique lors de la visite. Une photo vaut mieux qu un long questionnaire -- elle revele l espace disponible, le cablage existant et les equipements en place.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M7(){
+  var blocks=[
+    {titre:"Accroche : la visite de la baie",body:"'Pouvez-vous me montrer votre local technique ?' -- La baie reseau d une PME est souvent un placcard plein de cables non etiquetes, d un switch non manageable de 2015 et d une multiprise a saturation. Cette visite genere un constat visuel immediat bien plus puissant que tout argumentaire."},
+    {titre:"Les 4 opportunites systematiques sur chaque site",body:"<p>- <strong>Switch non manageable</strong> : remplacement par un switch manageable PoE+. Argument : VLAN securite, supervision, QoS pour la VoIP, alimentation des AP Wi-Fi et cameras sans prise electrique.</p>"
+    + "<p>- <strong>Wi-Fi grand public ou repeteurs</strong> : refonte avec AP professionnels cablés PoE. Argument : performances, couverture uniforme, VLAN invites, roaming, portail captif.</p>"
+    + "<p>- <strong>Baie en desordre sans passe-cables</strong> : audit de brassage et reorganisation. Argue : lisibilite, maintenance facilitee, conformite, prestation de service facturee.</p>"
+    + "<p>- <strong>Absence d onduleur</strong> : protection serveur/switch/firewall. Argument : une coupure de courant peut corrompre irremediablement les donnees et endommager les disques.</p>"},
+    {titre:"L argumentaire PoE : supprimer les prises electriques",body:"<p>Le PoE est l un des arguments de vente les plus puissants en renovation :</p>"
+    + "<p>- Un AP Wi-Fi en faux-plafond alimente en PoE = pas de travaux electricite, pas de saignee, pas de plaquiste. Le cable RJ45 suffit.</p>"
+    + "<p>- 12 cameras PoE = 12 prises electriques en moins a tirer = economie significative sur les travaux.</p>"
+    + "<p>- Un telephone IP PoE = aucun transformateur encombrant sur le bureau.</p>"
+    + "<div class=\"key-box\">Calculez le cout des travaux electriques evites grace au PoE. Sur 10 cameras ou AP, c est souvent 2 000 a 5 000 euros de travaux evites -- ce qui rend le switch PoE gratuit en comparaison.</div>"},
+    {titre:"Closing : l offre tout compris",body:"'Je vous propose une offre clee en main : fourniture materiel + tirage cable Cat 6A + installation et configuration + etiquetage et plan de brassage + formation utilisateur. Vous n avez rien a gerer -- votre reseau fonctionne le jour J et nous assurons le suivi a distance.' Le tout compris est un argument de simplification : le client ne veut pas coordonner electricien, reseauteur et integrateur separement."}
+  ];
+  var objections=[
+    {q:"On a un switch qui fonctionne bien, pas besoin de le changer.",a:"Le switch fonctionne au sens ou le reseau circule. Mais sans VLAN, vos invites Wi-Fi accedent au meme reseau que vos serveurs. Sans QoS, vos appels Teams sont degrades quand quelqu un fait une grosse copie de fichier. Sans supervision, si un port tombe, vous le savez quand quelqu un se plaint. Un switch manageable change radicalement la visibilite et la securite de votre reseau."},
+    {q:"On va utiliser des repeteurs Wi-Fi, c est suffisant.",a:"Chaque repeteur divise la bande passante disponible par deux et augmente la latence. Avec 20 personnes en open space, la saturation est inévitable. Des AP professionnels cablés PoE coutent 200 a 400 euros chacun -- et ils n ont pas ces limitations. Le cable RJ45 jusqu a chaque AP est le seul investissement supplementaire."},
+    {q:"Cat 6A c est trop cher, on va mettre du Cat 5e.",a:"La difference de prix entre Cat 5e et Cat 6A est d environ 0,30 euros par metre. Sur 500 metres de cable pour un plateau de bureaux, c est 150 euros de plus. Pour une installation qui va durer 15 ans et qui supporte le 10 Gbps et le PoE++. Le Cat 5e est une economie de facade qui vous fera regretter dans 5 ans."},
+    {q:"On n a pas besoin de portail captif, on donne juste le mot de passe.",a:"Donner un mot de passe Wi-Fi sans identification de l utilisateur vous expose legalement. En cas d utilisation malveillante de votre Wi-Fi (telechargement illegal, cyberattaque), vous etes responsable si vous ne pouvez pas identifier qui etait connecte. Le portail captif avec logs est votre protection juridique."}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Pitch commercial -- Equipements reseaux</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M7(){
+  var resources=[
+    {icon:'\u{1F4CA}',name:'Anatomie d une baie de brassage',note:'Schema de reference : PDU, UPS, switch, patch panel, passe-cables',url:'#'},
+    {icon:'\u{1F4CA}',name:'Comparatif categories de cables (Cat 5e/6/6A/7/Fibre)',note:'Debits, distances, PoE, usages recommandes',url:'#'},
+    {icon:'\u{1F4C4}',name:'Guide choix switch : non manageable vs manageable',note:'Criteres de decision, VLAN, QoS, PoE, budget',url:'#'},
+    {icon:'\u{1F4C4}',name:'Fiche : PoE -- normes 802.3af/at/bt et budgets',note:'Tableau des puissances par equipement et norme',url:'#'},
+    {icon:'\u{1F4CA}',name:'Comparatif marques Wi-Fi pro (Meraki/Aruba/UniFi/D-Link)',note:'Positionnement, forces, faiblesses et cibles',url:'#'},
+    {icon:'\u{1F4C4}',name:'Fiche : Portail captif et conformite legale Wi-Fi public',note:'Obligations LCEN, logs, CGU, architecture technique',url:'#'},
+    {icon:'\u{1F4CB}',name:'Grille de qualification reseau -- version terrain imprimable',note:'Switch, cable, Wi-Fi, baie -- toutes les questions de qualification',url:'#'},
+    {icon:'\u{1F4C4}',name:'Checklist baie reseau type PME avec budget indicatif',note:'PDU + UPS + switch + patch panel + passe-cables -- budget 2 000 a 5 000 euros',url:'#'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos projets equipements reseaux.</p><div class="resources-grid">';
   for(var i=0;i<resources.length;i++){
     var r=resources[i];
     var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
