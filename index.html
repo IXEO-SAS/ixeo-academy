@@ -645,7 +645,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 // ╚══════════════════════════════════════════════════════╝
 const MODULES = [
   {id:1, name:"Écrans tactiles interactifs",        family:1, available:false},
-  {id:2, name:"Affichage dynamique : Signage",       family:1, available:false},
+  {id:2, name:"Affichage dynamique : Signage",       family:1, available:true},
   {id:3, name:"Affichage dynamique : Kiosk",         family:1, available:false},
   {id:4, name:"Protection des données (sauvegarde)", family:2, available:false},
   {id:5, name:"Les bases d'un réseau",               family:2, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = renderStep1();
-  else if (step === 2) content.innerHTML = renderStep2();
-  else if (step === 3) content.innerHTML = renderStep3();
-  else if (step === 4) content.innerHTML = renderStep4();
-  else if (step === 5) content.innerHTML = renderStep5();
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(); }
+  if      (step === 1) content.innerHTML = S.currentModule===2 ? renderStep1_M2() : renderStep1();
+  else if (step === 2) content.innerHTML = S.currentModule===2 ? renderStep2_M2() : renderStep2();
+  else if (step === 3) content.innerHTML = S.currentModule===2 ? renderStep3_M2() : renderStep3();
+  else if (step === 4) content.innerHTML = S.currentModule===2 ? renderStep4_M2() : renderStep4();
+  else if (step === 5) content.innerHTML = S.currentModule===2 ? renderStep5_M2() : renderStep5();
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -1129,16 +1129,18 @@ function renderStep6Shell() {
   return `<div class="step-panel"><div class="qcm-wrap" id="qcmWrap"></div></div>`;
 }
 
-function initQCM() {
+function initQCM(questions) {
   S.qcmAnswers = []; S.qcmQ = 0; S.qcmSelected = null;
+  S._activeQuestions = questions || QUESTIONS;
   renderQuestion();
 }
 
 function renderQuestion() {
   const wrap = document.getElementById('qcmWrap');
   if (!wrap) return;
-  const q = QUESTIONS[S.qcmQ];
-  const total = QUESTIONS.length;
+  const qs = S._activeQuestions || QUESTIONS;
+  const q = qs[S.qcmQ];
+  const total = qs.length;
   const dots = Array.from({length:total},(_,i) =>
     `<div class="qcm-dot ${i<S.qcmQ?'done':i===S.qcmQ?'cur':''}"></div>`).join('');
   const letters = ['A','B','C','D'];
@@ -1161,7 +1163,8 @@ function renderQuestion() {
 function selectOpt(idx, el) {
   if (S.qcmSelected !== null) return;
   S.qcmSelected = idx;
-  const q = QUESTIONS[S.qcmQ];
+  const qs = S._activeQuestions || QUESTIONS;
+  const q = qs[S.qcmQ];
   document.querySelectorAll('.opt').forEach(o => o.classList.add('disabled'));
   el.classList.add(idx === q.c ? 'ok' : 'ko');
   if (idx !== q.c) document.getElementById('opt'+q.c).classList.add('ok');
@@ -1174,7 +1177,8 @@ function selectOpt(idx, el) {
 }
 
 function nextQ() {
-  if (S.qcmQ < QUESTIONS.length-1) { S.qcmQ++; S.qcmSelected=null; renderQuestion(); }
+  const qs = S._activeQuestions || QUESTIONS;
+  if (S.qcmQ < qs.length-1) { S.qcmQ++; S.qcmSelected=null; renderQuestion(); }
   else showQCMResults();
 }
 
@@ -1216,7 +1220,7 @@ function renderStep7() {
 
   const certHTML = `<div class="step-panel"><div class="cert-wrap">
     ${pct !== null ? `<div class="cert-score-big" style="color:${color}">${pct}%</div>
-    <div class="cert-score-lbl">${correct !== '—' ? correct : '—'} bonnes réponses sur ${QUESTIONS.length}</div>` : '<div class="cert-score-lbl" style="margin-top:1rem">Complétez le QCM pour obtenir votre certification</div>'}
+    <div class="cert-score-lbl">${correct !== '—' ? correct : '—'} bonnes réponses sur ${(S._activeQuestions||QUESTIONS).length}</div>` : '<div class="cert-score-lbl" style="margin-top:1rem">Complétez le QCM pour obtenir votre certification</div>'}
     <div>${badgeHTML}</div>
     ${badge ? `<div class="cert-title">Badge ${level} obtenu 🏆</div>
     <div class="cert-sub">Vous maîtrisez les fondamentaux de la GED.<br>Votre badge est disponible au téléchargement.</div>` : `<div class="cert-title">${pct !== null ? 'Score insuffisant' : 'Certification en attente'}</div>`}
@@ -1464,6 +1468,116 @@ async function goToDashboard(dest) {
     showScreen('screenHome');
   }
 }
+
+
+// ╔══════════════════════════════════════════════════════╗
+// ║  MODULE 2 — AFFICHAGE DYNAMIQUE : SIGNAGE            ║
+// ╚══════════════════════════════════════════════════════╝
+
+const QUESTIONS_M2 = [
+  {q:"Quelle unité mesure la luminosité d'un écran professionnel ?",opts:["Lux","Candelas par mètre carré (cd/m²)","Watts","Kelvin"],c:1,fb:"La luminosité se mesure en cd/m². Plus ce chiffre est élevé, plus l'image reste visible dans un environnement lumineux."},
+  {q:"Quelle luminosité minimale est recommandée pour une vitrine très ensoleillée ?",opts:["500 cd/m²","1 000 cd/m²","2 000 cd/m²","4 000 cd/m²"],c:3,fb:"En vitrine plein soleil, il faut au minimum 4 000 cd/m². La gamme Samsung OH est conçue pour cet usage."},
+  {q:"Quelle gamme Samsung est conçue pour l'affichage en vitrine ensoleillée ?",opts:["Gamme QM","Gamme OM","Gamme OH","Gamme E-Paper"],c:1,fb:"La gamme OM (OM46B, OM55B…) est la gamme vitrine haute luminosité Samsung avec 3 000 à 4 000 cd/m². La QM est pour l'intérieur, la OH pour l'extérieur total."},
+  {q:"Pour une distance de lecture de 7 mètres, quelle taille d'écran est recommandée ?",opts:["43 pouces","55 pouces","65 pouces","75 pouces"],c:3,fb:"Règle : 1 pouce = 1 mètre de recul optimal. Pour 7 mètres, il faut au minimum un 75 pouces."},
+  {q:"Quelle est la consommation électrique de l'E-Paper Samsung pour maintenir une image statique ?",opts:["50 watts","10 watts","1 watt","0 watt"],c:3,fb:"L'E-Paper consomme 0,00W pour maintenir une image statique. Il ne consomme que lors du changement de contenu."},
+  {q:"Quelle est l'autonomie maximale sur batterie de l'E-Paper Samsung ?",opts:["7 jours","30 jours","100 jours","200 jours"],c:3,fb:"L'E-Paper Samsung offre jusqu'à 200 jours d'autonomie batterie (batterie 4600 mAh rechargeable en USB-C)."},
+  {q:"Combien de connecteurs métiers immobilier propose Skysignage ?",opts:["5","10","Plus de 50","Plus de 200"],c:2,fb:"Skysignage propose plus de 50 connecteurs métiers immobilier (Apimo, Hektor, Periclès…), permettant la mise à jour automatique des biens en vitrine."},
+  {q:"Quelle est la différence principale entre Skysignage et Skysignage Kiosk ?",opts:["Kiosk est moins cher","Skysignage = diffusion passive, Kiosk = interaction tactile","Kiosk ne fonctionne qu'avec Samsung","Kiosk ne nécessite pas de licence"],c:1,fb:"Skysignage = contenu défile (passif). Skysignage Kiosk = le visiteur navigue et interagit (actif). Deux usages complémentaires."},
+  {q:"Combien de widgets propose Skysignage ?",opts:["5","15","Plus de 50","Plus de 200"],c:2,fb:"Skysignage propose plus de 50 widgets contre seulement 5 pour MagicInfo Samsung."},
+  {q:"Quel est le principal avantage du modèle Samsung OM55N-DS ?",opts:["Le moins cher de la gamme","Double face recto/verso pour vitrines traversantes","Fonctionne sans électricité","Le plus lumineux"],c:1,fb:"Le OM55N-DS est double face avec double carte mère, idéal pour les vitrines traversantes. Il utilise 2 licences Skysignage."},
+  {q:"Quelle certification garantit l'étanchéité des écrans extérieurs Samsung OH ?",opts:["ISO 9001","IP66","CE","NF EN 60529"],c:1,fb:"La certification IP66 garantit la protection totale contre la poussière et les jets d'eau puissants pour la gamme OH."},
+  {q:"Le totem 'Kiosk Nissa' intègre quel équipement de paiement ?",opts:["Ingenico","Square","MyPOS Sigma","SumUp"],c:2,fb:"Le Kiosk Nissa intègre un terminal MyPOS Sigma (paiement avec/sans contact), une imprimante Bixolon et un écran tactile iiyama."},
+  {q:"Quelle plage de température supporte la gamme Samsung OH pour l'extérieur ?",opts:["-10°C à +35°C","0°C à +40°C","-20°C à +50°C","-30°C à +60°C"],c:2,fb:"Les écrans Samsung OH supportent -20°C à +50°C, adaptés à tous les climats européens."},
+  {q:"Quel est l'argument ROI le plus percutant pour un client retail ?",opts:["L'écran est beau","Les économies d'impression amortissent l'investissement en 12-18 mois","L'écran consomme peu","L'installation est rapide"],c:1,fb:"L'argument ROI clé : les économies d'impression (200 à 500€/mois) amortissent l'investissement en 12 à 18 mois."},
+  {q:"Quelle gamme Samsung est recommandée pour une salle de réunion d'entreprise ?",opts:["Gamme OH","Gamme OM","Gamme QM","Gamme E-Paper"],c:2,fb:"La gamme QM (intérieure 24/7, 400-500 cd/m², dalle ultra-slim 2,85 cm) est parfaite pour salles de réunion et halls d'accueil."}
+];
+
+function renderStep1_M2() {
+  return '<div class="step-panel">' +
+  [
+    {t:"Qu'est-ce que l'affichage dynamique ?",c:'<p>L'<strong>affichage dynamique</strong> (Digital Signage) désigne toutes les solutions permettant de diffuser du contenu multimédia sur des écrans connectés installés dans des espaces professionnels.</p><p>Contrairement à une affiche papier ou une TV grand public, un écran de signage est conçu pour fonctionner <strong>24h/24, 7j/7</strong> et être piloté à distance depuis un logiciel centralisé.</p><div class="key-box">Un client qui remplace ses affiches papier par du Digital Signage réduit ses coûts d'impression, gagne en réactivité et booste l'impact visuel.</div><h4>Les 4 grandes familles d'usage</h4><div class="info-grid"><div class="info-item"><div class="info-lbl">Communication interne</div><div class="info-val">KPI, sécurité, infos RH en entreprise</div></div><div class="info-item"><div class="info-lbl">Point de vente</div><div class="info-val">Promotions, menus, prix, animations retail</div></div><div class="info-item"><div class="info-lbl">Vitrine & extérieur</div><div class="info-val">Attraction clients, horaires, événements</div></div><div class="info-item"><div class="info-lbl">Accueil & orientation</div><div class="info-val">Signalétique, agenda, file d'attente</div></div></div>'},
+    {t:"Bien choisir son écran — les critères clés",c:'<h4>1. La luminosité — critère n°1</h4><p>La luminosité se mesure en <strong>cd/m²</strong>. Plus l'environnement est lumineux, plus la luminosité doit être élevée.</p><div class="info-grid"><div class="info-item"><div class="info-lbl">Intérieur sombre</div><div class="info-val">350-500 cd/m² (gamme QM)</div></div><div class="info-item"><div class="info-lbl">Intérieur lumineux</div><div class="info-val">700-1 000 cd/m²</div></div><div class="info-item"><div class="info-lbl">Vitrine ensoleillée</div><div class="info-val">2 000-4 000 cd/m² (gamme OM)</div></div><div class="info-item"><div class="info-lbl">Extérieur plein soleil</div><div class="info-val">4 000 cd/m² min (gamme OH)</div></div></div><div class="warn-box">Une TV grand public en vitrine = illisible en plein soleil. C'est le piège le plus courant chez les clients sans conseil.</div><h4>2. La taille et la distance de lecture</h4><p>Règle terrain : <strong>1 pouce = 1 mètre de distance optimale</strong>. 5m de recul → 55 pouces minimum. 8m de recul → 75 pouces ou plus.</p><div class="key-box">Méthode : demandez au client "à quelle distance votre visiteur sera-t-il de l'écran ?" → la réponse en mètres = la taille minimale en pouces.</div><h4>3. Orientation portrait ou paysage ?</h4><p>Le <strong>portrait</strong> maximise l'impact en vitrine et couloirs. Le <strong>paysage</strong> convient aux salles de réunion et tableaux de bord. Les écrans Samsung professionnels fonctionnent dans les deux orientations.</p><h4>4. Intérieur / vitrine / extérieur</h4><p>Les écrans extérieurs (gamme OH) sont certifiés IP66, résistent de -20°C à +50°C et fonctionnent 24h/24. Ne jamais utiliser un écran intérieur en extérieur.</p>'},
+    {t:"Les écrans Samsung — la gamme professionnelle",c:'<h4>QM — Affichage intérieur professionnel</h4><p>Gamme 24/7 de 32 à 85 pouces, 4K dès 43 pouces, luminosité 400-500 cd/m², dalle ultra-slim 2,85 cm. Usage : salle de réunion, accueil, communication interne.</p><div class="key-box">Prix indicatifs : QM32C ≈ 700€ HT · QM55C ≈ 1 500€ HT · QM75C ≈ 2 800€ HT</div><h4>OM — Affichage vitrine haute luminosité</h4><p>3 000 à 4 000 cd/m², usage 24/7, certifié IP5X sur OM32DX, 32 à 75 pouces. Le <strong>OM55N-DS est double face</strong> pour les vitrines traversantes (2 licences Skysignage).</p><div class="key-box">Prix indicatifs : OM46B ≈ 2 200€ HT · OM55B ≈ 3 400€ HT · OM75A ≈ 6 500€ HT</div><h4>OH — Affichage extérieur</h4><p>4 000 cd/m², IP66, -20°C à +50°C, 46 à 75 pouces. Conçu pour devantures, parkings, affichage urbain.</p><div class="key-box">Prix indicatifs : OH46B ≈ 4 500€ HT · OH55A-S ≈ 5 800€ HT · OH75A ≈ 12 000€ HT</div><h4>E-Paper Samsung — La révolution basse consommation</h4><p>Dalle mat comparable à du papier, <strong>0,00W pour maintenir une image statique</strong>, 200 jours d'autonomie batterie, 55% plastiques recyclés, 6 coloris disponibles. Idéal pour menus, étiquettes, signalétique hôtelière.</p><h4>Licences MagicInfo</h4><p>Compatible avec tous les Samsung pro. Seul bémol : 5 widgets, aucun connecteur métier, interface complexe. Pour des besoins avancés, Skysignage est bien supérieur.</p>'},
+    {t:"Skysignage — Le logiciel de diffusion",c:'<p><strong>Skysignage</strong> est la solution SaaS de Digital Signage distribuée par Navisio. Piloté depuis n'importe quel navigateur, compatible tous écrans professionnels.</p><div class="info-grid"><div class="info-item"><div class="info-lbl">Référence</div><div class="info-val">SKYXFPXXM — Licence 36 ou 60 mois</div></div><div class="info-item"><div class="info-lbl">Widgets</div><div class="info-val">Plus de 50 (météo, RS, vidéo, QR code…)</div></div><div class="info-item"><div class="info-lbl">Connecteurs</div><div class="info-val">50+ logiciels immobilier compatibles</div></div><div class="info-item"><div class="info-lbl">Portail</div><div class="info-val">Via site Internet dédié, pilotage smartphone</div></div></div><h4>Ce qui différencie Skysignage</h4><p><strong>Catalogues métiers :</strong> Immobilier (Apimo, Hektor, Immosoft, Periclès…), retail, automobile. Un bien publié dans le logiciel s'affiche en vitrine automatiquement.</p><p><strong>Interface intuitive :</strong> prise en main en 15 minutes, aussi simple qu'Instagram. Le client gère ses 10 écrans depuis son téléphone.</p><div class="key-box">Argument clé : "Vous publiez un bien le matin, il s'affiche en vitrine dans la minute. Zéro manipulation, zéro impression."</div>'},
+    {t:"Skysignage Kiosk & gamme totems Navisio",c:'<p><strong>Skysignage Kiosk</strong> (ref. KIOXFPXXM) transforme un totem tactile en borne de consultation autonome : catalogue interactif, commande, orientation, consultation de documents. Écran de veille vidéo attractif pour capter l'attention.</p><div class="key-box">Différence clé : Skysignage = diffusion passive. Kiosk = interaction active avec le visiteur.</div><h4>Gamme totems Navisio — Made in France</h4><p><strong>Extérieurs :</strong> Totem Los Angeles (acier IP56, 24/7, 46-75", 4 000 cd/m²) · Sucette Bangkok (LED IP65, 5 000 cd/m²) · Chevalet Roma (mobile sur roues, IP56)</p><p><strong>Intérieurs :</strong> New Yorkais & New Orleans (32-75", portrait/paysage, Samsung/LG/iiyama) · Barcelona (chêne, design premium) · Seattle (épuré acier) · Kiosk Nissa (self-service avec MyPOS + imprimante) · Table Casablanca & Table Bagdad (interactives)</p><p><strong>Supports :</strong> Gamme complète de supports muraux, au sol et plafond pour tous types d'écrans Samsung.</p><div class="key-box">Argument France : "Fabriqués en France, garantie 5 ans, réalité augmentée disponible pour projeter le totem chez votre client avant achat."</div>'}
+  ].map(function(ch,i) {
+    return '<div class="chapter"><div class="ch-hd ' + (i===0?'open':'') + '"><span>' + (i+1) + '. ' + ch.t + '</span><span class="ch-toggle">' + (i===0?'▲':'▼') + '</span></div><div class="ch-body ' + (i===0?'open':'') + '"><div class="content-section">' + ch.c + '</div></div></div>';
+  }).join('') +
+  stepNavHTML(1) + '</div>';
+}
+
+function renderStep2_M2() {
+  return '<div class="step-panel"><div class="content-section">' +
+  '<h3>Mise en situation client — Affichage dynamique</h3>' +
+  '<div class="scenario-card"><div class="scenario-label">Contexte</div><div class="scenario-context">Vous êtes commercial chez Navisio/IXEO. Vous rencontrez <strong>Mme Sophie LAMBERT</strong>, gérante de <em>Concept Store MODO</em>, boutique premium 120m² en centre-ville. Elle a 2 vitrines ensoleillées et affiche ses promotions sur du papier imprimé chaque semaine. Son voisin vient d'installer un totem vitrine Samsung et elle est intriguée.</div></div>' +
+  '<h4>Simulation d'entretien</h4>' +
+  '<div class="dialogue">' +
+  '<div class="bubble"><div class="bubble-avatar comm">V</div><div class="bubble-text"><div class="bubble-role">Vous (commercial)</div>Bonjour Madame Lambert, vous m'avez dit que vous étiez intéressée par ce que fait votre voisin avec ses écrans. Qu'est-ce qui vous a frappé ?</div></div>' +
+  '<div class="bubble client"><div class="bubble-avatar cli">S</div><div class="bubble-text"><div class="bubble-role">Mme Lambert</div>Ses vitrines sont dynamiques, les passants s'arrêtent. Moi j'ai encore mes affiches papier — c'est cher à imprimer et dès qu'il y a un changement de prix je dois tout recommencer.</div></div>' +
+  '<div class="bubble"><div class="bubble-avatar comm">V</div><div class="bubble-text"><div class="bubble-role">Vous</div>Combien dépensez-vous en impression par mois, en moyenne ?</div></div>' +
+  '<div class="bubble client"><div class="bubble-avatar cli">S</div><div class="bubble-text"><div class="bubble-role">Mme Lambert</div>Facilement 300 à 400 euros entre l'impression et la pose. Sans compter le temps que j'y passe.</div></div>' +
+  '<div class="bubble"><div class="bubble-avatar comm">V</div><div class="bubble-text"><div class="bubble-role">Vous</div>Vos vitrines sont exposées au soleil l'après-midi ? C'est un point crucial — un écran standard serait illisible. Il faut un Samsung OM à 4 000 cd/m². À quelle fréquence changez-vous vos promos ?</div></div>' +
+  '<div class="bubble client"><div class="bubble-avatar cli">S</div><div class="bubble-text"><div class="bubble-role">Mme Lambert</div>Toutes les semaines. Les soldes, nouvelles collections… C'est permanent. Mais j'ai peur que ce soit compliqué à utiliser.</div></div>' +
+  '<div class="bubble"><div class="bubble-avatar comm">V</div><div class="bubble-text"><div class="bubble-role">Vous</div>Avec Skysignage, vous modifiez votre contenu depuis votre smartphone en 2 minutes. L'écran se met à jour instantanément. Avec 350€/mois d'économies d'impression, l'écran est amorti en 18 mois. Je vous fais une démonstration en direct ?</div></div>' +
+  '<div class="bubble client"><div class="bubble-avatar cli">S</div><div class="bubble-text"><div class="bubble-role">Mme Lambert</div>Oui, ça m'intéresse vraiment.</div></div>' +
+  '</div>' +
+  '<div class="key-box">Enseignement : quantifier le coût actuel (impression + temps) crée un levier ROI immédiat. La peur de la complexité se traite par la démonstration.</div>' +
+  '</div>' + stepNavHTML(2) + '</div>';
+}
+
+function renderStep3_M2() {
+  var cats = [
+    {cat:"Installation & technique",qs:["Combien d'écrans et où exactement ?","Intérieur, vitrine ou extérieur ?","Vos vitrines sont-elles exposées au soleil et à quelle heure ?","Quelle distance entre l'écran et le spectateur ?","Avez-vous une alimentation électrique disponible ?"]},
+    {cat:"Usage & contenu",qs:["Images fixes, vidéos ou données temps réel ?","À quelle fréquence mettez-vous à jour vos contenus ?","Avez-vous un logiciel métier dont les données doivent s'afficher automatiquement ?","Souhaitez-vous une interaction tactile avec vos visiteurs ?","Gérez-vous plusieurs sites depuis un seul endroit ?"]},
+    {cat:"Douleurs & enjeux",qs:["Combien dépensez-vous en impression par mois ?","Avez-vous déjà affiché une information incorrecte ou obsolète ?","Combien de temps passe votre équipe à mettre à jour vos supports ?","Avez-vous perdu des ventes à cause d'une info non mise à jour ?"]},
+    {cat:"Décision & budget",qs:["Quel est votre calendrier pour ce projet ?","Avez-vous un budget alloué ?","Êtes-vous seul décisionnaire ?","Avez-vous reçu des devis concurrents ?"]}
+  ];
+  return '<div class="step-panel"><div class="content-section"><h3>Questionnement client — Grille de découverte Signage</h3><p>Qualifiez précisément le besoin technique ET commercial avant de proposer une solution.</p>' +
+  cats.map(function(cat) {
+    return '<div class="q-category"><div class="q-cat-title">' + cat.cat + '</div><div class="q-list">' + cat.qs.map(function(q){return '<div class="q-item">'+q+'</div>';}).join('') + '</div></div>';
+  }).join('') +
+  '</div>' + stepNavHTML(3) + '</div>';
+}
+
+function renderStep4_M2() {
+  var blocks = [
+    {icon:"🎣",titre:"Accroche universelle",body:'<p>"Imaginez que demain matin, vous changiez votre promotion depuis votre smartphone et qu'elle s'affiche immédiatement sur tous vos écrans — en vitrine, à l'accueil, en salle. Sans impression, sans délai. C'est exactement ce que Skysignage fait."</p>'},
+    {icon:"🔧",titre:"Solution SONCAS",body:'<p><strong>Sécurité :</strong> "Vos écrans Samsung fonctionnent 24h/24, garantie 3 ans. Contrairement à une TV grand public qui tombe en panne après 6 mois d'usage continu."</p><p><strong>Orgueil :</strong> "Vos concurrents déjà équipés observent un impact immédiat sur le trafic. L'affichage dynamique, c'est le signe d'une enseigne moderne."</p><p><strong>Nouveauté :</strong> "L'E-Paper Samsung consomme 0 watt pour maintenir une image — 200 jours d'autonomie. Aucun câble, installation en 10 minutes."</p><p><strong>Confort :</strong> "Skysignage s'apprend en 15 minutes. Aussi simple qu'Instagram. Vos 10 écrans gérés depuis votre téléphone."</p><p><strong>Argent :</strong> "Nos clients retail économisent en moyenne 300€/mois en impression. L'écran s'amortit en 12 à 18 mois — après, c'est du gain pur."</p><p><strong>Sympathie :</strong> "Totems fabriqués en France, garantie 5 ans. Un seul interlocuteur Navisio pour l'écran, le logiciel et le support."</p>'},
+    {icon:"📐",titre:"Aide au choix écran",body:'<p>→ <strong>Intérieur sans soleil</strong> : Samsung QM (500 cd/m²)<br>→ <strong>Vitrine avec soleil</strong> : Samsung OM (3 000-4 000 cd/m²)<br>→ <strong>Extérieur</strong> : Samsung OH (4 000 cd/m², certifié IP66)<br>→ <strong>Zéro câble</strong> : E-Paper Samsung (0W statique)</p><div class="key-box">Règle taille : distance de lecture (mètres) = taille recommandée (pouces minimum).</div>'},
+    {icon:"📞",titre:"Closing",body:'<p>"Madame Lambert, avec vos 2 vitrines ensoleillées et vos 350€/mois d'impression, je vous propose un Samsung OM55B + Skysignage 36 mois. Amorti en 18 mois, 2h gagnées par semaine. Devis ce soir et démo Skysignage la semaine prochaine — mardi ou jeudi ?"</p>'}
+  ];
+  var objections = [
+    {q:'"C'est trop cher."',a:'Calculez l'impression sur 36 mois : 300€/mois = 10 800€. Un écran vitrine + Skysignage = environ 4 500€ tout compris. Le ROI est là dès la 2e année.'},
+    {q:'"On a déjà des TV en vitrine."',a:'Une TV est illisible dès que le soleil frappe — et elle tombe en panne en 6 mois d'usage 24/7. Un Samsung OM est 10x plus lumineux, conçu pour durer et garanti 3 ans.'},
+    {q:'"Je n'ai pas le temps de gérer ça."',a:'Skysignage demande moins de temps que vos impressions actuelles. Préparez une fois, programmez pour la semaine. Le logiciel gère automatiquement.'},
+    {q:'"MagicInfo suffit avec mon Samsung."',a:'MagicInfo = 5 widgets, aucun connecteur métier, interface complexe. Skysignage = 50+ widgets, 50+ connecteurs immobilier, prise en main en 15 minutes.'}
+  ];
+  return '<div class="step-panel"><div class="content-section"><h3>Pitch commercial — Signage & Skysignage</h3>' +
+  blocks.map(function(b){return '<div class="pitch-block"><div class="pitch-hd">'+b.icon+' '+b.titre+'</div><div class="pitch-body">'+b.body+'</div></div>';}).join('') +
+  '<h4>Réponses aux objections courantes</h4>' +
+  objections.map(function(o){return '<div class="objection-box"><div class="objection-q">❓ '+o.q+'</div><div class="objection-a">💬 '+o.a+'</div></div>';}).join('') +
+  '</div>' + stepNavHTML(4) + '</div>';
+}
+
+function renderStep5_M2() {
+  var resources = [
+    {icon:'📄',name:'Catalogue Navisio — Affichage dynamique',type:'PDF',note:'Gamme complète écrans & totems Q4 2025',url:'https://drive.google.com/uc?export=download&id=1BYJXyGZcSxWLoJ9jJX2T0_FsHmdXDHQi'},
+    {icon:'🌐',name:'Skysignage — Site officiel',type:'Lien',note:'Démo et présentation logicielle',url:'https://www.skysignage.com'},
+    {icon:'📄',name:'Fiche Samsung QM — Intérieur',type:'PDF',note:'Gamme QM32C à QM85C',url:'#'},
+    {icon:'📄',name:'Fiche Samsung OM — Vitrine',type:'PDF',note:'Gamme OM32 à OM75, double face',url:'#'},
+    {icon:'📄',name:'Fiche Samsung OH — Extérieur',type:'PDF',note:'Gamme OH46 à OH75, certifié IP',url:'#'},
+    {icon:'📄',name:'Fiche E-Paper Samsung',type:'PDF',note:'Révolution affichage basse consommation',url:'#'},
+    {icon:'📋',name:'Guide choix écran — Luminosité & taille',type:'PDF',note:'Aide à la prescription terrain',url:'#'},
+    {icon:'📋',name:'Grille découverte client Signage',type:'PDF',note:'Version imprimable étape 3',url:'#'}
+  ];
+  return '<div class="step-panel"><div class="content-section"><h3>Ressources téléchargeables</h3><p>Supports pour préparer et accompagner vos rendez-vous Signage.</p><div class="resources-grid">' +
+  resources.map(function(r){
+    var onclick = r.url !== '#' ? 'window.open(''+r.url+'','_blank')' : 'alert('Ressource à charger par l\'administrateur de la plateforme.')';
+    return '<div class="resource-card" onclick="'+onclick+'"><div class="resource-icon">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-type">'+r.type+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }).join('') +
+  '</div></div>' + stepNavHTML(5) + '</div>';
+}
+
 
 // ╔══════════════════════════════════════════════════════╗
 // ║  UTILS                                               ║
