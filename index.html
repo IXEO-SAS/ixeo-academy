@@ -648,7 +648,7 @@ const MODULES = [
   {id:2, name:"Affichage dynamique : Signage",       family:1, available:true},
   {id:3, name:"Affichage dynamique : Kiosk",         family:1, available:true},
   {id:4, name:"Protection des données (sauvegarde)", family:2, available:true},
-  {id:5, name:"Les bases d'un réseau",               family:2, available:false},
+  {id:5, name:"Les bases d'un réseau",               family:2, available:true},
   {id:6, name:"Étude parc informatique & réseau",    family:2, available:false},
   {id:7, name:"Les équipements réseaux",             family:2, available:false},
   {id:8, name:"Solutions cloud (M365)",              family:2, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())));
-  else if (step === 2) content.innerHTML = S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())));
-  else if (step === 3) content.innerHTML = S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())));
-  else if (step === 4) content.innerHTML = S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())));
-  else if (step === 5) content.innerHTML = S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))); }
+  if      (step === 1) content.innerHTML = S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()))));
+  else if (step === 2) content.innerHTML = S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()))));
+  else if (step === 3) content.innerHTML = S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()))));
+  else if (step === 4) content.innerHTML = S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()))));
+  else if (step === 5) content.innerHTML = S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()))));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -2323,6 +2323,224 @@ function renderStep5_M4(){
     {icon:'\u{1F4C4}',name:'Newsletter Beemo -- Protection anti-ransomware',note:'Explication technique du protocole proprietaire Beemo face aux ransomwares',url:'#'}
   ];
   var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos rendez-vous Sauvegarde.</p><div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
+    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }
+  html+='</div></div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+
+
+// // MODULE 5 - LES BASES D UN RESEAU
+
+var SCHEMA_RESEAU_M5 = '<div style="margin:1rem 0;overflow-x:auto;"><svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;font-family:sans-serif;"><rect width="720" height="360" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/><text x="360" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#0D1117">Architecture reseau type PME</text><ellipse cx="360" cy="65" rx="50" ry="24" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/><text x="360" y="62" text-anchor="middle" font-size="10" font-weight="700" fill="#1D4ED8">INTERNET</text><text x="360" y="74" text-anchor="middle" font-size="8.5" fill="#3B82F6">Reseau mondial</text><line x1="360" y1="89" x2="360" y2="115" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4,3"/><rect x="310" y="115" width="100" height="30" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/><text x="360" y="131" text-anchor="middle" font-size="10" font-weight="700" fill="#92400E">MODEM / BOX</text><text x="360" y="143" text-anchor="middle" font-size="8" fill="#92400E">Operateur (FAI)</text><line x1="360" y1="145" x2="360" y2="168" stroke="#94A3B8" stroke-width="2"/><rect x="305" y="168" width="110" height="30" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5"/><text x="360" y="184" text-anchor="middle" font-size="10" font-weight="700" fill="#991B1B">FIREWALL / ROUTEUR</text><text x="360" y="196" text-anchor="middle" font-size="8" fill="#991B1B">Filtrage + NAT + VPN</text><line x1="360" y1="198" x2="360" y2="220" stroke="#94A3B8" stroke-width="2"/><rect x="300" y="220" width="120" height="26" rx="6" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5"/><text x="360" y="236" text-anchor="middle" font-size="10" font-weight="700" fill="#075985">SWITCH CORE</text><line x1="300" y1="233" x2="140" y2="275" stroke="#94A3B8" stroke-width="1.5"/><line x1="340" y1="246" x2="250" y2="275" stroke="#94A3B8" stroke-width="1.5"/><line x1="360" y1="246" x2="360" y2="275" stroke="#94A3B8" stroke-width="1.5"/><line x1="380" y1="246" x2="470" y2="275" stroke="#94A3B8" stroke-width="1.5"/><line x1="420" y1="233" x2="580" y2="275" stroke="#94A3B8" stroke-width="1.5"/><rect x="85" y="275" width="110" height="28" rx="5" fill="#ECFDF5" stroke="#059669" stroke-width="1.3"/><text x="140" y="291" text-anchor="middle" font-size="9" font-weight="700" fill="#065F46">VLAN Serveurs</text><text x="140" y="301" text-anchor="middle" font-size="8" fill="#065F46">AD, fichiers, ERP</text><rect x="205" y="275" width="100" height="28" rx="5" fill="#ECFDF5" stroke="#059669" stroke-width="1.3"/><text x="255" y="291" text-anchor="middle" font-size="9" font-weight="700" fill="#065F46">VLAN Postes</text><text x="255" y="301" text-anchor="middle" font-size="8" fill="#065F46">PC utilisateurs</text><rect x="313" y="275" width="95" height="28" rx="5" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.3"/><text x="360" y="291" text-anchor="middle" font-size="9" font-weight="700" fill="#4C1D95">VLAN Wi-Fi</text><text x="360" y="301" text-anchor="middle" font-size="8" fill="#4C1D95">AP + bornes</text><rect x="416" y="275" width="108" height="28" rx="5" fill="#FEF3C7" stroke="#D97706" stroke-width="1.3"/><text x="470" y="291" text-anchor="middle" font-size="9" font-weight="700" fill="#92400E">VLAN Imprimantes</text><text x="470" y="301" text-anchor="middle" font-size="8" fill="#92400E">Peripheriques</text><rect x="532" y="275" width="100" height="28" rx="5" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.3"/><text x="582" y="291" text-anchor="middle" font-size="9" font-weight="700" fill="#991B1B">VLAN Invites</text><text x="582" y="301" text-anchor="middle" font-size="8" fill="#991B1B">Isole du LAN</text><text x="360" y="345" text-anchor="middle" font-size="8.5" fill="#94A3B8">IXEO Academy -- Module 5 -- Les bases d un reseau</text></svg></div>';
+var SCHEMA_IP_M5 = '<div style="margin:0.75rem 0;overflow-x:auto;"><svg viewBox="0 0 680 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;font-family:sans-serif;"><rect width="680" height="140" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/><text x="340" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#0D1117">Anatomie d une adresse IP (IPv4)</text><rect x="40" y="38" width="120" height="40" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2"/><text x="100" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#1D4ED8">192</text><text x="100" y="71" text-anchor="middle" font-size="8.5" fill="#3B82F6">1er octet</text><text x="168" y="61" text-anchor="middle" font-size="18" font-weight="700" fill="#94A3B8">.</text><rect x="180" y="38" width="120" height="40" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2"/><text x="240" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#1D4ED8">168</text><text x="240" y="71" text-anchor="middle" font-size="8.5" fill="#3B82F6">2e octet</text><text x="308" y="61" text-anchor="middle" font-size="18" font-weight="700" fill="#94A3B8">.</text><rect x="320" y="38" width="120" height="40" rx="6" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/><text x="380" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#075985">1</text><text x="380" y="71" text-anchor="middle" font-size="8.5" fill="#0284C7">3e octet (reseau)</text><text x="448" y="61" text-anchor="middle" font-size="18" font-weight="700" fill="#94A3B8">.</text><rect x="460" y="38" width="120" height="40" rx="6" fill="#ECFDF5" stroke="#059669" stroke-width="2"/><text x="520" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#065F46">42</text><text x="520" y="71" text-anchor="middle" font-size="8.5" fill="#059669">4e octet (hote)</text><text x="170" y="105" text-anchor="middle" font-size="9.5" fill="#475569">Partie reseau (identifie le LAN)</text><line x1="100" y1="94" x2="240" y2="100" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2"/><text x="500" y="105" text-anchor="middle" font-size="9.5" fill="#059669">Partie hote (identifie le poste)</text><line x1="380" y1="94" x2="520" y2="100" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2"/><text x="340" y="128" text-anchor="middle" font-size="8.5" fill="#94A3B8">Plages privees : 192.168.x.x -- 10.x.x.x -- 172.16.x.x a 172.31.x.x</text></svg></div>';
+
+
+const QUESTIONS_M5 = [
+  {q:"Qu est-ce qu un reseau informatique ?",opts:["Un ensemble de PC relies a internet","Un ensemble d equipements interconnectes pour partager des ressources","Un logiciel de partage de fichiers","Un cable reliant deux ordinateurs"],c:1,fb:"Un reseau informatique est un ensemble d equipements (PC, serveurs, imprimantes, switch...) interconnectes par des supports physiques ou sans fil pour partager des ressources et echanger des donnees."},
+  {q:"Quelle est la difference entre un LAN et un WAN ?",opts:["LAN = rapide, WAN = lent","LAN = reseau local d un site, WAN = reseau etendu reliant plusieurs sites distants","LAN = filaire, WAN = Wi-Fi","LAN = public, WAN = prive"],c:1,fb:"LAN (Local Area Network) = reseau local d un site. WAN (Wide Area Network) = reseau qui relie plusieurs sites distants. Internet est le plus grand WAN du monde."},
+  {q:"Quel equipement connecte intelligemment les equipements d un meme reseau local ?",opts:["Le modem","Le hub","Le switch","Le repeteur"],c:2,fb:"Le switch (commutateur) connecte les equipements sur le LAN et dirige le trafic uniquement vers le destinataire concerne, contrairement au hub qui diffuse a tout le monde."},
+  {q:"Quel est le role principal d un firewall en entreprise ?",opts:["Amplifier le signal Wi-Fi","Relier le LAN a internet, filtrer le trafic et proteger le reseau local","Stocker les fichiers","Gerer les mots de passe"],c:1,fb:"Le firewall fait le lien entre le LAN et internet. Il filtre le trafic entrant/sortant, applique les regles de securite, gere le NAT et peut creer des tunnels VPN."},
+  {q:"Qu est-ce qu une adresse IP ?",opts:["Un identifiant unique attribue a chaque equipement reseau","Le nom du Wi-Fi d une entreprise","Un mot de passe reseau","Un protocole de sauvegarde"],c:0,fb:"Une adresse IP (Internet Protocol) est un identifiant numerique unique attribue a chaque equipement connecte a un reseau, permettant de l identifier et de lui envoyer des donnees."},
+  {q:"Quelle est la plage d adresses IP privees la plus courante en PME ?",opts:["10.0.0.x uniquement","172.16.x.x uniquement","192.168.x.x uniquement","Les trois plages 192.168.x.x, 10.x.x.x et 172.16.x.x sont des adresses privees valides"],c:3,fb:"Les trois plages sont des adresses IP privees valides. Elles ne sont pas routables sur internet et sont reservees aux reseaux locaux."},
+  {q:"Qu est-ce que le DHCP ?",opts:["Un protocole qui attribue automatiquement les adresses IP aux equipements du reseau","Un type de cable reseau","Un logiciel antivirus","Un protocole de chiffrement"],c:0,fb:"Le DHCP (Dynamic Host Configuration Protocol) attribue automatiquement une adresse IP a chaque equipement qui se connecte. C est generalement le routeur ou un serveur dedie qui joue ce role."},
+  {q:"Qu est-ce que le NAT ?",opts:["Un protocole de chiffrement","Un mecanisme qui traduit les adresses IP privees en adresse IP publique pour communiquer sur internet","Un type de cable optique","Un protocole Wi-Fi"],c:1,fb:"Le NAT (Network Address Translation) traduit les adresses IP privees du LAN en adresse IP publique unique. Toute une entreprise peut acceder a internet avec une seule IP publique."},
+  {q:"Qu est-ce qu un VLAN ?",opts:["Un reseau Wi-Fi securise","Une segmentation logique du reseau physique permettant d isoler des groupes d equipements","Un type de switch","Un protocole de routage"],c:1,fb:"Un VLAN (Virtual Local Area Network) segmente logiquement un reseau physique en plusieurs reseaux virtuels isoles. Exemple : VLAN Serveurs, VLAN Postes, VLAN Invites -- chacun isole des autres."},
+  {q:"Qu est-ce qu un VPN ?",opts:["Un antivirus pour les connexions internet","Un tunnel chiffre permettant de connecter un utilisateur distant ou un site distant au reseau de l entreprise","Un type de switch Wi-Fi","Un protocole de sauvegarde"],c:1,fb:"Un VPN (Virtual Private Network) cree un tunnel chiffre sur internet. Il permet au teletravailleur de se connecter comme s il etait au bureau, ou de relier deux sites distants de maniere securisee."},
+  {q:"Qu est-ce que le DNS ?",opts:["Un protocole de securite reseau","Un service qui traduit les noms de domaine en adresses IP","Un type d adresse IP","Un equipement reseau"],c:1,fb:"Le DNS (Domain Name System) est l annuaire d internet : il traduit les noms lisibles (google.com) en adresses IP numeriques que les equipements utilisent reellement pour communiquer."},
+  {q:"Qu est-ce qu IPsec ?",opts:["Un protocole d acces Wi-Fi","Un ensemble de protocoles qui chiffrent et authentifient les communications IP, utilise notamment pour les VPN","Un systeme d exploitation reseau","Un protocole de sauvegarde"],c:1,fb:"IPsec (Internet Protocol Security) est un ensemble de protocoles qui chiffrent et authentifient les paquets IP au niveau de la couche reseau. Il est largement utilise pour les VPN site-a-site entre entreprises."},
+  {q:"Quelle est la difference entre Wi-Fi 2,4 GHz et 5 GHz ?",opts:["Aucune difference en pratique","2,4 GHz = portee plus grande mais debit limite, 5 GHz = debit plus eleve mais portee reduite","5 GHz est reserve aux entreprises","2,4 GHz est plus securise"],c:1,fb:"2,4 GHz : meilleure portee, traverse mieux les murs, mais plus congestionne et debit limite. 5 GHz : debit nettement superieur, latence plus faible, mais portee reduite."},
+  {q:"Qu est-ce que la bande passante ?",opts:["La largeur du cable reseau","La capacite maximale de transfert de donnees sur un lien reseau, exprimee en Mbps ou Gbps","La puissance du signal Wi-Fi","La duree de vie d un switch"],c:1,fb:"La bande passante est la capacite maximale de transport de donnees d un lien reseau. Ne pas confondre avec la latence (temps de reponse en millisecondes)."},
+  {q:"Quel outil simple teste la connectivite entre deux equipements reseau ?",opts:["Traceroute uniquement","La commande ping","Un navigateur web","Le gestionnaire de taches"],c:1,fb:"La commande ping envoie des paquets ICMP a une adresse IP cible et mesure le temps de reponse. Si le ping echoue, l equipement est injoignable ou le trafic est bloque par un firewall."}
+];
+
+function renderStep1_M5() {
+  var ch = [
+    ["Qu est-ce qu un reseau informatique ?",
+     "<p>Un <strong>reseau informatique</strong> est un ensemble d equipements interconnectes par des supports physiques (cables) ou sans fil (Wi-Fi) pour partager des ressources et echanger des donnees.</p>"
+     + "<div class=\"info-grid\">"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">LAN</div><div class=\"info-val\">Local Area Network -- reseau local d un site (bureau, entreprise, batiment)</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">WAN</div><div class=\"info-val\">Wide Area Network -- reseau reliant plusieurs sites distants. Internet est le plus grand WAN.</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">WLAN</div><div class=\"info-val\">Wireless LAN -- reseau local sans fil (Wi-Fi)</div></div>"
+     + "<div class=\"info-item\"><div class=\"info-lbl\">VPN</div><div class=\"info-val\">Virtual Private Network -- tunnel chiffre sur internet pour teletravailleurs ou sites distants</div></div>"
+     + "</div>"
+     + "<h4>Pourquoi un commercial IT doit comprendre les reseaux</h4>"
+     + "<p>- Pour qualifier un projet : poser les bonnes questions sur l architecture existante</p>"
+     + "<p>- Pour dimensionner une offre : switch, firewall, Wi-Fi, VPN -- chaque element a son contexte</p>"
+     + "<p>- Pour identifier les failles : une mauvaise architecture = un client expose = une opportunite de vente</p>"
+     + "<p>- Pour parler le meme langage que le DSI ou l informaticien interne du client</p>"
+     + "<div class=\"key-box\">Un commercial qui comprend les bases du reseau cloture 2 fois plus de projets IT qu un commercial qui recite des fiches produits. Le client a besoin d un conseiller, pas d un vendeur.</div>"
+    ],
+    ["Les equipements d un reseau -- le vocabulaire essentiel",
+     SCHEMA_RESEAU_M5
+     + "<h4>Le modem / box operateur</h4>"
+     + "<p>C est la porte d entree vers internet. Fourni par le FAI (Free, Orange, SFR, Bouygues), il convertit le signal de la ligne en signal ethernet. En entreprise, il est toujours suivi par un firewall -- jamais utilise seul en frontal reseau.</p>"
+     + "<h4>Le firewall (pare-feu)</h4>"
+     + "<p>Premier rempart de securite. Il filtre le trafic entrant et sortant, bloque les connexions non autorisees, gere le NAT et peut etablir des tunnels VPN. En entreprise, c est un equipement dedie (Fortinet, Palo Alto, pfSense, Stormshield...) -- jamais un simple routeur grand public.</p>"
+     + "<h4>Le switch (commutateur)</h4>"
+     + "<p>Il interconnecte tous les equipements du LAN via des ports RJ45. Le switch intelligent envoie les donnees uniquement au destinataire concerne. Un switch manageable permet de creer des VLAN, de prioriser le trafic (QoS) et de superviser l activite port par port.</p>"
+     + "<h4>Le point d acces Wi-Fi (Access Point)</h4>"
+     + "<p>Il diffuse le signal Wi-Fi et connecte les appareils sans fil au LAN. En entreprise, les AP sont geres de maniere centralisee via un controleur Wi-Fi physique ou cloud. On distingue les AP interieur (open space, salles) et exterieur (cours, parking).</p>"
+     + "<h4>Le serveur</h4>"
+     + "<p>Machine dediee hebergeant des services partages : stockage de fichiers, Active Directory (annuaire utilisateurs), ERP, messagerie Exchange. Peut etre physique (rack en salle serveur) ou virtuel (VM sur hyperviseur Hyper-V ou VMware).</p>"
+    ],
+    ["Les adresses IP : comprendre pour prescrire",
+     SCHEMA_IP_M5
+     + "<h4>IPv4 vs IPv6</h4>"
+     + "<p>L IPv4 est le format classique en 4 nombres (ex : 192.168.1.42). Il offre environ 4 milliards d adresses -- une quantite epuisee a l echelle mondiale. L IPv6 est le successeur en 8 groupes hexadecimaux offrant un nombre quasi illimite d adresses. IPv4 reste dominant en entreprise.</p>"
+     + "<h4>Adresses privees vs adresses publiques</h4>"
+     + "<p>- <strong>Adresses privees</strong> : reservees aux reseaux locaux, non routables sur internet. Plages : 192.168.x.x -- 10.x.x.x -- 172.16.x.x a 172.31.x.x</p>"
+     + "<p>- <strong>Adresse publique</strong> : attribuee par le FAI, unique sur internet. Le NAT traduit les IP privees en IP publique pour aller sur internet.</p>"
+     + "<h4>IP fixe vs IP dynamique (DHCP)</h4>"
+     + "<p>- <strong>IP fixe</strong> : configuree manuellement, ne change jamais. Obligatoire pour les serveurs, imprimantes reseau, cameras, firewall.</p>"
+     + "<p>- <strong>IP dynamique (DHCP)</strong> : attribuee automatiquement par le routeur a chaque connexion. Utilisee pour les PC et postes nomades.</p>"
+     + "<div class=\"key-box\">Point de vigilance terrain : un serveur avec IP en DHCP change d adresse a chaque redemarrage. Les postes ne le trouvent plus et les sauvegardes echouent. A verifier systematiquement lors d un audit.</div>"
+     + "<h4>Le masque de sous-reseau</h4>"
+     + "<p>Il definit la partie reseau et la partie hote d une adresse IP. Le masque le plus courant en PME est 255.255.255.0 (ou /24), autorisant 254 equipements sur le meme sous-reseau.</p>"
+    ],
+    ["La securite reseau : les points critiques",
+     "<h4>Le VPN -- travail a distance securise</h4>"
+     + "<p>Un VPN cree un tunnel chiffre sur internet, permettant au teletravailleur de se connecter comme s il etait physiquement sur site.</p>"
+     + "<p>- <strong>VPN client-site</strong> : le commercial en deplacement se connecte depuis son PC au reseau du siege</p>"
+     + "<p>- <strong>VPN site-a-site</strong> : deux agences distantes partagent le meme reseau de maniere transparente</p>"
+     + "<p>- <strong>IPsec</strong> : protocole de chiffrement utilise par la majorite des VPN d entreprise (voir lexique)</p>"
+     + "<h4>Les VLAN -- segmentation et isolation</h4>"
+     + "<p>Un VLAN segmente le reseau physique en reseaux virtuels isoles :</p>"
+     + "<p>- <strong>VLAN Invites</strong> : le Wi-Fi invites donne acces uniquement a internet, jamais aux serveurs</p>"
+     + "<p>- <strong>VLAN Serveurs</strong> : les serveurs sont isoles, inaccessibles depuis les postes sans regle explicite</p>"
+     + "<p>- <strong>Limitation ransomware</strong> : si un poste est infecte, il ne peut pas se propager aux autres VLAN</p>"
+     + "<h4>Les regles de firewall</h4>"
+     + "<p>Le firewall filtre selon le principe du moindre privilege : bloquer tout par defaut, n autoriser que ce qui est necessaire. Un firewall mal configure (tout ouvert par defaut) ne protege rien.</p>"
+     + "<h4>Les mises a jour firmware reseau -- point souvent neglige</h4>"
+     + "<p>Les equipements reseau (switch, firewall, AP) ont leur propre firmware avec des failles de securite. Un firewall non mis a jour depuis 2 ans peut etre compromise par des vulnerabilites connues et patchees depuis longtemps.</p>"
+     + "<div class=\"warn-box\">Signal d alarme terrain : un client avec une Livebox en frontal reseau ou un routeur grand public non manage est extremement vulnerable. C est une opportunite commerciale ET une responsabilite de conseil.</div>"
+    ],
+    ["Lexique reseau -- les termes a maitriser",
+     "<h4>Les termes fondamentaux</h4>"
+     + "<p>- <strong>IP (Internet Protocol)</strong> : protocole de base d internet qui definit comment les donnees sont adressees et acheminees entre equipements. Chaque equipement connecte possede une adresse IP unique (ex : 192.168.1.10).</p>"
+     + "<p>- <strong>NAT (Network Address Translation)</strong> : mecanisme qui traduit les adresses IP privees du LAN en adresse IP publique unique vers internet. Le firewall assure la translation : 192.168.1.42 devient l IP publique de l entreprise.</p>"
+     + "<p>- <strong>IPsec (Internet Protocol Security)</strong> : ensemble de protocoles qui chiffrent et authentifient les communications IP au niveau de la couche reseau. Utilise pour les VPN site-a-site entre entreprises. Garantit confidentialite, integrite et authenticite des echanges.</p>"
+     + "<p>- <strong>DNS (Domain Name System)</strong> : l annuaire d internet. Traduit les noms lisibles (google.com) en adresses IP (142.250.74.46). Sans DNS, il faudrait retenir des adresses IP pour naviguer.</p>"
+     + "<p>- <strong>DHCP (Dynamic Host Configuration Protocol)</strong> : service qui attribue automatiquement les adresses IP aux equipements qui se connectent. Sans DHCP, chaque PC devrait etre configure manuellement.</p>"
+     + "<p>- <strong>TCP / UDP</strong> : protocoles de transport. TCP garantit la livraison des donnees dans l ordre (web, email, fichiers). UDP est plus rapide sans garantie (streaming video, VoIP).</p>"
+     + "<p>- <strong>VLAN (Virtual Local Area Network)</strong> : segmentation logique d un reseau physique en plusieurs reseaux virtuels isoles. Cree sur un switch manageable. Essentiel pour la securite.</p>"
+     + "<p>- <strong>VPN (Virtual Private Network)</strong> : tunnel de communication chiffre etabli sur internet. Permet l acces securise au reseau d entreprise depuis l exterieur.</p>"
+     + "<p>- <strong>SSID</strong> : nom d un reseau Wi-Fi tel qu il apparait dans la liste des reseaux disponibles.</p>"
+     + "<p>- <strong>WPA3</strong> : dernier standard de securite Wi-Fi recommande pour les deployements entreprise. Remplace WPA2 qui presente des vulnerabilites connues.</p>"
+     + "<h4>Les termes operationnels</h4>"
+     + "<p>- <strong>Ping</strong> : commande testant la joignabilite d un equipement. Reponse = l equipement repond. Timeout = equipement eteint, deconnecte ou trafic bloque.</p>"
+     + "<p>- <strong>Bande passante</strong> : capacite maximale de transport de donnees d un lien, en Mbps ou Gbps. Ne pas confondre avec la latence (temps de reponse en ms).</p>"
+     + "<p>- <strong>QoS (Quality of Service)</strong> : priorisation du trafic. Garantit la qualite des appels VoIP et reunions Teams/Zoom meme quand la bande passante est saturee.</p>"
+     + "<p>- <strong>PoE (Power over Ethernet)</strong> : alimente les equipements (cameras, AP Wi-Fi, telephones IP) via le cable RJ45, sans alimentation electrique dediee. Necessite un switch PoE.</p>"
+     + "<p>- <strong>Fibre optique vs cuivre (RJ45)</strong> : la fibre transporte les donnees par la lumiere, offre 1 Gbps a 100 Gbps sur de longues distances. Le cuivre (Cat 6/6A) supporte jusqu a 10 Gbps sur 100m maximum.</p>"
+     + "<p>- <strong>Latence</strong> : temps de reponse d un reseau mesure en millisecondes (ms). Une latence elevee degrade les appels VoIP et les reunions video. Cible : moins de 20ms sur le LAN, moins de 50ms vers internet.</p>"
+     + "<div class=\"key-box\">Ces termes apparaissent dans 80% des conversations avec un DSI ou un technicien. Les maitriser, c est etre pris au serieux comme conseiller -- pas comme simple vendeur de materiel.</div>"
+    ]
+  ];
+  var html = '<div class="step-panel">';
+  for (var i=0;i<ch.length;i++){
+    var open=i===0;
+    html += '<div class="chapter"><div class="ch-hd '+(open?'open':'')+'"><span>'+(i+1)+'. '+ch[i][0]+'</span><span class="ch-toggle">'+(open?'\u25b2':'\u25bc')+'</span></div><div class="ch-body '+(open?'open':'')+'"><div class="content-section">'+ch[i][1]+'</div></div></div>';
+  }
+  html += stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M5(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation -- Audit reseau client</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div>';
+  html+='<div class="scenario-context">Vous intervenez chez <strong>Mme FONTAINE</strong>, directrice d un cabinet comptable de 30 personnes. Elle vous a appele parce qu internet rame depuis 3 semaines et que les sauvegardes ne se font plus. Sur site, vous decouvrez : une Livebox en frontal reseau direct, un vieux switch non manageable 100 Mbps de 2014, un serveur Windows Server avec IP en DHCP, un seul Wi-Fi pour employes et clients, et un NAS Synology branche sur le meme reseau que tout le reste -- et utilise comme seule sauvegarde.</div>';
+  html+='</div><h4>Simulation d entretien</h4><div class="dialogue">';
+  var bubbles=[
+    ['comm','V','Vous','Madame Fontaine, j ai passe en revue votre infrastructure. Avant de vous parler de la lenteur d internet, je dois vous signaler plusieurs points qui me preoccupent pour votre securite. Vous etes disponible 20 minutes ?'],
+    ['cli','F','Mme Fontaine','Oui, bien sur. C est grave ?'],
+    ['comm','V','Vous','Grave au sens ou votre configuration vous expose a des risques non mesures. Votre Livebox est directement en frontal -- toute tentative d intrusion externe arrive sans filtre sur votre reseau. Il n y a pas de firewall professionnel entre internet et vos serveurs.'],
+    ['cli','F','Mme Fontaine','On a un antivirus sur les postes, ca ne suffit pas ?'],
+    ['comm','V','Vous','L antivirus protege les postes contre les malwares connus. Il ne filtre pas le trafic reseau entrant, ne bloque pas les intrusions, ne cree pas de VPN securise pour vos collaborateurs en teletravail. Firewall et antivirus ne font pas le meme travail. Deuxieme point : votre NAS de sauvegarde est sur le meme reseau que vos postes. Si vous avez un ransomware, il chiffre votre serveur ET votre NAS simultanement. Vous perdez tout.'],
+    ['cli','F','Mme Fontaine','Je ne savais pas... Et pour le probleme de lenteur ?'],
+    ['comm','V','Vous','Votre switch est en 100 Mbps -- vos postes sont capables de 1 000 Mbps. Vous perdez 90% de la vitesse interne sur ce seul equipement. Et votre Wi-Fi n est pas segmente : vos clients accedent au meme reseau que vos serveurs comptables. Ce n est pas conforme au RGPD.'],
+    ['cli','F','Mme Fontaine','Qu est-ce que vous me recommandez ?'],
+    ['comm','V','Vous','Un plan en trois etapes. Etape 1 : firewall professionnel en urgence. Etape 2 : switch Gbps manageable et segmentation VLAN (Serveurs, Postes, Wi-Fi invites isole). Etape 3 : remplacement de la sauvegarde par une solution Beemo avec le stockage dans un VLAN dedie. Je vous prepare un devis detaille.']
+  ];
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];
+    var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Un diagnostic reseau est un outil de vente puissant -- chaque anomalie est une opportunite commerciale. 2/ Expliquer les risques en consequences metier (perte de donnees, non-conformite RGPD) est plus efficace que le jargon. 3/ Proposer un plan en etapes rend le projet accessible.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M5(){
+  var cats=[
+    {t:"Architecture et equipements en place",qs:["Quel est votre operateur et quel type de liaison (fibre, ADSL, SDSL, 4G) ?","Avez-vous un firewall professionnel ou directement la box de l operateur en frontal ?","Quel est le modele et l age de votre switch principal ?","Est-il manageable (administration possible) ?","Combien de ports RJ45 disponibles vs utilises ?","Avez-vous des equipements alimentes en PoE (cameras, telephones IP, AP Wi-Fi) ?"]},
+    {t:"Wi-Fi et mobilite",qs:["Combien de points d acces Wi-Fi y a-t-il et ou sont-ils positionnes ?","Votre reseau Wi-Fi est-il segmente (employes / invites / IoT) ?","Les collaborateurs en teletravail utilisent-ils un VPN pour acceder au reseau ?","Y a-t-il des zones sans couverture Wi-Fi suffisante ?"]},
+    {t:"Adressage et services reseau",qs:["Avez-vous un serveur DHCP dedie ou c est la box qui distribue les IP ?","Vos serveurs et equipements critiques ont-ils des IP fixes ?","Avez-vous un Active Directory (annuaire utilisateurs centralise) ?","Vos serveurs sont-ils physiques ou virtualises ?","Avez-vous un plan d adressage reseau documente ?"]},
+    {t:"Points de vigilance securite",qs:["Quand le firmware de votre firewall a-t-il ete mis a jour pour la derniere fois ?","Avez-vous un systeme de supervision qui alerte en cas de panne d equipement ?","Le Wi-Fi invites donne-t-il acces au reseau interne ou uniquement a internet ?","Des equipements perimes ou hors support sont-ils encore utilises ?","Avez-vous eu des incidents reseau recemment (pannes, lenteurs, intrusions) ?"]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Grille d audit reseau -- Questions de decouverte</h3>';
+  html+='<p>Utilisez cette grille lors de vos visites terrain pour dresser un etat des lieux de l infrastructure reseau client. Chaque anomalie identifiee est une opportunite commerciale ET une responsabilite de conseil.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">Un audit reseau complet justifie une prestation facturee. C est aussi le meilleur outil de fidelisation : le client qui vous confie l audit de son reseau vous confiera les projets qui en decoulent.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M5(){
+  var blocks=[
+    {titre:"Accroche : le diagnostic qui ouvre les yeux",body:"'Pouvez-vous me montrer votre armoire reseau ?' -- Dans 70% des PME, cette question aboutit a un placard avec un enchevetre de cables, une box operateur en frontal, et un switch non manageable qui date de 7 ans. Le diagnostic visuel est plus puissant que tout argumentaire."},
+    {titre:"Les 5 signaux d alarme qui declenchent un projet",body:"<p>- <strong>Box operateur en frontal reseau</strong> : pas de firewall professionnel = porte ouverte aux intrusions. Risque immediat, correction urgente.</p>"
+    + "<p>- <strong>Switch non manageable ou 100 Mbps</strong> : performances degradees, impossible de creer des VLAN, pas de supervision.</p>"
+    + "<p>- <strong>Wi-Fi unique non segmente</strong> : les invites sur le meme reseau que les serveurs. Non-conformite RGPD, risque de propagation de malware.</p>"
+    + "<p>- <strong>Serveur avec IP dynamique (DHCP)</strong> : l IP change a chaque redemarrage, les postes ne trouvent plus le serveur, les sauvegardes echouent.</p>"
+    + "<p>- <strong>Pas de VPN pour le teletravail</strong> : les collaborateurs se connectent en clair sur internet depuis des hotspots Wi-Fi publics.</p>"},
+    {titre:"L argumentaire selon le profil decideur",body:"<p>- <strong>Face au gerant / DAF</strong> : un incident reseau coute en moyenne 3 000 a 15 000 euros pour une PME. La mise a niveau cible 4 500 euros -- moins d une journee d arret d activite.</p>"
+    + "<p>- <strong>Face au responsable informatique interne</strong> : le switch manageable vous donne la visibilite port par port, les VLAN et les alertes automatiques.</p>"
+    + "<p>- <strong>Face au directeur</strong> : la segmentation Wi-Fi invites vous met en conformite RGPD. Vos clients ne peuvent plus acceder, meme involontairement, a vos fichiers.</p>"},
+    {titre:"Closing : le plan par etapes",body:"Proposez systematiquement un plan en 3 etapes pour rendre le projet accessible. Etape 1 : securite urgente (firewall professionnel). Etape 2 : performance (switch Gbps, Wi-Fi segmente). Etape 3 : services avances (VPN, supervision, VLAN). Chaque etape est facturee separement et produit des resultats visibles. Le client s engage progressivement."}
+  ];
+  var objections=[
+    {q:"Notre reseau fonctionne bien, on n a jamais eu de probleme.",a:"Un reseau vulnerable ne montre pas de symptomes AVANT l incident. Un ransomware peut rester dormant 200 jours avant de se declencher. La question n est pas si on a eu un probleme, mais si on est protege si ca arrive. Un audit de 2 heures repond a cette question."},
+    {q:"Notre informaticien gere ca.",a:"Votre informaticien intervient quand il y a un probleme. Un reseau bien architecture se supervise en continu : alertes automatiques, mises a jour de firmware, analyse du trafic. C est une infrastructure, pas une intervention ponctuelle."},
+    {q:"On a un petit budget pour le reseau.",a:"Le reseau est l infrastructure sur laquelle repose tout le reste -- messagerie, fichiers, ERP, sauvegarde. Un switch Gbps manageable pour 30 utilisateurs coutent 800 euros. Un firewall professionnel entre 600 et 1 500 euros. Derisoire face au cout d un incident."},
+    {q:"On va bientot passer tout en cloud, on n aura plus besoin de reseau.",a:"Le cloud amplifie le besoin reseau -- il ne le supprime pas. Plus vous etes en cloud, plus votre connexion internet et votre securite reseau sont critiques. Un firewall, un VPN et une bande passante correcte deviennent encore plus importants."}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Pitch commercial -- Audit et refonte reseau</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M5(){
+  var resources=[
+    {icon:'\u{1F4CA}',name:'Schema architecture reseau PME type',note:'Diagramme de reference : modem, firewall, switch, VLAN, Wi-Fi',url:'#'},
+    {icon:'\u{1F4CB}',name:'Grille d audit reseau -- version terrain',note:'Questionnaire complet a imprimer pour les visites client',url:'#'},
+    {icon:'\u{1F4C4}',name:'Les 5 signaux d alarme reseau',note:'Checklist des anomalies les plus courantes chez les PME',url:'#'},
+    {icon:'\u{1F4C4}',name:'Lexique reseau commercial',note:'IP, NAT, IPsec, VPN, VLAN, DNS, DHCP -- definitions accessibles',url:'#'},
+    {icon:'\u{1F4CA}',name:'Comparatif switch non manage vs manageable',note:'Argumentaire produit et tableau de differences',url:'#'},
+    {icon:'\u{1F4C4}',name:'Fiche : VPN pour les teletravailleurs',note:'Cas d usage, solutions, argumentaire securite',url:'#'},
+    {icon:'\u{1F4CB}',name:'Modele de rapport d audit reseau client',note:'Document de synthese a remettre apres audit terrain',url:'#'},
+    {icon:'\u{1F4CA}',name:'Guide VLAN : la segmentation pour les PME',note:'Pourquoi segmenter, comment presenter au client non technique',url:'#'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Ressources telechargeable</h3><p>Supports pour preparer et accompagner vos audits et projets reseau.</p><div class="resources-grid">';
   for(var i=0;i<resources.length;i++){
     var r=resources[i];
     var oc=r.url!=='#'?"window.open('"+r.url+"','_blank')":'alert("Ressource a charger par l administrateur.")';
