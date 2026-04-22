@@ -656,7 +656,7 @@ const MODULES = [
   {id:10,name:"Services IT externalisés",            family:2, available:true},
   {id:11,name:"DocPulse — simplification de la démat.", family:3, available:true},
   {id:12,name:"Les fondamentaux de la GED",          family:3, available:true},
-  {id:13,name:"Capture automatique de données",      family:3, available:false},
+  {id:13,name:"Capture automatique de données",      family:3, available:true},
   {id:14,name:"Formulaires",                         family:3, available:false},
   {id:15,name:"Notes de frais",                      family:3, available:false},
   {id:16,name:"Connecteurs (Chorus / PA / eSignature)", family:3, available:false},
@@ -933,12 +933,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===11 ? renderStep1_M11() : (S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()))))))))));
-  else if (step === 2) content.innerHTML = S.currentModule===11 ? renderStep2_M11() : (S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()))))))))));
-  else if (step === 3) content.innerHTML = S.currentModule===11 ? renderStep3_M11() : (S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()))))))))));
-  else if (step === 4) content.innerHTML = S.currentModule===11 ? renderStep4_M11() : (S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()))))))))));
-  else if (step === 5) content.innerHTML = S.currentModule===11 ? renderStep5_M11() : (S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()))))))))));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===11 ? QUESTIONS_M11 : (S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))))))))))); }
+  if      (step === 1) content.innerHTML = S.currentModule===13 ? renderStep1_M13() : (S.currentModule===11 ? renderStep1_M11() : (S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())))))))))));
+  else if (step === 2) content.innerHTML = S.currentModule===13 ? renderStep2_M13() : (S.currentModule===11 ? renderStep2_M11() : (S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())))))))))));
+  else if (step === 3) content.innerHTML = S.currentModule===13 ? renderStep3_M13() : (S.currentModule===11 ? renderStep3_M11() : (S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())))))))))));
+  else if (step === 4) content.innerHTML = S.currentModule===13 ? renderStep4_M13() : (S.currentModule===11 ? renderStep4_M11() : (S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())))))))))));
+  else if (step === 5) content.innerHTML = S.currentModule===13 ? renderStep5_M13() : (S.currentModule===11 ? renderStep5_M11() : (S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())))))))))));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===13 ? QUESTIONS_M13 : (S.currentModule===11 ? QUESTIONS_M11 : (S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))))))))))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -3938,6 +3938,253 @@ var QUESTIONS_M11=[
   {q:"Quelle est la cible commerciale principale de DocPulse ?",opts:["Grandes entreprises de +500 salariés","TPE, PME, collectivités, associations et professions libérales avec profils administratifs","Uniquement les cabinets médicaux","Développeurs et ingénieurs informatiques"],c:1,fb:"DocPulse cible exclusivement le B2B : TPE, PME, collectivités, associations et professions libérales, orienté vers les profils administratifs (secrétaires, comptables, responsables admin)."},
   {q:"Que se passe-t-il avec les données utilisateur lors d'une désinstallation de DocPulse ?",opts:["Toutes les données sont supprimées définitivement","Les données dans %APPDATA%\\DocPulse\\ sont préservées","Les règles sont sauvegardées dans le cloud","Les documents indexés sont déplacés vers un dossier de secours"],c:1,fb:"Lors de la désinstallation, les données utilisateur stockées dans %APPDATA%\\DocPulse\\ (settings.json, rules.json, base de données) sont préservées. Les règles et paramètres sont également conservés lors d'une mise à jour."}
 ];
+
+
+// ╔══════════════════════════════════════════════════════════╗
+// ║  MODULE 13 — CAPTURE AUTOMATIQUE DE DONNEES              ║
+// ╚══════════════════════════════════════════════════════════╝
+
+function renderStep1_M13(){
+  var chapitres=[
+    {t:"Qu'est-ce que la capture automatique de donnees ?",c:'<p>La <strong>capture automatique de donnees</strong> designe la capacite d\'un logiciel a lire un document numerise (PDF scan, PDF natif, email), a en extraire automatiquement les informations structurees (montants, dates, numeros, noms de fournisseurs, lignes articles...) et a les injecter dans un systeme informatique -- sans saisie manuelle.</p>'
+    +'<p>Chez IXEO, cette fonction est portee par deux composants OpenBee :</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">OpenBee Scan Capture</div><div class="info-val">Solution on-premise client/serveur. Installe sur un serveur Windows qui surveille des dossiers, interprete les documents et expose une console de videocodage pour validation manuelle des donnees capturees.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">OpenBee Smart Capture</div><div class="info-val">Addon OpenBee Portal. Version hebergee (cloud ou on-premise integree au portail). Meme moteur, accessible directement dans l\'interface web du portail, sans application supplementaire sur les postes utilisateurs.</div></div>'
+    +'</div>'
+    +'<div class="key-box">La difference essentielle : Scan Capture necessite une installation serveur Windows et une application console sur les postes. Smart Capture est entierement web, accessible depuis n\'importe quel navigateur, et s\'installe comme un addon dans OpenBee Portal. Smart Capture est aujourd\'hui la reference recommandee pour les nouveaux deploiements.</div>'},
+    {t:"Les chiffres cles qui justifient la solution",c:'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">80 %</div><div class="info-val">des factures fournisseurs sont encore recues au format papier en France (source : OpenBee).</div></div>'
+    +'<div class="info-item"><div class="info-lbl">13,8 EUR</div><div class="info-val">cout moyen de traitement manuel d\'une facture papier (saisie, verification, circuit d\'approbation, archivage).</div></div>'
+    +'<div class="info-item"><div class="info-lbl">8,6 jours</div><div class="info-val">delai moyen de gestion d\'une facture de la reception au paiement sans automatisation.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">divise par 5</div><div class="info-val">le delai de traitement d\'une facture avec la solution OpenBee Scan Capture.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">- 60 %</div><div class="info-val">de reduction du cout de gestion des factures fournisseurs apres deploiement.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">20 h/semaine</div><div class="info-val">gagnees par le service comptable -- cas client reel (Garnier Thiebaut, responsable informatique).</div></div>'
+    +'</div>'
+    +'<div class="warn-box">Ces chiffres sont vos arguments de vente prioritaires. Memorisez-les : 13,8 EUR par facture manuelle, delai divise par 5, 60 % de reduction des couts. Ils permettent de calculer le ROI devant le client en moins de 2 minutes.</div>'},
+    {t:"Architecture technique -- Scan Capture (on-premise)",c:'<p>OpenBee Scan Capture repose sur une <strong>architecture client/serveur</strong> composee de deux couches :</p>'
+    +'<div class="q-category"><div class="q-cat-title">Back-end : Open Bee Scan Capture Server</div><div class="q-list">'
+    +'<div class="q-item">Surveille un ou plusieurs dossiers Windows (Hot Folders) dans lesquels les factures PDF sont deposees (depuis un scanner, un MFP, ou un email).</div>'
+    +'<div class="q-item">Interprete automatiquement les documents via OCR, LAD/RAD et algorithmes de machine learning. Le processus est entierement automatique apres numerisation.</div>'
+    +'<div class="q-item">Fonctionne en tant que <strong>service Windows</strong> (en tache de fond, sans intervention utilisateur).</div>'
+    +'<div class="q-item">Necessite : <strong>Open Bee Scan Capture Server</strong> + <strong>Open Bee Cluster AGGREGATOR</strong>.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Interfaces utilisateurs</div><div class="q-list">'
+    +'<div class="q-item"><strong>Open Bee Smart Capture (addon Portal)</strong> : module installe directement dans OpenBee Portal. Permet de videocoquer les factures interpetees sans application supplementaire. Acces web depuis n\'importe quel navigateur.</div>'
+    +'<div class="q-item"><strong>Open Bee Scan Capture Console</strong> : application installee sur les postes des utilisateurs (version classique). Permet de videocoquer les factures interpretees par le serveur.</div>'
+    +'</div></div>'
+    +'<div class="key-box">Pour les nouveaux deploiements, utiliser exclusivement l\'addon Smart Capture -- c\'est la reference recommandee par OpenBee. Il permet un deploiement plus rapide, plus simple, sans erreur, et sans installation sur les postes utilisateurs.</div>'},
+    {t:"Le processus en 6 etapes -- de la facture papier a la comptabilite",c:'<p>Voici le flux complet d\'une facture fournisseur traitee par OpenBee Scan Capture :</p>'
+    +'<div class="q-category"><div class="q-cat-title">Etape 1 -- Capture</div><div class="q-list">'
+    +'<div class="q-item">La facture papier est numerisee (scanner, MFP) ou recue par email. Le fichier PDF est depose dans le dossier surveille par le serveur Scan Capture. Les factures electroniques natives (PDF Word, XML...) sont egalement acceptees.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Etape 2 -- Reconnaissance automatique</div><div class="q-list">'
+    +'<div class="q-item">Le serveur Scan Capture interprete automatiquement le document : OCR du contenu, identification du fournisseur, extraction des donnees cles (en-tete, pied de page, lignes articles), calcul des montants HT/TVA/TTC. L\'IA s\'ameliore a chaque document traite (machine learning).</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Etape 3 -- Videocodage (controle humain)</div><div class="q-list">'
+    +'<div class="q-item">L\'utilisateur ouvre la console Smart Capture (ou Scan Capture Console). Il voit la facture d\'un cote, les donnees extraites de l\'autre. Il verifie, corrige si necessaire, et valide. Multi-utilisateurs, multi-dossiers comptables simultanement. Cette etape peut etre ignoree si le taux de reconnaissance est suffisant.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Etape 4 -- Circuit de validation (workflow)</div><div class="q-list">'
+    +'<div class="q-item">Declenchement automatique du circuit de validation electronique. La facture est routee vers les approbateurs concernes (responsable de service, directeur financier...). Notifications automatiques. Suivi en temps reel du bon a payer.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Etape 5 -- Integration comptable</div><div class="q-list">'
+    +'<div class="q-item">Les ecritures comptables sont generees automatiquement et exportees vers le progiciel comptable du client (Sage, Cegid, EBP, Wavesoft et autres). Compatible avec tous les ERP via parametrage du format d\'export.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Etape 6 -- Archivage securise</div><div class="q-list">'
+    +'<div class="q-item">Les documents sont archives dans le coffre-fort electronique OpenBee, certifie NF LOGICIEL (AFNOR). La Piste d\'Audit Fiable (PAF) est automatiquement constituee : trace chronologique et probatoire de tous les documents lies a la commande (bon de commande, bon de livraison, facture, preuve de paiement).</div>'
+    +'</div></div>'},
+    {t:"Les technologies de reconnaissance -- moteur intelligent",c:'<p>OpenBee Smart Capture repose sur un ensemble de technologies complementaires pour garantir un taux de reconnaissance eleve, meme sur des documents complexes ou mal scannes :</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">OCR</div><div class="info-val">Reconnaissance optique de caracteres -- extrait le texte de tout document image ou PDF scanne.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">LAD / RAD</div><div class="info-val">Lecture Automatique de Documents / Reconnaissance Automatique de Documents. Identifie le type de document et localise automatiquement les zones d\'information (numero de facture, date, totaux).</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Code-barres / QR Code</div><div class="info-val">Lecture des codes-barres et QR codes pour extraction instantanee des references produits ou de l\'identifiant fournisseur.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Machine Learning / Deep Learning</div><div class="info-val">Le moteur s\'ameliore en continu. Plus il traite de documents d\'un fournisseur, plus il est precis. Il s\'autocorrige et apprend des corrections des operateurs.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Analyse semantique</div><div class="info-val">Comprend le contexte des informations extraites pour distinguer une date de facture d\'une date de livraison, ou un sous-total d\'un total TTC.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Database Look Up</div><div class="info-val">Rapprochement automatique avec la base de donnees du client : identification du fournisseur dans le plan comptable, verification de la coherence des montants, rapprochement bon de commande / bon de livraison / facture.</div></div>'
+    +'</div>'
+    +'<div class="key-box">3 millions de factures fournisseurs sont actuellement gerees par la solution OpenBee Capture au sein de services comptables et financiers en France et a l\'international (source : OpenBee).</div>'},
+    {t:"Fonctionnalites avancees -- au-dela des factures fournisseurs",c:'<p>OpenBee Smart Capture ne se limite pas aux factures. C\'est une solution de capture <strong>multi-documents</strong> capable de traiter tous types de documents structures et semi-structures :</p>'
+    +'<div class="info-grid">'
+    +'<div class="info-item"><div class="info-lbl">Capture des lignes articles</div><div class="info-val">Extraction non seulement de l\'en-tete et du pied de page, mais aussi de chaque ligne de detail : reference produit, quantite, prix unitaire, montant. Essentiel pour le rapprochement commande/livraison/facture.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Index de coherence</div><div class="info-val">Controle dynamique de la conformite : la solution verifie automatiquement que les montants de la facture correspondent aux bons de commande et bons de livraison enregistres dans l\'ERP. Indicateur visuel de conformite pour l\'operateur.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Multi-documents</div><div class="info-val">Bons de commande, bons de livraison, contrats, courriers, formulaires de reclamation clients, documents RH... Tous les types de documents de l\'entreprise sont geres avec classement automatique.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Traitement par lots</div><div class="info-val">Possibilite de traiter et de redecouper des lots de documents a la volee (outils integres de separation de pages).</div></div>'
+    +'<div class="info-item"><div class="info-lbl">REGEX et modeles</div><div class="info-val">Affinage de la reconnaissance avec des regles d\'expressions regulieres (REGEX). Creation de modeles par fournisseur pour une reconnaissance personnalisee et reproductible.</div></div>'
+    +'<div class="info-item"><div class="info-lbl">Facture electronique 2026</div><div class="info-val">Compatible avec la reforme de la facturation electronique obligatoire en France (formats Factur-X, UBL, CII). OpenBee est Plateforme de Dematerialisation Partenaire (PDP) agreeee.</div></div>'
+    +'</div>'},
+    {t:"Lexique technique -- les termes a connaitre",c:'<div class="q-category"><div class="q-cat-title">Videocodage</div><div class="q-list">'
+    +'<div class="q-item">Action de verification et de correction manuelle des donnees extraites automatiquement par le moteur de reconnaissance. L\'operateur voit cote a cote la facture et les champs remplis par l\'IA, et valide ou corrige chaque information avant export comptable. C\'est la phase de controle qualite humain dans le processus automatise.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">LAD / RAD</div><div class="q-list">'
+    +'<div class="q-item"><strong>LAD (Lecture Automatique de Documents)</strong> : technologie qui identifie automatiquement le type d\'un document (facture, bon de commande, contrat...) sans intervention humaine.</div>'
+    +'<div class="q-item"><strong>RAD (Reconnaissance Automatique de Documents)</strong> : technologie qui localise et extrait automatiquement les zones d\'information cles sur un document, selon son type identifie par la LAD.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Piste d\'Audit Fiable (PAF)</div><div class="q-list">'
+    +'<div class="q-item">Obligation fiscale francaise : les entreprises assujetties a la TVA doivent pouvoir prouver la realite et le chemin de chaque transaction. La PAF exige de conserver une trace chronologique et probatoire de tous les documents lies a une commande (bon de commande, bon de livraison, facture, preuve de paiement). OpenBee la constitue automatiquement.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Coffre-fort electronique (CFE)</div><div class="q-list">'
+    +'<div class="q-item">Composant d\'archivage a valeur probatoire, certifie NF LOGICIEL par l\'AFNOR. Garantit l\'integrite, la confidentialite et l\'accessibilite des documents sur le long terme, conformement aux exigences legales francaises.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Hot Folder (dossier surveille)</div><div class="q-list">'
+    +'<div class="q-item">Repertoire Windows surveille en permanence par le serveur Scan Capture. Tout document PDF depose dans ce dossier est automatiquement pris en charge pour interpretation et traitement. C\'est le point d\'entree du flux documentaire.</div>'
+    +'</div></div>'
+    +'<div class="q-category"><div class="q-cat-title">Plan comptable et dossiers comptables</div><div class="q-list">'
+    +'<div class="q-item">Smart Capture permet d\'importer le plan comptable de chaque dossier comptable (par fichier ou requetage SQL). La solution peut gerer plusieurs dossiers comptables simultanement -- par exemple, un cabinet comptable gerant plusieurs societes clientes depuis une seule interface.</div>'
+    +'</div></div>'}
+  ];
+  var html='<div class="step-panel">';
+  for(var i=0;i<chapitres.length;i++){
+    html+='<div class="chapter"><div class="ch-hd"><span>'+chapitres[i].t+'</span><span class="ch-toggle">▼</span></div><div class="ch-body"><div class="content-section">'+chapitres[i].c+'</div></div></div>';
+  }
+  html+=stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M13(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation -- Le responsable comptable deborde</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div><div class="scenario-context">Vous rendez visite a M. Sauvaire, directeur administratif et financier d\'une PME industrielle de 45 salaries. Son service comptable de 3 personnes traite environ 400 factures fournisseurs par mois. Vous etes venu pour presenter le renouvellement du contrat de maintenance de leurs deux MFP. En arrivant, vous observez : des piles de factures papier sur les bureaux, un tableau blanc avec des post-its de suivi de paiements, et l\'une des comptables en train de ressaisir des donnees d\'une facture dans Sage.</div></div>';
+  var bubbles=[
+    ['comm','V','Vous','M. Sauvaire, je vous vois avec de nombreuses factures en cours. Est-ce que le traitement comptable est entierement manuel chez vous ?'],
+    ['cli','S','M. Sauvaire','Oui, malheureusement. On recoit environ 400 factures par mois, principalement par courrier et par email. Sophie les scanne, les saisit dans Sage, puis les fait valider par les responsables de service. C\'est chronophage et les erreurs de saisie nous coutent cher.'],
+    ['comm','V','Vous','Combien de temps passe votre equipe sur cette seule tache de traitement des factures fournisseurs chaque semaine ?'],
+    ['cli','S','M. Sauvaire','Facilement 15 a 20 heures. Entre la saisie, les relances pour validation, les corrections d\'erreurs... c\'est presque un mi-temps. Et avec la reforme de la facturation electronique en 2026, on va devoir revoir tout ca de toute facon.'],
+    ['comm','V','Vous','C\'est exactement pour ca que je voulais vous parler aujourd\'hui. On a une solution qui automatise tout ce processus -- de la reception de la facture jusqu\'a l\'ecriture comptable dans Sage. Elle s\'appelle OpenBee Scan Capture. Est-ce que je peux vous expliquer comment ca fonctionne ?'],
+    ['cli','S','M. Sauvaire','Je vous ecoute, mais on a deja regarde des solutions et c\'etait soit trop cher, soit trop complexe a parametrer.'],
+    ['comm','V','Vous','La difference avec OpenBee, c\'est que le moteur apprend. La premiere fois qu\'il voit une facture d\'un fournisseur, il l\'interprete et votre comptable verifie en videocodage -- ca prend 30 secondes. La dixieme fois, le taux de reconnaissance est proche de 100 % et la validation peut meme etre automatique. En clair : sur vos 400 factures mensuelles, vous pourrez traiter les 350 factures habituelles de facon quasi-automatique, et intervenir manuellement uniquement sur les 50 nouveaux fournisseurs ou les anomalies.'],
+    ['cli','S','M. Sauvaire','Et l\'integration avec Sage, elle est native ?'],
+    ['comm','V','Vous','Oui, Sage fait partie des connecteurs standards d\'OpenBee. Le plan comptable est importe directement depuis Sage. Les ecritures generees sont exportees au format que Sage attend, sans aucune ressaisie. Et la solution constitue automatiquement votre Piste d\'Audit Fiable -- ce qui vous met en conformite avec les exigences fiscales actuelles ET avec la reforme 2026.'],
+    ['cli','S','M. Sauvaire','Le cout de mise en oeuvre, c\'est quoi ?'],
+    ['comm','V','Vous','Faisons le calcul ensemble. Actuellement : 400 factures a 13,80 euros de cout moyen de traitement manuel, ca fait 5 520 euros par mois. Avec la solution, on vise 60 % de reduction de ces couts -- soit une economie de plus de 3 300 euros par mois. Le retour sur investissement est generalement atteint en moins de 6 mois. Je vous prepare une etude chiffree precise avec votre volume.']
+  ];
+  html+='<div class="dialogue">';
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Observer avant de parler -- la comptable qui ressaisit est le signal declencheur parfait. 2/ Quantifier le temps perdu avant de presenter la solution. 3/ Calculer le ROI en direct avec les chiffres du client (400 x 13,80 EUR = argument immediat). 4/ La conformite 2026 est un accelerateur de decision : le client doit agir de toute facon.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M13(){
+  var cats=[
+    {t:"Qualification du processus actuel",qs:[
+      "Combien de factures fournisseurs recevez-vous par mois, et dans quels formats (papier, email PDF, EDI) ?",
+      "Combien de personnes dans votre service comptable traitent les factures fournisseurs, et combien d\'heures y consacrent-elles par semaine ?",
+      "Quel est votre progiciel comptable actuel (Sage, Cegid, EBP, autre) ? Avez-vous un ERP ou un logiciel de gestion commerciale ?",
+      "Comment se deroule actuellement votre circuit de validation des factures avant paiement ?"
+    ]},
+    {t:"Identification des douleurs et couts caches",qs:[
+      "Avez-vous deja eu des penalites pour retard de paiement liees a un traitement trop lent de vos factures fournisseurs ?",
+      "Avez-vous deja rate une remise pour paiement anticipe parce que la facture etait encore en circuit de validation ?",
+      "Combien d\'erreurs de saisie comptable estimez-vous par mois, et quel est le cout de leur correction ?",
+      "Avez-vous deja eu des difficultes lors d\'un controle fiscal a retrouver l\'ensemble des documents lies a une commande (bon de commande, BL, facture, preuve de paiement) ?"
+    ]},
+    {t:"Qualification technique et infrastructure",qs:[
+      "Vos factures scannees sont deposees ou actuellement -- dans un dossier reseau, directement dans votre ERP, dans votre messagerie ?",
+      "Utilisez-vous deja OpenBee Portal ou un autre systeme de GED ?",
+      "Avez-vous des MFP reseau capables de scanner vers un dossier ou une adresse email ? Quels modeles ?",
+      "Combien de dossiers comptables ou de societes distinctes gerez-vous dans votre systeme ?"
+    ]},
+    {t:"Projection ROI et ouverture commerciale",qs:[
+      "Si on divisait par 5 le temps de traitement de chaque facture, quelle serait l\'impact sur votre service et vos relations fournisseurs ?",
+      "Etes-vous deja prepare a la reforme de la facturation electronique obligatoire prevue en 2026 ?",
+      "Avez-vous deja une solution de Piste d\'Audit Fiable en place, ou est-ce un sujet que vous devrez adresser prochainement ?",
+      "Seriez-vous interesse par une etude de retour sur investissement personnalisee basee sur votre volume reel de factures ?"
+    ]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Grille de decouverte -- Capture automatique OpenBee</h3>';
+  html+='<p>Utilisez cette grille pour qualifier le volume documentaire, identifier les couts caches du traitement manuel, verifier la compatibilite technique et construire un ROI personnalise.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">La question sur les penalites de retard ou les remises manquees est souvent la plus impactante. Un DAF qui a perdu 2 000 EUR de remise fournisseur parce que la facture etait bloquee en validation signe le jour meme.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M13(){
+  var blocks=[
+    {titre:"L\'accroche ROI : le calcul en direct",body:'<p>Avant de montrer le produit, posez la question et faites le calcul :</p>'
+    +'<p>"Vous recevez X factures par mois. Le cout moyen de traitement manuel d\'une facture est de 13,80 euros -- saisie, verification, circuit de validation, archivage. Ca fait X x 13,80 = Y euros par mois depenses en taches a faible valeur ajoutee. Avec OpenBee Scan Capture, nos clients reduisent ce cout de 60 %. Soit une economie de Y x 0,60 = Z euros par mois. Le ROI est generalement atteint en 4 a 6 mois."</p>'
+    +'<div class="key-box">Sortez votre calculatrice, faites le calcul devant le client avec ses propres chiffres. C\'est beaucoup plus puissant qu\'un tableau de ROI generique.</div>'},
+    {titre:"La demonstration en 4 actes",body:'<p><strong>Acte 1 -- Le chaos actuel :</strong> Demandez au client de decrire sa journee type de traitement de factures. Laissez-le parler. Chaque etape manuelle qu\'il decrit est un argument pour la solution.</p>'
+    +'<p><strong>Acte 2 -- La capture automatique :</strong> Montrez une facture PDF deposee dans le dossier surveille. En quelques secondes, le moteur extrait le nom du fournisseur, la date, le numero, le montant HT, la TVA, le TTC et les lignes articles. La comptable n\'a plus qu\'a valider en 30 secondes.</p>'
+    +'<p><strong>Acte 3 -- Le videocodage :</strong> Montrez l\'interface Smart Capture -- la facture a gauche, les champs extraits a droite. L\'operateur verifie, clique sur Valider. L\'ecriture comptable est generee et exportee vers Sage automatiquement.</p>'
+    +'<p><strong>Acte 4 -- L\'archivage et la PAF :</strong> Montrez le document archive dans OpenBee Portal avec sa trace chronologique complete. "En cas de controle fiscal, voici comment vous retrouvez en 10 secondes le bon de commande, le bon de livraison, la facture et la preuve de paiement -- votre Piste d\'Audit Fiable est constituee automatiquement."</p>'},
+    {titre:"SONCAS adapte a OpenBee Scan Capture",body:'<p><strong>Securite :</strong> "Votre Piste d\'Audit Fiable est constituee automatiquement. Vos documents sont archives dans un coffre-fort electronique certifie AFNOR. En cas de controle fiscal, vous etes couverts."</p>'
+    +'<p><strong>Orgueil :</strong> "3 millions de factures fournisseurs sont actuellement gerees par OpenBee en France. Vos concurrents qui ont automatise leur comptabilite fournisseurs traitent leurs factures 5 fois plus vite et negocient de meilleures conditions avec leurs fournisseurs."</p>'
+    +'<p><strong>Nouveaute :</strong> "OpenBee est Plateforme de Dematerialisation Partenaire agreeee pour la reforme de la facturation electronique 2026. Vous n\'aurez pas a chercher une autre solution dans 18 mois."</p>'
+    +'<p><strong>Confort :</strong> "Votre comptable ne ressaisit plus rien. Elle charge la facture, verifie en 30 secondes, clique sur Valider. Le reste est automatique."</p>'
+    +'<p><strong>Argent :</strong> "60 % de reduction du cout de traitement. 20 heures gagnees par semaine par service comptable -- c\'est ce que temoigne Garnier Thiebaut. Le ROI est atteint en moins de 6 mois dans la plupart des cas."</p>'
+    +'<p><strong>Sympathie :</strong> "IXEO deploie et configure la solution. On est la pour le parametrage de vos modeles fournisseurs, la formation de votre equipe et le support au quotidien. Vous n\'etes pas seul face a un editeur logiciel."</p>'},
+    {titre:"Le closing : l\'etude ROI personnalisee",body:'<p>"Je vous propose de vous preparer une etude de retour sur investissement basee sur vos chiffres reels : volume de factures mensuel, nombre de personnes impliquees, temps passe, progiciel comptable. On la revoit ensemble lors d\'un prochain rendez-vous, avec une demonstration sur des factures reelles de vos fournisseurs habituels. Est-ce que vous pouvez me communiquer votre volume mensuel et la liste de vos 5 principaux fournisseurs pour que je puisse preparer quelque chose de concret ?"</p>'
+    +'<div class="key-box">Demander les 5 principaux fournisseurs sert a preparer la demo sur des documents reels du client. C\'est le meme principe que la licence d\'essai DocPulse : quand le client voit ses propres donnees traitees automatiquement, la decision est prise.</div>'}
+  ];
+  var objections=[
+    {q:'"On gere bien avec Excel et nos process actuels."',a:'On l\'entend souvent. Faisons le calcul ensemble : combien d\'heures par semaine votre equipe passe-t-elle sur les factures fournisseurs ? A 35 EUR de cout horaire moyen, ces heures representent combien par mois ? Le passage a OpenBee vous coutera moins cher que ce que vous depensez actuellement en taches manuelles.'},
+    {q:'"Notre ERP gere deja les factures fournisseurs."',a:'Les ERP gerent la comptabilite, pas la capture. Votre ERP sait enregistrer une ecriture comptable, mais c\'est votre comptable qui saisit les donnees de la facture a la main avant. OpenBee s\'integre a votre ERP et l\'alimente automatiquement -- il n\'est pas en competition avec lui, il le complete.'},
+    {q:'"On attend la reforme 2026 pour revoir notre processus."',a:'La reforme impose aux entreprises de RECEVOIR des factures electroniques des septembre 2026 -- pas seulement d\'en emettre. Si vous n\'avez pas de plateforme agreee en place avant cette date, vous serez en infraction. Et un deploiement de ce type prend 3 a 6 mois. Si vous commencez maintenant, vous etes prets a temps -- et vous profitez des benefices pendant 18 mois avant l\'echeance.'},
+    {q:'"C\'est trop cher pour notre taille."',a:'La solution est adaptee a votre structure. Et le cout se calcule par rapport aux economies generees, pas en valeur absolue. Sur 200 factures par mois a 13,80 EUR, vous depensez 2 760 EUR par mois en traitement manuel. Une economie de 60 % represente 1 650 EUR par mois -- soit 19 800 EUR par an. Le ROI de la solution est atteint en quelques mois.'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Pitch commercial -- OpenBee Scan Capture / Smart Capture</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M13(){
+  var resources=[
+    {icon:'📄',name:'Fiche produit -- Dematerialisation factures fournisseurs OpenBee',note:'Arguments, chiffres cles, processus en 6 etapes, avantages',url:'https://contenu.openbee.com/fiche-produit-dematerailisation-des-factures-fournisseurs'},
+    {icon:'📊',name:'Infographie -- Focus sur la capture intelligente',note:'Chiffres AIIM : 72 %, 68 %, 70 %, 82 %, 65 %, 83 %, 64 %, 68 %',url:'https://contenu.openbee.com/infographie-intelligent-capture'},
+    {icon:'📊',name:'Calculateur ROI factures fournisseurs OpenBee',note:'Calcul automatique des economies selon le volume de factures',url:'https://www.openbee.com/cas-usages/dematerialisation-factures-fournisseurs/'},
+    {icon:'📋',name:'Grille de decouverte terrain -- Scan Capture',note:'Version imprimable de l\'etape 3',url:'#'},
+    {icon:'🎬',name:'Demo video OpenBee Scan Capture',note:'Processus complet de la numerisation a l\'ecriture comptable',url:'https://www.youtube.com/watch?v=oK__Z6wR3Ls'},
+    {icon:'📄',name:'Fiche produit Smart Capture',note:'Module addon OpenBee Portal -- version hebergee',url:'https://contenu.openbee.com/fiche-produit-smart-capture'},
+    {icon:'📄',name:'Documentation technique OpenBee Scan Capture',note:'Architecture, installation, composants serveur',url:'https://help.openbee.com/fr/open-bee-scan-capture/'},
+    {icon:'🌐',name:'Page capture intelligente -- OpenBee',note:'www.openbee.com',url:'https://www.openbee.com/plateforme-globale/numerisation-documents/'}
+  ];
+  var html='<div class="step-panel"><div class="content-section"><h3>Ressources disponibles</h3><p>Supports pour preparer et accompagner vos rendez-vous autour de la capture automatique de donnees OpenBee.</p><div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!=='#'?'window.open(\''+r.url+'\',\'_blank\')':'alert(\'Ressource disponible sur le drive partage IXEO ou aupres de votre responsable.\')';
+    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box" style="margin-top:1.25rem;">Conseil : utilisez le calculateur ROI en ligne d\'OpenBee en rendez-vous client. Entrez le volume reel de factures et montrez les economies en temps reel. C\'est l\'outil de closing le plus efficace de la gamme.</div>';
+  html+='</div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+var QUESTIONS_M13=[
+  {q:"Quelle est la difference principale entre OpenBee Scan Capture et OpenBee Smart Capture ?",opts:["Scan Capture est cloud, Smart Capture est on-premise","Scan Capture est une solution client/serveur Windows avec console installee sur les postes ; Smart Capture est un addon web integre directement dans OpenBee Portal","Scan Capture traite uniquement les factures, Smart Capture traite tous types de documents","Il n\'y a aucune difference, ce sont deux noms pour le meme produit"],c:1,fb:"Scan Capture est une architecture client/serveur classique (serveur Windows + application console sur les postes). Smart Capture est l'addon web integre au portail OpenBee, accessible depuis n'importe quel navigateur sans installation supplementaire. Smart Capture est aujourd'hui la reference recommandee pour les nouveaux deploiements."},
+  {q:"Quel est le cout moyen de traitement manuel d'une facture fournisseur papier ?",opts:["3,50 EUR","8,60 EUR","13,80 EUR","27,00 EUR"],c:2,fb:"Le cout moyen de traitement manuel d'une facture fournisseur papier est de 13,80 EUR (source : OpenBee). Ce chiffre inclut la saisie, la verification, le circuit de validation et l'archivage. C'est l'argument de base pour calculer le ROI devant le client."},
+  {q:"De combien OpenBee Scan Capture reduit-il le cout de gestion des factures fournisseurs ?",opts:["20 %","40 %","60 %","80 %"],c:2,fb:"OpenBee Scan Capture permet de reduire de 60 % le cout de gestion des factures fournisseurs. En complement, le delai de traitement d'une facture est divise par 5."},
+  {q:"Combien de factures fournisseurs sont actuellement gerees par la solution OpenBee Capture ?",opts:["100 000","500 000","3 millions","10 millions"],c:2,fb:"3 millions de factures fournisseurs sont actuellement gerees par la solution OpenBee Capture au sein de services comptables et financiers en France et a l'international (source : OpenBee)."},
+  {q:"Qu'est-ce que le videocodage dans le contexte d'OpenBee Scan Capture ?",opts:["L\'operation de numerisation des factures papier via un scanner","La verification et correction manuelle par l\'operateur des donnees extraites automatiquement par le moteur OCR/IA, avant export comptable","L\'export des ecritures comptables vers le progiciel","L\'archivage des factures dans le coffre-fort electronique"],c:1,fb:"Le videocodage est la phase de controle qualite humain. L'operateur voit cote a cote la facture (image) et les donnees extraites automatiquement par le moteur (champs remplis). Il verifie, corrige si necessaire, et valide. Cette etape peut etre partiellement ou totalement automatisee quand le taux de reconnaissance est suffisant."},
+  {q:"Quelles technologies de reconnaissance utilise OpenBee Smart Capture ?",opts:["Uniquement l\'OCR classique","OCR, LAD/RAD, codes-barres/QR codes, machine learning, deep learning et analyse semantique","OCR et code-barres uniquement","Intelligence artificielle generative uniquement"],c:1,fb:"OpenBee Smart Capture utilise un ensemble complet de technologies : OCR, LAD/RAD (Lecture et Reconnaissance Automatique de Documents), codes-barres, QR codes, machine learning, deep learning et algorithmes d'analyse semantique. Cette combinaison garantit un taux de reconnaissance eleve sur tous types de documents."},
+  {q:"Qu'est-ce que la Piste d'Audit Fiable (PAF) ?",opts:["Un rapport de performance du service comptable","Une obligation fiscale francaise : trace chronologique et probatoire de tous les documents lies a une transaction commerciale (BC, BL, facture, paiement)","Un systeme de detection de fraudes comptables","Un format d\'export pour les ecritures comptables"],c:1,fb:"La Piste d'Audit Fiable est une obligation fiscale pour les entreprises assujetties a la TVA. Elle exige de conserver une trace chronologique et probatoire de tous les documents lies a chaque commande fournisseur. OpenBee la constitue automatiquement lors du traitement des factures."},
+  {q:"Quel composant est OBLIGATOIRE pour installer un serveur Scan Capture ?",opts:["Open Bee Smart Capture uniquement","Open Bee Scan Capture Server + Open Bee Cluster AGGREGATOR","Open Bee Portal + Open Bee Scan Capture Console","Open Bee Scan Capture Server uniquement"],c:1,fb:"Pour installer un serveur Scan Capture, deux composants sont necessaires : Open Bee Scan Capture Server (moteur d'interpretation) ET Open Bee Cluster AGGREGATOR. Ces deux elements constituent le back-end de la solution."},
+  {q:"Combien de jours en moyenne faut-il pour gerer une facture fournisseur de la reception au paiement sans automatisation ?",opts:["2,5 jours","4,2 jours","8,6 jours","12,3 jours"],c:2,fb:"Sans automatisation, le delai moyen de gestion d'une facture fournisseur de la reception au paiement est de 8,6 jours. Avec OpenBee Scan Capture, ce delai est divise par 5."},
+  {q:"Quelle est la certification du coffre-fort electronique OpenBee ?",opts:["ISO 27001","RGPD Compliance","NF LOGICIEL (AFNOR)","SOC 2 Type II"],c:2,fb:"Le coffre-fort electronique OpenBee est certifie NF LOGICIEL par l'AFNOR. Cette certification garantit la valeur probatoire des documents archives, conformement aux exigences legales francaises."},
+  {q:"Qu'est-ce que la fonctionnalite d'index de coherence dans OpenBee Scan Capture ?",opts:["Un tableau de bord de suivi des factures en attente de validation","Un controle automatique qui verifie que les montants de la facture correspondent aux bons de commande et bons de livraison enregistres dans l\'ERP","Un systeme de classement des fournisseurs par score de fiabilite","Un outil de detection des doublons de factures"],c:1,fb:"L'index de coherence permet un controle dynamique et precis : la solution verifie automatiquement que les informations de la facture (quantites, montants, references) correspondent aux bons de commande et bons de livraison dans le systeme de gestion. L'operateur voit un indicateur visuel de conformite."},
+  {q:"Pour la reforme de la facturation electronique obligatoire en France, quelle est l'echeance cle ?",opts:["1er janvier 2025","1er septembre 2026","1er janvier 2027","La reforme n\'a pas encore de date precise"],c:1,fb:"A partir du 1er septembre 2026, toutes les entreprises -- quelle que soit leur taille -- devront etre en mesure de recevoir des factures electroniques. OpenBee est Plateforme de Dematerialisation Partenaire (PDP) agreee et propose les formats requis : Factur-X, UBL, CII."},
+  {q:"Avec quels progiciels comptables OpenBee Scan Capture est-il compatible ?",opts:["Uniquement Sage","Sage, Cegid et EBP uniquement","Sage, Cegid, EBP, Wavesoft et tous ERP via parametrage du format d\'export","Uniquement les ERP disposant d\'une API REST"],c:2,fb:"OpenBee Scan Capture est compatible avec tous les progiciels comptables majeurs : Sage, Cegid, EBP, Wavesoft, et tout autre ERP via le parametrage du format d'export. Le plan comptable est importe directement depuis le progiciel (par fichier ou requetage SQL)."},
+  {q:"Quel pourcentage des entreprises considerent que la capture intelligente doit etre un element cle de leur transformation digitale ?",opts:["45 %","58 %","70 %","85 %"],c:2,fb:"70 % des organisations considerent que la capture intelligente doit etre un element cle de leur transformation digitale (source : AIIM Best Practices). En complement, 68 % voient le lien direct entre capture intelligente et IA / Machine Learning."},
+  {q:"Quel gain hebdomadaire le service comptable de Garnier Thiebaut a-t-il realise avec OpenBee ?",opts:["5 heures par semaine","10 heures par semaine","20 heures par semaine","35 heures par semaine"],c:2,fb:"Le service comptable de Garnier Thiebaut a gagne 20 heures par semaine grace a OpenBee Scan Capture. Le responsable informatique Yoann Lutigneaux temoigne : la solution avait le meilleur rapport qualite/prix par rapport a toutes les fonctionnalites necessaires."}
+];
+
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => {
