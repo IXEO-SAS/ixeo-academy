@@ -1335,7 +1335,7 @@ async function loadAdminDashboard() {
     });
 
     S.adminData = (profiles || [])
-      .filter(u => u.id !== S.user.id) // exclure l'admin lui-même
+      .filter(u => u.role === 'user' || u.role === 'supervisor') // suivi : commerciaux + superviseurs
       .map(u => {
         const prog = matrix[u.id] || {};
         const modulesStarted = Object.keys(prog).length;
