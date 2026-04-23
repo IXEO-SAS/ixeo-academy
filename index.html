@@ -661,7 +661,7 @@ const MODULES = [
   {id:15,name:"Notes de frais",                      family:3, available:true},
   {id:16,name:"Reforme facture electronique (PA)", family:3, available:true},
   {id:17,name:"Connecteurs (Chorus / eSignature / eMail Capture)", family:3, available:true},
-  {id:18,name:"Modules compagnons (Gateway, Data Importer, Doc Office Manager)", family:3, available:false},
+  {id:18,name:"Modules compagnons (Gateway, Data Importer, Doc Office Manager)", family:3, available:true},
   {id:19,name:"DocFlow — gestionnaire de fonds de page", family:3, available:false},
 ];
 const FAMILY_NAMES = {1:'Outils de communication', 2:'Informatique & Réseau', 3:'Logiciels'};
@@ -934,12 +934,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===17 ? renderStep1_M17() : (S.currentModule===16 ? renderStep1_M16() : (S.currentModule===15 ? renderStep1_M15() : (S.currentModule===14 ? renderStep1_M14() : (S.currentModule===13 ? renderStep1_M13() : (S.currentModule===11 ? renderStep1_M11() : (S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())))))))))))))));
-  else if (step === 2) content.innerHTML = S.currentModule===17 ? renderStep2_M17() : (S.currentModule===16 ? renderStep2_M16() : (S.currentModule===15 ? renderStep2_M15() : (S.currentModule===14 ? renderStep2_M14() : (S.currentModule===13 ? renderStep2_M13() : (S.currentModule===11 ? renderStep2_M11() : (S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())))))))))))))));
-  else if (step === 3) content.innerHTML = S.currentModule===17 ? renderStep3_M17() : (S.currentModule===16 ? renderStep3_M16() : (S.currentModule===15 ? renderStep3_M15() : (S.currentModule===14 ? renderStep3_M14() : (S.currentModule===13 ? renderStep3_M13() : (S.currentModule===11 ? renderStep3_M11() : (S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())))))))))))))));
-  else if (step === 4) content.innerHTML = S.currentModule===17 ? renderStep4_M17() : (S.currentModule===16 ? renderStep4_M16() : (S.currentModule===15 ? renderStep4_M15() : (S.currentModule===14 ? renderStep4_M14() : (S.currentModule===13 ? renderStep4_M13() : (S.currentModule===11 ? renderStep4_M11() : (S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())))))))))))))));
-  else if (step === 5) content.innerHTML = S.currentModule===17 ? renderStep5_M17() : (S.currentModule===16 ? renderStep5_M16() : (S.currentModule===15 ? renderStep5_M15() : (S.currentModule===14 ? renderStep5_M14() : (S.currentModule===13 ? renderStep5_M13() : (S.currentModule===11 ? renderStep5_M11() : (S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())))))))))))))));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===17 ? QUESTIONS_M17 : (S.currentModule===16 ? QUESTIONS_M16 : (S.currentModule===15 ? QUESTIONS_M15 : (S.currentModule===14 ? QUESTIONS_M14 : (S.currentModule===13 ? QUESTIONS_M13 : (S.currentModule===11 ? QUESTIONS_M11 : (S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))))))))))))))); }
+  if      (step === 1) content.innerHTML = S.currentModule===18 ? renderStep1_M18() : (S.currentModule===17 ? renderStep1_M17() : (S.currentModule===16 ? renderStep1_M16() : (S.currentModule===15 ? renderStep1_M15() : (S.currentModule===14 ? renderStep1_M14() : (S.currentModule===13 ? renderStep1_M13() : (S.currentModule===11 ? renderStep1_M11() : (S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()))))))))))))))));
+  else if (step === 2) content.innerHTML = S.currentModule===18 ? renderStep2_M18() : (S.currentModule===17 ? renderStep2_M17() : (S.currentModule===16 ? renderStep2_M16() : (S.currentModule===15 ? renderStep2_M15() : (S.currentModule===14 ? renderStep2_M14() : (S.currentModule===13 ? renderStep2_M13() : (S.currentModule===11 ? renderStep2_M11() : (S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()))))))))))))))));
+  else if (step === 3) content.innerHTML = S.currentModule===18 ? renderStep3_M18() : (S.currentModule===17 ? renderStep3_M17() : (S.currentModule===16 ? renderStep3_M16() : (S.currentModule===15 ? renderStep3_M15() : (S.currentModule===14 ? renderStep3_M14() : (S.currentModule===13 ? renderStep3_M13() : (S.currentModule===11 ? renderStep3_M11() : (S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()))))))))))))))));
+  else if (step === 4) content.innerHTML = S.currentModule===18 ? renderStep4_M18() : (S.currentModule===17 ? renderStep4_M17() : (S.currentModule===16 ? renderStep4_M16() : (S.currentModule===15 ? renderStep4_M15() : (S.currentModule===14 ? renderStep4_M14() : (S.currentModule===13 ? renderStep4_M13() : (S.currentModule===11 ? renderStep4_M11() : (S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()))))))))))))))));
+  else if (step === 5) content.innerHTML = S.currentModule===18 ? renderStep5_M18() : (S.currentModule===17 ? renderStep5_M17() : (S.currentModule===16 ? renderStep5_M16() : (S.currentModule===15 ? renderStep5_M15() : (S.currentModule===14 ? renderStep5_M14() : (S.currentModule===13 ? renderStep5_M13() : (S.currentModule===11 ? renderStep5_M11() : (S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()))))))))))))))));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===18 ? QUESTIONS_M18 : (S.currentModule===17 ? QUESTIONS_M17 : (S.currentModule===16 ? QUESTIONS_M16 : (S.currentModule===15 ? QUESTIONS_M15 : (S.currentModule===14 ? QUESTIONS_M14 : (S.currentModule===13 ? QUESTIONS_M13 : (S.currentModule===11 ? QUESTIONS_M11 : (S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))))))))))))))))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -4924,6 +4924,273 @@ var QUESTIONS_M17=[
   {q:"Quelle action eMail Capture sauvegarde l email avec ses pieces jointes dans un format universel lisible par tous les clients de messagerie ?",opts:["Sauvegarder le corps du message (format PDF)","Sauvegarder le mail entier (format .eml)","Extraire uniquement les pieces jointes","Telecharger depuis un lien web public"],c:1,fb:"L action Sauvegarder le mail entier (format .eml) sauvegarde l email avec ses pieces jointes dans le format .eml, format generique lu par tous les clients de messagerie. L email est archive tel quel, integralite du contenu preservee."},
   {q:"Comment fonctionne une variable personnalisee dans OpenBee eMail Capture ?",opts:["C est un index fixe predefini par l administrateur OpenBee","C est une expression reguliere qui extrait une donnee specifique du contenu de l email (objet, corps, PJ) pour l utiliser comme index de classement","C est un filtre de securite qui bloque certains types de fichiers","C est une regle de redirection vers un dossier Windows specifique"],c:1,fb:"Une variable personnalisee utilise une expression reguliere pour rechercher un mot ou une chaine correspondant a un format predetermine dans le contenu de l email. Le resultat devient un index utilisable dans la regle de classement OpenBee -- par exemple extraire un numero de dossier du format REF-123 pour classer automatiquement dans le bon dossier client."},
   {q:"Pour relancer un traitement sur des emails deja traites par une regle eMail Capture, quelle est la procedure ?",opts:["Cliquer sur le bouton Reinitialiser dans l historique des traitements","Modifier la date de synchronisation dans le service","Exporter la regle, supprimer l ancienne (efface l historique), reimporter la regle","Redemarrer le service Windows -- cela force le retraitement"],c:2,fb:"Les emails deja traites pour une regle ne sont jamais retraites automatiquement. Pour forcer le retraitement, il faut : 1/ exporter la regle via le bouton d export, 2/ supprimer l ancienne regle (ce qui efface l historique associe), 3/ reimporter la regle exportee. Le service peut alors retraiter les emails comme s ils etaient nouveaux."}
+];
+
+function renderStep1_M18(){
+  var chapitres=[
+    ['Les modules compagnons OpenBee -- de quoi parle-t-on ?',
+     '<p>Les modules compagnons OpenBee sont des outils satellites de la plateforme GED OpenBee Portal (on-premise ou cloud). Ils ne sont pas soumis a licence editeur specifique et enrichissent la plateforme en facilitant le classement, l indexation, l envoi et la recuperation en masse de documents.</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Gateway</div><div class="info-val">Passerelle entre OpenBee (cloud ou on-premise) et les ressources locales non exposees sur Internet : bases de donnees SQL, fichiers Windows, services web, objets metiers Sage</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Data Importer</div><div class="info-val">Import et export en masse de documents avec leurs metadonnees depuis/vers OpenBee Portal -- a partir de fichiers XML, CSV, JSON ou d autres GED</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Doc Office Manager</div><div class="info-val">Classement dynamique des documents MS Office (Word, Excel, PowerPoint) et emails Outlook directement depuis l application Microsoft, sans quitter son environnement de travail</div></div>'
+     +'</div>'
+     +'<div class="key-box">Ces trois modules s installent sur un poste Windows ou un serveur Windows et communiquent avec OpenBee Portal. Ils sont complementaires et peuvent etre deployes independamment selon les besoins du client.</div>'],
+    ['OpenBee Gateway -- La passerelle reseau locale',
+     '<p><strong>Probleme resolu :</strong> OpenBee Portal en cloud ne peut pas acceder directement aux ressources internes d un client (base SQL sur serveur local, dossiers Windows proteges, ERP non expose). Gateway joue le role de pont securise entre le cloud et l infrastructure locale.</p>'
+     +'<p><strong>Deux modes d utilisation principaux :</strong></p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Lien Capture Cloud / Windows</div><div class="info-val">Obligatoire quand OpenBee Scan Capture est en cloud : Gateway fait le lien avec l environnement Windows du client pour l absorption de documents depuis des dossiers locaux</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Requetes SQL depuis la GED</div><div class="info-val">Permet depuis OpenBee Portal en cloud de lancer des requetes SQL vers une application tierce (ex : recuperer des donnees client dans l ERP lors du remplissage d un formulaire)</div></div>'
+     +'</div>'
+     +'<p><strong>Fonctionnalites disponibles :</strong></p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">Import comptable : requetes SQL ou objets metiers Sage</div>'
+     +'<div class="q-item">Export comptable : objets metiers Sage ou scripts</div>'
+     +'<div class="q-item">Execution de scripts Windows personnalises</div>'
+     +'<div class="q-item">Absorption de documents depuis des dossiers Windows surveilles</div>'
+     +'<div class="q-item">Widgets intelligents : alimenter des formulaires OpenBee par requetes SQL locales</div>'
+     +'</div>'
+     +'<div class="warn-box">Gateway est obligatoire pour tout client avec un OpenBee Scan Capture en cloud souhaitant absorber des documents depuis des dossiers Windows locaux. Sans Gateway, le lien avec l environnement Windows est impossible.</div>'],
+    ['OpenBee Gateway -- Configuration et connexion',
+     '<p>Gateway s installe sur un poste ou serveur Windows dispose d acces aux ressources locales visees. A l installation, un <strong>identifiant unique de passerelle</strong> est genere. Cet identifiant est ensuite selectionne dans OpenBee Scan Capture ou OpenBee Portal pour que les requetes soient routees vers la bonne instance Gateway.</p>'
+     +'<p><strong>Configuration via l interface Gateway (4 onglets) :</strong></p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Passerelle</div><div class="info-val">Etat de connexion, historique des traitements, gestion des configurations Capture et Portal</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Parametres du compte</div><div class="info-val">Connexion au serveur OpenBee Scan Capture (adresse HTTPS, identifiant, mot de passe) -- gestion multi-configurations</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Preferences</div><div class="info-val">Langue, compte Windows du service, proxy, nombre max de messages affiches, configuration service Windows pour authentification SQL</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Absorption de documents</div><div class="info-val">Definir les dossiers Windows surveilles -- les documents deposes sont automatiquement envoyes vers le dossier OpenBee Scan Capture configure</div></div>'
+     +'</div>'
+     +'<div class="key-box">Gateway fonctionne comme un service Windows. Pour les traitements necessitant une authentification Windows specifique (requetes SQL via objets metiers Sage), configurer le compte de service Windows dans l onglet Preferences.</div>'],
+    ['OpenBee Gateway -- Integration Sage et cas d usage avances',
+     '<p>Gateway dispose d une integration native avec Sage via les <strong>objets metiers</strong>. Compatible avec Sage SPC (installation Gateway version >= 1.2.3 directement sur le serveur Sage).</p>'
+     +'<div class="warn-box">Pour Sage SPC : installer Gateway sur le serveur Sage lui-meme. Ne pas installer les objets metiers separement -- ils sont deja presents sur le serveur SPC.</div>'
+     +'<p><strong>Prerequis pour les objets metiers Sage :</strong></p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">Le compte de service Windows doit etre administrateur de la machine Gateway et avoir des droits de connexion en tant que service</div>'
+     +'<div class="q-item">Ce compte doit avoir des droits sur la base de donnees SQL Server de Sage</div>'
+     +'<div class="q-item">L identifiant a utiliser est le compte Sage (pas le compte Windows) -- ex : &lt;Administrateur&gt; par defaut</div>'
+     +'</div>'
+     +'<p><strong>Cas d usage metier : formulaires OpenBee alimentes en temps reel</strong></p>'
+     +'<p>Grace au module SQL de Gateway, depuis une regle de classement ou un formulaire OpenBee Portal, il est possible de remplir automatiquement des metadonnees a partir d une requete SQL sur l ERP client. Exemple : saisir un numero de client dans un formulaire OpenBee declenche une requete SQL sur Sage qui recupere le nom, l adresse et le code comptable -- et pre-remplit les champs automatiquement.</p>'
+     +'<div class="key-box">Cet usage transforme Gateway en connecteur ERP bidirectionnel : les donnees de l ERP enrichissent la GED, et les documents classes dans la GED peuvent declencher des traitements dans l ERP.</div>'],
+    ['OpenBee Data Importer -- Indexation en masse',
+     '<p>Data Importer resout le probleme de la <strong>migration documentaire et de l indexation en masse</strong>. Il permet de peupler OpenBee Portal avec des volumes importants de documents structures, ou d en extraire des archives completes.</p>'
+     +'<p><strong>Ce que Data Importer sait faire :</strong></p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Import generique XML/CSV/JSON</div><div class="info-val">Importer des documents PDF avec leurs metadonnees depuis un fichier structurel -- ideal pour les migrations depuis une ancienne GED ou un systeme de scan avec export XML</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Import vers zones de classement</div><div class="info-val">Envoyer des documents dans l espace de classement personnel d un utilisateur OpenBee</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Import sans metadonnee</div><div class="info-val">Deposer des documents dans OpenBee Portal sans indexation -- classement simple en dossier</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Telechargement depuis OpenBee</div><div class="info-val">Extraire en masse les documents depuis OpenBee Portal vers un dossier Windows en conservant l arborescence</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Synchronisation</div><div class="info-val">Maintenir une copie synchronisee entre OpenBee et un repertoire local -- avec frequence d envoi automatique configurable</div></div>'
+     +'</div>'
+     +'<div class="key-box">Data Importer necessite une base de donnees MySQL pour stocker sa configuration et l historique des imports. En installation on-premise, la meme instance MySQL qu OpenBee Portal peut etre reutilisee. En cloud, MySQL doit etre installe separement.</div>'],
+    ['OpenBee Data Importer -- Configuration et profils d import',
+     '<p><strong>Prerequis de configuration :</strong> avant le premier import, configurer dans Configuration > Parametres : la connexion a OpenBee Portal (URL, identifiant, mot de passe) et la connexion a la base de donnees MySQL.</p>'
+     +'<p><strong>Creer un profil d import generique en 5 etapes :</strong></p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">1. Type</div><div class="info-val">Choisir le type d import (generique XML/CSV/JSON, zones de classement, telechargement...) et nommer la configuration</div></div>'
+     +'<div class="info-item"><div class="info-lbl">2. Telechargement</div><div class="info-val">Fournir un exemple du fichier de metadonnees (XML, CSV ou JSON) pour que Data Importer detecte la structure</div></div>'
+     +'<div class="info-item"><div class="info-lbl">3. Selection des metadonnees</div><div class="info-val">Choisir les champs a importer (identifiant = cle fixe de la structure, valeur = donnee variable d un document a l autre)</div></div>'
+     +'<div class="info-item"><div class="info-lbl">4. Association</div><div class="info-val">Associer les metadonnees selectionnees avec une regle de classement OpenBee Portal existante ou en creer une nouvelle</div></div>'
+     +'<div class="info-item"><div class="info-lbl">5. Dossier</div><div class="info-val">Definir le dossier de depot des fichiers XML/CSV/JSON et le dossier source des documents PDF a importer</div></div>'
+     +'</div>'
+     +'<p><strong>Option avancee :</strong> configurer une frequence d envoi pour importer automatiquement les nouveaux documents toutes les X minutes ou heures.</p>'
+     +'<div class="warn-box">Les dossiers de depot peuvent etre des repertoires reseau (UNC). Dans ce cas, configurer les informations de connexion au domaine Windows. Data Importer ne retraite jamais un document deja importe -- pour reimporter, modifier le fichier de metadonnees source.</div>'],
+    ['OpenBee Doc Office Manager -- Classement depuis Microsoft Office',
+     '<p>Doc Office Manager est un <strong>add-in Microsoft Office</strong> qui ajoute un bouton "Classer dans OpenBee Portal" directement dans Word, Excel, PowerPoint, Outlook et l explorateur Windows. L utilisateur n a plus besoin de se connecter a l interface web OpenBee pour archiver ses documents.</p>'
+     +'<p><strong>Applications supportees :</strong></p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">Microsoft Word -- classement du document Word en cours ou depuis l explorateur</div>'
+     +'<div class="q-item">Microsoft Excel -- archivage des feuilles de calcul</div>'
+     +'<div class="q-item">Microsoft PowerPoint -- archivage des presentations</div>'
+     +'<div class="q-item">Microsoft Outlook -- classement des emails et de leurs pieces jointes</div>'
+     +'<div class="q-item">Explorateur Windows -- clic droit > Classer dans OpenBee Portal sur tout fichier ou dossier</div>'
+     +'</div>'
+     +'<p><strong>Workflow de classement :</strong> lors de l archivage, une fenetre "Classement dans OpenBee Portal" s affiche. L utilisateur choisit la regle de classement (avec ou sans indexation avancee) et navigue dans l arborescence OpenBee pour selectionner le dossier de destination. Le document est renomme automatiquement selon la convention de la regle de classement.</p>'
+     +'<div class="key-box">Doc Office Manager ne peut pas creer de nouveaux repertoires OpenBee. Pour creer des dossiers, l utilisateur doit se connecter a l interface web OpenBee Portal.</div>'],
+    ['OpenBee Doc Office Manager -- Outlook et indexation avancee',
+     '<p><strong>Focus Outlook :</strong> le connecteur Outlook est particulierement puissant pour les flux de factures et documents recus par email.</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Emails multiples</div><div class="info-val">Selection de plusieurs emails en une operation -- chaque email et ses PJ traites separement</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Format archive</div><div class="info-val">Emails archives en PDF texte. Pieces jointes conservees dans leur format natif</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Sous-dossier automatique</div><div class="info-val">Pour un email avec plusieurs PJ : creation automatique d un sous-dossier portant le titre de l email, contenant l email PDF + toutes les PJ</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Historique</div><div class="info-val">Accessible depuis le ruban Outlook -- liste tous les classements effectues avec leur statut, compteur d erreurs et bouton Reinitialiser</div></div>'
+     +'</div>'
+     +'<p><strong>Indexation avancee :</strong> lors du classement, l utilisateur peut selectionner une regle de classement OpenBee qui affiche un formulaire d indexation. Il saisit le type de document, la date, l emetteur, un commentaire. Ces metadonnees sont associees au document dans OpenBee et servent aux recherches.</p>'
+     +'<div class="warn-box">Doc Office Manager n archive par defaut que les documents Office et les PDF. Pour archiver d autres types de fichiers, modifier le fichier Preferences.xml du module.</div>'
+     +'<div class="key-box">Doc Office Manager n est pas compatible avec les demandes de reunion, rendez-vous ou taches Outlook -- uniquement les emails.</div>']
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Modules compagnons OpenBee -- Gateway, Data Importer, Doc Office Manager</h3>';
+  html+='<p>Trois outils satellites sans licence additionnelle editeur, deployables independamment pour etendre les capacites d OpenBee Portal.</p>';
+  for(var i=0;i<chapitres.length;i++){
+    var open=i===0?'open':'';
+    html+='<div class="chapter"><div class="ch-hd '+open+'"><span>'+(i+1)+'. '+chapitres[i][0]+'</span><span class="ch-toggle">'+(i===0?'\u25b2':'\u25bc')+'</span></div>'
+      +'<div class="ch-body '+open+'"><div class="content-section">'+chapitres[i][1]+'</div></div></div>';
+  }
+  html+='</div>'+stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M18(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation -- Le client en migration et integration</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div>'
+    +'<div class="scenario-context">Vous rencontrez <strong>M. Thierry MARCHAND</strong>, DSI d une ETI de distribution (220 salaries, 3 sites). Son entreprise vient d acquerir une licence OpenBee Portal en cloud (KomiDoc). Il a un parc de 3 000 documents dans une ancienne GED, des utilisateurs travaillant quotidiennement sous Word et Outlook, et un ERP Sage sur serveur local. Il souhaite deployer OpenBee efficacement sans perturber les habitudes de travail de ses equipes.</div></div>';
+  var bubbles=[
+    ['comm','V','Vous (commercial IXEO)','M. Marchand, vous avez votre licence OpenBee Portal. Maintenant la question c est : comment on alimente ce portail de maniere fluide, et comment vos equipes vont archiver leurs documents sans friction ?'],
+    ['cli','T','M. Marchand','Exactement. Mon probleme c est triple. On a 3 000 documents dans l ancienne GED qu on doit migrer. Mes equipes travaillent surtout sous Word et Outlook -- je ne veux pas qu elles passent leur temps a se connecter a l interface web pour chaque document. Et on a Sage sur un serveur local qu on aimerait connecter a la GED.'],
+    ['comm','V','Vous','Trois besoins tres distincts, trois modules compagnons y repondent. Commençons par la migration : vous avez 3 000 documents avec des metadonnees dans votre ancienne GED ?'],
+    ['cli','T','M. Marchand','Oui, elle exporte en XML. Chaque document a un fichier XML avec le type, la date, le service emetteur.'],
+    ['comm','V','Vous','Data Importer est fait pour ca. Vous lui donnez les fichiers XML avec les PDF associes, vous configurez un profil de correspondance entre vos metadonnees actuelles et les index OpenBee, et il importe tout automatiquement -- avec l indexation. Ca peut se faire en quelques heures pour 3 000 documents.'],
+    ['cli','T','M. Marchand','Et pour les equipes qui travaillent sous Word et Outlook ?'],
+    ['comm','V','Vous','Doc Office Manager installe un bouton dans le ruban de chaque application Office. Vos collaborateurs cliquent sur Classer dans OpenBee Portal directement depuis Word ou Outlook, choisissent le dossier et la regle de classement -- sans quitter leur application. Pour les emails avec pieces jointes, tout est archive en un seul geste.'],
+    ['cli','T','M. Marchand','Ca c est parfait. Et pour Sage ?'],
+    ['comm','V','Vous','OpenBee Gateway fait le pont. Installe sur votre serveur Sage, il permet depuis un formulaire OpenBee en cloud de lancer une requete SQL sur votre base Sage. Concretement : votre comptable saisit un numero de fournisseur dans OpenBee, Gateway interroge Sage en temps reel et pre-remplit automatiquement le nom, l adresse et le code comptable.'],
+    ['cli','T','M. Marchand','On avait peur d avoir a ressaisir toutes les donnees fournisseurs dans OpenBee. Ca resout le probleme.'],
+    ['comm','V','Vous','Exactement. Et Gateway sert aussi a l absorption : si vos imprimantes reseau deposent des scans dans un dossier Windows, Gateway les detecte et les envoie automatiquement dans OpenBee Scan Capture pour traitement. Le tout sans exposition du reseau interne sur Internet.'],
+    ['cli','T','M. Marchand','Et ces modules, il y a des licences supplementaires a prevoir ?'],
+    ['comm','V','Vous','Non, c est la bonne nouvelle : ces trois modules compagnons ne sont pas soumis a licence editeur separee. Ils sont inclus dans votre deploiement OpenBee. Le seul cout est celui de la mise en oeuvre -- configuration et formation des equipes.'],
+    ['cli','T','M. Marchand','Ca change tout. Je pensais que l integration avec Sage allait couter une fortune.']
+  ];
+  html+='<div class="dialogue">';
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'">'
+      +'<div class="bubble-avatar '+b[0]+'">'+b[1]+'</div>'
+      +'<div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div>'
+      +'</div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Les modules compagnons repondent a trois douleurs recurrentes lors d un deploiement OpenBee : migration de l existant, adoption utilisateur, integration ERP. 2/ L absence de licence additionnelle est un argument commercial fort -- anticiper la question. 3/ Chaque module a un cas d usage immediat et tangible -- eviter les explications techniques, rester sur la valeur metier.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M18(){
+  var cats=[
+    {t:'Gateway -- Diagnostic integration locale',qs:[
+      'Votre OpenBee Portal est-il en cloud (KomiDoc) ou on-premise ? Avez-vous un environnement Windows local avec des ressources non exposees sur Internet (serveurs de fichiers, ERP, bases SQL) ?',
+      'Avez-vous OpenBee Scan Capture en cloud ? Vos scanners ou imprimantes reseau deposent-ils des fichiers dans des dossiers Windows locaux ?',
+      'Utilisez-vous Sage (Comptabilite, Gestion commerciale) ? Sur quelle version ? Est-il installe sur un serveur dedie ?',
+      'Vos collaborateurs doivent-ils rechercher des informations dans votre ERP lors de la saisie de documents dans la GED ? (clients, fournisseurs, codes comptables...)',
+      'Avez-vous des workflows d import ou d export comptable a automatiser entre OpenBee et votre logiciel de comptabilite ?'
+    ]},
+    {t:'Data Importer -- Diagnostic migration et volumetrie',qs:[
+      'Avez-vous une GED existante ou une base documentaire a migrer vers OpenBee Portal ? Si oui, combien de documents et dans quel format ?',
+      'Votre systeme actuel peut-il exporter les metadonnees des documents en XML, CSV ou JSON ? Avez-vous acces a ces exports ?',
+      'Avez-vous besoin de telecharger en masse des documents depuis OpenBee Portal vers un stockage local ou une application tierce ?',
+      'Avez-vous des flux reguliers d import (par exemple un scan batch qui produit chaque jour des PDF avec fichiers XML associes) ?',
+      'Avez-vous un serveur MySQL disponible, ou faut-il en prevoir un pour Data Importer ?'
+    ]},
+    {t:'Doc Office Manager -- Diagnostic adoption utilisateur',qs:[
+      'Vos collaborateurs travaillent-ils principalement sous Microsoft Office (Word, Excel, PowerPoint) ? Ont-ils une version Office 2010 ou superieure ?',
+      'Quelle est la frequence d archivage de documents bureautiques dans la GED ? Est-ce une activite quotidienne pour la majorite des utilisateurs ?',
+      'Vos equipes recoivent-elles des documents importants par email (factures, contrats, bons de commande) qu elles doivent archiver dans OpenBee ?',
+      'Y a-t-il une resistance potentielle a changer les habitudes de travail ? Serait-il plus simple pour les utilisateurs d archiver sans quitter leur application ?',
+      'Souhaitez-vous une adoption progressive par application (d abord Outlook, puis Word...) ou un deploiement global en une fois ?'
+    ]},
+    {t:'Vision globale du deploiement',qs:[
+      'Ces trois modules sont-ils tous pertinents, ou certains repondent a des besoins prioritaires ?',
+      'Avez-vous un planning de deploiement OpenBee Portal ? Ces modules seraient-ils actives des le lancement ou en phase 2 ?',
+      'Y a-t-il un interlocuteur technique (DSI, administrateur systeme) disponible pour la configuration des modules necessitant un acces serveur (Gateway, Data Importer) ?'
+    ]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Grille de decouverte -- Modules compagnons OpenBee</h3>';
+  html+='<p>Questions pour qualifier les besoins d integration, de migration et d adoption et identifier les modules prioritaires a deployer.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">Terrain : les modules compagnons se vendent facilement quand le client a deja acquis OpenBee Portal -- ils resolvent les frictions de deploiement. Trois questions cles pour qualifier rapidement : 1/ Avez-vous un ERP local ? (Gateway) 2/ Avez-vous des documents a migrer ? (Data Importer) 3/ Vos equipes travaillent sous Office ? (Doc Office Manager)</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M18(){
+  var blocks=[
+    {titre:'Gateway -- Connecter l ERP et les ressources locales au cloud',body:'<p><strong>Pour qui :</strong> tout client avec OpenBee Portal en cloud et des ressources locales a connecter -- ERP, bases SQL, dossiers Windows, Sage. Requis systematiquement pour les clients avec OpenBee Scan Capture en cloud.</p>'
+      +'<p><strong>Valeur metier :</strong> Gateway transforme une GED cloud isolee en un ecosysteme connecte a l infrastructure interne. Les formulaires OpenBee deviennent intelligents (donnees ERP injectees en temps reel), les scans sont absorbes automatiquement, les ecritures comptables Sage s exportent sans ressaisie.</p>'
+      +'<div class="key-box">Argument decisif : "Votre OpenBee est dans le cloud, mais vos donnees metier sont locales. Gateway est le cable qui les relie -- sans exposer votre reseau interne sur Internet."</div>'},
+    {titre:'Data Importer -- Migrer sans douleur, indexer en masse',body:'<p><strong>Pour qui :</strong> tout client ayant une base documentaire existante a migrer ou des flux recurrents d import/export en masse. Cas classiques : migration depuis une ancienne GED, reception quotidienne de PDF avec XML depuis un systeme de scan, extraction periodique de documents OpenBee vers un tiers.</p>'
+      +'<p><strong>Arguments chiffres :</strong> importer manuellement 3 000 documents dans une GED = 3 000 actes de classement unitaires. Data Importer traite le meme volume en quelques heures de maniere entierement automatisee, avec indexation complete.</p>'
+      +'<div class="key-box">Argument decisif : "La migration est souvent le frein au basculement sur une nouvelle GED. Data Importer transforme une operation intimidante de plusieurs semaines en une procedure de quelques heures."</div>'},
+    {titre:'Doc Office Manager -- Zero friction pour les utilisateurs',body:'<p><strong>Pour qui :</strong> toute organisation dont les collaborateurs produisent ou recoivent des documents sous Microsoft Office. Particulierement efficace pour les equipes commerciales, RH, comptabilite -- gros producteurs de Word, Excel et emails Outlook.</p>'
+      +'<p><strong>Arguments adoption :</strong> la premiere resistance au deploiement d une GED est le changement d habitudes. Doc Office Manager supprime ce frein -- archiver ne necessite plus d ouvrir un navigateur, de se connecter, de naviguer dans l arborescence. Tout se fait depuis l application deja ouverte.</p>'
+      +'<div class="key-box">Argument decisif : "Vos collaborateurs n ont pas a changer leur facon de travailler. Ils travaillent dans Word, ils classent dans Word. Un clic de plus dans leur application habituelle -- pas une nouvelle application a apprendre."</div>'}
+  ];
+  var objections=[
+    {q:'"Ces modules sont-ils inclus ou faut-il des licences supplementaires ?"',
+     a:'Les modules compagnons Gateway, Data Importer et Doc Office Manager ne sont pas soumis a licence editeur specifique -- ils font partie de l ecosysteme OpenBee. Le cout est celui de la mise en oeuvre (configuration, installation, formation), pas de la licence logicielle. C est un argument commercial important a mettre en avant des la phase de qualification.'},
+    {q:'"On va tout faire manuellement depuis l interface web OpenBee, ca suffira."',
+     a:'L interface web est parfaite pour les acces ponctuels et la consultation. Mais quand vos equipes archivent 20 documents par jour depuis Word ou Outlook, ouvrir un navigateur a chaque fois devient une friction qui freine l adoption. Doc Office Manager fait la difference entre une GED utilisee et une GED abandonnee. La reussite d un projet GED depend a 80% de l adoption utilisateur.'},
+    {q:'"La migration de notre ancienne GED peut se faire manuellement."',
+     a:'C est possible pour quelques centaines de documents. Pour 1 000 documents ou plus, la migration manuelle introduit des erreurs d indexation, prend des semaines et mobilise des ressources. Data Importer permet une migration propre, homogene et tracable en une journee. Et si votre ancienne GED exporte en XML, la configuration du profil prend moins d une heure.'},
+    {q:'"On n a pas Sage, Gateway ne nous concerne pas."',
+     a:'Gateway ne se limite pas a Sage. Il est obligatoire pour tout client avec OpenBee Scan Capture en cloud souhaitant absorber des scans depuis des dossiers Windows locaux. Et au-dela de Sage, il permet des requetes SQL sur n importe quelle base de donnees locale -- SQL Server, MySQL, Oracle. La plupart des ERP disposent d une base SQL interrogeable.'}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Pitch commercial -- Modules compagnons OpenBee</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections courantes</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M18(){
+  var resources=[
+    {icon:'📄',name:'Documentation OpenBee Gateway',type:'Documentation editeur',note:'Configuration connexion Scan Capture/Portal, absorption de documents, integration Sage SPC, FAQ',url:'https://www.openbee.com'},
+    {icon:'📄',name:'Documentation OpenBee Data Importer',type:'Documentation editeur',note:'Profils d import XML/CSV/JSON, configuration MySQL, telechargement depuis Portal, synchronisation',url:'https://www.openbee.com'},
+    {icon:'📄',name:'Documentation Doc Office Manager',type:'Documentation editeur',note:'Installation add-ins Office, classement depuis Word/Excel/Outlook, indexation avancee, historique',url:'https://www.openbee.com'},
+    {icon:'🔧',name:'Checklist deploiement Gateway',type:'Aide a la vente',note:'Prerequis serveur, configuration compte Windows, test de connexion Scan Capture et Portal',url:'#'},
+    {icon:'🔧',name:'Checklist migration Data Importer',type:'Aide a la vente',note:'Audit de l existant, format d export ancienne GED, configuration MySQL, profil d import type',url:'#'},
+    {icon:'📊',name:'ROI adoption -- Doc Office Manager',type:'Aide a la vente',note:'Calcul temps economise par utilisateur : nombre de classements/jour x gain de temps par operation',url:'#'},
+    {icon:'📋',name:'Grille de decouverte modules compagnons',type:'Aide a la vente',note:'Version imprimable de l etape 3 -- Gateway, Data Importer, Doc Office Manager',url:'#'}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Ressources disponibles</h3>';
+  html+='<p>Supports pour preparer et accompagner vos rendez-vous autour des modules compagnons OpenBee.</p>';
+  html+='<div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc=r.url!='#'?'window.open(\''+r.url+'\',\'_blank\')':'alert(\'Ressource disponible sur le drive partage IXEO.\')';
+    html+='<div class="resource-card" onclick="'+oc+'">'
+      +'<div class="resource-icon">'+r.icon+'</div>'
+      +'<div class="resource-name">'+r.name+'</div>'
+      +'<div class="resource-type">'+r.type+'</div>'
+      +'<div class="resource-note">'+r.note+'</div>'
+      +'</div>';
+  }
+  html+='</div>';
+  html+='<div class="warn-box" style="margin-top:1.25rem;">Gateway, Data Importer et Doc Office Manager ne necessitent pas de licence editeur additionnelle. Ils necessitent en revanche un environnement Windows (poste ou serveur) pour leur installation. Data Importer requiert une base de donnees MySQL -- prevoir son installation si absente chez le client.</div>';
+  html+='</div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+var QUESTIONS_M18=[
+  {q:'Quel est le role principal d OpenBee Gateway ?',opts:['Un connecteur de signature electronique conforme eIDAS','Une passerelle entre OpenBee (cloud ou on-premise) et des ressources locales non exposees sur Internet','Un module d import de factures depuis Chorus Pro','Un gestionnaire de droits utilisateurs dans OpenBee Portal'],c:1,fb:'Gateway fait le lien entre OpenBee Scan Capture ou OpenBee Portal (en cloud) et les ressources locales du client : bases de donnees SQL, dossiers Windows, services web, objets metiers Sage. Il permet d acceder a ces ressources sans les exposer sur Internet.'},
+  {q:'Dans quel cas Gateway est-il OBLIGATOIRE pour un client ?',opts:['Quand le client utilise Sage SPC uniquement','Quand le client a OpenBee Scan Capture en cloud et veut absorber des documents depuis des dossiers Windows locaux','Quand le client a plus de 500 utilisateurs OpenBee Portal','Quand le client utilise le connecteur Chorus Pro'],c:1,fb:'Gateway est obligatoire pour faire le lien entre un environnement OpenBee Scan Capture en cloud et l environnement Windows local du client. Sans Gateway, il est impossible d absorber automatiquement des documents depuis des dossiers Windows vers Scan Capture cloud.'},
+  {q:'Quel element est genere lors de l installation de Gateway et sert a identifier l instance ?',opts:['Un token JWT renouvele toutes les 24h','Un identifiant unique de passerelle qui doit etre selectionne dans Scan Capture ou Portal','Un certificat SSL auto-signe valable 1 an','Un fichier de configuration OBGateway.config genere aleatoirement'],c:1,fb:'Lors de l installation, Gateway genere un identifiant unique de passerelle (au format UUID). Cet identifiant doit etre selectionne dans OpenBee Scan Capture ou OpenBee Portal pour que les requetes soient envoyees vers la bonne instance Gateway.'},
+  {q:'Pour connecter Gateway a Sage SPC, comment faut-il proceder ?',opts:['Installer Gateway sur un poste Windows dedie distinct du serveur Sage','Installer Gateway directement sur le serveur Sage, sans installer les objets metiers separement car ils sont deja presents','Installer les objets metiers Sage sur le serveur Gateway puis configurer le chemin','Contacter l editeur Sage pour activer le mode passerelle dans la licence'],c:1,fb:'Pour Sage SPC, Gateway doit etre installe directement sur le serveur Sage (version Gateway >= 1.2.3). Il est imperatif de ne PAS installer les objets metiers separes car ils sont deja presents sur le serveur SPC. C est une erreur frequente a eviter absolument.'},
+  {q:'Quel est l un des cas d usage avances de Gateway avec OpenBee Portal en cloud ?',opts:['Archiver automatiquement les emails Outlook dans OpenBee','Depuis un formulaire OpenBee, lancer une requete SQL sur une base locale pour pre-remplir des metadonnees (ex : donnees ERP)','Convertir des documents Word en PDF avant archivage','Synchroniser les droits utilisateurs entre Active Directory et OpenBee'],c:1,fb:'Gateway permet depuis un formulaire ou une regle de classement OpenBee Portal en cloud de lancer des requetes SQL vers une base de donnees locale (ERP, SQL Server). Exemple : saisir un numero client dans OpenBee declenche une requete qui recupere les donnees du client dans Sage et pre-remplit les champs du formulaire automatiquement.'},
+  {q:'Quel type de base de donnees utilise OpenBee Data Importer pour stocker sa configuration et son historique ?',opts:['SQLite embarquee, sans installation requise','SQL Server Express, fourni avec l installation','MySQL -- la meme instance qu OpenBee Portal peut etre reutilisee en on-premise','PostgreSQL uniquement'],c:2,fb:'Data Importer necessite une base de donnees MySQL. En installation on-premise, il est possible d utiliser la meme instance MySQL qu OpenBee Portal en cochant l option correspondante. En cloud, MySQL doit etre installe separement (procedure disponible dans la documentation Data Importer).'},
+  {q:'En combien d etapes se configure un profil d import generique dans Data Importer, et quelle est la derniere etape ?',opts:['3 etapes -- la derniere est l Association des metadonnees','4 etapes -- la derniere est la Selection des metadonnees','5 etapes -- la derniere est la selection des Dossiers de depot et source','6 etapes -- la derniere est la Validation et planification'],c:2,fb:'Un profil d import generique se configure en 5 etapes : 1/ Type (choisir Import generique et nommer la config), 2/ Telechargement (fournir un exemple de fichier XML/CSV/JSON), 3/ Selection des metadonnees (choisir les champs), 4/ Association des metadonnees (relier aux index OpenBee), 5/ Dossier (definir les dossiers de depot et source des documents).'},
+  {q:'Que se passe-t-il si un document a deja ete traite par Data Importer et qu on lance a nouveau l import ?',opts:['Le document est importe en double -- Data Importer ne gere pas les doublons','Data Importer detecte automatiquement les doublons par hash et les ignore','Data Importer ne retraite jamais un document deja importe -- modifier le fichier source est necessaire pour le reimporter','Une fenetre de confirmation demande si on veut ecraser la version existante'],c:2,fb:'Data Importer ne retraite jamais un document deja importe. Pour reimporter un document, il faut modifier le fichier de metadonnees source situe dans le dossier temporaire et le redéposer dans le dossier de surveillance. Si l import n est pas stoppe ni suspendu, cette manipulation n est pas a effectuer.'},
+  {q:'Quelles applications Microsoft Office sont supportees par Doc Office Manager ?',opts:['Word et Excel uniquement','Word, Excel, PowerPoint, Outlook et l explorateur Windows','Outlook uniquement pour les emails et pieces jointes','Toutes les applications Office 365 y compris Teams et SharePoint'],c:1,fb:'Doc Office Manager supporte : Microsoft Word, Microsoft Excel, Microsoft PowerPoint, Microsoft Outlook et l explorateur Windows (via clic droit sur un fichier ou dossier). Chaque application dispose de son propre add-in installe via l Add-In Manager.'},
+  {q:'Comment sont archives les emails dans OpenBee via Doc Office Manager Outlook ?',opts:['En format .msg natif Outlook avec toutes les metadonnees','En format .eml standard','Emails en PDF texte, pieces jointes dans leur format natif','En format HTML uniquement, sans les pieces jointes'],c:2,fb:'Doc Office Manager archive les emails en format PDF texte (le corps du mail converti en PDF) et les pieces jointes dans leur format natif d origine. Pour un email avec plusieurs PJ, un sous-dossier portant le titre de l email est cree automatiquement dans OpenBee, contenant l email PDF et toutes les pieces jointes.'},
+  {q:'Que doit faire un utilisateur Doc Office Manager s il veut archiver un document dans un nouveau repertoire OpenBee qui n existe pas encore ?',opts:['Creer le dossier directement depuis la fenetre de classement Doc Office Manager','Contacter l administrateur OpenBee pour creer le dossier','Se connecter a l interface web OpenBee Portal pour creer le nouveau dossier, puis revenir dans Office pour archiver','Utiliser l option Nouveau dossier dans le menu deroulant de l add-in'],c:2,fb:'Doc Office Manager ne peut pas creer de nouveaux repertoires OpenBee depuis son interface. Pour creer un nouveau dossier de destination, l utilisateur doit d abord se connecter a OpenBee Portal via son navigateur web, creer le dossier, puis revenir dans son application Office pour effectuer le classement.'},
+  {q:'Les modules Gateway, Data Importer et Doc Office Manager sont-ils soumis a une licence editeur specifique chez OpenBee ?',opts:['Oui, chaque module necessite une licence annuelle separee','Non, ces modules compagnons ne sont pas soumis a licence editeur -- seul le cout de mise en oeuvre est a prevoir','Oui pour Gateway et Data Importer, non pour Doc Office Manager','Cela depend de la formule OpenBee Portal choisie (Standard, Pro, Enterprise)'],c:1,fb:'Les modules compagnons Gateway, Data Importer et Doc Office Manager ne sont pas soumis a licence editeur specifique chez OpenBee. Ils font partie de l ecosysteme OpenBee et sont deployables sans cout de licence additionnel. Le seul cout a prevoir est celui de la mise en oeuvre : installation, configuration et formation.'},
+  {q:'Quel est l avantage de l indexation avancee dans Doc Office Manager par rapport au classement simple ?',opts:['Elle permet de creer automatiquement des sous-dossiers dans OpenBee','Elle affiche un formulaire avec les index de la regle de classement (type, date, emetteur...) que l utilisateur remplit pour enrichir les metadonnees du document archive','Elle permet d archiver plusieurs documents simultanement en une operation','Elle active la reconnaissance OCR automatique du document archive'],c:1,fb:'L indexation avancee dans Doc Office Manager affiche un formulaire dont les champs correspondent aux index de la regle de classement OpenBee selectionnee (type de document, date, emetteur, commentaire...). Ces metadonnees sont associees au document dans OpenBee et facilitent les recherches ulterieures dans la GED.'},
+  {q:'Pour absorber des documents depuis un dossier Windows avec Gateway, quelle configuration est necessaire ?',opts:['Configurer un connecteur SFTP dans les parametres du compte Gateway','Activer l option Absorption dans l onglet Parametres du compte et definir le dossier Windows surveille via le bouton Configurer','Installer un agent supplementaire de surveillance de dossiers Windows','Configurer une tache planifiee Windows qui copie les fichiers vers le serveur OpenBee'],c:1,fb:'Pour absorber des documents, il faut dans l onglet Parametres du compte de Gateway cliquer sur le bouton Configurer de la section Absorption de documents et definir le dossier Windows a surveiller. Les documents deposes dans ce dossier seront automatiquement envoyes vers le dossier OpenBee Scan Capture configure. Un historique est disponible dans l onglet Passerelle.'},
+  {q:'Quels types de fichiers de metadonnees sont supportes par Data Importer pour l import generique ?',opts:['Uniquement XML','XML et CSV','XML, CSV et JSON','XML, CSV, JSON et Excel (XLSX)'],c:2,fb:'Data Importer supporte trois formats de fichiers de metadonnees pour l import generique : XML, CSV et JSON. Un seul fichier peut contenir les metadonnees de plusieurs documents. Les formats XLSX ou autres formats proprietaires ne sont pas supportes nativement.'}
 ];
 
 function showScreen(id) {
