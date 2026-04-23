@@ -4658,98 +4658,218 @@ var QUESTIONS_M16=[
 
 
 function renderStep1_M17(){
-  var chapters=[
-    {title:'Introduction : les connecteurs OpenBee',content:'OpenBee propose trois connecteurs majeurs qui etendent les capacites de la GED vers des ecosystemes specifiques : <b>Chorus Pro</b> pour la facturation avec le secteur public, <b>eSignature</b> pour la signature electronique, et <b>eMail Capture</b> pour la capture automatique des emails et pieces jointes. Ces modules complementaires s installent sur OpenBee Portal et permettent d automatiser des flux documentaires qui seraient sinon entierement manuels.'},
-    {title:'Connecteur Chorus Pro -- Vue d ensemble',content:'Chorus Pro est la plateforme officielle de facturation electronique pour les entites publiques. Depuis le 1er janvier 2017, les fournisseurs de l Etat, des collectivites et de leurs etablissements publics doivent transmettre leurs factures via Chorus Pro. Le connecteur OpenBee s interface directement avec l API Chorus Pro et propose deux sous-modules : <b>Fournisseur</b> (soumettre des factures aux collectivites) et <b>Recipiendaire</b> (archiver les factures recues depuis Chorus Pro). La soumission automatique envoie les factures completes toutes les 10 minutes sans intervention manuelle.'},
-    {title:'Chorus Pro -- Configuration fournisseur',content:'Pour configurer le sous-module Fournisseur, il faut d abord creer un <b>compte technique</b> sur le portail Chorus Pro (acces "Gestionnaire principal" requis). Dans OpenBee Portal, le menu Chorus donne acces a la configuration : nom du fournisseur, numero SIRET, activation de la soumission automatique, envoi des pieces jointes. Le mode d authentification recommande est <b>OAuth-PISTE</b> depuis janvier 2020 (les nouveaux raccordements par certificat ne sont plus possibles). Les identifiants OAuth (Client ID + Client Secret) sont disponibles sur le portail PISTE.'},
-    {title:'Chorus Pro -- Association des metadonnees et recipiendaires',content:'L <b>association automatique des metadonnees</b> permet de prioriser les informations issues des metadonnees OpenBee Portal sur celles issues de la reconnaissance OCR. Exemple : si l OCR detecte 1 500 EUR mais qu une metadonnee "montant" indique 1 800 EUR, c est la valeur metadonnee qui est proposee. La <b>gestion des recipiendaires</b> cree une correspondance entre le libelle present sur la facture et l annuaire Chorus Pro. Pour un envoi automatise, il est conseille de stocker le SIRET du recipiendaire et le code service Chorus Pro comme valeur de correspondance.'},
-    {title:'Chorus Pro -- Suivi et traitement des factures',content:'L onglet <b>Documents a soumettre</b> liste les factures en attente. L action "Completer" ouvre un formulaire de soumission. L onglet <b>Suivi</b> affiche toutes les factures soumises avec leur statut en temps reel. Les factures <b>Suspendue</b> (pieces jointes manquantes), <b>A recycler</b> (erreur d acheminement) et <b>Rejetee</b> (donnees erronees) necessitent une intervention. Les erreurs courantes : numero de facture deja envoye, service manquant, numero d engagement absent. L action "Retraiter" relance l analyse OCR par Chorus Pro.'},
-    {title:'Signature electronique (eSignature) -- Vue d ensemble',content:'Le module eSignature d OpenBee permet d envoyer des documents a signer directement depuis OpenBee Portal via un prestataire qualifie conforme au reglement <b>eIDAS</b>. Trois prestataires sont supportes : <b>Universign</b>, <b>DocuSign</b> et <b>SwissSign</b>. Le module est disponible depuis la version 6.11.3. Limites documentaires : 10 Mo par document, 15 Mo au total pour plusieurs documents. Pre-requis : OpenBee Portal 6.11.3+ et un compte chez le prestataire.'},
-    {title:'eSignature -- Profils de signature',content:'Les <b>profils de signature</b> definissent des modeles predetermines adaptes au type de document (bons de commandes, contrats de travail, conventions de formation). Chaque profil configure : si l initiateur signe, si d autres signataires signent, le niveau de securite (1 = code SMS / 2 = code SMS + justificatif d identite), l ajout d un champ de signature visuel, l obligation de saisir un telephone. Le <b>niveau 2</b> cree un certificat nominal au nom du signataire (norme EU EN319 411-1). Un profil doit obligatoirement contenir au moins un signataire.'},
-    {title:'eSignature -- Envoi automatique et workflow',content:'L <b>envoi automatique</b> se configure depuis l onglet "Signature automatique" : choisir un element declencheur (regle de classement ou dossier), un profil de signature, un superviseur, une langue. Les signataires peuvent etre des utilisateurs OpenBee (fixes ou dynamiques via metadonnee) ou des utilisateurs exterieurs (nom, prenom, email, telephone via metadonnees). <b>Attention</b> : un profil necessitant la signature de l initiateur ou un champ de signature visuel est incompatible avec l envoi automatique. Le module ajoute aussi une action dans les workflows pour forcer la signature lors de la validation d une tache.'},
-    {title:'eMail Capture -- Vue d ensemble',content:'Open Bee eMail Capture est un logiciel Windows qui se connecte periodiquement aux boites email (IMAP) et classe automatiquement les emails et pieces jointes dans OpenBee Portal selon des regles parametrees. Il fonctionne en tache de fond, sans intervention utilisateur. Configuration requise : Windows 10/11 Pro ou Server 2019+, .NET 4.6.1+, acces IMAP actif. Authentification disponible : mot de passe ou <b>OAuth 2.0</b> (disponible pour Office/Outlook). <b>Attention</b> : les boites partagees ne sont pas compatibles.'},
-    {title:'eMail Capture -- Regles de traitement',content:'Chaque regle eMail Capture se compose de 4 parties : <b>Source</b> (dossiers IMAP surveilles, ex : Inbox, Envoyes), <b>Conditions</b> (filtres sur l en-tete : expediteur, objet, presence PJ, taille -- logique ET ou OU), <b>Action</b> (sauvegarder en .eml, extraire le corps en PDF, extraire les PJ, telecharger depuis un lien web), <b>Destination</b> (dossier Windows, Scan Capture, ou OpenBee Portal via regle de classement). La correspondance entre les index email (expediteur, date, objet) et les metadonnees OpenBee se configure visuellement. Les <b>variables personnalisees</b> utilisent des expressions regulieres pour extraire des donnees specifiques du contenu.'},
-    {title:'eMail Capture -- Service de synchronisation',content:'L onglet "Service de synchronisation" configure la <b>frequence de connexion</b> (intervalle en minutes) et l <b>intervalle de retroactivite</b> (nombre de jours en arriere pour le premier traitement). Le service peut etre demarre/arrete manuellement ou fonctionner comme service Windows. L historique des traitements est consultable avec statut par regle et par email. Les emails deja traites ne sont jamais retraites -- pour relancer une synchronisation, il faut exporter la regle, supprimer l ancienne (efface l historique) et reimporter.'}
+  var chapitres=[
+    ['Les connecteurs OpenBee -- de quoi parle-t-on ?',
+     '<p>OpenBee propose trois connecteurs majeurs qui etendent les capacites de la GED vers des ecosystemes metiers specifiques. Chaque connecteur automatise un flux documentaire qui serait sinon entierement manuel.</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Chorus Pro</div><div class="info-val">Facturation electronique avec le secteur public (collectivites, Etat, etablissements publics)</div></div>'
+     +'<div class="info-item"><div class="info-lbl">eSignature</div><div class="info-val">Signature electronique conforme eIDAS -- devis, contrats, conventions -- directement depuis OpenBee</div></div>'
+     +'<div class="info-item"><div class="info-lbl">eMail Capture</div><div class="info-val">Capture automatique des emails et pieces jointes et classement dans OpenBee Portal sans action manuelle</div></div>'
+     +'</div>'
+     +'<div class="key-box">Ces trois modules s installent sur un OpenBee Portal existant. Ils ne fonctionnent pas de maniere autonome -- ils enrichissent la GED d automatisations metiers specifiques.</div>'],
+    ['Connecteur Chorus Pro -- Vue d ensemble',
+     '<p>Chorus Pro est la plateforme officielle de facturation electronique pour les entites publiques. Depuis le 1er janvier 2017, les fournisseurs de l Etat, des collectivites et de leurs etablissements publics doivent transmettre leurs factures via Chorus Pro.</p>'
+     +'<p>Le connecteur OpenBee Chorus Pro comprend <strong>deux sous-modules distincts</strong> :</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Sous-module Fournisseur</div><div class="info-val">Pour les entreprises qui soumettent des factures de vente aux collectivites via Chorus Pro</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Sous-module Recipiendaire</div><div class="info-val">Pour les collectivites qui recoivent des factures via Chorus Pro et les archivent automatiquement dans OpenBee</div></div>'
+     +'</div>'
+     +'<div class="warn-box">La soumission automatique envoie les factures completes a Chorus Pro toutes les 10 minutes -- sans connexion manuelle au portail.</div>'],
+    ['Chorus Pro -- Configuration du compte fournisseur',
+     '<p>La mise en place necessite d abord la creation d un <strong>compte technique</strong> sur le portail Chorus Pro (acces "Gestionnaire principal" requis sur votre structure).</p>'
+     +'<p>Dans OpenBee Portal, le menu Chorus donne acces a la configuration fournisseur :</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Nom du fournisseur</div><div class="info-val">Libelle libre pour identifier l etablissement dans OpenBee</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Identifiant fournisseur</div><div class="info-val">Numero SIRET -- permet de gerer plusieurs etablissements</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Soumission automatique</div><div class="info-val">Envoi toutes les 10 min sans intervention -- activer Oui/Non</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Mode d authentification</div><div class="info-val">OAuth-PISTE recommande depuis janvier 2020 (Client ID + Client Secret depuis portail PISTE)</div></div>'
+     +'</div>'
+     +'<div class="key-box">Depuis janvier 2020, les nouveaux raccordements par certificat ne sont plus possibles. Le mode OAuth-PISTE est le seul chemin pour les nouveaux connecteurs.</div>'],
+    ['Chorus Pro -- Metadonnees, recipiendaires et suivi',
+     '<p><strong>Association des metadonnees :</strong> OpenBee peut pre-remplir le formulaire Chorus en privilegiant les metadonnees GED sur les resultats OCR. Exemple : si l OCR detecte 1 500 EUR mais qu une metadonnee "montant" indique 1 800 EUR, c est la valeur metadonnee qui est proposee -- plus fiable.</p>'
+     +'<p><strong>Gestion des recipiendaires :</strong> cree une correspondance entre le libelle present sur la facture (ex : "Mairie d Annecy") et l identifiant exact dans l annuaire Chorus Pro. Pour les envois automatises, stocker le SIRET du recipiendaire et le code service Chorus Pro.</p>'
+     +'<p><strong>Suivi des statuts :</strong> l onglet Suivi affiche toutes les factures soumises avec leur statut en temps reel.</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Suspendue</div><div class="info-val">Pieces jointes manquantes -- action Completer requise</div></div>'
+     +'<div class="info-item"><div class="info-lbl">A recycler</div><div class="info-val">Erreur d acheminement (destinataire, service, engagement) -- action Recycler</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Rejetee</div><div class="info-val">Donnees de facturation erronees -- nouvelle facture obligatoire</div></div>'
+     +'<div class="info-item"><div class="info-lbl">En erreur OCR</div><div class="info-val">Analyse Chorus echouee -- action Retraiter pour relancer</div></div>'
+     +'</div>'],
+    ['Signature electronique (eSignature) -- Vue d ensemble',
+     '<p>Le module eSignature permet d envoyer des documents a signer directement depuis OpenBee Portal via un prestataire qualifie conforme au reglement <strong>eIDAS</strong>.</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Disponible depuis</div><div class="info-val">OpenBee Portal version 6.11.3</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Prestataires</div><div class="info-val">Universign, DocuSign, SwissSign</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Limite 1 document</div><div class="info-val">10 Mo maximum</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Limite multi-documents</div><div class="info-val">15 Mo total, aucun document ne depasse 10 Mo</div></div>'
+     +'</div>'
+     +'<p>Les fonctionnalites cles :</p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">Envoyer une demande de signature electronique depuis la GED</div>'
+     +'<div class="q-item">Suivi des demandes : annulation, relance, renvoie</div>'
+     +'<div class="q-item">Profils de signature predetermines par type de document</div>'
+     +'<div class="q-item">Declenchement automatique lors du classement d un document</div>'
+     +'<div class="q-item">Forcer la signature lors d une etape de workflow</div>'
+     +'</div>'],
+    ['eSignature -- Profils de signature et niveaux de securite',
+     '<p>Les <strong>profils de signature</strong> definissent des modeles adaptes au type de document (bons de commandes, contrats, conventions de formation...). Chaque profil configure :</p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">Si l initiateur de la demande doit aussi signer le document</div>'
+     +'<div class="q-item">Si d autres signataires doivent apposer leur signature personnelle</div>'
+     +'<div class="q-item">Le niveau de securite (1 ou 2) et le champ de signature visuel</div>'
+     +'<div class="q-item">L obligation ou non de saisir un numero de telephone</div>'
+     +'</div>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Niveau 1 -- Simple</div><div class="info-val">Code OTP par SMS. Convient aux transactions a risque faible. Horodatage norme EU EN 319 421.</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Niveau 2 -- Avancee</div><div class="info-val">Code SMS + verification piece d identite + certificat nominal (norme EU EN319 411-1). Pour les engagements importants.</div></div>'
+     +'</div>'
+     +'<div class="warn-box">Un profil necessitant la signature de l initiateur OU un champ de signature visuel est incompatible avec l envoi automatique -- ces options exigent une action manuelle.</div>'],
+    ['eSignature -- Envoi automatique et integration workflow',
+     '<p>L <strong>envoi automatique</strong> se configure depuis l onglet "Signature automatique" : choisir un declencheur (regle de classement ou dossier), un profil, un superviseur, une langue. Le signataire peut etre :</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Utilisateur OpenBee fixe</div><div class="info-val">Toujours la meme personne designee</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Utilisateur dynamique</div><div class="info-val">Determine a partir d une metadonnee -- ideal pour les flux variables</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Utilisateur exterieur</div><div class="info-val">Nom, prenom, email, telephone via metadonnees -- client, partenaire</div></div>'
+     +'</div>'
+     +'<p><strong>Integration workflow :</strong> le module ajoute une action "Envoyer une demande de signature electronique" dans les taches de workflow. Il est possible de l associer a la validation ou au refus de la tache.</p>'
+     +'<div class="key-box">La langue des emails et SMS peut etre determinee dynamiquement par une metadonnee (code ISO 639-1 requis). La valeur par defaut s applique si aucune valeur n est detectee.</div>'],
+    ['eMail Capture -- Vue d ensemble et configuration',
+     '<p>Open Bee eMail Capture est un service Windows qui surveille les boites email en tache de fond et classe automatiquement les emails et pieces jointes dans OpenBee Portal selon des regles parametrees -- sans intervention utilisateur.</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">OS requis</div><div class="info-val">Windows 10/11 Pro, Server 2019 ou superieur</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Prerequis</div><div class="info-val">.NET 4.6.1+, 4 Go RAM, 500 Mo disque, acces Internet</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Protocole</div><div class="info-val">IMAP (doit etre active) -- OAuth 2.0 pour Office/Outlook</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Incompatible avec</div><div class="info-val">Les boites aux lettres partagees</div></div>'
+     +'</div>'
+     +'<p>Connexion a OpenBee Portal : saisir l URL ou IP, le port, cocher SSL si disponible, puis identifiant et mot de passe OpenBee. Si un proxy est present, la detection automatique lit la configuration d Internet Explorer.</p>'
+     +'<div class="key-box">Chaque regle eMail Capture se compose de 4 parties : Source (dossiers IMAP), Conditions (filtres), Action (que faire de l email) et Destination (ou le classer).</div>'],
+    ['eMail Capture -- Regles, actions et variables personnalisees',
+     '<p><strong>Conditions de filtrage</strong> (onglet Conditions) : filtrer par expediteur, objet, presence de PJ, nom de PJ, taille du mail. Deux modes : toutes les conditions vraies (ET) ou au moins une vraie (OU).</p>'
+     +'<p><strong>Actions disponibles</strong> (onglet Action) :</p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">Sauvegarder le mail entier au format .eml (avec ses PJ)</div>'
+     +'<div class="q-item">Extraire le corps du message et le convertir en PDF (template HTML personnalisable)</div>'
+     +'<div class="q-item">Extraire et sauvegarder uniquement les pieces jointes</div>'
+     +'<div class="q-item">Telecharger des fichiers depuis un lien web public contenu dans l email</div>'
+     +'</div>'
+     +'<p><strong>Variables personnalisees :</strong> des expressions regulieres permettent d extraire des donnees specifiques du contenu (ex : numero de dossier "3 lettres-1 tiret-3 chiffres" : REF-123). Ces variables deviennent des index utilisables dans la regle de classement OpenBee.</p>'
+     +'<div class="warn-box">Les emails deja traites ne sont jamais retraites. Pour relancer une synchronisation, il faut exporter la regle, supprimer l ancienne (efface l historique) et reimporter.</div>']
   ];
-  var html='<div class="step-panel"><div class="content-section"><h3>Les connecteurs OpenBee -- Chorus Pro, eSignature, eMail Capture</h3><p>Trois modules qui etendent OpenBee Portal vers la facturation publique, la signature electronique et la capture d emails.</p>';
-  for(var i=0;i<chapters.length;i++){
-    html+='<div class="accordion-item"><div class="accordion-hd" onclick="this.parentNode.classList.toggle(\'open\')">'
-      +'<span>'+chapters[i].title+'</span><span class="acc-arrow">▾</span></div>'
-      +'<div class="accordion-bd"><p>'+chapters[i].content+'</p></div></div>';
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Connecteurs OpenBee -- Chorus Pro, eSignature, eMail Capture</h3>';
+  html+='<p>Trois modules complementaires qui automatisent des flux documentaires metiers : facturation publique, signature electronique, capture d emails.</p>';
+  for(var i=0;i<chapitres.length;i++){
+    var open=i===0?'open':'';
+    html+='<div class="chapter"><div class="ch-hd '+open+'"><span>'+(i+1)+'. '+chapitres[i][0]+'</span><span class="ch-toggle">'+(i===0?'\u25b2':'\u25bc')+'</span></div>'
+      +'<div class="ch-body '+open+'"><div class="content-section">'+chapitres[i][1]+'</div></div></div>';
   }
   html+='</div>'+stepNavHTML(1)+'</div>';
   return html;
 }
 
 function renderStep2_M17(){
-  var steps=[
-    {who:'Commercial',msg:'Bonjour Mme Bertrand. Je sais que vous traitez de nombreuses factures pour des collectivites locales. Comment se passe aujourd hui la soumission de ces factures a Chorus Pro ?'},
-    {who:'Cliente',msg:'C est fastidieux... On les saisit manuellement sur le portail Chorus Pro une par une. Ca prend un temps fou, surtout en fin de mois.'},
-    {who:'Commercial',msg:'Je comprends. Et si des factures sont rejetees ou suspendues, comment vous en etes-vous averti ?'},
-    {who:'Cliente',msg:'On le decouvre souvent trop tard, quand on relance le client. Il n y a pas de notification automatique.'},
-    {who:'Commercial',msg:'C est exactement le probleme que resout le connecteur Chorus Pro d OpenBee. Les factures classees dans votre GED sont soumises automatiquement toutes les 10 minutes -- sans action manuelle. Et les changements de statut vous sont notifies directement sur votre tableau de bord et par email.'},
-    {who:'Cliente',msg:'Mais on a aussi des contrats a faire signer -- des devis, des CGV. On envoie tout par email et on attend... Ca peut prendre des semaines.'},
-    {who:'Commercial',msg:'Pour ca, OpenBee propose le module eSignature. Vous configurez un profil "Devis" ou "Contrat", et a chaque fois qu un document est classe avec cette regle, une demande de signature est envoyee automatiquement au client via Universign ou DocuSign. Le client signe depuis son smartphone, vous recevez le document signe dans OpenBee.'},
-    {who:'Cliente',msg:'Et nos factures fournisseurs ? On en recoit beaucoup par email, on doit les transferer manuellement dans OpenBee.'},
-    {who:'Commercial',msg:'eMail Capture regle exactement ca. Il surveille votre boite email en permanence, detecte les emails avec pieces jointes selon vos criteres, et les classe automatiquement dans OpenBee avec les bonnes metadonnees. Vous parametrez une fois, et c est automatique pour toujours.'},
-    {who:'Cliente',msg:'Tout ca dans la meme solution ?'},
-    {who:'Commercial',msg:'Oui -- trois modules complementaires qui fonctionnent en synergie avec votre GED OpenBee. Chaque flux documentaire devient automatise : emission vers Chorus Pro, signature electronique, capture des emails entrants.'}
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation -- La cliente aux trois douleurs</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div>'
+    +'<div class="scenario-context">Vous rencontrez <strong>Mme Claire BERTRAND</strong>, DAF d une PME de 60 salaries (Bertrand & Associes, cabinet de conseil). Elle traite beaucoup de factures pour des collectivites locales, envoie des contrats a signer a ses clients, et recoit quotidiennement des factures fournisseurs par email. Elle utilise deja OpenBee Portal pour la GED mais n a pas encore de connecteurs actives.</div></div>';
+  var bubbles=[
+    ['comm','V','Vous (commercial IXEO)','Mme Bertrand, vous m avez dit en amont que vous perdiez du temps sur trois points : la facturation avec les mairies, les signatures de contrats, et le traitement des emails entrants. On peut les passer en revue ?'],
+    ['cli','B','Mme Bertrand','Oui, et c est un vrai probleme. Pour Chorus Pro, on saisit tout manuellement sur le portail. En fin de mois c est une heure de travail minimum, juste pour cliquer.'],
+    ['comm','V','Vous','Et quand une facture est suspendue ou rejetee par la mairie, vous etes prévenu comment ?'],
+    ['cli','B','Mme Bertrand','On le decouvre en allant verifier sur le portail, parfois plusieurs jours apres. Ca retarde les paiements.'],
+    ['comm','V','Vous','Le connecteur Chorus Pro d OpenBee resout exactement ca : vos factures classees dans la GED sont soumises automatiquement toutes les 10 minutes, et vous recevez une notification immediata sur votre tableau de bord et par email a chaque changement de statut. Plus besoin de surveiller le portail.'],
+    ['cli','B','Mme Bertrand','Ca c est vraiment interessant. Et pour les contrats, on les envoie par email a nos clients, on attend... parfois deux semaines avant d avoir la signature. On a failli perdre un dossier a cause de ca.'],
+    ['comm','V','Vous','Le module eSignature regle ce probleme. Vous configurez un profil "Contrat" : des qu un contrat est classe dans OpenBee, la demande de signature est envoyee automatiquement au client via Universign. Il signe depuis son telephone en moins de 5 minutes. Vous avez le document signe archive dans OpenBee immediatement.'],
+    ['cli','B','Mme Bertrand','Et mon client a besoin d installer quelque chose ?'],
+    ['comm','V','Vous','Rien du tout. Il recoit un email avec un lien, il clique, il signe. Comme valider un virement par SMS. La signature est conforme au reglement europeen eIDAS -- elle a la meme valeur juridique qu une signature manuscrite.'],
+    ['cli','B','Mme Bertrand','Parfait. Et pour les factures fournisseurs, on en recoit une trentaine par email chaque semaine. Ma collaboratrice passe au moins une heure a les transferer dans OpenBee.'],
+    ['comm','V','Vous','eMail Capture automatise exactement ca. Il surveille votre boite mail en permanence, detecte les emails avec des PDF en pieces jointes selon vos criteres, et les classe directement dans OpenBee avec les bonnes metadonnees -- expediteur, date, objet. Votre collaboratrice n a plus rien a faire.'],
+    ['cli','B','Mme Bertrand','Et si on recoit d autres emails qui ne sont pas des factures, ca ne va pas tout aspirer ?'],
+    ['comm','V','Vous','Non -- vous definissez des regles precises : seulement les emails avec PJ de type PDF, provenant d un certain domaine, avec certains mots dans l objet. Tout le reste est ignore. Vous avez un controle total sur ce qui est capture.'],
+    ['cli','B','Mme Bertrand','Donc d un coup on automatise nos trois problemes. Combien ca coute et c est long a mettre en place ?'],
+    ['comm','V','Vous','Chaque connecteur est une licence additionnelle sur votre OpenBee existant. La mise en place est rapide -- le plus long c est la configuration des regles selon vos flux metiers. Je vous propose qu on fasse un audit ensemble pour dimensionner les trois modules selon votre volume reel.']
   ];
-  var html='<div class="step-panel"><div class="content-section"><h3>Mise en situation -- Decouverte des connecteurs</h3>';
-  for(var i=0;i<steps.length;i++){
-    var cls=steps[i].who==='Commercial'?'bubble-right':'bubble-left';
-    html+='<div class="dialogue-bubble '+cls+'"><span class="bubble-who">'+steps[i].who+'</span><p>'+steps[i].msg+'</p></div>';
+  html+='<div class="dialogue">';
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'"><div class="bubble-avatar '+b[0]+'">'+b[1]+'</div><div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div></div>';
   }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ Identifier les trois douleurs distinctes permet de proposer trois solutions en un seul rendez-vous. 2/ Quantifier le temps perdu (1h sur Chorus, 2 semaines pour une signature, 1h/semaine d emails) cree un ROI tangible. 3/ Le client qui pose la question des pre-requis (installation, cout) est en phase de decision -- ne pas freiner l elan.</div>';
   html+='</div>'+stepNavHTML(2)+'</div>';
   return html;
 }
 
 function renderStep3_M17(){
-  var questions=[
-    {theme:'Chorus Pro',q:'Avez-vous des clients dans le secteur public (collectivites, hopitaux, ministeres) ?',why:'Identifier le besoin de soumission Chorus Pro'},
-    {theme:'Chorus Pro',q:'Comment transmettez-vous actuellement vos factures aux entites publiques ?',why:'Mesurer la maturite actuelle -- saisie manuelle vs automatisee'},
-    {theme:'Chorus Pro',q:'Quel est le volume mensuel de factures soumises a Chorus Pro ?',why:'Quantifier le gain de temps potentiel'},
-    {theme:'Chorus Pro',q:'Avez-vous deja eu des factures rejetees ou suspendues dans Chorus Pro ? Quel est l impact ?',why:'Reveiller la douleur des erreurs et retards de paiement'},
-    {theme:'Chorus Pro',q:'Vos factures comportent-elles des pieces jointes (bons de commande, devis) a joindre a la soumission ?',why:'Identifier le besoin d envoi automatique des PJ'},
-    {theme:'eSignature',q:'Quels types de documents necessitent une signature dans votre organisation ?',why:'Cartographier les flux de signature (devis, contrats, CGV)'},
-    {theme:'eSignature',q:'Quel est votre processus actuel de signature ? Delais constatés ?',why:'Quantifier les pertes de temps et d affaires liees aux signatures lentes'},
-    {theme:'eSignature',q:'Avez-vous deja perdu un contrat a cause d un delai de signature trop long ?',why:'Ancrer le besoin dans une experience concrete'},
-    {theme:'eSignature',q:'Vos clients et partenaires sont-ils a l aise avec les outils numeriques ?',why:'Evaluer la compatibilite avec la signature electronique'},
-    {theme:'eMail Capture',q:'Recevez-vous des factures fournisseurs par email ? A quelle frequence ?',why:'Identifier le volume de traitement manuel d emails'},
-    {theme:'eMail Capture',q:'Combien de temps un collaborateur passe-t-il a transferer les emails dans la GED chaque semaine ?',why:'Calculer le cout du traitement manuel'},
-    {theme:'eMail Capture',q:'Avez-vous des regles de filtrage souhaitees (ex : uniquement les emails avec PJ PDF d un expediteur specifique) ?',why:'Preparer la configuration des regles eMail Capture'},
-    {theme:'General',q:'Ces trois problematiques -- Chorus Pro, signature, emails -- sont-elles toutes presentes chez vous, ou certaines sont prioritaires ?',why:'Prioriser les modules a presenter'}
+  var cats=[
+    {t:'Chorus Pro -- Diagnostic facturation publique',qs:[
+      'Avez-vous des clients dans le secteur public : collectivites, mairies, hopitaux, ministeres, etablissements publics ?',
+      'Comment soumettez-vous actuellement vos factures a Chorus Pro ? Portail manuel, autre outil, sous-traitance a un prestataire ?',
+      'Quel est votre volume mensuel de factures soumises a Chorus Pro ? Et quel temps cela represente-t-il pour votre equipe ?',
+      'Avez-vous deja eu des factures rejetees, suspendues ou en erreur dans Chorus Pro ? Quel a ete l impact sur vos delais de paiement ?',
+      'Vos factures comportent-elles des pieces jointes a joindre (bons de commande, devis, releves de prestations) ?'
+    ]},
+    {t:'eSignature -- Diagnostic flux de signature',qs:[
+      'Quels types de documents necessitent une signature recurrente dans votre organisation : devis, contrats, CGV, conventions de formation, accords de confidentialite ?',
+      'Quel est votre processus actuel de signature ? Email + attente ? Courrier ? Quel delai moyen constatez-vous ?',
+      'Avez-vous deja perdu un contrat ou subi un retard de demarrage a cause d un delai de signature trop long ?',
+      'Vos signataires sont-ils internes (employes) ou externes (clients, partenaires, fournisseurs) ?',
+      'Avez-vous un outil de signature electronique existant ? Est-il integre a votre GED ou est-ce un outil isole ?'
+    ]},
+    {t:'eMail Capture -- Diagnostic flux emails',qs:[
+      'Recevez-vous des factures fournisseurs, bons de livraison ou autres documents importants par email ? A quelle frequence ?',
+      'Combien de temps un collaborateur consacre-t-il chaque semaine au transfert et classement manuel d emails dans la GED ?',
+      'Avez-vous deja perdu un document important parce qu il etait reste dans une boite email sans etre classe ?',
+      'Souhaiteriez-vous des regles de filtrage precises : seulement certains expediteurs, certains types de PJ, certains mots-cles dans l objet ?',
+      'Utilisez-vous Office 365 ou Gmail ? Le protocole IMAP est-il active sur vos boites ?'
+    ]},
+    {t:'Qualification globale et priorites',qs:[
+      'Ces trois problematiques -- Chorus Pro, signature, emails -- sont-elles toutes presentes chez vous, ou certaines sont plus prioritaires ?',
+      'Avez-vous deja OpenBee Portal en place ? Sur quelle version ? En cloud (KomiDoc) ou on-premise ?',
+      'Avez-vous un projet de mise en place planifie, ou cherchez-vous a identifier les priorites ?'
+    ]}
   ];
-  var html='<div class="step-panel"><div class="content-section"><h3>Grille de decouverte -- Connecteurs OpenBee</h3><p>Questions pour identifier les flux documentaires non automatises chez le client.</p>';
-  var curTheme='';
-  for(var i=0;i<questions.length;i++){
-    if(questions[i].theme!==curTheme){
-      curTheme=questions[i].theme;
-      html+='<div class="disc-category">'+curTheme+'</div>';
-    }
-    html+='<div class="disc-item"><div class="disc-q">'+questions[i].q+'</div><div class="disc-why">Pourquoi : '+questions[i].why+'</div></div>';
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Grille de decouverte -- Connecteurs OpenBee</h3>';
+  html+='<p>Questions pour identifier les flux documentaires non automatises et qualifier les modules prioritaires a deployer.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
   }
+  html+='<div class="key-box">Conseil terrain : commencer par la douleur la plus visible. Souvent c est le temps perdu sur Chorus Pro (tangible, chiffrable en minutes/facture) ou les signatures lentes (impact business direct). eMail Capture est souvent decouvert en fin de rendez-vous -- "ah oui ca aussi c est un probleme".</div>';
   html+='</div>'+stepNavHTML(3)+'</div>';
   return html;
 }
 
 function renderStep4_M17(){
   var blocks=[
-    {titre:'Connecteur Chorus Pro -- Automatiser la facturation publique',body:'<b>Pour qui :</b> tout fournisseur d entites publiques (Etat, collectivites, hopitaux, etablissements publics). <b>Valeur :</b> elimination de la saisie manuelle sur le portail Chorus Pro. Soumission automatique toutes les 10 minutes. Notification instantanee des changements de statut (Suspendue, Rejetee, A recycler). Association intelligente des metadonnees OpenBee pour pre-remplir le formulaire Chorus. <b>Argument chiffre :</b> pour une entreprise soumettant 100 factures/mois manuellement (15 min/facture), l automatisation represente 25 heures gagnees chaque mois.'},
-    {titre:'Connecteur eSignature -- Accelerer tous les cycles de signature',body:'<b>Pour qui :</b> toute organisation avec des flux de signature recurrents (devis, contrats, CGV, conventions). <b>Valeur :</b> declenchement automatique a l archivage du document. Suivi en temps reel. Signature depuis n importe quel device. Conformite eIDAS. Deux niveaux de securite : niveau 1 (SMS) pour les transactions courantes, niveau 2 (SMS + identite) pour les engagements importants. <b>Argument chiffre :</b> un cycle de signature postal prend en moyenne 8-12 jours. La signature electronique le ramene a moins de 24 heures.'},
-    {titre:'Connecteur eMail Capture -- Zapper le traitement manuel des emails',body:'<b>Pour qui :</b> tout utilisateur recevant des documents importants par email (factures fournisseurs, bons de livraison, contrats). <b>Valeur :</b> surveillance permanente des boites IMAP. Filtrage intelligent par expediteur, objet, presence de PJ. Classement automatique dans OpenBee avec les bonnes metadonnees. Exportation vers dossier Windows en option. <b>Argument chiffre :</b> si un collaborateur passe 30 min/jour a transferer des emails, eMail Capture libere 120 heures/an.'}
+    {titre:'Connecteur Chorus Pro -- Eliminer la saisie manuelle',body:'<p><strong>Pour qui :</strong> tout fournisseur d entites publiques (Etat, collectivites, hopitaux). <strong>Douleur resolue :</strong> saisie manuelle sur le portail Chorus Pro, absence de notifications de statut, retards de paiement lies aux rejets non detectes.</p>'
+      +'<p><strong>Arguments chiffres :</strong> pour une entreprise soumettant 50 factures/mois manuellement a 15 min/facture = 12,5 heures gagnees. Pour 100 factures = 25 heures, soit plus de 3 jours de travail par mois.</p>'
+      +'<div class="key-box">Argument decisif : "Chaque facture suspendue que vous ne voyez pas, c est un paiement qui prend du retard. OpenBee vous notifie en temps reel -- votre tresorerie s ameliore sans effort supplementaire."</div>'},
+    {titre:'Connecteur eSignature -- Accelerer tous les cycles de signature',body:'<p><strong>Pour qui :</strong> toute organisation avec des flux de signature recurrents -- contrats, devis, CGV, conventions. <strong>Douleur resolue :</strong> attentes de 8 a 14 jours pour une signature postale ou par email, risque de perte de contrat, absence de suivi.</p>'
+      +'<p><strong>Arguments chiffres :</strong> un cycle de signature postal prend en moyenne 8 a 12 jours. La signature electronique le ramene a moins de 24 heures. Sur 50 contrats par an, c est 400 jours de delai elimines.</p>'
+      +'<div class="key-box">Argument decisif : "Votre client signe depuis son telephone en 5 minutes. Vous avez le document signe archive dans OpenBee dans la foulée. Pas d installation, pas de compte a creer. Valeur juridique identique a une signature manuscrite."</div>'},
+    {titre:'Connecteur eMail Capture -- Supprimer le traitement manuel des emails',body:'<p><strong>Pour qui :</strong> tout utilisateur recevant des documents importants par email -- factures fournisseurs, bons de livraison, contrats. <strong>Douleur resolue :</strong> temps de transfert manuel, risque d oubli, classement approximatif.</p>'
+      +'<p><strong>Arguments chiffres :</strong> si un collaborateur passe 30 min/jour a transferer des emails, c est 110 heures/an. A 35 EUR/h, cela represente 3 850 EUR de cout de traitement annuel -- pour un module dont le cout est bien inferieur.</p>'
+      +'<div class="key-box">Argument decisif : "eMail Capture ne se trompe jamais, ne prend pas de vacances, et classe tout en moins d une minute. Votre collaboratrice peut consacrer ce temps a des taches a valeur ajoutee."</div>'}
   ];
   var objections=[
-    {q:'"On se connecte directement sur le portail Chorus Pro, ca marche bien."',a:'Le portail Chorus Pro fonctionne, mais il necessite une connexion humaine a chaque facture. Des que le volume depasse quelques dizaines de factures par mois, le temps investi devient significatif. De plus, le suivi des statuts est passif -- vous devez aller chercher l information. OpenBee vous envoie les notifications et soumet automatiquement. Le portail reste accessible comme solution de secours, mais ne remplace pas l automatisation.'},
-    {q:'"On a deja un outil de signature electronique."',a:'Quel outil utilisez-vous ? La question est de savoir si votre outil actuel est integre a votre GED. Si vous devez sortir les documents d OpenBee pour les envoyer en signature, puis les reimporter manuellement, vous perdez du temps et vous risquez des problemes de versioning. L integration native dans OpenBee garantit que le cycle complet -- archivage, signature, archivage du signe -- est automatique et tracable.'},
-    {q:'"Nos collaborateurs transferent les emails eux-memes, ca ne prend pas longtemps."',a:'Ce n est effectivement pas long pour chaque email -- c est l accumulation qui pose probleme. 5 minutes par email x 20 emails par jour x 200 jours travailles = 333 heures par an. C est presque 2 mois de travail equivalent. Et le risque d oubli ou d erreur de classement est reel. eMail Capture ne se trompe jamais et ne prend pas de vacances.'},
-    {q:'"Le module eSignature necessite-t-il que nos clients aient un compte specifique ?"',a:'Non. Vos clients recoivent simplement un email avec un lien pour signer. Ils signent depuis leur navigateur ou smartphone, sans compte, sans installation. C est aussi simple qu approuver un virement bancaire par SMS. La conformite eIDAS garantit la valeur juridique de la signature.'}
+    {q:'"On se connecte directement sur le portail Chorus Pro, ca marche bien."',
+     a:'Le portail Chorus Pro fonctionne, mais il necessite une connexion humaine a chaque facture. Des que le volume depasse une vingtaine de factures par mois, le temps investi devient significatif. De plus, le suivi des statuts est passif -- vous devez aller chercher l information vous-meme. OpenBee vous envoie les notifications et soumet automatiquement. Le portail reste accessible comme solution de secours, mais ce n est pas scalable.'},
+    {q:'"On a deja un outil de signature electronique."',
+     a:'Quel outil utilisez-vous ? La question est de savoir s il est integre a votre GED. Si vous devez sortir les documents d OpenBee pour les envoyer en signature, puis les reimporter manuellement, vous perdez du temps et vous risquez des problemes de versioning. L integration native dans OpenBee garantit que le cycle complet -- archivage, signature, archivage du document signe -- est automatique et tracable.'},
+    {q:'"Nos collaborateurs transferent les emails eux-memes, ca ne prend pas longtemps."',
+     a:'Ce n est effectivement pas long pour chaque email -- c est l accumulation qui pose probleme. 5 minutes par email x 20 emails par jour x 200 jours travailles = 333 heures par an. Et le risque d oubli ou d erreur de classement est reel. eMail Capture ne se trompe jamais et ne prend pas de vacances.'},
+    {q:'"Mon client n a surement pas envie d utiliser un outil de signature electronique."',
+     a:'Vos clients recoivent simplement un email avec un lien. Ils signent depuis leur navigateur ou smartphone, sans compte ni installation. C est aussi simple qu approuver un virement bancaire par SMS. La conformite eIDAS garantit la valeur juridique. Et statistiquement, les clients qui hesitent avant de signer apprécient de ne plus avoir a imprimer, signer, scanner et renvoyer.'}
   ];
-  var html='<div class="step-panel"><div class="content-section"><h3>Pitch commercial -- Connecteurs OpenBee</h3>';
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Pitch commercial -- Connecteurs OpenBee</h3>';
   for(var i=0;i<blocks.length;i++){
     html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
   }
-  html+='<h4>Reponses aux objections</h4>';
+  html+='<h4>Reponses aux objections courantes</h4>';
   for(var i=0;i<objections.length;i++){
     html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
   }
@@ -4759,43 +4879,51 @@ function renderStep4_M17(){
 
 function renderStep5_M17(){
   var resources=[
-    {icon:'📄',name:'Guide OpenBee -- Connecteur Chorus Pro',note:'Configuration compte technique, parametrage fournisseur, sous-module recipiendaire',url:'https://www.openbee.com'},
-    {icon:'📄',name:'Guide OpenBee -- Signature electronique',note:'Profils de signature, envoi automatique, niveaux eIDAS, configuration DocuSign/Universign/SwissSign',url:'https://www.openbee.com'},
-    {icon:'📄',name:'Guide OpenBee -- eMail Capture',note:'Configuration IMAP, regles de traitement, variables personnalisees, service de synchronisation',url:'https://www.openbee.com'},
-    {icon:'🌐',name:'Portail PISTE -- API Chorus Pro',note:'Obtenir les identifiants OAuth (Client ID / Client Secret) pour le connecteur Chorus Pro',url:'https://piste.gouv.fr'},
-    {icon:'🌐',name:'Portail Chorus Pro -- Creation compte technique',note:'Prerequis : acces Gestionnaire principal sur votre structure',url:'https://chorus-pro.gouv.fr'},
-    {icon:'🌐',name:'Universign -- Prestataire de signature electronique',note:'Prestataire principal supporte par OpenBee eSignature',url:'https://www.universign.com'},
-    {icon:'📋',name:'Grille de decouverte terrain -- Connecteurs',note:'Version imprimable de l etape 3 -- Chorus, eSignature, eMail Capture',url:'#'},
-    {icon:'📊',name:'Tableau ROI -- Connecteurs OpenBee',note:'Calculer le nombre d heures economisees par module selon le volume traite',url:'#'}
+    {icon:'📄',name:'Guide Connecteur Chorus Pro',type:'Documentation',note:'Configuration compte technique, sous-module fournisseur et recipiendaire, authentification OAuth-PISTE',url:'https://www.openbee.com'},
+    {icon:'📄',name:'Guide eSignature OpenBee',type:'Documentation',note:'Profils de signature, niveaux eIDAS, envoi automatique, integration workflow',url:'https://www.openbee.com'},
+    {icon:'📄',name:'Guide eMail Capture',type:'Documentation',note:'Configuration IMAP, regles de traitement, variables personnalisees, service de synchronisation',url:'https://www.openbee.com'},
+    {icon:'🌐',name:'Portail PISTE -- Gouvernement',type:'Outil',note:'Obtenir les identifiants OAuth (Client ID + Client Secret) pour le connecteur Chorus Pro',url:'https://piste.gouv.fr'},
+    {icon:'🌐',name:'Chorus Pro -- Annuaire',type:'Outil',note:'Verifier les recipiendaires actifs et leur code service avant configuration',url:'https://communaute.chorus-pro.gouv.fr/annuaire-cpro/'},
+    {icon:'🌐',name:'Universign -- Signature electronique',type:'Prestataire',note:'Prestataire principal supporte par OpenBee eSignature -- creation de compte',url:'https://www.universign.com'},
+    {icon:'📊',name:'Calculateur ROI -- Connecteurs',type:'Aide a la vente',note:'Estimer les heures economisees par module selon le volume mensuel traite',url:'#'},
+    {icon:'📋',name:'Grille de decouverte terrain',type:'Aide a la vente',note:'Version imprimable de l etape 3 -- Chorus, eSignature, eMail Capture',url:'#'}
   ];
-  var html='<div class="step-panel"><div class="content-section"><h3>Ressources disponibles</h3><p>Supports pour preparer et accompagner vos rendez-vous autour des connecteurs OpenBee.</p><div class="resources-grid">';
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Ressources disponibles</h3>';
+  html+='<p>Supports pour preparer et accompagner vos rendez-vous autour des connecteurs OpenBee.</p>';
+  html+='<div class="resources-grid">';
   for(var i=0;i<resources.length;i++){
     var r=resources[i];
     var oc=r.url!='#'?'window.open(\''+r.url+'\',\'_blank\')':'alert(\'Ressource disponible sur le drive partage IXEO.\')';
-    html+='<div class="resource-card" onclick="'+oc+'"><div class="resource-icon" style="font-size:2rem;">'+r.icon+'</div><div class="resource-name">'+r.name+'</div><div class="resource-note">'+r.note+'</div></div>';
+    html+='<div class="resource-card" onclick="'+oc+'">'
+      +'<div class="resource-icon">'+r.icon+'</div>'
+      +'<div class="resource-name">'+r.name+'</div>'
+      +'<div class="resource-type">'+r.type+'</div>'
+      +'<div class="resource-note">'+r.note+'</div>'
+      +'</div>';
   }
   html+='</div>';
-  html+='<div class="warn-box" style="margin-top:1.25rem;">Les trois connecteurs (Chorus Pro, eSignature, eMail Capture) sont des modules additionnels necessitant une licence specifique. Ils s installent sur un OpenBee Portal existant et ne fonctionnent pas de maniere autonome.</div>';
+  html+='<div class="warn-box" style="margin-top:1.25rem;">Les trois connecteurs (Chorus Pro, eSignature, eMail Capture) sont des modules additionnels necessitant une licence specifique. Ils s installent sur un OpenBee Portal existant et ne fonctionnent pas de maniere autonome. Verifier la compatibilite de version avant proposition client.</div>';
   html+='</div>'+stepNavHTML(5)+'</div>';
   return html;
 }
 
 var QUESTIONS_M17=[
   {q:"Depuis quelle date les fournisseurs de l Etat et des collectivites locales ont-ils l obligation de transmettre leurs factures via Chorus Pro ?",opts:["1er janvier 2016","1er janvier 2017","1er septembre 2026","1er janvier 2020"],c:1,fb:"Depuis le 1er janvier 2017, selon un calendrier progressif, les entreprises faisant acte de commerce avec toute structure publique sont dans l obligation de transmettre leurs factures au format electronique via la plateforme Chorus Pro."},
-  {q:"Combien de sous-modules compose le connecteur OpenBee Chorus Pro, et lesquels ?",opts:["Un seul module universel","Deux sous-modules : Fournisseur et Recipiendaire","Trois sous-modules : Emission, Reception et Archivage","Quatre sous-modules selon la taille de l entite"],c:1,fb:"Le connecteur OpenBee Chorus Pro est compose de deux sous-modules : le sous-module Fournisseur (pour les entreprises soumettant des factures aux collectivites) et le sous-module Recipiendaire (pour les collectivites recevant des factures via Chorus Pro)."},
-  {q:"A quelle frequence la soumission automatique envoie-t-elle les factures a Chorus Pro lorsqu elle est activee ?",opts:["Une fois par jour a minuit","Toutes les heures","Toutes les 10 minutes","En temps reel a chaque ajout"],c:2,fb:"Lorsque la soumission automatique est activee dans la configuration fournisseur OpenBee, les factures completes sont automatiquement envoyees a Chorus Pro toutes les 10 minutes, sans avoir besoin de se connecter a OpenBee Portal."},
-  {q:"Quel mode d authentification est recommande pour le connecteur Chorus Pro depuis janvier 2020 ?",opts:["Authentification par certificat RGS*","Authentification OAuth-PISTE","Authentification par login/mot de passe","Authentification SAML 2.0"],c:1,fb:"Depuis janvier 2020, les nouveaux raccordements avec un certificat ne sont plus possibles sur Chorus Pro. Le mode OAuth-PISTE est desormais a privilegier. Pour les raccordements existants avant janvier 2020, l authentification par certificat fonctionne encore."},
-  {q:"Que signifie une facture au statut 'Suspendue' dans OpenBee Chorus Pro ?",opts:["La facture a ete rejetee par le destinataire pour donnees erronees","La facture est en attente de soumission car le systeme Chorus Pro est indisponible","La facture est incomplete car il manque des pieces jointes","La facture a ete envoyee deux fois et est en attente de reconciliation"],c:2,fb:"Une facture au statut Suspendue dans OpenBee Chorus Pro signifie qu il manque des pieces jointes pour que la facture soit complete. Il faut cliquer sur l action Completer pour ouvrir le formulaire et ajouter les pieces jointes manquantes."},
-  {q:"Quelle reglementation europeenne encadre la valeur juridique des signatures electroniques supportees par OpenBee eSignature ?",opts:["RGPD (Reglement General sur la Protection des Donnees)","DSP2 (Directive sur les Services de Paiement)","eIDAS (Electronic IDentification Authentication and trust Services)","NIS2 (Directive sur la Securite des Reseaux et de l Information)"],c:2,fb:"Le module eSignature d OpenBee permet d effectuer des signatures via un prestataire qualifie et conforme au reglement eIDAS (Electronic IDentification, Authentication and trust Services), qui est le cadre juridique europeen pour la signature electronique."},
-  {q:"Quels sont les trois prestataires de signature electronique compatibles avec OpenBee eSignature ?",opts:["DocuSign, Adobe Sign, HelloSign","Universign, DocuSign, SwissSign","Yousign, Docaposte, Universign","Certeurope, SwissSign, Adobe Sign"],c:1,fb:"Le module de Signature electronique OpenBee est compatible avec trois prestataires : Universign, DocuSign et SwissSign. Chaque prestataire necessite une configuration specifique (identifiants de connexion, certificats le cas echeant)."},
-  {q:"Qu est-ce que le niveau 2 de securite dans les profils de signature eSignature ?",opts:["Il correspond a une signature avec code SMS uniquement","Il exige le code SMS ET le telechargement d un document d identite, et cree un certificat nominal au nom du signataire","Il correspond a une signature avec un token physique USB","Il est reserve aux signatures internes entre employes de la meme organisation"],c:1,fb:"Le niveau 2 est une signature avancee qui exige, en plus de l authentification par code OTP via SMS, la verification de la piece d identite. Il permet d identifier le signataire sans ambiguite grace a la creation d un certificat d identite emis au nom du signataire (norme EU EN319 411-1)."},
-  {q:"Dans quelle condition un profil de signature eSignature est-il INCOMPATIBLE avec l envoi automatique ?",opts:["Si le profil est configure en niveau de securite 2","Si le profil requiert la signature de l initiateur ou un champ de signature visuel","Si le profil comporte plus de 3 signataires","Si le profil est configure pour SwissSign"],c:1,fb:"Un profil de signature necessitant la signature de l initiateur ou un champ de signature (signature visuelle) ne peut pas etre utilise pour un envoi automatique. En effet, ces options necessitent une action manuelle de l utilisateur pour positionner ou valider le champ."},
-  {q:"Quel protocole de messagerie est requis pour OpenBee eMail Capture ?",opts:["POP3","SMTP","IMAP","Exchange Web Services uniquement"],c:2,fb:"Les messageries cibles d OpenBee eMail Capture doivent supporter le protocole IMAP et celui-ci doit etre active, sauf pour Gmail en utilisant le protocole d authentification OAuth2. Le protocole IMAP permet la consultation des emails sans suppression et le suivi des dossiers."},
-  {q:"Quel type de boite aux lettres est INCOMPATIBLE avec OpenBee eMail Capture ?",opts:["Les boites Gmail avec OAuth2","Les boites Office 365 avec OAuth 2.0","Les boites partagees","Les boites avec certificat SSL"],c:2,fb:"Les boites aux lettres partagees ne sont pas compatibles avec Open Bee eMail Capture. Seules les boites individuelles (avec authentification par mot de passe ou OAuth 2.0 pour Office/Outlook) sont prises en charge."},
-  {q:"Dans OpenBee eMail Capture, que permet l onglet Conditions d une regle ?",opts:["Choisir le dossier IMAP source a surveiller","Filtrer les emails a l interieur des dossiers selectionnes, selon l expediteur, l objet, la presence de PJ, la taille","Definir la destination de sauvegarde dans OpenBee Portal","Associer les metadonnees email aux index OpenBee"],c:1,fb:"L onglet Conditions permet de filtrer les emails a l interieur des dossiers prealablement selectionnes. Ces conditions testent les informations de l en-tete : expediteur, objet, presence de piece jointe, nom de piece jointe, taille du mail. Deux modes : toutes les conditions vraies (ET) ou au moins une vraie (OU)."},
-  {q:"Quelle action d eMail Capture permet d extraire le corps de l email en le transformant en fichier lisible par OpenBee ?",opts:["Sauvegarder le mail entier au format .eml","Extraire et sauvegarder uniquement les pieces jointes","Sauvegarder le corps du message au format PDF","Archiver vers un dossier Scan Capture"],c:2,fb:"L action 'Sauvegarder le corps du message (format PDF)' extrait le corps de l email et le convertit en PDF. Attention : dans ce cas, les pieces jointes ne sont pas gardees. Cette action est personnalisable via un template HTML avec des variables (expediteur, objet, date, corps...)."},
-  {q:"Que se passe-t-il si OpenBee eMail Capture n identifie pas la valeur d une variable personnalisee dans un email ?",opts:["L email est automatiquement supprime","L email est mis en quarantaine pour traitement manuel","L email n est pas indexe pour cet index et une action manuelle est necessaire pour completer l indexation","L email est reclasse dans le dossier source"],c:2,fb:"Si une variable personnalisee ne trouve aucune correspondance dans l email (expression reguliere sans resultat), l email ne sera pas indexe pour cet index specifique. Il faudra completer l indexation manuellement via l historique des traitements. C est pourquoi il est conseille de tester les expressions regulieres avant deploiement."},
-  {q:"Dans le module Chorus Pro en mode Recipiendaire, quelle est la frequence par defaut de recuperation des factures depuis Chorus Pro ?",opts:["En temps reel via webhook","Toutes les heures","Chaque nuit (traitement nocturne)","Toutes les 10 minutes"],c:2,fb:"En mode Recipiendaire, le traitement de recuperation des factures Chorus Pro s execute chaque nuit. Les donnees affichees datent donc de la derniere execution. Un message indique la date et l heure de la derniere recuperation. Il est possible d archiver manuellement en cliquant sur Classer, ou de lancer une reprise globale avec Lancer la reprise de factures."}
+  {q:"Combien de sous-modules compose le connecteur OpenBee Chorus Pro et comment s appellent-ils ?",opts:["Un seul module universel","Deux : Fournisseur et Recipiendaire","Trois : Emission, Reception et Archivage","Quatre selon la taille de l entite"],c:1,fb:"Le connecteur OpenBee Chorus Pro est compose de deux sous-modules distincts : le sous-module Fournisseur (pour les entreprises soumettant des factures aux collectivites) et le sous-module Recipiendaire (pour les collectivites recevant des factures via Chorus Pro et les archivant dans OpenBee)."},
+  {q:"A quelle frequence la soumission automatique envoie-t-elle les factures a Chorus Pro lorsqu elle est activee ?",opts:["Une fois par jour a minuit","Toutes les heures","Toutes les 10 minutes","En temps reel a chaque ajout de document"],c:2,fb:"Lorsque la soumission automatique est activee dans la configuration fournisseur OpenBee, les factures completes sont automatiquement envoyees a Chorus Pro toutes les 10 minutes -- sans avoir besoin de se connecter a OpenBee Portal."},
+  {q:"Quel mode d authentification est recommande pour le connecteur Chorus Pro depuis janvier 2020 ?",opts:["Authentification par certificat RGS*","Authentification OAuth-PISTE","Authentification par login et mot de passe simple","Authentification SAML 2.0"],c:1,fb:"Depuis janvier 2020, les nouveaux raccordements avec un certificat ne sont plus possibles sur Chorus Pro. Le mode OAuth-PISTE est desormais a privilegier. Les identifiants OAuth (Client ID + Client Secret) se recuperent sur le portail PISTE."},
+  {q:"Que signifie un statut 'Suspendue' pour une facture dans OpenBee Chorus Pro ?",opts:["La facture a ete rejetee pour donnees erronees","La connexion a l API Chorus Pro est momentanement interrompue","La facture est incomplete : il manque des pieces jointes","La facture attend une validation interne avant soumission"],c:2,fb:"Une facture au statut Suspendue dans OpenBee Chorus Pro signifie qu il manque des pieces jointes pour que la facture soit complete. Il faut cliquer sur l action Completer pour ouvrir le formulaire et ajouter les pieces jointes manquantes."},
+  {q:"Quelle reglementation europeenne encadre la valeur juridique des signatures electroniques supportees par OpenBee eSignature ?",opts:["RGPD","DSP2","eIDAS","NIS2"],c:2,fb:"Le module eSignature d OpenBee permet d effectuer des signatures via un prestataire qualifie conforme au reglement eIDAS (Electronic IDentification, Authentication and trust Services), qui est le cadre juridique europeen pour la signature electronique avec valeur probatoire."},
+  {q:"Quels sont les trois prestataires de signature electronique compatibles avec OpenBee eSignature ?",opts:["DocuSign, Adobe Sign, HelloSign","Universign, DocuSign, SwissSign","Yousign, Docaposte, Universign","Certeurope, SwissSign, Adobe Sign"],c:1,fb:"Le module de Signature electronique OpenBee est compatible avec trois prestataires : Universign, DocuSign et SwissSign. Chaque prestataire necessite une configuration specifique dans l interface d administration d OpenBee."},
+  {q:"Quelle est la difference principale entre le niveau 1 et le niveau 2 de securite dans eSignature ?",opts:["Niveau 1 = signature interne, Niveau 2 = signature externe","Niveau 1 = code SMS uniquement. Niveau 2 = code SMS + verification piece d identite + certificat nominal","Niveau 1 = Universign, Niveau 2 = DocuSign","Niveau 1 = signature simple, Niveau 2 = signature avec champ visuel obligatoire"],c:1,fb:"Le niveau 1 est une signature simple : authentification par code OTP via SMS, horodatage norme EU EN 319 421. Le niveau 2 est une signature avancee : code SMS + verification de la piece d identite + creation d un certificat nominal au nom du signataire (norme EU EN319 411-1). Le niveau 2 apporte des garanties d identification plus fortes."},
+  {q:"Dans quelle condition un profil de signature eSignature est-il INCOMPATIBLE avec l envoi automatique ?",opts:["Si le profil est configure en niveau de securite 2","Si le profil requiert la signature de l initiateur OU un champ de signature visuel","Si le profil comporte plus de 3 signataires","Si le profil est configure pour le prestataire SwissSign"],c:1,fb:"Un profil de signature necessitant la signature de l initiateur ou un champ de signature visuel ne peut pas etre utilise pour un envoi automatique. Ces options necessitent une action manuelle de l utilisateur pour valider ou positionner le champ -- incompatible avec un declenchement automatique."},
+  {q:"Quel protocole de messagerie est necessaire pour utiliser OpenBee eMail Capture ?",opts:["POP3 uniquement","SMTP sortant","IMAP (doit etre active sur le serveur)","Exchange Web Services uniquement"],c:2,fb:"Les messageries cibles d OpenBee eMail Capture doivent supporter le protocole IMAP et celui-ci doit etre active -- sauf pour Gmail en utilisant l authentification OAuth2. Le protocole IMAP permet la surveillance des dossiers et la gestion des emails sans suppression."},
+  {q:"Quel type de boite aux lettres est explicitement INCOMPATIBLE avec OpenBee eMail Capture ?",opts:["Les boites Gmail avec OAuth2","Les boites Office 365 avec OAuth 2.0","Les boites aux lettres partagees","Les boites avec un certificat SSL"],c:2,fb:"Les boites aux lettres partagees ne sont pas compatibles avec Open Bee eMail Capture. Seules les boites individuelles avec authentification par mot de passe ou OAuth 2.0 (pour Office/Outlook) sont prises en charge."},
+  {q:"Dans OpenBee eMail Capture, l onglet Conditions permet de faire quoi ?",opts:["Choisir les dossiers IMAP a surveiller","Filtrer les emails a traiter selon l expediteur, l objet, la presence ou le nom des PJ, la taille","Definir la destination de sauvegarde dans OpenBee Portal","Associer les metadonnees email aux index de classement OpenBee"],c:1,fb:"L onglet Conditions permet de filtrer les emails a l interieur des dossiers prealablement selectionnes. Deux modes de logique : toutes les conditions vraies (ET) ou au moins une vraie (OU). La condition sur le nom de PJ implique automatiquement la condition Contenant une piece jointe."},
+  {q:"Quelle action eMail Capture sauvegarde l email avec ses pieces jointes dans un format universel lisible par tous les clients de messagerie ?",opts:["Sauvegarder le corps du message (format PDF)","Sauvegarder le mail entier (format .eml)","Extraire uniquement les pieces jointes","Telecharger depuis un lien web public"],c:1,fb:"L action Sauvegarder le mail entier (format .eml) sauvegarde l email avec ses pieces jointes dans le format .eml, format generique lu par tous les clients de messagerie. L email est archive tel quel, integralite du contenu preservee."},
+  {q:"Comment fonctionne une variable personnalisee dans OpenBee eMail Capture ?",opts:["C est un index fixe predefini par l administrateur OpenBee","C est une expression reguliere qui extrait une donnee specifique du contenu de l email (objet, corps, PJ) pour l utiliser comme index de classement","C est un filtre de securite qui bloque certains types de fichiers","C est une regle de redirection vers un dossier Windows specifique"],c:1,fb:"Une variable personnalisee utilise une expression reguliere pour rechercher un mot ou une chaine correspondant a un format predetermine dans le contenu de l email. Le resultat devient un index utilisable dans la regle de classement OpenBee -- par exemple extraire un numero de dossier du format REF-123 pour classer automatiquement dans le bon dossier client."},
+  {q:"Pour relancer un traitement sur des emails deja traites par une regle eMail Capture, quelle est la procedure ?",opts:["Cliquer sur le bouton Reinitialiser dans l historique des traitements","Modifier la date de synchronisation dans le service","Exporter la regle, supprimer l ancienne (efface l historique), reimporter la regle","Redemarrer le service Windows -- cela force le retraitement"],c:2,fb:"Les emails deja traites pour une regle ne sont jamais retraites automatiquement. Pour forcer le retraitement, il faut : 1/ exporter la regle via le bouton d export, 2/ supprimer l ancienne regle (ce qui efface l historique associe), 3/ reimporter la regle exportee. Le service peut alors retraiter les emails comme s ils etaient nouveaux."}
 ];
 
 function showScreen(id) {
