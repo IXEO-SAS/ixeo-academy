@@ -662,7 +662,7 @@ const MODULES = [
   {id:16,name:"Reforme facture electronique (PA)", family:3, available:true},
   {id:17,name:"Connecteurs (Chorus / eSignature / eMail Capture)", family:3, available:true},
   {id:18,name:"Modules compagnons (Gateway, Data Importer, Doc Office Manager)", family:3, available:true},
-  {id:19,name:"DocFlow — gestionnaire de fonds de page", family:3, available:false},
+  {id:19,name:"DocFlow — gestionnaire de fonds de page", family:3, available:true},
 ];
 const FAMILY_NAMES = {1:'Outils de communication', 2:'Informatique & Réseau', 3:'Logiciels'};
 const STEP_NAMES   = {1:'Cours théorique', 2:'Mise en situation', 3:'Questionnement client', 4:'Pitch commercial', 5:'Ressources', 6:'QCM', 7:'Certification'};
@@ -934,12 +934,12 @@ async function goStep(step) {
     await saveProgress(S.currentModule, step);
   }
   const content = document.getElementById('stepContent');
-  if      (step === 1) content.innerHTML = S.currentModule===18 ? renderStep1_M18() : (S.currentModule===17 ? renderStep1_M17() : (S.currentModule===16 ? renderStep1_M16() : (S.currentModule===15 ? renderStep1_M15() : (S.currentModule===14 ? renderStep1_M14() : (S.currentModule===13 ? renderStep1_M13() : (S.currentModule===11 ? renderStep1_M11() : (S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1()))))))))))))))));
-  else if (step === 2) content.innerHTML = S.currentModule===18 ? renderStep2_M18() : (S.currentModule===17 ? renderStep2_M17() : (S.currentModule===16 ? renderStep2_M16() : (S.currentModule===15 ? renderStep2_M15() : (S.currentModule===14 ? renderStep2_M14() : (S.currentModule===13 ? renderStep2_M13() : (S.currentModule===11 ? renderStep2_M11() : (S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2()))))))))))))))));
-  else if (step === 3) content.innerHTML = S.currentModule===18 ? renderStep3_M18() : (S.currentModule===17 ? renderStep3_M17() : (S.currentModule===16 ? renderStep3_M16() : (S.currentModule===15 ? renderStep3_M15() : (S.currentModule===14 ? renderStep3_M14() : (S.currentModule===13 ? renderStep3_M13() : (S.currentModule===11 ? renderStep3_M11() : (S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3()))))))))))))))));
-  else if (step === 4) content.innerHTML = S.currentModule===18 ? renderStep4_M18() : (S.currentModule===17 ? renderStep4_M17() : (S.currentModule===16 ? renderStep4_M16() : (S.currentModule===15 ? renderStep4_M15() : (S.currentModule===14 ? renderStep4_M14() : (S.currentModule===13 ? renderStep4_M13() : (S.currentModule===11 ? renderStep4_M11() : (S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4()))))))))))))))));
-  else if (step === 5) content.innerHTML = S.currentModule===18 ? renderStep5_M18() : (S.currentModule===17 ? renderStep5_M17() : (S.currentModule===16 ? renderStep5_M16() : (S.currentModule===15 ? renderStep5_M15() : (S.currentModule===14 ? renderStep5_M14() : (S.currentModule===13 ? renderStep5_M13() : (S.currentModule===11 ? renderStep5_M11() : (S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5()))))))))))))))));
-  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===18 ? QUESTIONS_M18 : (S.currentModule===17 ? QUESTIONS_M17 : (S.currentModule===16 ? QUESTIONS_M16 : (S.currentModule===15 ? QUESTIONS_M15 : (S.currentModule===14 ? QUESTIONS_M14 : (S.currentModule===13 ? QUESTIONS_M13 : (S.currentModule===11 ? QUESTIONS_M11 : (S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS))))))))))))))))); }
+  if      (step === 1) content.innerHTML = S.currentModule===19 ? renderStep1_M19() : (S.currentModule===18 ? renderStep1_M18() : (S.currentModule===17 ? renderStep1_M17() : (S.currentModule===16 ? renderStep1_M16() : (S.currentModule===15 ? renderStep1_M15() : (S.currentModule===14 ? renderStep1_M14() : (S.currentModule===13 ? renderStep1_M13() : (S.currentModule===11 ? renderStep1_M11() : (S.currentModule===10 ? renderStep1_M10() : (S.currentModule===9 ? renderStep1_M9() : (S.currentModule===8 ? renderStep1_M8() : (S.currentModule===7 ? renderStep1_M7() : (S.currentModule===6 ? renderStep1_M6() : (S.currentModule===5 ? renderStep1_M5() : (S.currentModule===4 ? renderStep1_M4() : (S.currentModule===1 ? renderStep1_M1() : (S.currentModule===3 ? renderStep1_M3() : (S.currentModule===2 ? renderStep1_M2() : renderStep1())))))))))))))))));
+  else if (step === 2) content.innerHTML = S.currentModule===19 ? renderStep2_M19() : (S.currentModule===18 ? renderStep2_M18() : (S.currentModule===17 ? renderStep2_M17() : (S.currentModule===16 ? renderStep2_M16() : (S.currentModule===15 ? renderStep2_M15() : (S.currentModule===14 ? renderStep2_M14() : (S.currentModule===13 ? renderStep2_M13() : (S.currentModule===11 ? renderStep2_M11() : (S.currentModule===10 ? renderStep2_M10() : (S.currentModule===9 ? renderStep2_M9() : (S.currentModule===8 ? renderStep2_M8() : (S.currentModule===7 ? renderStep2_M7() : (S.currentModule===6 ? renderStep2_M6() : (S.currentModule===5 ? renderStep2_M5() : (S.currentModule===4 ? renderStep2_M4() : (S.currentModule===1 ? renderStep2_M1() : (S.currentModule===3 ? renderStep2_M3() : (S.currentModule===2 ? renderStep2_M2() : renderStep2())))))))))))))))));
+  else if (step === 3) content.innerHTML = S.currentModule===19 ? renderStep3_M19() : (S.currentModule===18 ? renderStep3_M18() : (S.currentModule===17 ? renderStep3_M17() : (S.currentModule===16 ? renderStep3_M16() : (S.currentModule===15 ? renderStep3_M15() : (S.currentModule===14 ? renderStep3_M14() : (S.currentModule===13 ? renderStep3_M13() : (S.currentModule===11 ? renderStep3_M11() : (S.currentModule===10 ? renderStep3_M10() : (S.currentModule===9 ? renderStep3_M9() : (S.currentModule===8 ? renderStep3_M8() : (S.currentModule===7 ? renderStep3_M7() : (S.currentModule===6 ? renderStep3_M6() : (S.currentModule===5 ? renderStep3_M5() : (S.currentModule===4 ? renderStep3_M4() : (S.currentModule===1 ? renderStep3_M1() : (S.currentModule===3 ? renderStep3_M3() : (S.currentModule===2 ? renderStep3_M2() : renderStep3())))))))))))))))));
+  else if (step === 4) content.innerHTML = S.currentModule===19 ? renderStep4_M19() : (S.currentModule===18 ? renderStep4_M18() : (S.currentModule===17 ? renderStep4_M17() : (S.currentModule===16 ? renderStep4_M16() : (S.currentModule===15 ? renderStep4_M15() : (S.currentModule===14 ? renderStep4_M14() : (S.currentModule===13 ? renderStep4_M13() : (S.currentModule===11 ? renderStep4_M11() : (S.currentModule===10 ? renderStep4_M10() : (S.currentModule===9 ? renderStep4_M9() : (S.currentModule===8 ? renderStep4_M8() : (S.currentModule===7 ? renderStep4_M7() : (S.currentModule===6 ? renderStep4_M6() : (S.currentModule===5 ? renderStep4_M5() : (S.currentModule===4 ? renderStep4_M4() : (S.currentModule===1 ? renderStep4_M1() : (S.currentModule===3 ? renderStep4_M3() : (S.currentModule===2 ? renderStep4_M2() : renderStep4())))))))))))))))));
+  else if (step === 5) content.innerHTML = S.currentModule===19 ? renderStep5_M19() : (S.currentModule===18 ? renderStep5_M18() : (S.currentModule===17 ? renderStep5_M17() : (S.currentModule===16 ? renderStep5_M16() : (S.currentModule===15 ? renderStep5_M15() : (S.currentModule===14 ? renderStep5_M14() : (S.currentModule===13 ? renderStep5_M13() : (S.currentModule===11 ? renderStep5_M11() : (S.currentModule===10 ? renderStep5_M10() : (S.currentModule===9 ? renderStep5_M9() : (S.currentModule===8 ? renderStep5_M8() : (S.currentModule===7 ? renderStep5_M7() : (S.currentModule===6 ? renderStep5_M6() : (S.currentModule===5 ? renderStep5_M5() : (S.currentModule===4 ? renderStep5_M4() : (S.currentModule===1 ? renderStep5_M1() : (S.currentModule===3 ? renderStep5_M3() : (S.currentModule===2 ? renderStep5_M2() : renderStep5())))))))))))))))));
+  else if (step === 6) { content.innerHTML = renderStep6Shell(); initQCM(S.currentModule===19 ? QUESTIONS_M19 : (S.currentModule===18 ? QUESTIONS_M18 : (S.currentModule===17 ? QUESTIONS_M17 : (S.currentModule===16 ? QUESTIONS_M16 : (S.currentModule===15 ? QUESTIONS_M15 : (S.currentModule===14 ? QUESTIONS_M14 : (S.currentModule===13 ? QUESTIONS_M13 : (S.currentModule===11 ? QUESTIONS_M11 : (S.currentModule===10 ? QUESTIONS_M10 : (S.currentModule===9 ? QUESTIONS_M9 : (S.currentModule===8 ? QUESTIONS_M8 : (S.currentModule===7 ? QUESTIONS_M7 : (S.currentModule===6 ? QUESTIONS_M6 : (S.currentModule===5 ? QUESTIONS_M5 : (S.currentModule===4 ? QUESTIONS_M4 : (S.currentModule===1 ? QUESTIONS_M1 : (S.currentModule===3 ? QUESTIONS_M3 : (S.currentModule===2 ? QUESTIONS_M2 : QUESTIONS)))))))))))))))))); }
   else if (step === 7) content.innerHTML = renderStep7();
   content.querySelectorAll('.ch-hd').forEach(hd => {
     hd.onclick = () => {
@@ -5191,6 +5191,249 @@ var QUESTIONS_M18=[
   {q:'Quel est l avantage de l indexation avancee dans Doc Office Manager par rapport au classement simple ?',opts:['Elle permet de creer automatiquement des sous-dossiers dans OpenBee','Elle affiche un formulaire avec les index de la regle de classement (type, date, emetteur...) que l utilisateur remplit pour enrichir les metadonnees du document archive','Elle permet d archiver plusieurs documents simultanement en une operation','Elle active la reconnaissance OCR automatique du document archive'],c:1,fb:'L indexation avancee dans Doc Office Manager affiche un formulaire dont les champs correspondent aux index de la regle de classement OpenBee selectionnee (type de document, date, emetteur, commentaire...). Ces metadonnees sont associees au document dans OpenBee et facilitent les recherches ulterieures dans la GED.'},
   {q:'Pour absorber des documents depuis un dossier Windows avec Gateway, quelle configuration est necessaire ?',opts:['Configurer un connecteur SFTP dans les parametres du compte Gateway','Activer l option Absorption dans l onglet Parametres du compte et definir le dossier Windows surveille via le bouton Configurer','Installer un agent supplementaire de surveillance de dossiers Windows','Configurer une tache planifiee Windows qui copie les fichiers vers le serveur OpenBee'],c:1,fb:'Pour absorber des documents, il faut dans l onglet Parametres du compte de Gateway cliquer sur le bouton Configurer de la section Absorption de documents et definir le dossier Windows a surveiller. Les documents deposes dans ce dossier seront automatiquement envoyes vers le dossier OpenBee Scan Capture configure. Un historique est disponible dans l onglet Passerelle.'},
   {q:'Quels types de fichiers de metadonnees sont supportes par Data Importer pour l import generique ?',opts:['Uniquement XML','XML et CSV','XML, CSV et JSON','XML, CSV, JSON et Excel (XLSX)'],c:2,fb:'Data Importer supporte trois formats de fichiers de metadonnees pour l import generique : XML, CSV et JSON. Un seul fichier peut contenir les metadonnees de plusieurs documents. Les formats XLSX ou autres formats proprietaires ne sont pas supportes nativement.'}
+];
+
+function renderStep1_M19(){
+  var chapitres=[
+    ['DocFlow -- de quoi parle-t-on ?',
+     '<p>DocFlow est un logiciel developpe par IXEO qui transforme votre imprimante virtuelle en un moteur de traitement documentaire. Le principe : vous imprimez depuis n importe quelle application (Word, Excel, votre logiciel metier), le document transite par DocFlow qui l enrichit, le met en forme et le route vers les bonnes destinations -- tout en un seul geste.</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Ce que c est</div><div class="info-val">Un driver d impression virtuel + une interface de gestion des scenarios + un moteur de traitement documentaire. Tout s installe sur un poste Windows comme une imprimante classique.</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Ce que ca fait</div><div class="info-val">Applique automatiquement fonds de page, en-tetes, pieds de page, CGV, annexes -- et route le resultat vers imprimante physique, PDF archive et/ou email en une seule operation.</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Pour qui</div><div class="info-val">TPE, PME, collectivites, associations, professions liberales -- toute structure qui produit des documents avec en-tete, qui gere des CGV ou qui imprime des lots de factures/courriers.</div></div>'
+     +'</div>'
+     +'<div class="key-box">DocFlow remplace les stocks de papier pre-imprime par des scenarios numeriques. Plus de rupture de stock, plus d erreur de bac, plus de manipulation physique -- le document sort toujours correct, du premier coup.</div>'],
+    ['Le flux de travail DocFlow en 5 etapes',
+     '<p>Le fonctionnement de DocFlow suit un flux lineaire simple, identique quelle que soit l application source :</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">1. Impression virtuelle</div><div class="info-val">L utilisateur imprime depuis Word, Excel, PowerPoint ou son logiciel metier en choisissant l imprimante "Ixeo DocFlow" dans la liste de ses imprimantes Windows</div></div>'
+     +'<div class="info-item"><div class="info-lbl">2. Apercu dans DocFlow</div><div class="info-val">Le document apparait dans la file de traitement DocFlow. L utilisateur voit le document brut et peut previsualiser le resultat avant tout traitement</div></div>'
+     +'<div class="info-item"><div class="info-lbl">3. Selection du scenario</div><div class="info-val">L utilisateur choisit le scenario a appliquer parmi ceux qui ont ete pre-configures (en-tete societe, facture avec CGV, courrier commercial, etc.)</div></div>'
+     +'<div class="info-item"><div class="info-lbl">4. Choix des sorties</div><div class="info-val">Selectionner une ou plusieurs destinations : impression physique (avec choix du nombre de copies et du bac), generation PDF dans un dossier defini, envoi par email</div></div>'
+     +'<div class="info-item"><div class="info-lbl">5. Recuperation du resultat</div><div class="info-val">Le document enrichi sort aux destinations choisies. La copie PDF est deja nommee et classee. L email est parti. L imprimante a produit les bons exemplaires.</div></div>'
+     +'</div>'
+     +'<div class="key-box">La previsualisation est le filet de securite de DocFlow : l utilisateur voit exactement chaque page modifiee AVANT d imprimer, envoyer ou archiver. Zero surprise, zero gaspillage papier.</div>'],
+    ['Les pre-imprimes -- creer et gerer ses fonds de page',
+     '<p>Le <strong>fond de page</strong> (ou pre-imprime electronique) est le coeur de DocFlow : c est le modele qui sera fusionne avec le document de l utilisateur. Il peut contenir logo, coordonnees, charte graphique, mentions legales, messages promotionnels...</p>'
+     +'<p><strong>Deux facons de creer un fond de page :</strong></p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Creation depuis Office</div><div class="info-val">Designer son modele dans Word, Excel ou PowerPoint, puis imprimer sur DocFlow -- le fond de page est instantanement disponible comme modele reutilisable dans un scenario</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Import de PDF existant</div><div class="info-val">Si l entreprise possede deja ses modeles au format PDF (charte graphique, modeles groupe), DocFlow les importe directement sans recrration</div></div>'
+     +'</div>'
+     +'<p><strong>Cas d usage courants :</strong></p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">En-tete societe avec logo, adresse, coordonnees bancaires -- 1 modele par raison sociale pour les groupes multi-societes</div>'
+     +'<div class="q-item">Pied de page avec mentions legales, SIRET, TVA intracommunautaire</div>'
+     +'<div class="q-item">CGV au verso -- une seule fois en PDF, appliquees automatiquement en page 2 de chaque facture</div>'
+     +'<div class="q-item">Message promotionnel ou evenementiel : changer le fond de page en live pour une campagne sans toucher au logiciel metier</div>'
+     +'<div class="q-item">Plaquette commerciale jointe automatiquement en derniere page d un devis</div>'
+     +'</div>'
+     +'<div class="warn-box">La modification du fond de page est immediate et globale : changer l en-tete dans DocFlow met a jour tous les prochains documents produits, depuis toutes les applications, sans aucune intervention sur les logiciels metier.</div>'],
+    ['Les scenarios -- parametrer une fois, gagner chaque jour',
+     '<p>Un <strong>scenario DocFlow</strong> est un script d impression pre-parametres qui definit tout ce qui doit arriver au document : quels fonds de page appliquer, en combien d exemplaires, sur quelle imprimante, avec quelles options, vers quels formats de sortie.</p>'
+     +'<p><strong>Exemple concret -- scenario "Facture client" :</strong></p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">Exemplaire 1 : couleur, avec en-tete societe + CGV au verso, destination : imprimante de production, bac papier blanc</div>'
+     +'<div class="q-item">Exemplaire 2 : monochrome, recto simple, sans fond de page, destination : imprimante de bureau (copie interne)</div>'
+     +'<div class="q-item">Exemplaire 3 : avec formulaire comptabilite, monochrome, destination : imprimante compta, bac couleur</div>'
+     +'<div class="q-item">Copie PDF : genere automatiquement, nommee avec les references du document, classee dans le dossier client sur le serveur</div>'
+     +'<div class="q-item">Email : envoye automatiquement avec le PDF en piece jointe, corps du mail issu d un modele html pre-configure</div>'
+     +'</div>'
+     +'<p>DocFlow gere en autonomie l appel des bacs differents pour chaque exemplaire et l adaptation du pilotage si la destination change.</p>'
+     +'<div class="key-box">Une fois le scenario configure par l administrateur, l utilisateur n a plus qu a choisir son scenario dans la liste -- tout le reste est automatique. La configuration se fait une seule fois, le gain de temps est quotidien.</div>'],
+    ['Les sorties DocFlow -- imprimer, PDF, email',
+     '<p>Chaque scenario peut activer simultanement plusieurs types de sortie :</p>'
+     +'<div class="info-grid">'
+     +'<div class="info-item"><div class="info-lbl">Impression physique</div><div class="info-val">Choix de l imprimante de destination, du nombre de copies, du bac papier. DocFlow peut router un meme document vers plusieurs imprimantes distinctes en une seule operation (ex : production + comptabilite).</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Generation PDF</div><div class="info-val">Archivage automatique dans un dossier pre-defini, avec nommage automatique du fichier base sur les informations du document. Plus besoin de scanner apres impression.</div></div>'
+     +'<div class="info-item"><div class="info-lbl">Envoi email</div><div class="info-val">Le document enrichi est envoye par email avec le destinataire et le corps du message issus d un modele. DocFlow integre un editeur HTML pour creer et gerer des modeles d email riches.</div></div>'
+     +'</div>'
+     +'<p><strong>Focus multi-societes :</strong> pour les structures gerant plusieurs raisons sociales, DocFlow permet de basculer d un en-tete a un autre en un clic -- sans toucher au logiciel metier, sans recharger de papier, sans risque de confusion.</p>'
+     +'<div class="warn-box">DocFlow fonctionne uniquement sur poste Windows. Il n existe pas de mode serveur : chaque utilisateur dispose de son instance locale. L installation est aussi simple que celle d un driver d imprimante standard.</div>'],
+    ['DocFlow et la dematérialisation -- le lien avec la GED',
+     '<p>DocFlow constitue un <strong>pre-traitement documentaire</strong> naturel avant integration dans une GED ou un systeme de classement. En generant automatiquement des PDF nommes et classes dans des dossiers surveilles, il facilite l alimentation de n importe quel systeme documentaire en aval.</p>'
+     +'<p><strong>Flux type avec classement automatique :</strong></p>'
+     +'<div class="q-list">'
+     +'<div class="q-item">L utilisateur imprime sa facture depuis son ERP vers DocFlow</div>'
+     +'<div class="q-item">DocFlow applique le scenario : en-tete + CGV + copie PDF nommee automatiquement</div>'
+     +'<div class="q-item">Le PDF est depose dans un dossier surveille (par OpenBee Data Importer ou un autre outil)</div>'
+     +'<div class="q-item">La GED recoit le document indexe sans intervention supplementaire</div>'
+     +'</div>'
+     +'<p><strong>DocFlow se vend seul</strong> (independamment de toute GED) ou en complement d une solution documentaire existante. C est un outil autonome dont la valeur ne depend pas d un ecosysteme specifique.</p>'
+     +'<div class="key-box">Pour les clients qui ont a la fois DocFlow et OpenBee Portal, le PDF genere par DocFlow dans un dossier surveille peut etre absorbe automatiquement par OpenBee Gateway -- sans aucune action supplementaire de l utilisateur.</div>']
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>DocFlow -- Gestionnaire de fonds de page et scenarios d impression</h3>';
+  html+='<p>Solution IXEO pour transformer l impression quotidienne en processus automatise : pre-imprimes electroniques, scenarios multi-sorties, archivage PDF et envoi email en un seul geste.</p>';
+  for(var i=0;i<chapitres.length;i++){
+    var open=i===0?'open':'';
+    html+='<div class="chapter"><div class="ch-hd '+open+'"><span>'+(i+1)+'. '+chapitres[i][0]+'</span><span class="ch-toggle">'+(i===0?'\u25b2':'\u25bc')+'</span></div>'
+      +'<div class="ch-body '+open+'"><div class="content-section">'+chapitres[i][1]+'</div></div></div>';
+  }
+  html+='</div>'+stepNavHTML(1)+'</div>';
+  return html;
+}
+
+function renderStep2_M19(){
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Mise en situation -- La responsable administrative debordee</h3>';
+  html+='<div class="scenario-card"><div class="scenario-label">Contexte</div>'
+    +'<div class="scenario-context">Vous rencontrez <strong>Mme Sophie RENARD</strong>, responsable administrative d une PME de BTP (45 salaries). Elle gere la facturation, les devis, les courriers clients et les situations de travaux. Chaque document doit sortir avec l en-tete de la societe, les CGV au dos des factures, et une copie PDF archivee. Elle le fait manuellement depuis des annees : imprimer sur papier pre-imprime charge dans un bac specifique, puis scanner pour avoir le PDF. Le papier pre-imprime est souvent en rupture.</div></div>';
+  var bubbles=[
+    ['comm','V','Vous (commercial IXEO)','Mme Renard, vous m avez parle du temps que vous passez sur l impression et l archivage de vos factures. Vous pouvez m en dire plus sur votre process actuel ?'],
+    ['cli','S','Mme Renard','On a du papier pre-imprime avec notre logo dans le bac 2 de l imprimante. On imprime dessus, puis on scanne pour avoir le PDF. Et quand le bac est vide, on ne peut plus imprimer -- il faut attendre la livraison. La semaine derniere on a du decaler des envois de deux jours a cause de ca.'],
+    ['comm','V','Vous','Et les CGV au verso de vos factures, ca se passe comment ?'],
+    ['cli','S','Mme Renard','On a du papier pre-imprime recto-verso special pour les factures. C est encore un autre stock a gerer. Quand les CGV changent, on doit jeter tout le vieux stock et en recommander.'],
+    ['comm','V','Vous','DocFlow supprime ces deux problemes d un coup. Votre imprimante physique reste vide -- pas de papier pre-imprime. A la place, vous avez un driver d impression DocFlow dans votre liste d imprimantes Windows. Vous imprimez votre facture depuis votre logiciel de facturation vers DocFlow. DocFlow fusionne automatiquement votre en-tete et les CGV, et vous sort le document final.'],
+    ['cli','S','Mme Renard','Mais j ai toujours besoin d avoir le PDF archive aussi...'],
+    ['comm','V','Vous','C est integre dans le scenario. DocFlow fait les deux en meme temps : il imprime sur votre imprimante physique ET il genere le PDF dans votre dossier archives -- deja nomme avec le numero de facture. Vous n avez plus rien a scanner.'],
+    ['cli','S','Mme Renard','Et si je dois changer les CGV ? On est en train de les revoir justement.'],
+    ['comm','V','Vous','Vous ouvrez DocFlow, vous modifiez le fond de page CGV, vous sauvegardez. C est tout. Toutes les prochaines factures utilisent les nouvelles CGV. Pas de stock a jeter, pas de delai de fabrication, pas de commande minimum. Et si dans six mois vous changez de logo, meme operation -- deux minutes.'],
+    ['cli','S','Mme Renard','On a aussi des devis qu on envoie par email. La aussi c est manuel -- je les imprime, je scanne, je les envoie.'],
+    ['comm','V','Vous','DocFlow peut aussi envoyer directement par email. Vous configurez un scenario "Devis" : il applique votre en-tete, genere le PDF et l envoie par email avec un modele de message pre-configure. L adresse email peut etre celle que vous avez saisie dans votre document. Tout ca en un seul clic apres l impression virtuelle.'],
+    ['cli','S','Mme Renard','Et pour les devis, on a parfois plusieurs affaires en cours avec des en-tetes differentes -- on a une filiale.'],
+    ['comm','V','Vous','DocFlow gere plusieurs raisons sociales. Vous avez un scenario par societe, ou un scenario avec choix de l en-tete au moment de l impression. En un clic vous basculez de l en-tete principale a celle de la filiale -- sans toucher a votre logiciel metier.'],
+    ['cli','S','Mme Renard','Ca m interesse vraiment. C est quoi le modele de licence ?'],
+    ['comm','V','Vous','C est une licence par poste, comme DocPulse. Je vous prepare un chiffrage selon le nombre de postes qui utilisent l impression quotidiennement. En general c est rapide a deployer -- l installation ressemble a celle d un driver d imprimante, ca prend moins d une heure.']
+  ];
+  html+='<div class="dialogue">';
+  for(var i=0;i<bubbles.length;i++){
+    var b=bubbles[i];var cl=b[0]==='cli';
+    html+='<div class="bubble'+(cl?' client':'')+'">'
+      +'<div class="bubble-avatar '+b[0]+'">'+b[1]+'</div>'
+      +'<div class="bubble-text"><div class="bubble-role">'+b[2]+'</div>'+b[3]+'</div>'
+      +'</div>';
+  }
+  html+='</div>';
+  html+='<div class="key-box">Enseignements : 1/ La rupture de stock de papier pre-imprime est un declencheur puissant -- c est une douleur concrete et recurrente. 2/ Le gain triple (impression + PDF + email en un geste) est l argument massue : on ne remplace pas une seule tache, on en supprime trois. 3/ La facilite de mise a jour des CGV et du logo rassure immediatement sur l autonomie future.</div>';
+  html+='</div>'+stepNavHTML(2)+'</div>';
+  return html;
+}
+
+function renderStep3_M19(){
+  var cats=[
+    {t:'Diagnostic impression et pre-imprimes',qs:[
+      'Comment produisez-vous actuellement vos documents avec en-tete ? Papier pre-imprime dans un bac dedie, impression en deux passes, ou autre methode ?',
+      'Avez-vous deja eu des ruptures de stock de papier pre-imprime ? Combien de fois par an ? Quel a ete l impact sur votre activite ?',
+      'Combien de modeles d en-tete gerez-vous ? Une seule raison sociale ou plusieurs (groupe, filiale, marques differentes) ?',
+      'Vos CGV ou conditions generales de service sont-elles imprimees au verso de certains documents ? Comment gerez-vous les mises a jour ?',
+      'Combien de documents imprimez-vous par jour avec un en-tete ? Factures, devis, courriers, situations de travaux, bons de commande ?'
+    ]},
+    {t:'Diagnostic archivage et PDF',qs:[
+      'Comment obtenez-vous actuellement un PDF de vos documents imprimes avec leur en-tete ? Scan apres impression ? Export depuis le logiciel ?',
+      'Ces PDF sont-ils nomes manuellement ? Qui s en charge ? Combien de temps cela prend-il par semaine ?',
+      'Ou sont stockes ces PDF ? Serveur de fichiers, GED, NAS, PC local ? Y a-t-il une arborescence de classement definie ?',
+      'Avez-vous besoin de plusieurs copies d un meme document avec des destinations differentes (une pour le client, une en compta, une en archives) ?'
+    ]},
+    {t:'Diagnostic envoi par email',qs:[
+      'Envoyez-vous des documents (devis, factures, courriers) par email a vos clients ? Quelle est la frequence ?',
+      'Comment procedez-vous actuellement ? Impression + scan + envoi manuel ? Export PDF depuis le logiciel puis email ?',
+      'Avez-vous des modeles d email standards pour vos envois ? Ou chaque email est-il redige manuellement ?',
+      'L adresse email du destinataire est-elle disponible dans votre logiciel metier ou votre document ?'
+    ]},
+    {t:'Qualification technique et projet',qs:[
+      'Vos utilisateurs travaillent-ils sur des postes Windows ? Combien de postes sont concernes par ces flux d impression ?',
+      'Qui administre vos postes et imprimantes ? Y a-t-il un informaticien interne ou un prestataire IT ?',
+      'Etes-vous equipe d OpenBee Portal ? Dans ce cas, DocFlow peut alimenter automatiquement votre GED via les dossiers surveilles.',
+      'Avez-vous un projet de dematérialisation plus large (facture electronique, GED) dans lequel DocFlow pourrait s inscrire ?'
+    ]}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Grille de decouverte -- DocFlow</h3>';
+  html+='<p>Questions pour qualifier les flux d impression, identifier les douleurs liees aux pre-imprimes et dimensionner le projet DocFlow.</p>';
+  for(var i=0;i<cats.length;i++){
+    html+='<div class="q-category"><div class="q-cat-title">'+cats[i].t+'</div><div class="q-list">';
+    for(var j=0;j<cats[i].qs.length;j++) html+='<div class="q-item">'+cats[i].qs[j]+'</div>';
+    html+='</div></div>';
+  }
+  html+='<div class="key-box">Qualification rapide en 3 questions : 1/ Avez-vous du papier pre-imprime dans vos imprimantes ? 2/ Scannez-vous vos documents apres impression pour les archiver en PDF ? 3/ Envoyez-vous des documents par email de maniere repetitive ? Si au moins deux reponses sont oui, DocFlow a de la valeur immediate.</div>';
+  html+='</div>'+stepNavHTML(3)+'</div>';
+  return html;
+}
+
+function renderStep4_M19(){
+  var blocks=[
+    {titre:'Supprimer les stocks de papier pre-imprime',body:'<p><strong>Pour qui :</strong> toute structure qui commande du papier en-tete, qui gere des stocks de pre-imprimes, ou qui charge un bac d imprimante dedie. Collectivites, associations, PME, professions liberales, cabinets.</p>'
+      +'<p><strong>Douleurs resolues :</strong> ruptures de stock qui bloquent l activite, gaspillage lors des mises a jour de logo ou CGV (vieux stock a jeter), erreurs d impression sur le mauvais papier, dependance vis-a-vis d un fournisseur d imprimerie.</p>'
+      +'<p><strong>Arguments chiffres :</strong> un stock de 2 000 feuilles pre-imprimees coute entre 150 et 400 EUR, avec un minimum de commande et 4 a 6 semaines de delai. DocFlow le remplace par une modification en 5 minutes, sans minimum, sans delai, sans cout de refabrication.</p>'
+      +'<div class="key-box">Argument decisif : "La prochaine fois que vous changez votre logo ou vos CGV, vous ouvrez DocFlow et vous modifiez le fond de page. Pas de commande, pas d attente, pas de vieux stock a jeter."</div>'},
+    {titre:'Economiser du temps sur l archivage et l envoi',body:'<p><strong>Pour qui :</strong> toute personne qui scanne ses documents apres impression pour obtenir un PDF, ou qui passe du temps a nommer et classer ces PDF manuellement.</p>'
+      +'<p><strong>Calcul du ROI :</strong> si un collaborateur passe 15 minutes par jour a imprimer + scanner + renommer + classer ses documents, cela represente 62 heures par an. Pour un cout horaire de 25 EUR, c est 1 550 EUR de temps perdu annuellement -- sur un seul poste.</p>'
+      +'<p><strong>Bonus email :</strong> les clients qui envoient leurs devis ou factures par email de maniere repetitive economisent en plus le temps de preparation de chaque email (ouverture client de messagerie, piece jointe, redaction, envoi).</p>'
+      +'<div class="key-box">Argument decisif : "Vous imprimez sur DocFlow, le PDF est deja archive avec le bon nom dans le bon dossier, et l email est parti. Vous n avez rien d autre a faire."</div>'},
+    {titre:'Professionnaliser tous les documents sortants',body:'<p><strong>Pour qui :</strong> toute structure dont les collaborateurs impriment depuis plusieurs applications differentes (ERP, Word, Excel, logiciel specifique) et ou l homogeneite des documents n est pas garantie.</p>'
+      +'<p><strong>Probleme resolu :</strong> chaque application produit un rendu different. DocFlow agit en couche uniforme : quel que soit le logiciel source, le document sortant a toujours le bon en-tete, les bonnes couleurs, les bonnes mentions. L image de marque est preservee.</p>'
+      +'<p><strong>Multi-societe :</strong> pour les groupes ou les entreprises avec plusieurs raisons sociales, DocFlow permet de basculer en un clic de l en-tete A a l en-tete B -- sans aucune modification dans le logiciel metier.</p>'
+      +'<div class="key-box">Argument decisif : "Que votre collaborateur imprime depuis votre ERP, depuis Word ou depuis Excel, le document sortant est toujours identique : votre logo, vos couleurs, vos mentions. DocFlow uniformise tout."</div>'}
+  ];
+  var objections=[
+    {q:'"On fait deja ca avec notre logiciel de facturation, il gere l en-tete."',
+     a:'Votre logiciel de facturation gere effectivement l en-tete pour les factures. Mais quand vous imprimez un devis depuis Excel, un courrier depuis Word, ou un bon de commande depuis un autre outil -- avez-vous le meme resultat ? DocFlow est une couche transverse qui fonctionne pour TOUTES vos applications, pas seulement pour votre logiciel metier principal. Et les CGV au verso, la copie PDF automatique, l envoi email -- votre logiciel fait tout ca en meme temps ?'},
+    {q:'"On scanne avec notre photocopieur, ca prend 30 secondes."',
+     a:'30 secondes par document, 20 documents par jour, 220 jours travailles = 33 heures par an consacrees a scanner. Sans compter le nommage du fichier, le classement, et les fois ou la qualite du scan est insuffisante. DocFlow genere le PDF en meme temps que l impression, avec la qualite vectorielle native -- sans passer par la numerisation. Et le fichier est deja nomme et classe.'},
+    {q:'"L installation d un nouveau driver, notre informaticien va refuser."',
+     a:'DocFlow s installe exactement comme un driver d imprimante standard -- procedure que votre informaticien connait et maitrise deja. Il n y a pas d agent, pas de service systeme complexe, pas de dependance reseau. L installation prend moins d une heure par poste. Votre informaticien sera le premier a apprecier de ne plus gerer les ruptures de stock de papier pre-imprime.'},
+    {q:'"On va bientot passer a la facture electronique, DocFlow va devenir inutile."',
+     a:'La facture electronique concerne l emission de factures vers vos clients professionnels. Mais vous continuerez a produire des devis, des courriers, des situations de travaux, des bons de livraison -- tous ces documents continueront a etre imprimes ou envoyes par email avec votre en-tete. Et pour les factures elles-memes, DocFlow genere le PDF archive qui reste necessaire pour votre comptabilite et vos dossiers.'}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Pitch commercial -- DocFlow</h3>';
+  for(var i=0;i<blocks.length;i++){
+    html+='<div class="pitch-block"><div class="pitch-hd">'+blocks[i].titre+'</div><div class="pitch-body">'+blocks[i].body+'</div></div>';
+  }
+  html+='<h4>Reponses aux objections courantes</h4>';
+  for(var i=0;i<objections.length;i++){
+    html+='<div class="objection-box"><div class="objection-q">'+objections[i].q+'</div><div class="objection-a">'+objections[i].a+'</div></div>';
+  }
+  html+='</div>'+stepNavHTML(4)+'</div>';
+  return html;
+}
+
+function renderStep5_M19(){
+  var resources=[
+    {icon:'📄',name:'Fiche produit DocFlow IXEO',type:'Document commercial',note:'Presentation des fonctionnalites, cas d usage, arguments differenciateurs',url:'#'},
+    {icon:'🔧',name:'Guide de configuration -- Scenarios DocFlow',type:'Documentation technique',note:'Creer un fond de page, parametrer un scenario multi-sorties, configurer l envoi email',url:'#'},
+    {icon:'📊',name:'Calculateur ROI DocFlow',type:'Aide a la vente',note:'Estimer le temps economise sur impression + scan + classement + email selon le volume journalier',url:'#'},
+    {icon:'📋',name:'Grille de decouverte DocFlow',type:'Aide a la vente',note:'Version imprimable de l etape 3 -- impression, archivage, email, qualification technique',url:'#'},
+    {icon:'🎬',name:'Demo DocFlow -- scenarios d impression',type:'Support de demo',note:'Scenario facture 3 exemplaires + PDF + email : video de demonstration a montrer en rendez-vous',url:'#'},
+    {icon:'💰',name:'Grille tarifaire DocFlow',type:'Document commercial',note:'Licence par poste, meme modele que DocPulse. Tarifs publics et remises revendeur.',url:'#'}
+  ];
+  var html='<div class="step-panel"><div class="content-section">';
+  html+='<h3>Ressources disponibles</h3>';
+  html+='<p>Supports pour preparer et accompagner vos rendez-vous DocFlow.</p>';
+  html+='<div class="resources-grid">';
+  for(var i=0;i<resources.length;i++){
+    var r=resources[i];
+    var oc='alert(\'Ressource disponible sur le drive partage IXEO.\')';
+    html+='<div class="resource-card" onclick="'+oc+'">'
+      +'<div class="resource-icon">'+r.icon+'</div>'
+      +'<div class="resource-name">'+r.name+'</div>'
+      +'<div class="resource-type">'+r.type+'</div>'
+      +'<div class="resource-note">'+r.note+'</div>'
+      +'</div>';
+  }
+  html+='</div>';
+  html+='<div class="warn-box" style="margin-top:1.25rem;">DocFlow est une solution IXEO sur licence par poste Windows (meme modele que DocPulse). Il fonctionne uniquement en mode poste local -- pas de mode serveur. Compatible avec toutes les applications Windows capables d imprimer.</div>';
+  html+='</div>'+stepNavHTML(5)+'</div>';
+  return html;
+}
+
+var QUESTIONS_M19=[
+  {q:'Comment l utilisateur acces a DocFlow pour traiter un document ?',opts:['Via une application web accessible depuis un navigateur','En imprimant depuis n importe quelle application Windows vers le driver virtuel "Ixeo DocFlow" dans sa liste d imprimantes','Via un plugin installe directement dans Microsoft Word uniquement','En deposant manuellement un fichier PDF dans un dossier surveille'],c:1,fb:'DocFlow s installe comme un driver d imprimante Windows. L utilisateur voit "Ixeo DocFlow" dans sa liste d imprimantes et imprime dessus depuis n importe quelle application (Word, Excel, ERP, logiciel metier...). Le document entre alors dans la file de traitement DocFlow.'},
+  {q:'Quelle est la premiere action de l utilisateur une fois son document dans DocFlow ?',opts:['Choisir immediatement la destination d impression avant de voir quoi que ce soit','Previsualiser le document brut, choisir un scenario, visualiser le resultat avant toute action','Saisir manuellement les metadonnees du document pour le nommage PDF','Connecter DocFlow a son logiciel metier pour recuperer les donnees'],c:1,fb:'DocFlow presente d abord le document dans sa file de traitement. L utilisateur choisit le scenario a appliquer, puis previsualise le resultat (document enrichi avec fonds de page, CGV...) AVANT de valider. Cette previsualisation est le filet de securite : zero impression incorrecte, zero gaspillage papier.'},
+  {q:'Qu est-ce qu un "fond de page" dans DocFlow ?',opts:['Un arriere-plan decoratif uniquement, sans utilite fonctionnelle','Un modele PDF (en-tete, logo, CGV, mentions legales...) qui est fusionne avec le document de l utilisateur lors du traitement','Un modele d email pre-configure pour l envoi automatique','Un script de reconnaissance automatique du type de document'],c:1,fb:'Le fond de page est le composant central de DocFlow : c est un modele au format PDF (cree depuis Word/Excel/PowerPoint ou importe directement) qui contient l en-tete, le logo, les coordonnees, les CGV, les mentions legales... Il est fusionne avec le document de l utilisateur pour produire le document enrichi final.'},
+  {q:'Comment creer un fond de page dans DocFlow ?',opts:['Uniquement en important un fichier PDF existant concu par un graphiste','En codant un modele HTML dans l interface d administration','En concevant son modele dans une application bureautique (Word, Excel, PowerPoint) et en imprimant sur DocFlow, OU en important un PDF existant','En connectant DocFlow a une bibliotheque de modeles en ligne'],c:2,fb:'DocFlow offre deux methodes : 1/ creer son modele dans n importe quelle application bureautique et imprimer sur DocFlow -- le fond de page est instantanement disponible. 2/ importer directement un PDF existant (charte graphique du groupe, modele professionnel...). Les deux methodes sont equivalentes.'},
+  {q:'Qu est-ce qu un "scenario" dans DocFlow ?',opts:['Un script automatique de reconnaissance du type de document','Un ensemble de parametres pre-configures qui definit les fonds de page a appliquer, les copies a produire, les imprimantes de destination, les formats de sortie (PDF, email)','Une sequence de questions posees a l utilisateur pour personnaliser son impression','Un modele de document issu du logiciel metier'],c:1,fb:'Un scenario DocFlow est une recette d impression complete configuree une fois par l administrateur. Il definit tout : quels fonds de page, combien d exemplaires, sur quelle imprimante, avec quel bac, vers quel dossier PDF, avec quel modele email. L utilisateur choisit son scenario dans une liste -- tout le reste est automatique.'},
+  {q:'Combien de destinations de sortie un scenario DocFlow peut-il activer simultanement ?',opts:['Une seule : soit impression, soit PDF, soit email','Deux au maximum : impression + PDF OU impression + email','Plusieurs simultanément : impression sur une ou plusieurs imprimantes, generation PDF dans un dossier, envoi email -- tout en meme temps','Cela depend de la version de licence achetee'],c:2,fb:'Un scenario DocFlow peut activer simultanement toutes les destinations : impression physique (sur une ou plusieurs imprimantes, avec gestion des bacs), generation PDF archivee dans un dossier pre-defini, et envoi email. Toutes ces actions sont declenchees en une seule validation de l utilisateur.'},
+  {q:'Comment DocFlow gere-t-il l impression de 3 exemplaires differents d une meme facture (couleur/CGV, monochrome, comptabilite) ?',opts:['Il faut imprimer trois fois en changeant les parametres a chaque fois','Le scenario pre-configure specifie les caracteristiques de chaque exemplaire -- DocFlow gere en autonomie les appels de bacs differents et les destinations differentes','L utilisateur doit diviser son document en trois fichiers separes avant d imprimer','Seul l exemplaire couleur peut etre configure automatiquement, les autres sont manuels'],c:1,fb:'C est exactement le cas d usage pour lequel DocFlow a ete concu. Un scenario "Facture" peut definir 3 exemplaires avec des parametres distincts chacun (couleur/mono, fond de page, bac papier, imprimante). DocFlow gere tout en autonomie, y compris les appels de bacs differents. L utilisateur valide une seule fois.'},
+  {q:'Que se passe-t-il quand les CGV d une entreprise sont mises a jour avec DocFlow ?',opts:['Il faut recontacter l imprimeur et attendre 4 a 6 semaines pour le nouveau stock','L administrateur modifie le fond de page CGV dans DocFlow -- tous les prochains documents utilisent automatiquement les nouvelles CGV, sans stock a jeter','Il faut reinstaller DocFlow sur chaque poste avec le nouveau modele','Les utilisateurs doivent telecharger manuellement le nouveau modele depuis l intranet'],c:1,fb:'La mise a jour des CGV (ou du logo, ou de tout fond de page) se fait directement dans DocFlow : l administrateur modifie le modele et sauvegarde. Immediatement, tous les prochains documents produits utilisent le nouveau fond de page. Pas de stock a jeter, pas de commande, pas de delai -- c est le gain en agilite le plus souvent cité par les clients.'},
+  {q:'Pour quelle raison DocFlow est-il pertinent pour une entreprise multi-societes ?',opts:['Il permet de partager une seule imprimante entre plusieurs societes','Il gere plusieurs en-tetes de raisons sociales differentes : l utilisateur bascule en un clic de l en-tete societe A a l en-tete societe B, sans toucher au logiciel metier','Il synchronise automatiquement les donnees entre les filiales','Il genere des rapports consolides multi-societes'],c:1,fb:'DocFlow supporte plusieurs fonds de page correspondant a plusieurs raisons sociales. L utilisateur choisit l en-tete de la bonne societe au moment de l impression -- ou configure un scenario par societe. Ce changement est instantane et ne necessite aucune modification dans le logiciel metier source.'},
+  {q:'Sur quel environnement DocFlow fonctionne-t-il ?',opts:['Windows, macOS et Linux (solution multiplateforme)','Windows uniquement, en mode poste local (pas de mode serveur)','Uniquement sur serveur Windows en mode partage reseau','En mode cloud, accessible depuis n importe quel navigateur'],c:1,fb:'DocFlow est une solution Windows uniquement, fonctionnant en mode poste local. Il n existe pas de mode serveur dans la version actuelle -- chaque utilisateur dispose de son instance sur son poste. L installation est identique a celle d un driver d imprimante standard.'},
+  {q:'Quel est le modele de licence de DocFlow ?',opts:['Abonnement mensuel par utilisateur nomme, sans engagement','Licence par poste, meme modele que DocPulse','Licence par volume d impressions (nombre de pages traitees par mois)','Gratuit pour les TPE de moins de 10 salaries, payant au-dela'],c:1,fb:'DocFlow utilise le meme modele de licence que DocPulse : une licence par poste Windows. Ce modele simple et previsible permet au client de maitriser son budget en fonction du nombre de postes sur lesquels DocFlow est deploye.'},
+  {q:'Comment DocFlow peut-il contribuer a l alimentation d une GED comme OpenBee Portal ?',opts:['Il se connecte directement a OpenBee Portal via une API integree','Il genere des PDF nommes et classes dans des dossiers surveilles, qui peuvent ensuite etre absorbes par OpenBee Gateway ou Data Importer','Il remplace completement OpenBee Data Importer pour les flux documentaires','Il necessite un connecteur specifique vendu en option'],c:1,fb:'DocFlow genere des PDF archives dans des dossiers Windows pre-definis. Ces dossiers peuvent etre surveilles par OpenBee Gateway (pour l absorption automatique) ou traites par Data Importer. DocFlow joue le role de pre-traitement : il produit des documents enrichis et nommes, prets a etre integres dans n importe quel systeme documentaire en aval.'},
+  {q:'Qu est-ce que l editeur HTML integre a DocFlow permet de faire ?',opts:['Modifier directement le contenu des documents imprimes avant envoi','Creer et gerer des modeles d email riches (avec mise en forme, logo, signature) utilises pour les envois automatiques','Concevoir les fonds de page directement dans DocFlow sans passer par Word ou Excel','Generer des rapports d activite en HTML sur les impressions effectuees'],c:1,fb:'L editeur HTML de DocFlow est dedie a la creation de modeles d email. Il permet de concevoir des emails riches (avec logo, mise en forme, signature) qui seront utilises pour les envois automatiques lors du traitement d un document. C est un complement naturel a la generation PDF pour les clients qui envoient leurs devis et factures par email.'},
+  {q:'Quel est l avantage de la pre-visualisation DocFlow par rapport a une impression directe depuis le logiciel metier ?',opts:['Elle est plus rapide car elle compresse le fichier avant impression','L utilisateur voit exactement le document enrichi (avec fonds de page appliques) avant de valider -- il peut corriger avant d imprimer, evitant tout gaspillage papier','Elle permet d imprimer en plus haute resolution','Elle synchronise automatiquement avec le serveur d impression'],c:1,fb:'La previsualisation DocFlow montre le document APRES application du scenario (fonds de page fusionnes, CGV integrees, format final). L utilisateur voit exactement ce qui va sortir avant de valider. C est un filet de securite important : zero impression incorrecte, zero page gaspillee, zero envoi email errone.'},
+  {q:'Un client dit : "Mon logiciel de facturation gere deja mon en-tete, DocFlow ne m apporte rien." Quelle est la meilleure reponse ?',opts:['Reconnaitre que DocFlow n est effectivement pas utile dans ce cas','Proposer plutot OpenBee Portal comme alternative','Expliquer que DocFlow agit pour TOUTES les applications (Word, Excel, ERP, logiciels divers), genere la copie PDF archivee automatiquement, gere les CGV au verso et peut envoyer par email -- ce que le logiciel metier seul ne fait pas globalement','Insister sur le fait que DocFlow est moins cher que la solution integree du logiciel metier'],c:2,fb:'L objection "mon logiciel gere deja l en-tete" est tres courante. La reponse : oui pour CE logiciel, mais pas pour Word, Excel et les autres. Et meme dans ce logiciel : est-ce qu il gere les CGV au verso, la copie PDF automatiquement nommee et classee, et l envoi email avec modele ? DocFlow est une couche transverse qui unifie tous les flux d impression de l entreprise en un seul point de controle.'}
 ];
 
 function showScreen(id) {
