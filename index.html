@@ -516,9 +516,9 @@ tr:hover td{background:var(--bg);}
 <div id="screenHome" class="screen">
   <div class="home-hero">
     <h1>Devenez expert<br><span>IT & numérique</span></h1>
-    <p>18 modules de formation commerciale — progressez à votre rythme, obtenez vos certifications.</p>
+    <p>19 modules de formation commerciale — progressez à votre rythme, obtenez vos certifications.</p>
     <div class="global-bar">
-      <div class="bar-labels"><span>Progression globale</span><span id="globalTxt">0 / 18 modules</span></div>
+      <div class="bar-labels"><span>Progression globale</span><span id="globalTxt">0 / 19 modules</span></div>
       <div class="bar-track"><div class="bar-fill" id="globalFill" style="width:0%"></div></div>
     </div>
   </div>
@@ -895,7 +895,7 @@ function renderHome() {
   });
   const pct = Math.round(completed / 18 * 100);
   document.getElementById('globalFill').style.width = pct + '%';
-  document.getElementById('globalTxt').textContent  = completed + ' / 18 modules';
+  document.getElementById('globalTxt').textContent  = completed + ' / 19 modules';
 }
 
 function showHome() { renderHome(); showScreen('screenHome'); }
