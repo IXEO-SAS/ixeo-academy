@@ -1364,14 +1364,14 @@ function renderAdminOverview() {
     <div class="stat-card"><div class="stat-val">${users.length}</div><div class="stat-lbl">Commerciaux actifs</div></div>
     <div class="stat-card"><div class="stat-val">${totalBadges}</div><div class="stat-lbl">Badges obtenus</div></div>
     <div class="stat-card"><div class="stat-val">${totalGold}</div><div class="stat-lbl">Badges Gold</div></div>
-    <div class="stat-card"><div class="stat-val">18</div><div class="stat-lbl">Modules disponibles</div></div>`;
+    <div class="stat-card"><div class="stat-val">19</div><div class="stat-lbl">Modules disponibles</div></div>`;
 
   document.getElementById('overviewBody').innerHTML = users.map(u => {
     const lastDates = Object.values(u.progress).map(p=>p.lastUpdated).filter(Boolean).sort().reverse();
     const last = lastDates[0] ? new Date(lastDates[0]).toLocaleDateString('fr-FR') : '—';
     return `<tr>
       <td><strong>${u.prenom} ${u.nom}</strong><br><small style="color:var(--slate)">${u.email}</small></td>
-      <td><div class="progress-cell"><div class="mini-bar"><div class="mini-bar-fill" style="width:${Math.round(u.modulesStarted/18*100)}%"></div></div><span>${u.modulesStarted}/18</span></div></td>
+      <td><div class="progress-cell"><div class="mini-bar"><div class="mini-bar-fill" style="width:${Math.round(u.modulesStarted/19*100)}%"></div></div><span>${u.modulesStarted}/19</span></div></td>
       <td>${u.totalBadges}</td>
       <td>${u.badgesGold > 0 ? '<span class="badge-tag tag-gold">★ '+u.badgesGold+'</span>' : '—'}</td>
       <td>${u.badgesSilver > 0 ? '<span class="badge-tag tag-silver">★ '+u.badgesSilver+'</span>' : '—'}</td>
